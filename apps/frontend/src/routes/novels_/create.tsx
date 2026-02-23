@@ -30,7 +30,7 @@ function RouteComponent() {
           </div>
         ) : (
           <div className="flex flex-col items-center justify-center gap-4 p-4 h-full max-h-400 card">
-            <h1 className="">Novel's Cover Image</h1>
+            <h1 className="">Please select an image</h1>
             <MutateNovelCoverForm
               id={novelId}
               onClose={() => {

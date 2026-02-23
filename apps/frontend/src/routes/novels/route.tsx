@@ -56,7 +56,7 @@ function RouteComponent() {
             <ProtectedLink
               allowedRoles={["admin", "staff"]}
               to="/novels/create"
-              className="col-span-full lg:col-span-4"
+              className="full-button bg-secondary dark:bg-secondary-black dark:text-white col-span-full lg:col-span-4"
             >
               Create Novel
             </ProtectedLink>

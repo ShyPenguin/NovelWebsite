@@ -1,23 +1,17 @@
-import type { NovelDetailDTO } from "@repo/contracts/dto/novel";
-import type { MutateOptions } from "@tanstack/react-query";
+import { deleteNovelMutate } from "@/api/novels/deleteNovel";
+import { DELETE } from "@/constants";
 import { mutationConfig } from "@/utils/mutation-configs";
 import {
   getNovelOneQueryKey,
   getNovelsQueryKey,
 } from "@/utils/tanstack-keys/novels";
-import { updateNovelCoverMutate } from "@/api/novels/patchNovelCover";
-import type z from "zod";
-import type { NovelCoverImageFormSchema } from "@/schemas/novels";
+import type { NovelDetailDTO } from "@repo/contracts/dto/novel";
+import type { MutateOptions } from "@tanstack/react-query";
 
-export const useNovelCoverMutate = ({
-  novelId,
-}: {
-  novelId: NovelDetailDTO["id"];
-}) => {
-  const mutation = updateNovelCoverMutate(novelId);
-  const { mutate: _removed, ...rest } = mutation;
+export const useNovelDelete = ({ id }: { id: NovelDetailDTO["id"] }) => {
+  const mutation = deleteNovelMutate(id);
   const baseHandlers = mutationConfig({
-    action: "UPDATE",
+    action: DELETE,
     resource: "novels",
     queryArg: {
       getListMutatekey: () => getNovelsQueryKey,
@@ -25,20 +19,23 @@ export const useNovelCoverMutate = ({
     },
     getMutateKey: getNovelOneQueryKey,
   });
+
+  const { mutate: _removed, ...rest } = mutation;
+
   return {
     mutate: ({
-      formData,
       options,
     }: {
-      formData: z.infer<typeof NovelCoverImageFormSchema>;
       options?: MutateOptions<
-        NovelDetailDTO,
+        { id: NovelDetailDTO["id"] },
         unknown,
-        { formData: z.infer<typeof NovelCoverImageFormSchema> }
+        { novelId: NovelDetailDTO["id"] }
       >;
     }) =>
       mutation.mutate(
-        { formData },
+        {
+          novelId: id,
+        },
         {
           ...baseHandlers,
           ...options,

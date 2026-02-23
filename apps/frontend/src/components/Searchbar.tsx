@@ -5,6 +5,7 @@ import { novelsListQuery } from "../api/novels/fetchNovels";
 import { useSuspenseQuery } from "@tanstack/react-query";
 import { Link } from "@tanstack/react-router";
 import useClickInsideOrOutside from "../hooks/useClickInsideOrOutside";
+import { NO_IMAGE_URL } from "@/constants";
 
 interface ContentProps {
   search: string;
@@ -34,7 +35,7 @@ const Content = forwardRef<HTMLUListElement, ContentProps>(
                 resetScroll={false}
               >
                 <img
-                  src={novel.coverImageUrl}
+                  src={novel.coverImageUrl ?? NO_IMAGE_URL}
                   className="max-w-8 max-h-12 overflow-hidden rounded shrink-0"
                 />
                 <div className="flex flex-col gap-2">

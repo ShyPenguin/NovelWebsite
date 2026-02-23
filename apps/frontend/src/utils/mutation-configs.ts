@@ -4,7 +4,7 @@ import type { Actions, Resources } from "@/types";
 import { toast } from "react-toastify";
 import { capitalizeFirstLetter } from "./capitalizeFirstLetter";
 
-export const mutationConfig = <T extends { id: string }>({
+export const mutationConfig = <T>({
   action,
   resource,
   queryArg,
@@ -23,14 +23,23 @@ export const mutationConfig = <T extends { id: string }>({
   getMutateKey: ({ id }: { id: string }) => (string | number | undefined)[];
 }) => {
   return {
-    onSuccess: async (data: T, parentId?: string) => {
+    onSuccess: async ({
+      data,
+      id,
+      parentId,
+    }: {
+      data: T;
+      id: string;
+      parentId?: string;
+    }) => {
       // Update single novel cache
-      queryClient.setQueryData(getMutateKey({ id: data.id }), data);
+      queryClient.setQueryData(getMutateKey({ id }), data);
 
       // Invalidate lists
       await queryClient.invalidateQueries({
         queryKey: queryArg.getListMutatekey(parentId ? { id: parentId } : {}),
         exact: queryArg.exact,
+        refetchType: "active",
       });
 
       toast.success(

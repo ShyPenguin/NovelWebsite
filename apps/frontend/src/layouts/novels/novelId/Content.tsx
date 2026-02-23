@@ -6,6 +6,8 @@ import { Chevron } from "@/assets/icons/Chevron";
 import Pencil from "@/assets/icons/Pencil";
 import { MutateNovelCoverForm } from "@/components/MutateNovelComponents/MutateNovelCoverForm";
 import { MutateNovelForm } from "@/components/MutateNovelComponents/MutateNovelForm";
+import ButtonIcon from "@/components/ButtonIcon";
+import { DeleteNovelButton } from "./DeleteNovelButton";
 
 export const Content = ({ novel }: { novel: NovelDetailDTO }) => {
   const [isEdit, setIsEdit] = useState(false);
@@ -31,21 +33,27 @@ export const Content = ({ novel }: { novel: NovelDetailDTO }) => {
           )}
           <div className="absolute -top-1.25 right-7 lg:right-5">
             <button
-              className="absolute w-8 h-8  text-white dark:text-black hover:text-green-500 cursor-pointer 
-            bg-primary-black rounded-full dark:bg-white flex p-2"
+              className="absolute w-8 h-8"
               onClick={() => setIsEdit((prev) => !prev)}
             >
-              {isEdit ? (
-                <Chevron
-                  initialRotation="rotate-270"
-                  strokeWidth={6}
-                  strokeLinecap="round"
-                  strokeLinejoin="miter"
-                />
-              ) : (
-                <Pencil className="w-full h-full" />
-              )}
+              <ButtonIcon>
+                {isEdit ? (
+                  <Chevron
+                    initialRotation="rotate-270"
+                    strokeWidth={6}
+                    strokeLinecap="round"
+                    strokeLinejoin="miter"
+                  />
+                ) : (
+                  <Pencil className="w-full h-full" />
+                )}
+              </ButtonIcon>
             </button>
+          </div>
+          <div className="absolute -top-1.25 left-0">
+            <div className="absolute w-8 h-8">
+              <DeleteNovelButton id={novel.id} title={novel.title} />
+            </div>
           </div>
         </div>
       </div>

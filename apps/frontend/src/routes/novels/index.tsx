@@ -5,6 +5,10 @@ import { Suspense } from "react";
 import { NovelSearchSchema } from "../../schemas/novels";
 import type { NovelDetailDTO } from "@repo/contracts/dto/novel";
 import { NO_IMAGE_URL } from "@/constants";
+import { ProtectedLink } from "@/components/ProtectedLink";
+import Pencil from "@/assets/icons/Pencil";
+import { CHAPTER_SEARCH_DEFAULT } from "@/schemas/chapters";
+import ButtonIcon from "@/components/ButtonIcon";
 
 export const Route = createFileRoute("/novels/")({
   validateSearch: (search) => NovelSearchSchema.parse(search),
@@ -43,19 +47,15 @@ const Content = () => {
 const NovelCard = ({ novel }: { novel: NovelDetailDTO }) => {
   return (
     <Link
-      className="flex gap-4 card"
+      className="flex w-full gap-4 relative"
       to="/novels/$novelId/chapters"
       params={{
         novelId: novel.id,
       }}
-      search={{
-        page: 1,
-        sort: "desc",
-        search: "",
-      }}
+      search={CHAPTER_SEARCH_DEFAULT}
     >
       <img
-        className="h-36.5 lg:h-45 w-25 lg:w-30 rounded-md object-cover border-r border-white"
+        className="h-full min-h-36.5 lg:min-h-45 w-25 lg:w-30 rounded-2xl object-cover"
         src={novel.coverImageUrl ? novel.coverImageUrl : NO_IMAGE_URL}
       />
       <div className="flex flex-col gap-2">
@@ -68,6 +68,20 @@ const NovelCard = ({ novel }: { novel: NovelDetailDTO }) => {
           </p>
           <p className="status block w-fit">{novel.status}</p>
           <p className="line-clamp-3 text-[14px]">{novel.description}</p>
+          <div onClick={(e) => e.stopPropagation()}>
+            <ProtectedLink
+              allowedRoles={["admin", "staff"]}
+              to="/novels/$novelId"
+              params={{ novelId: novel.id }}
+              className="absolute top-0 left-0"
+            >
+              <div className="absolute w-8 h-8">
+                <ButtonIcon>
+                  <Pencil className="w-full h-full rotate-270" />
+                </ButtonIcon>
+              </div>
+            </ProtectedLink>
+          </div>
         </div>
       </div>
     </Link>

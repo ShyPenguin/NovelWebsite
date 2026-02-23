@@ -49,7 +49,7 @@ export const fetchNovels = <
       url += `?sort=${sort}`;
 
       if (search) {
-        url += `&title=${search}`;
+        url += `&search=${search}`;
       }
 
       if (status !== "ALL") {
@@ -118,7 +118,7 @@ export const novelsAll = () =>
 
 export const novelsListQuery = ({ sort, status, search }: NovelSearchType) =>
   queryOptions<NovelDetailDTO[]>({
-    queryKey: ["novels", sort, status, search],
+    queryKey: ["novels", { sort, status, search }],
     queryFn: () =>
       fetchNovelList({
         withQuery: true,
@@ -134,7 +134,7 @@ export const novelsPaginatedQuery = ({
   search,
 }: NovelSearchPaginated) =>
   queryOptions<Paginated<NovelDetailDTO[]>>({
-    queryKey: ["novels", page, sort, status, search],
+    queryKey: ["novels", { page, sort, status, search }],
     queryFn: () =>
       fetchNovelPaginated({
         withQuery: true,

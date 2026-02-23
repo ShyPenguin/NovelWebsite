@@ -1,10 +1,11 @@
 import { useEffect } from "react";
 import { CameraIcon } from "../../assets/icons/CameraIcon";
+import ButtonIcon from "../ButtonIcon";
 
 type ImageInputProps = {
   value?: File;
   onChange: (file?: File) => void;
-  defaultImageUrl?: string;
+  defaultImageUrl: string;
   errorMessage?: string;
 };
 
@@ -14,11 +15,7 @@ export function FormImageInput({
   defaultImageUrl,
   errorMessage,
 }: ImageInputProps) {
-  const previewUrl = value
-    ? URL.createObjectURL(value)
-    : defaultImageUrl
-      ? defaultImageUrl
-      : null;
+  const previewUrl = value ? URL.createObjectURL(value) : defaultImageUrl;
 
   useEffect(() => {
     if (!previewUrl) return;
@@ -29,14 +26,12 @@ export function FormImageInput({
   }, [previewUrl]);
   return (
     <div className="flex flex-col items-center relative">
-      <div className="absolute top-[-5px] left-[-5px]">
+      <div className="absolute -top-1.25 -left-1.25">
         <div className="relative">
-          <label
-            className="absolute w-8 h-8  text-white dark:text-black hover:text-green-500 cursor-pointer 
-            bg-primary-black rounded-full dark:bg-white flex p-2"
-            htmlFor="image-input"
-          >
-            <CameraIcon className="w-full h-full" />
+          <label className="absolute w-8 h-8" htmlFor="image-input">
+            <ButtonIcon>
+              <CameraIcon className="w-full h-full" />
+            </ButtonIcon>
           </label>
           <input
             type="file"
@@ -54,7 +49,7 @@ export function FormImageInput({
         <img
           src={previewUrl}
           alt="Cover preview"
-          className={`h-[300px] w-[200px] max-h-[320px] max-w-[200px] rounded-xl object-cover 
+          className={`h-75 w-50 max-h-80 max-w-50 rounded-xl object-cover 
             ${errorMessage && "border border-red-500"} card`}
         />
       )}

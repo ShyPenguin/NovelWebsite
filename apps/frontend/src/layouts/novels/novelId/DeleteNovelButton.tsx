@@ -1,39 +1,40 @@
-import { useState } from "react";
-import type { ChapterDetailDTO } from "@repo/contracts/dto/chapter";
-import { useChapterDelete } from "@/hooks/mutations/chapters-mutation/useChapterDelete";
-import Modal from "@/components/Modal";
 import Trashcan from "@/assets/icons/Trashcan";
+import ButtonIcon from "@/components/ButtonIcon";
 import { FormButton } from "@/components/Form/FormButton";
+import Modal from "@/components/Modal";
+import { useNovelDelete } from "@/hooks/mutations/novels-mutation/useNovelDelete";
+import { NOVEL_SEARCH_DEFAULT } from "@/schemas/novels";
+import type { NovelDetailDTO } from "@repo/contracts/dto/novel";
+import { useNavigate } from "@tanstack/react-router";
+import { useState } from "react";
 
-type DeleteChapterButtonProp = {
-  id: ChapterDetailDTO["id"];
-  title: ChapterDetailDTO["title"];
-  chapterNumber: ChapterDetailDTO["chapterNumber"];
-  novelId: ChapterDetailDTO["novelId"];
-};
-export const DeleteChapterButton = (chapter: DeleteChapterButtonProp) => {
+export const DeleteNovelButton = ({
+  id,
+  title,
+}: {
+  id: NovelDetailDTO["id"];
+  title: NovelDetailDTO["title"];
+}) => {
   const [openModal, setOpenModal] = useState(false);
+
   return (
     <>
       <button
-        className="dark:text-white text-secondary-black hover:text-novelRed cursor-pointer rounded-full p-2 bg-primary-black/5 dark:bg-primary-black/15"
         onClick={() => {
           setOpenModal(true);
         }}
       >
-        <Trashcan className="w-5 h-5" pathClassName="stroke-3" />
+        <ButtonIcon className="hover:text-novelRed">
+          <Trashcan className="w-5 h-5" pathClassName="stroke-3" />
+        </ButtonIcon>
       </button>
-
       {openModal && (
         <Modal onClose={() => setOpenModal(false)}>
           <Modal.Header>
-            <h1>Are you sure you want to delete this chapter?</h1>
+            <h1>Are you sure you want to delete this novel?</h1>
           </Modal.Header>
           <Modal.Body>
-            <h2>Title: {chapter.title}</h2>
-            <p className="text-[14px]">
-              Chapter Number: {chapter.chapterNumber}
-            </p>
+            <h2>Title: {title}</h2>
           </Modal.Body>
           <Modal.Footer>
             <button
@@ -45,11 +46,7 @@ export const DeleteChapterButton = (chapter: DeleteChapterButtonProp) => {
             >
               No, please.
             </button>
-            <ConfirmButton
-              id={chapter.id}
-              novelId={chapter.novelId}
-              closeModal={() => setOpenModal(false)}
-            />
+            <ConfirmButton id={id} closeModal={() => setOpenModal(false)} />
           </Modal.Footer>
         </Modal>
       )}
@@ -59,20 +56,22 @@ export const DeleteChapterButton = (chapter: DeleteChapterButtonProp) => {
 
 const ConfirmButton = ({
   id,
-  novelId,
   closeModal,
 }: {
-  id: ChapterDetailDTO["id"];
-  novelId: ChapterDetailDTO["novelId"];
+  id: NovelDetailDTO["id"];
   closeModal: () => void;
 }) => {
-  const { mutate, isPending } = useChapterDelete({ id, novelId });
-
+  const { mutate, isPending } = useNovelDelete({ id });
+  const navigate = useNavigate();
   const handleButtonClick = () => {
     mutate({
       options: {
         onSuccess: () => {
           closeModal();
+          navigate({
+            to: "/novels",
+            search: NOVEL_SEARCH_DEFAULT,
+          });
         },
       },
     });

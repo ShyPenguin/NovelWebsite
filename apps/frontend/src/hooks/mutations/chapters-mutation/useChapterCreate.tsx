@@ -54,7 +54,11 @@ export const useChapterCreate = () => {
           ...baseHandlers,
           ...options,
           onSuccess: (data, vars, onResult, ctx) => {
-            baseHandlers.onSuccess?.(data, data.novelId);
+            baseHandlers.onSuccess?.({
+              data,
+              id: data.id,
+              parentId: data.novelId,
+            });
             options?.onSuccess?.(data, vars, onResult, ctx);
           },
           onError(error, vars, onResult, ctx) {

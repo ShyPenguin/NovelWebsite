@@ -7,6 +7,7 @@ import { NovelCoverImageFormSchema } from "@/schemas/novels";
 import type { NovelCoverImageFormWithButton } from "@/types/novel";
 import { useNovelCoverMutate } from "@/hooks/mutations/novels-mutation/useNovelCoverMutate";
 import { NO_IMAGE_URL } from "@/constants";
+import { useState } from "react";
 
 type Prop = {
   id: NovelDetailDTO["id"];
@@ -24,6 +25,7 @@ export function MutateNovelCoverForm({ id, coverImageUrl, onClose }: Prop) {
   // to be sent in the api
   const showButtons = watch("showButtons", false);
   const { isPending, mutate } = useNovelCoverMutate({ novelId: id });
+  const [inputKey, setInputKey] = useState(0);
   //Must put
   const onSubmit = (values: NovelCoverImageFormWithButton) => {
     mutate({
@@ -45,6 +47,7 @@ export function MutateNovelCoverForm({ id, coverImageUrl, onClose }: Prop) {
           name="coverImage"
           render={({ field, fieldState }) => (
             <FormImageInput
+              key={inputKey}
               value={field.value}
               onChange={(file) => {
                 setValue("showButtons", true, { shouldValidate: false });
@@ -74,6 +77,7 @@ export function MutateNovelCoverForm({ id, coverImageUrl, onClose }: Prop) {
               type="button"
               onClick={() => {
                 resetField("coverImage");
+                setInputKey((prev) => prev + 1);
                 setValue("showButtons", false, { shouldValidate: false });
               }}
             >

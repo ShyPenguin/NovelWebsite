@@ -39,7 +39,7 @@ export const useChapterDelete = ({
       options,
     }: {
       options?: MutateOptions<
-        ChapterDetailDTO["id"],
+        { id: ChapterDetailDTO["id"] },
         unknown,
         { chapterId: ChapterDetailDTO["id"] }
       >;
@@ -52,7 +52,7 @@ export const useChapterDelete = ({
           ...baseHandlers,
           ...options,
           onSuccess: (data, vars, onResult, ctx) => {
-            baseHandlers.onSuccess?.(data, novelId);
+            baseHandlers.onSuccess?.({ data, id: data.id, parentId: novelId });
             options?.onSuccess?.(data, vars, onResult, ctx);
           },
           onError(error, vars, onResult, ctx) {

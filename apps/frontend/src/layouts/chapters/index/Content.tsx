@@ -46,6 +46,7 @@ export const Content = ({ novel }: { novel: NovelDetailDTO }) => {
               allowedRoles={["admin", "staff"]}
               to="/novels/$novelId/chapters/create"
               params={{ novelId: novel.id }}
+              className="full-button bg-secondary dark:bg-secondary-black dark:text-white"
             >
               Create Chapter
             </ProtectedLink>

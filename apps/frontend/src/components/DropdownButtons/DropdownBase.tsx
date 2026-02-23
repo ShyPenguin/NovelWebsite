@@ -21,8 +21,6 @@ export const DropdownBase = <T extends DropdownOption>({
   useClickInsideOrOutside("OUTSIDE", dropdownRef, () => {
     setIsOpen(false);
   });
-
-  console.log(errorMessage);
   return (
     <div className="relative" ref={dropdownRef}>
       <button
