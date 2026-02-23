@@ -1,0 +1,57 @@
+{
+  "name": "@repo/contracts",
+  "private": true,
+  "version": "0.0.0",
+  "exports": {
+    "./api": {
+      "types": "./src/api/index.ts",
+      "default": "./dist/api/index.js"
+    },
+    "./dto": {
+      "types": "./src/dto/index.ts",
+      "default": "./dist/dto/index.js"
+    },
+    "./dto/*": {
+      "types": "./src/dto/*.ts",
+      "default": "./dist/dto/*.js"
+    },
+    "./schemas/*": {
+      "types": "./src/schemas/*/schema.ts",
+      "default": "./dist/schemas/*/schema.js"
+    },
+    "./utils/*": {
+      "types": "./src/utils/export/*/index.ts",
+      "default": "./dist/utils/export/*/index.js"
+    },
+    "./constants": {
+      "types": "./src/constants/export/index.ts",
+      "default": "./dist/constants/export/index.js"
+    },
+    "./fields/*": {
+      "types": "./src/fields/export/*/index.ts",
+      "default": "./dist/fields/export/*/index.js"
+    }
+  },
+  "scripts": {
+    "build": "tsc -p tsconfig.build.json",
+    "dev": "tsc -p tsconfig.build.json --watch --preserveWatchOutput",
+    "test": "vitest run"
+  },
+  "dependencies": {
+    "zustand": "^5.0.9"
+  },
+  "devDependencies": {
+    "@repo/typescript-config": "*",
+    "vitest": "^4.0.18"
+  },
+  "typesVersions": {
+    "*": {
+      "api/*": [
+        "dist/api/*"
+      ],
+      "schemas/*": [
+        "dist/schemas/*"
+      ]
+    }
+  }
+}

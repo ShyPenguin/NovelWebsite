@@ -1,0 +1,21 @@
+services:
+  postgres:
+    image: postgres:16
+    container_name: novelwebsite_dev_psql
+    ports:
+      - "5433:5432"
+    environment:
+      POSTGRES_DB: novelwebsite_dev_db
+      POSTGRES_USER: dev
+      POSTGRES_PASSWORD: dev
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U dev -d novelwebsite_dev_db"]
+      interval: 2s
+      timeout: 2s
+      retries: 10
+      start_period: 10s
+
+volumes:
+  postgres_data:

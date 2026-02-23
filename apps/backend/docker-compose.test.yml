@@ -1,0 +1,15 @@
+services:
+  postgres:
+    image: postgres:16
+    ports:
+      - "5435:5432"
+    environment:
+      POSTGRES_PASSWORD: postgres
+      PGDATA: /var/lib/pg/data
+    tmpfs:
+      - /var/lib/pg/data
+    restart: unless-stopped
+  redis:
+    image: redis:7
+    ports:
+      - "6380:6379"
