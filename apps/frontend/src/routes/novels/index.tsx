@@ -43,7 +43,7 @@ const Content = () => {
 const NovelCard = ({ novel }: { novel: NovelDetailDTO }) => {
   return (
     <Link
-      className="flex gap-4"
+      className="flex gap-4 card"
       to="/novels/$novelId/chapters"
       params={{
         novelId: novel.id,
@@ -55,7 +55,7 @@ const NovelCard = ({ novel }: { novel: NovelDetailDTO }) => {
       }}
     >
       <img
-        className="h-36.5 lg:h-45 w-25 lg:w-30 rounded-md object-cover"
+        className="h-36.5 lg:h-45 w-25 lg:w-30 rounded-md object-cover border-r border-white"
         src={novel.coverImageUrl ? novel.coverImageUrl : NO_IMAGE_URL}
       />
       <div className="flex flex-col gap-2">

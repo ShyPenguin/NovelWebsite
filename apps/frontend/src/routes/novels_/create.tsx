@@ -29,16 +29,19 @@ function RouteComponent() {
             <MutateNovelForm type={CREATE} onClose={(id) => setIsNovelId(id)} />
           </div>
         ) : (
-          <MutateNovelCoverForm
-            id={novelId}
-            onClose={() => {
-              navigate({
-                to: "/novels/$novelId/chapters",
-                params: { novelId: novelId },
-                search: CHAPTER_SEARCH_DEFAULT,
-              });
-            }}
-          />
+          <div className="flex flex-col items-center justify-center gap-4 p-4 h-full max-h-400 card">
+            <h1 className="">Novel's Cover Image</h1>
+            <MutateNovelCoverForm
+              id={novelId}
+              onClose={() => {
+                navigate({
+                  to: "/novels/$novelId/chapters",
+                  params: { novelId: novelId },
+                  search: CHAPTER_SEARCH_DEFAULT,
+                });
+              }}
+            />
+          </div>
         )}
       </div>
     </div>
