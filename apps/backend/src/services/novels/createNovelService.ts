@@ -10,17 +10,17 @@ import { UserSession } from "../../types/index.ts";
 import { DbClientType, DbPoolType } from "@/db/type.ts";
 
 export const createNovelService = async ({
-  data,
+  form,
   user,
   tx = db,
 }: {
-  data: NovelFormDTO;
+  form: NovelFormDTO;
   user: UserSession;
   tx?: DbPoolType | DbClientType;
 }): Promise<NovelDetailEncodeDTO> => {
   try {
     const result = await tx.transaction(async (trx) => {
-      const { categories, schedule, release, ...inputNovel } = data;
+      const { categories, schedule, release, ...inputNovel } = form;
       const novel = await createNovelTx({
         tx: trx,
         form: {

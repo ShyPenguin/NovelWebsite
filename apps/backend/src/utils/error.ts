@@ -1,6 +1,7 @@
 import { type Resource } from "../db/index.ts";
 import { ActionTypes } from "../types/index.ts";
 import { capitalizeFirstLetter } from "@repo/contracts/utils/capitalizeFirstLetter";
+import { aOrAn } from "./aOrAn.ts";
 
 export class BaseError extends Error {
   statusCode: number;
@@ -52,7 +53,7 @@ export class AuthorizationError extends BaseError {
   }) {
     super(
       403,
-      `User is not allowed to ${action} ${action == "create" || action == "preview" ? "a" : "this"} ${resource}`,
+      `User is not allowed to ${action} ${action == "create" || action == "preview" ? aOrAn({ resource }) : "this"} ${resource}`,
     );
   }
 }

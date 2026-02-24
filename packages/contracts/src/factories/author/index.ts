@@ -1,6 +1,7 @@
 import { z } from "zod";
 import { idField } from "../../schemas/fields";
 import { GetFactory } from "../read-factory";
+import { StringSchemaBuilder } from "../../fields/builders/StringSchema";
 
 // FIELDS
 const authorNameField = z
@@ -17,7 +18,7 @@ const authorNameField = z
 //READ
 const AuthorSchema = z.object({
   id: idField,
-  name: authorNameField,
+  name: new StringSchemaBuilder("Author's name").min(1).max(50).build(),
 });
 
 export const AuthorFactory = new GetFactory({ schema: AuthorSchema });

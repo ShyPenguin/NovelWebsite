@@ -1,30 +1,9 @@
 import { Response, Request } from "express";
 import { AuthRequest } from "../../types/index.ts";
 import {
-  createAuthorService,
   deleteAuthorService,
   updateAuthorService,
 } from "../../services/authors/index.ts";
-
-export const postAuthorController = async (
-  req: AuthRequest,
-  res: Response,
-): Promise<any> => {
-  const novelData = req.body;
-  try {
-    const result = await createAuthorService(novelData);
-    if (!result.success) {
-      return res.status(result.type == "database" ? 400 : 500).json({
-        message: result.message,
-      });
-    }
-    return res.status(201).json(result.data);
-  } catch (err) {
-    return res.status(500).json({
-      message: "Internal Server Error",
-    });
-  }
-};
 
 export const deleteAuthorController = async (
   req: AuthRequest,
