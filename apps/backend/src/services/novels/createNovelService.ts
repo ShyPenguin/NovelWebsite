@@ -6,8 +6,8 @@ import { upsertNovelCategoriesTx } from "../../repositories/novelCategories/inde
 import { NovelDetailEncodeDTO, NovelFormDTO } from "@repo/contracts/dto/novel";
 import { getNovelDetailByIdTx } from "../../repositories/novels/getNovelById.ts";
 import { BaseError, ValidationError } from "../../utils/error.ts";
-import { UserSession } from "../../types/index.ts";
 import { DbClientType, DbPoolType } from "@/db/type.ts";
+import { UserSession } from "@repo/contracts/dto/auth";
 
 export const createNovelService = async ({
   form,

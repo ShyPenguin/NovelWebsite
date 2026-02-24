@@ -1,4 +1,3 @@
-import { UserSession } from "../../types/index.ts";
 import { db } from "../../db/index.ts";
 import {
   getNovelDetailByIdTx,
@@ -15,6 +14,7 @@ import {
   ValidationError,
 } from "../../utils/error.ts";
 import { DbClientType, DbPoolType } from "@/db/type.ts";
+import { UserSession } from "@repo/contracts/dto/auth";
 
 export const updateNovelService = async ({
   form,

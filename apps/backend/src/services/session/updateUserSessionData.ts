@@ -1,10 +1,12 @@
-import { SessionStore } from "../../../tests/integrated/db/redis-test.ts";
 import {
   COOKIE_SESSION_KEY,
   SESSION_EXPIRATION_SECONDS,
-} from "../../constants/index.ts";
-import { redisClient } from "../../db/redis/index.ts";
-import { Cookies, sessionSchema, UserSession } from "../../types/index.ts";
+} from "@/constants/index.ts";
+import { redisClient } from "@/db/redis/index.ts";
+import { Cookies } from "@/types/index.ts";
+import { UserSession } from "@repo/contracts/dto/auth";
+import { sessionSchema } from "@repo/contracts/schemas/auth";
+import { SessionStore } from "tests/integrated/db/redis-test.ts";
 
 export const updateUserSessionData = async (
   user: UserSession,

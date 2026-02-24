@@ -26,16 +26,9 @@ export interface AuthRequest extends Request {
   user: { id: string; role: UserRole };
 }
 
-export const sessionSchema = z.object({
-  id: z.string(),
-  role: z.enum(userRoles),
-});
-
 export const providerSchema = z.object({
   provider: z.enum(["google", "discord", "github"]),
 });
-
-export type UserSession = z.infer<typeof sessionSchema>;
 
 type CookieOptions = {
   secure?: boolean;

@@ -1,6 +1,5 @@
 import { db } from "@/db/index.ts";
 import { getNovelDetailByIdTx } from "@/repositories/novels/getNovelById.ts";
-import { UserSession } from "@/types/index.ts";
 import {
   AuthorizationError,
   BaseError,
@@ -14,6 +13,7 @@ import {
 import { uploadImageToSupabase } from "../supabase/supabaseUpload.ts";
 import { deleteImageFromSupabase } from "../supabase/supabaseDelete.ts";
 import { updateNovelTx } from "@/repositories/novels/update.ts";
+import { UserSession } from "@repo/contracts/dto/auth";
 
 export const updateNovelCoverService = async ({
   id,

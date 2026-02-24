@@ -1,9 +1,9 @@
 import { db } from "@/db/index.ts";
 import { DbClientType, DbPoolType } from "@/db/type.ts";
-import { UserSession } from "@/types/index.ts";
 import { NovelDetailDTO } from "@repo/contracts/dto/novel";
 import { deleteNovelService } from "./deleteNovelService.ts";
 import { deleteImageFromSupabase } from "../supabase/supabaseDelete.ts";
+import { UserSession } from "@repo/contracts/dto/auth";
 
 export const deleteNovelWithAssetsService = async ({
   tx = db,

@@ -13,3 +13,8 @@ export const AuthDetailSchema = z.object({
   }),
   imageUrl: urlField.nullable(),
 });
+
+export const sessionSchema = z.object({
+  id: z.string(),
+  role: z.enum(userRoles),
+});

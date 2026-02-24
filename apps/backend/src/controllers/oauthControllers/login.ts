@@ -7,9 +7,10 @@ import {
 } from "@/db/schemas/index.ts";
 import { getOAuthClient, OAuthUser } from "@/services/oauth/base.ts";
 import { createUserSession } from "@/services/session/createUserSession.ts";
-import { providerSchema, sessionSchema } from "@/types/index.ts";
+import { providerSchema } from "@/types/index.ts";
 import { createCookieWrapper } from "@/utils/cookiesFunction.ts";
 import { db } from "@/db/index.ts";
+import { sessionSchema } from "@repo/contracts/schemas/auth";
 
 export const login = async (req: Request, res: Response): Promise<any> => {
   const { provider } = providerSchema.parse(req.params);

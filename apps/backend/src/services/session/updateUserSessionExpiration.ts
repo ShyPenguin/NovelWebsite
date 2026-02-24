@@ -1,11 +1,11 @@
-import { SessionStore } from "../../../tests/integrated/db/redis-test.ts";
 import {
   COOKIE_SESSION_KEY,
   SESSION_EXPIRATION_SECONDS,
-} from "../../constants/index.ts";
-import { redisClient } from "../../db/redis/index.ts";
-import { Cookies } from "../../types/index.ts";
-import { setCookie } from "../../utils/cookiesFunction.ts";
+} from "@/constants/index.ts";
+import { redisClient } from "@/db/redis/index.ts";
+import { Cookies } from "@/types/index.ts";
+import { setCookie } from "@/utils/cookiesFunction.ts";
+import { SessionStore } from "tests/integrated/db/redis-test.ts";
 import { getUserSessionById } from "./getUserSessionById.ts";
 
 export const updateUserSessionExpiration = async (

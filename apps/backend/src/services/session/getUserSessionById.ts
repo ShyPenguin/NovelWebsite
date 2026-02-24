@@ -1,6 +1,6 @@
+import { sessionSchema } from "@repo/contracts/schemas/auth";
 import { SessionStore } from "../../../tests/integrated/db/redis-test.ts";
 import { redisClient } from "../../db/redis/index.ts";
-import { sessionSchema } from "../../types/index.ts";
 
 export const getUserSessionById = async (
   sessionId: string,

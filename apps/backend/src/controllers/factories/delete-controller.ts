@@ -1,4 +1,5 @@
-import { AuthRequest, UserSession } from "@/types/index.ts";
+import { AuthRequest } from "@/types/index.ts";
+import { UserSession } from "@repo/contracts/dto/auth";
 import { Response } from "express";
 
 export const deleteControllerFactory =

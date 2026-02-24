@@ -8,6 +8,6 @@ export const postChapterController = postControllerFactory({
     parentId,
   }: {
     form: ChapterFormParsedDTO;
-    parentId?: string;
-  }) => createChapterService({ form, novelId: parentId! }),
+    parentId: string;
+  }) => createChapterService({ form, novelId: parentId }),
 });

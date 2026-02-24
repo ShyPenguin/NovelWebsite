@@ -17,8 +17,8 @@ import {
   ValidationError,
 } from "@/utils/error.ts";
 import { DbClientType, DbPoolType } from "@/db/type.ts";
-import { UserSession } from "@/types/index.ts";
 import { updateChapterTx } from "@/repositories/chapters/update.ts";
+import { UserSession } from "@repo/contracts/dto/auth";
 
 export const updateChapterService = async ({
   form,

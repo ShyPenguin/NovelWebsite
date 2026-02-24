@@ -1,8 +1,7 @@
 import { db, Resource } from "@/db/index.ts";
 import { DbClientType, DbExecTypes, DbPoolType } from "@/db/type.ts";
-import { UserSession } from "@/types/index.ts";
 import { AuthorizationError, NotFoundError } from "@/utils/error.ts";
-import { UserRole } from "@repo/contracts/dto/auth";
+import { UserRole, UserSession } from "@repo/contracts/dto/auth";
 
 export const deleteResourceServiceFactory =
   <T extends { id: string }, U extends { id: string }>({
