@@ -6,11 +6,10 @@ import { ChapterPosterDTO } from "@repo/contracts/dto/chapter";
 
 export const deleteChapterService = deleteResourceServiceFactory<
   ChapterPosterDTO,
+  "chapters",
   ChapterTableSelect
 >({
-  resource: "chapter",
-  getOwner: (data: ChapterPosterDTO) => data.translator?.id,
-  allowedRolesToSkip: ["admin"],
+  resource: "chapters",
   getResourceRepo: getChapterPosterByIdTx,
   deleteResourceRepo: deleteChapterTx,
 });

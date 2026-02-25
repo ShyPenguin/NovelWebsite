@@ -97,9 +97,11 @@ describe("PUT /chapters/:id", () => {
     it("403 Unauthorized from reader user", async () => {
       const chapter = getters.getSeededChapter();
       const reader = getters.getReader();
+      const inputChapter = getters.getInputChapter();
 
       const res = await testApp
         .put(`/chapters/${chapter?.id}`)
+        .send(inputChapter)
         .set("Accept", "application/json")
         .set("Cookie", [`${COOKIE_SESSION_KEY}=${reader.sessionId}`])
         .expect(403);

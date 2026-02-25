@@ -1,28 +1,28 @@
 import { db, Resource } from "@/db/index.ts";
 import { DbClientType, DbExecTypes, DbPoolType } from "@/db/type.ts";
 import { AuthorizationError, NotFoundError } from "@/utils/error.ts";
+import { requirePermission } from "@/utils/requirePermission.ts";
 import { UserRole, UserSession } from "@repo/contracts/dto/auth";
+import { Permissions } from "@repo/contracts/auth-abac";
 
 export const deleteResourceServiceFactory =
-  <T extends { id: string }, U extends { id: string }>({
+  <
+    TData extends Permissions[Resource]["dataType"],
+    TResource extends Resource,
+    U extends { id: string },
+  >({
     resource,
-    getOwner,
     getResourceRepo,
     deleteResourceRepo,
-    allowedRolesToSkip,
-    getOwner2,
   }: {
-    resource: Resource;
-    getOwner: (resource: T) => string | null | undefined;
-    allowedRolesToSkip: UserRole[];
-    getOwner2?: (resource: T) => string | null | undefined;
+    resource: TResource;
     getResourceRepo: ({
       tx,
       id,
     }: {
       tx: DbExecTypes;
       id: string;
-    }) => Promise<T | null>;
+    }) => Promise<TData | null>;
     deleteResourceRepo: ({
       tx,
       id,
@@ -46,13 +46,14 @@ export const deleteResourceServiceFactory =
       if (!resourceDetailed) {
         throw new NotFoundError(resource);
       }
-      if (
-        !allowedRolesToSkip.includes(user.role) &&
-        user.id !== getOwner(resourceDetailed) &&
-        (getOwner2 ? user.id !== getOwner2(resourceDetailed) : true)
-      ) {
-        throw new AuthorizationError({ action: "delete", resource: resource });
-      }
+
+      requirePermission({
+        user,
+        resource,
+        action: "delete",
+        data: resourceDetailed,
+      });
+
       const result = await deleteResourceRepo({
         tx: trx,
         id: resourceDetailed.id,

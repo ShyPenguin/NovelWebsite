@@ -1,13 +1,14 @@
-import { db } from "../../db/index.ts";
-import { upsertNovelScheduleTx } from "../../repositories/novelSchedule/index.ts";
-import { createNovelTx } from "../../repositories/novels/create.ts";
-import { getCategoriesByIdsTx } from "../../repositories/categories/index.ts";
-import { upsertNovelCategoriesTx } from "../../repositories/novelCategories/index.ts";
 import { NovelDetailEncodeDTO, NovelFormDTO } from "@repo/contracts/dto/novel";
-import { getNovelDetailByIdTx } from "../../repositories/novels/getNovelById.ts";
-import { BaseError, ValidationError } from "../../utils/error.ts";
 import { DbClientType, DbPoolType } from "@/db/type.ts";
 import { UserSession } from "@repo/contracts/dto/auth";
+import { requirePermission } from "@/utils/requirePermission.ts";
+import { db } from "@/db/index.ts";
+import { getCategoriesByIdsTx } from "@/repositories/categories/get.ts";
+import { upsertNovelCategoriesTx } from "@/repositories/novelCategories/upsertNovelCategories.ts";
+import { createNovelTx } from "@/repositories/novels/create.ts";
+import { getNovelDetailByIdTx } from "@/repositories/novels/getNovelById.ts";
+import { upsertNovelScheduleTx } from "@/repositories/novelSchedule/index.ts";
+import { ValidationError, BaseError } from "@/utils/error.ts";
 
 export const createNovelService = async ({
   form,
@@ -18,6 +19,11 @@ export const createNovelService = async ({
   user: UserSession;
   tx?: DbPoolType | DbClientType;
 }): Promise<NovelDetailEncodeDTO> => {
+  requirePermission({
+    user,
+    resource: "novels",
+    action: "create",
+  });
   try {
     const result = await tx.transaction(async (trx) => {
       const { categories, schedule, release, ...inputNovel } = form;

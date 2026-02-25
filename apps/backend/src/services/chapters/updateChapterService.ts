@@ -3,9 +3,7 @@ import {
   ChapterFormParsedDTO,
 } from "@repo/contracts/dto/chapter";
 import { previewChapterService } from "./previewChapterService.ts";
-import { ChapterTable } from "@/db/schemas/chapters.ts";
 import { db } from "@/db/index.ts";
-import { createChapterTx } from "@/repositories/chapters/create.ts";
 import {
   getChapterDetailByIdTx,
   getChapterPosterByIdTx,
@@ -19,6 +17,7 @@ import {
 import { DbClientType, DbPoolType } from "@/db/type.ts";
 import { updateChapterTx } from "@/repositories/chapters/update.ts";
 import { UserSession } from "@repo/contracts/dto/auth";
+import { requirePermission } from "@/utils/requirePermission.ts";
 
 export const updateChapterService = async ({
   form,
@@ -43,13 +42,14 @@ export const updateChapterService = async ({
       });
 
       if (!chapter) {
-        throw new NotFoundError("chapter");
+        throw new NotFoundError("chapters");
       }
-
-      if (user.role !== "admin" && user.id !== chapter.translator?.id) {
-        throw new AuthorizationError({ action: "update", resource: "chapter" });
-      }
-
+      requirePermission({
+        user,
+        resource: "chapters",
+        action: "update",
+        data: chapter,
+      });
       const updateChapter = await updateChapterTx({
         tx: trx,
         id,
@@ -70,13 +70,13 @@ export const updateChapterService = async ({
     return result!;
   } catch (err: any) {
     if (err.code === "23503") {
-      throw new NotFoundError("novel");
+      throw new NotFoundError("novels");
     }
     if (err.constructor.name == "NotFoundError")
-      throw new NotFoundError("chapter");
+      throw new NotFoundError("chapters");
 
     if (err.constructor.name == "AuthorizationError")
-      throw new AuthorizationError({ action: "update", resource: "chapter" });
+      throw new AuthorizationError({ action: "update", resource: "chapters" });
 
     if (err.code === "23505" && err.constraint === "idx_unique_novel_chapter") {
       throw new ValidationError("Chapter's number is already taken");

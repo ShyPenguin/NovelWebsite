@@ -1,5 +1,4 @@
 import { UserRole } from "@repo/contracts/dto/auth";
-import { userRoles } from "@repo/contracts/schemas/auth";
 import { Request } from "express";
 import { z } from "zod";
 // Extend Express Request type to include userId

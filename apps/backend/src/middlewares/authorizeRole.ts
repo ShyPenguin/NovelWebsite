@@ -3,10 +3,11 @@ import { ActionTypes, AuthRequest } from "../types/index.ts";
 import { AuthorizationError } from "../utils/error.ts";
 import { Resource } from "../db/index.ts";
 import { UserRole } from "@repo/contracts/dto/auth";
+import { Action } from "@repo/contracts/auth-abac";
 
 export const authorizeRole = (
   allowedRoles: UserRole[],
-  action: ActionTypes,
+  action: Action,
   resource: Resource,
 ): any => {
   return (req: AuthRequest, res: Response, next: NextFunction) => {

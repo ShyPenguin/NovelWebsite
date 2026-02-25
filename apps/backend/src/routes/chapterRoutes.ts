@@ -35,14 +35,12 @@ chapterRoutes.delete(
   "/:id",
   validateMiddleware(idSchema, "params"),
   asyncHandler(authMiddleware),
-  authorizeRole(["admin", "staff"], "delete", "chapter"),
   asyncHandler(deleteChapterController),
 );
 
 chapterRoutes.put(
   "/:id",
   asyncHandler(authMiddleware),
-  authorizeRole(["admin", "staff"], "update", "chapter"),
   validateMiddleware(idSchema, "params"),
   validateMiddleware(ChapterFormSchema, "body"),
   asyncHandler(putChapterController),

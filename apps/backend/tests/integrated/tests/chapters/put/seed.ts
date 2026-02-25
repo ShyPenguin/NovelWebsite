@@ -68,6 +68,7 @@ export const seedBeforeAll = async () => {
   const seededChapter = await createChapterService({
     novelId: novel.id,
     tx: testDb,
+    user: staff!.user,
     form: {
       sourceDocUrl: TEST_SOURCE_DOC_URL,
       chapterNumber: 1,

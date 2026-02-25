@@ -37,9 +37,9 @@ export const updateNovelCoverService = async ({
     tx: db,
   });
 
-  if (!novel) throw new NotFoundError("novel");
+  if (!novel) throw new NotFoundError("novels");
   if (user.role !== "admin" && user.id !== novel.translator?.id)
-    throw new AuthorizationError({ action: "update", resource: "novel" });
+    throw new AuthorizationError({ action: "update", resource: "novels" });
 
   const { path, url } = await uploadImageToSupabase(file);
 

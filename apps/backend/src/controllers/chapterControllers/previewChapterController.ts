@@ -1,21 +1,24 @@
-import { Request, Response } from "express";
-import { previewChapterService } from "@/services/chapters/index.ts";
+import { Response } from "express";
+
 import {
   ChapterFormSchema,
   ChapterPreviewSchema,
 } from "@repo/contracts/schemas/chapter";
+import { previewChapterWithAuthService } from "@/services/chapters/previewChapterWithAuthService.ts";
+import { AuthRequest } from "@/types/index.ts";
 
 export const previewChapterController = async (
-  req: Request,
+  req: AuthRequest,
   res: Response,
 ): Promise<any> => {
   // publishedAt not included because it's already parsed in the middleware
   // it should be in Date type already
   const { publishedAt, ...data } = req.body;
   const parsedData = ChapterFormSchema.parse(data);
-  const { title, contentHtml } = await previewChapterService(
-    parsedData.sourceDocUrl,
-  );
+  const { title, contentHtml } = await previewChapterWithAuthService({
+    docUrl: parsedData.sourceDocUrl,
+    user: req.user,
+  });
 
   const encodeData = ChapterPreviewSchema.encode({
     ...parsedData,

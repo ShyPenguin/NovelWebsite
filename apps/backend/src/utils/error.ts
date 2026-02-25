@@ -2,6 +2,8 @@ import { type Resource } from "../db/index.ts";
 import { ActionTypes } from "../types/index.ts";
 import { capitalizeFirstLetter } from "@repo/contracts/utils/capitalizeFirstLetter";
 import { aOrAn } from "./aOrAn.ts";
+import { Action } from "@repo/contracts/auth-abac";
+import { mapSingularResource } from "./mapSingularResource.ts";
 
 export class BaseError extends Error {
   statusCode: number;
@@ -20,9 +22,12 @@ export class NotFoundError extends BaseError {
   propertyName: string;
 
   constructor(propertyName: Resource) {
-    super(404, `${capitalizeFirstLetter(propertyName)} not found`);
+    super(
+      404,
+      `${capitalizeFirstLetter(mapSingularResource[propertyName])} not found`,
+    );
 
-    this.propertyName = propertyName;
+    this.propertyName = mapSingularResource[propertyName];
   }
 }
 
@@ -44,16 +49,10 @@ export class AuthenticationError extends BaseError {
 }
 
 export class AuthorizationError extends BaseError {
-  constructor({
-    action,
-    resource,
-  }: {
-    action: ActionTypes;
-    resource: Resource;
-  }) {
+  constructor({ action, resource }: { action: Action; resource: Resource }) {
     super(
       403,
-      `User is not allowed to ${action} ${action == "create" || action == "preview" ? aOrAn({ resource }) : "this"} ${resource}`,
+      `User is not allowed to ${action} ${action == "create" || action == "preview" ? aOrAn({ resource }) : "this"} ${mapSingularResource[resource]}`,
     );
   }
 }

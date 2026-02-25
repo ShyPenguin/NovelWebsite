@@ -2,6 +2,7 @@ import "dotenv/config";
 import { drizzle } from "drizzle-orm/node-postgres";
 import { Pool } from "pg";
 import * as schema from "./schemas/index.ts";
+import { Permissions } from "@repo/contracts/auth-abac";
 
 const pool = new Pool({
   connectionString: process.env.DATABASE_URL,
@@ -19,15 +20,4 @@ export type TableNameFromSchema = {
     : never;
 }[keyof Schema];
 
-export type Resource =
-  | "author"
-  | "novel"
-  | "user"
-  | "category"
-  | "novelCategory"
-  | "chapter"
-  | "comment"
-  | "review"
-  | "novel_schedule"
-  | "user_oauth_account"
-  | "image";
+export type Resource = keyof Permissions;

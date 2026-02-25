@@ -10,16 +10,26 @@ import { createChapterTx } from "@/repositories/chapters/create.ts";
 import { getChapterDetailByIdTx } from "@/repositories/chapters/getChapterById.ts";
 import { BaseError, NotFoundError, ValidationError } from "@/utils/error.ts";
 import { DbClientType, DbPoolType } from "@/db/type.ts";
+import { requirePermission } from "@/utils/requirePermission.ts";
+import { UserSession } from "@repo/contracts/dto/auth";
 
 export const createChapterService = async ({
   form,
   novelId,
+  user,
   tx = db,
 }: {
   form: ChapterFormParsedDTO;
   novelId: NovelDetailDTO["id"];
+  user: UserSession;
+
   tx?: DbPoolType | DbClientType;
 }): Promise<ChapterDetailEncodeDTO> => {
+  requirePermission({
+    user,
+    resource: "chapters",
+    action: "create",
+  });
   const { sourceDocUrl, chapterNumber } = form;
 
   const { title, contentHtml } = await previewChapterService(sourceDocUrl);
@@ -47,7 +57,7 @@ export const createChapterService = async ({
     return result!;
   } catch (err: any) {
     if (err.code === "23503") {
-      throw new NotFoundError("novel");
+      throw new NotFoundError("novels");
     }
 
     if (err.code === "23505" && err.constraint === "idx_unique_novel_chapter") {

@@ -24,7 +24,7 @@ authorRoutes.get(
 authorRoutes.post(
   "/",
   asyncHandler(authMiddleware),
-  authorizeRole(["admin", "staff"], "create", "author"),
+  authorizeRole(["admin", "staff"], "create", "authors"),
   validateMiddleware(AuthorFormSchema, "body"),
   asyncHandler(postAuthorController),
 );
@@ -37,7 +37,7 @@ authorRoutes.delete(
   "/:id",
   validateMiddleware(idSchema, "params"),
   asyncHandler(authMiddleware),
-  authorizeRole(["admin"], "delete", "author"),
+  authorizeRole(["admin"], "delete", "authors"),
   asyncHandler(deleteAuthorController),
 );
 authorRoutes.put(
@@ -45,7 +45,7 @@ authorRoutes.put(
   validateMiddleware(idSchema, "params"),
   validateMiddleware(AuthorFormSchema, "body"),
   asyncHandler(authMiddleware),
-  authorizeRole(["admin"], "update", "author"),
+  authorizeRole(["admin"], "update", "authors"),
   asyncHandler(putAuthorController),
 );
 export default authorRoutes;

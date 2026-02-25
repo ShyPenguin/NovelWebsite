@@ -58,24 +58,21 @@ novelRoutes.get(
 novelRoutes.post(
   "/",
   asyncHandler(authMiddleware),
-  authorizeRole(["admin", "staff"], "create", "novel"),
   validateMiddleware(NovelFormSchema, "body"),
   asyncHandler(postNovelController),
 );
 
 novelRoutes.put(
   "/:id",
+  asyncHandler(authMiddleware),
   validateMiddleware(idSchema, "params"),
   validateMiddleware(NovelFormSchema, "body"),
-  asyncHandler(authMiddleware),
-  authorizeRole(["admin", "staff"], "update", "novel"),
   asyncHandler(putNovelController),
 );
 
 novelRoutes.delete(
   "/:id",
   asyncHandler(authMiddleware),
-  authorizeRole(["admin", "staff"], "delete", "novel"),
   validateMiddleware(idSchema, "params"),
   asyncHandler(deleteNovelController),
 );
@@ -84,7 +81,7 @@ novelRoutes.delete(
 novelRoutes.patch(
   "/:id/cover",
   asyncHandler(authMiddleware),
-  authorizeRole(["admin", "staff"], "update", "image"),
+  authorizeRole(["admin", "staff"], "update", "images"),
   validateMiddleware(idSchema, "params"),
   upload.single("image"),
   asyncHandler(patchNovelCoverController),
@@ -94,7 +91,6 @@ novelRoutes.patch(
 novelRoutes.post(
   "/:id/chapters",
   asyncHandler(authMiddleware),
-  authorizeRole(["admin", "staff"], "create", "chapter"),
   validateMiddleware(idSchema, "params"),
   validateMiddleware(ChapterFormSchema, "body"),
   asyncHandler(postChapterController),
@@ -103,7 +99,6 @@ novelRoutes.post(
 novelRoutes.post(
   "/:id/chapters/preview",
   asyncHandler(authMiddleware),
-  authorizeRole(["admin", "staff"], "preview", "chapter"),
   validateMiddleware(idSchema, "params"),
   validateMiddleware(ChapterFormSchema, "body"),
   asyncHandler(previewChapterController),

@@ -1,7 +1,7 @@
 import { UserRole, UserSession } from "../dto/auth";
 import { AuthorDTO } from "../dto/author";
-import { ChapterDetailDTO } from "../dto/chapter";
-import { NovelDetailDTO } from "../dto/novel";
+import { ChapterPosterDTO } from "../dto/chapter";
+import { NovelDetailDTO, NovelPosterDTO } from "../dto/novel";
 
 export type Action = "view" | "delete" | "create" | "update" | "preview";
 
@@ -17,18 +17,22 @@ type RolesWithPermissions = {
   }>;
 };
 
-type Permissions = {
+export type Permissions = {
   novels: {
-    dataType: NovelDetailDTO;
+    dataType: NovelPosterDTO;
     action: Exclude<Action, "preview">;
   };
   chapters: {
     // Can do something like Pick<Todo, "userId"> to get just the rows you use
-    dataType: ChapterDetailDTO;
+    dataType: ChapterPosterDTO;
     action: Action;
   };
   authors: {
     dataType: AuthorDTO;
+    action: Exclude<Action, "preview">;
+  };
+  images: {
+    dataType: NovelDetailDTO;
     action: Exclude<Action, "preview">;
   };
 };
@@ -48,8 +52,15 @@ const ROLES = {
       create: true,
       update: true,
       delete: true,
+      preview: true,
     },
     authors: {
+      view: true,
+      create: true,
+      update: true,
+      delete: true,
+    },
+    images: {
       view: true,
       create: true,
       update: true,
@@ -60,18 +71,23 @@ const ROLES = {
     novels: {
       view: true,
       create: true,
-      update: true,
-      delete: true,
+      update: (user, novel) => novel.translator?.id == user.id,
+      delete: (user, novel) => novel.translator?.id == user.id,
     },
     chapters: {
       view: true,
       create: true,
       update: (user, chapter) => chapter.translator?.id == user.id,
       delete: (user, chapter) => chapter.translator?.id == user.id,
+      preview: true,
     },
     authors: {
       view: true,
       create: true,
+    },
+    images: {
+      update: (user, novel) => novel.translator?.id == user.id,
+      delete: (user, novel) => novel.translator?.id == user.id,
     },
   },
   user: {
@@ -81,15 +97,23 @@ const ROLES = {
     chapters: {
       view: true,
     },
+    images: {
+      view: true,
+    },
   },
 } as const satisfies RolesWithPermissions;
 
-export function hasPermission<Resource extends keyof Permissions>(
-  user: UserSession,
-  resource: Resource,
-  action: Permissions[Resource]["action"],
-  data?: Permissions[Resource]["dataType"],
-) {
+export function hasPermission<Resource extends keyof Permissions>({
+  user,
+  resource,
+  action,
+  data,
+}: {
+  user: UserSession;
+  resource: Resource;
+  action: Permissions[Resource]["action"];
+  data?: Permissions[Resource]["dataType"];
+}) {
   const permission = (ROLES as RolesWithPermissions)[user.role][resource]?.[
     action
   ];

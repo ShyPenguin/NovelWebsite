@@ -1,6 +1,7 @@
 import { db } from "../../db/index.ts";
 import {
   getNovelDetailByIdTx,
+  getNovelPosterByIdTx,
   updateNovelTx,
 } from "../../repositories/novels/index.ts";
 import { getCategoriesByIdsTx } from "../../repositories/categories/get.ts";
@@ -15,6 +16,8 @@ import {
 } from "../../utils/error.ts";
 import { DbClientType, DbPoolType } from "@/db/type.ts";
 import { UserSession } from "@repo/contracts/dto/auth";
+import { hasPermission } from "@repo/contracts/auth-abac";
+import { requirePermission } from "@/utils/requirePermission.ts";
 
 export const updateNovelService = async ({
   form,
@@ -31,7 +34,17 @@ export const updateNovelService = async ({
     const result = await tx.transaction(async (trx) => {
       const { categories, schedule, release, ...inputNovel } = form;
 
-      const novel = await updateNovelTx({
+      const novel = await getNovelPosterByIdTx({ tx, id });
+
+      if (!novel) throw new NotFoundError("novels");
+
+      requirePermission({
+        user,
+        resource: "novels",
+        action: "update",
+        data: novel,
+      });
+      await updateNovelTx({
         tx: trx,
         form: {
           ...inputNovel,
@@ -39,12 +52,6 @@ export const updateNovelService = async ({
         },
         id,
       });
-
-      if (!novel) throw new NotFoundError("novel");
-
-      if (user.role !== "admin" && user.id !== novel.translatorId)
-        throw new AuthorizationError({ action: "update", resource: "novel" });
-
       const getCategories =
         categories.length > 0
           ? await getCategoriesByIdsTx(trx, categories)
@@ -65,7 +72,7 @@ export const updateNovelService = async ({
       return novelDetailed;
     });
 
-    if (!result) throw new NotFoundError("novel");
+    if (!result) throw new NotFoundError("novels");
 
     return result;
   } catch (err: any) {
@@ -82,10 +89,10 @@ export const updateNovelService = async ({
       throw new ValidationError("One or more category IDs are invalid");
 
     if (err.constructor.name == "NotFoundError")
-      throw new NotFoundError("novel");
+      throw new NotFoundError("novels");
 
     if (err.constructor.name == "AuthorizationError")
-      throw new AuthorizationError({ action: "update", resource: "novel" });
+      throw new AuthorizationError({ action: "update", resource: "novels" });
 
     throw new BaseError(500, "Internal Server Error");
   }

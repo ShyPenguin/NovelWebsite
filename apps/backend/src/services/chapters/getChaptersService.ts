@@ -61,7 +61,7 @@ export const getChapterServiceFactory = <
     };
     const result = await tx.transaction(async (trx) => {
       const novel = await getNovelPosterByIdTx({ tx: trx, id: id });
-      if (!novel) throw new NotFoundError("novel");
+      if (!novel) throw new NotFoundError("novels");
 
       if (!paginated) {
         // Return array

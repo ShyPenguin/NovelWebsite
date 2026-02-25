@@ -13,8 +13,8 @@ imageRoutes.post(
   "/",
   validateMiddleware(idSchema, "params"),
   upload.single("image"),
-  authMiddleware,
-  authorizeRole(["admin", "staff"], "create", "image"),
+  asyncHandler(authMiddleware),
+  authorizeRole(["admin", "staff"], "create", "images"),
   asyncHandler(postImageController),
 );
 export default imageRoutes;

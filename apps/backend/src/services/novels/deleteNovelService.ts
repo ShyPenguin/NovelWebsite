@@ -6,11 +6,10 @@ import { NovelTableSelect } from "@/db/schemas/index.ts";
 
 export const deleteNovelService = deleteResourceServiceFactory<
   NovelPosterDTO,
+  "novels",
   NovelTableSelect
 >({
-  resource: "novel",
-  getOwner: (data: NovelPosterDTO) => data.translator?.id,
-  allowedRolesToSkip: ["admin"],
+  resource: "novels",
   getResourceRepo: getNovelPosterByIdTx,
   deleteResourceRepo: deleteNovelTx,
 });

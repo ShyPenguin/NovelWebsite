@@ -34,8 +34,10 @@ describe(" POST /novels/:id/chapters", () => {
   it("403 Unauthorized", async () => {
     const reader = getters.getReader();
     const novelId = getters.getNovel().id;
+    const inputChapter = getters.getInputChapter();
     const res = await testApp
       .post(`/novels/${novelId}/chapters`)
+      .send(inputChapter)
       .set("Cookie", [`${COOKIE_SESSION_KEY}=${reader.sessionId}`])
       .expect(403);
     const parsedResult = ApiResponseSchema(ChapterDetailSchema).parse(res.body);
