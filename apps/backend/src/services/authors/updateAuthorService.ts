@@ -1,34 +1,43 @@
 import { db } from "@/db/index.ts";
-import { DbExecTypes } from "@/db/type.ts";
-import { createAuthorTx } from "@/repositories/authors/create.ts";
-import { BaseError, ValidationError } from "@/utils/error.ts";
+import { DbClientType, DbPoolType } from "@/db/type.ts";
+import { updateAuthorTx } from "@/repositories/authors/update.ts";
+import { BaseError, NotFoundError, ValidationError } from "@/utils/error.ts";
 import { requirePermission } from "@/utils/requirePermission.ts";
 import { UserSession } from "@repo/contracts/dto/auth";
 import { AuthorDTO, AuthorFormDTO } from "@repo/contracts/dto/author";
 
-export const createAuthorService = async ({
+export const updateAuthorService = async ({
   form,
+  id,
   user,
   tx = db,
 }: {
   form: AuthorFormDTO;
+  id: AuthorDTO["id"];
   user: UserSession;
-  tx?: DbExecTypes;
+  tx?: DbPoolType | DbClientType;
 }): Promise<AuthorDTO> => {
   requirePermission({
     user,
     resource: "authors",
-    action: "create",
+    action: "update",
   });
-
   try {
-    const author = await createAuthorTx({
+    const result = await updateAuthorTx({
       tx,
       form,
+      id,
     });
 
-    return author;
+    if (!result) {
+      throw new NotFoundError("authors");
+    }
+
+    return result;
   } catch (err: any) {
+    if (err.constructor.name == "NotFoundError")
+      throw new NotFoundError("authors");
+
     if (err.code === "23505" && err.detail?.includes("name")) {
       throw new ValidationError("Name is already taken");
     }

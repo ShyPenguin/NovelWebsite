@@ -67,6 +67,33 @@ const ROLES = {
       delete: true,
     },
   },
+  supervisor: {
+    novels: {
+      view: true,
+      create: true,
+      update: true,
+      delete: true,
+    },
+    chapters: {
+      view: true,
+      create: true,
+      update: true,
+      delete: true,
+      preview: true,
+    },
+    authors: {
+      view: true,
+      create: true,
+      update: true,
+      delete: true,
+    },
+    images: {
+      view: true,
+      create: true,
+      update: true,
+      delete: true,
+    },
+  },
   staff: {
     novels: {
       view: true,
@@ -84,8 +111,12 @@ const ROLES = {
     authors: {
       view: true,
       create: true,
+      update: true,
+      delete: true,
     },
     images: {
+      view: true,
+      create: true,
       update: (user, novel) => novel.translator?.id == user.id,
       delete: (user, novel) => novel.translator?.id == user.id,
     },
@@ -98,6 +129,9 @@ const ROLES = {
       view: true,
     },
     images: {
+      view: true,
+    },
+    authors: {
       view: true,
     },
   },

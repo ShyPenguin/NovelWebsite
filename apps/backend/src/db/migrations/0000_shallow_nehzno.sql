@@ -1,9 +1,9 @@
 CREATE TYPE "public"."chapter_access" AS ENUM('free', 'paid');--> statement-breakpoint
 CREATE TYPE "public"."chapter_status" AS ENUM('draft', 'review', 'published');--> statement-breakpoint
 CREATE TYPE "public"."language" AS ENUM('english', 'korean', 'chinese', 'japanese');--> statement-breakpoint
-CREATE TYPE "public"."novelStatus" AS ENUM('ONGOING', 'DROPPED', 'COMPLETED', 'HIATUS');--> statement-breakpoint
+CREATE TYPE "public"."novelStatus" AS ENUM('ONGOING', 'COMPLETED', 'HIATUS', 'DROPPED');--> statement-breakpoint
 CREATE TYPE "public"."novel_types" AS ENUM('original', 'translated');--> statement-breakpoint
-CREATE TYPE "public"."user_roles" AS ENUM('admin', 'staff', 'user');--> statement-breakpoint
+CREATE TYPE "public"."user_roles" AS ENUM('user', 'staff', 'supervisor', 'admin');--> statement-breakpoint
 CREATE TYPE "public"."oauth_provides" AS ENUM('discord', 'github', 'google');--> statement-breakpoint
 CREATE TYPE "public"."week_day" AS ENUM('SUN', 'MON', 'TUE', 'WED', 'THU', 'FRI', 'SAT');--> statement-breakpoint
 CREATE TABLE "authors" (
@@ -117,6 +117,7 @@ ALTER TABLE "user_oauth_accounts" ADD CONSTRAINT "user_oauth_accounts_userId_use
 ALTER TABLE "novel_schedules" ADD CONSTRAINT "novel_schedules_novelId_novels_id_fk" FOREIGN KEY ("novelId") REFERENCES "public"."novels"("id") ON DELETE cascade ON UPDATE no action;--> statement-breakpoint
 CREATE INDEX "idx_chapter_novel_id" ON "chapters" USING btree ("novelId");--> statement-breakpoint
 CREATE UNIQUE INDEX "idx_unique_novel_chapter" ON "chapters" USING btree ("novelId","chapterNumber");--> statement-breakpoint
+CREATE INDEX "idx_chapter_novelid_chapternumber" ON "chapters" USING btree ("novelId","chapterNumber" desc);--> statement-breakpoint
 CREATE INDEX "idx_novel_author_id" ON "novels" USING btree ("authorId");--> statement-breakpoint
 CREATE INDEX "idx_novel_translator_id" ON "novels" USING btree ("translatorId");--> statement-breakpoint
 CREATE INDEX "idx_novel_category_novel_id" ON "novelCategories" USING btree ("novelId");--> statement-breakpoint

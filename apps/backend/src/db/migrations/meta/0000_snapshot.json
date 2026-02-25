@@ -1,5 +1,5 @@
 {
-  "id": "a4580098-2489-45dd-9ebd-f98ea4e8cf69",
+  "id": "ce3aa522-f268-41d9-b3e6-84c57a044fdb",
   "prevId": "00000000-0000-0000-0000-000000000000",
   "version": "7",
   "dialect": "postgresql",
@@ -183,6 +183,27 @@
             }
           ],
           "isUnique": true,
+          "concurrently": false,
+          "method": "btree",
+          "with": {}
+        },
+        "idx_chapter_novelid_chapternumber": {
+          "name": "idx_chapter_novelid_chapternumber",
+          "columns": [
+            {
+              "expression": "novelId",
+              "isExpression": false,
+              "asc": true,
+              "nulls": "last"
+            },
+            {
+              "expression": "\"chapterNumber\" desc",
+              "asc": true,
+              "isExpression": true,
+              "nulls": "last"
+            }
+          ],
+          "isUnique": false,
           "concurrently": false,
           "method": "btree",
           "with": {}
@@ -936,9 +957,9 @@
       "schema": "public",
       "values": [
         "ONGOING",
-        "DROPPED",
         "COMPLETED",
-        "HIATUS"
+        "HIATUS",
+        "DROPPED"
       ]
     },
     "public.novel_types": {
@@ -953,9 +974,10 @@
       "name": "user_roles",
       "schema": "public",
       "values": [
-        "admin",
+        "user",
         "staff",
-        "user"
+        "supervisor",
+        "admin"
       ]
     },
     "public.oauth_provides": {

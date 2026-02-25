@@ -1,23 +1,26 @@
-import { db } from "../../db/index.ts";
 import {
-  getNovelDetailByIdTx,
-  getNovelPosterByIdTx,
-  updateNovelTx,
-} from "../../repositories/novels/index.ts";
-import { getCategoriesByIdsTx } from "../../repositories/categories/get.ts";
-import { upsertNovelScheduleTx } from "../../repositories/novelSchedule/index.ts";
-import { upsertNovelCategoriesTx } from "../../repositories/novelCategories/index.ts";
-import { NovelDetailEncodeDTO, NovelFormDTO } from "@repo/contracts/dto/novel";
-import {
-  AuthorizationError,
-  BaseError,
-  NotFoundError,
-  ValidationError,
-} from "../../utils/error.ts";
+  NovelDetailDTO,
+  NovelDetailEncodeDTO,
+  NovelFormDTO,
+} from "@repo/contracts/dto/novel";
 import { DbClientType, DbPoolType } from "@/db/type.ts";
 import { UserSession } from "@repo/contracts/dto/auth";
-import { hasPermission } from "@repo/contracts/auth-abac";
 import { requirePermission } from "@/utils/requirePermission.ts";
+import { db } from "@/db/index.ts";
+import { getCategoriesByIdsTx } from "@/repositories/categories/get.ts";
+import { upsertNovelCategoriesTx } from "@/repositories/novelCategories/upsertNovelCategories.ts";
+import {
+  getNovelPosterByIdTx,
+  getNovelDetailByIdTx,
+} from "@/repositories/novels/getNovelById.ts";
+import { updateNovelTx } from "@/repositories/novels/update.ts";
+import { upsertNovelScheduleTx } from "@/repositories/novelSchedule/index.ts";
+import {
+  NotFoundError,
+  ValidationError,
+  AuthorizationError,
+  BaseError,
+} from "@/utils/error.ts";
 
 export const updateNovelService = async ({
   form,
@@ -27,7 +30,7 @@ export const updateNovelService = async ({
 }: {
   form: NovelFormDTO;
   user: UserSession;
-  id: string;
+  id: NovelDetailDTO["id"];
   tx?: DbPoolType | DbClientType;
 }): Promise<NovelDetailEncodeDTO> => {
   try {

@@ -26,33 +26,3 @@ export const deleteAuthorController = async (
     return res.status(500).json({ message: "Internal Server Error" });
   }
 };
-
-export const putAuthorController = async (
-  req: AuthRequest,
-  res: Response,
-): Promise<any> => {
-  const authorData = req.body;
-  const authorId = req.params.id;
-  try {
-    const result = await updateAuthorService(authorData, authorId);
-    if (!result.success) {
-      return res
-        .status(
-          result.type == "database"
-            ? 404
-            : result.type == "validation"
-              ? 400
-              : 500,
-        )
-        .json({
-          message: result.message,
-        });
-    }
-
-    return res.status(201).json(result.data);
-  } catch (err) {
-    return res.status(500).json({
-      message: "Internal Server Error",
-    });
-  }
-};

@@ -1,10 +1,7 @@
 import { Router } from "express";
 import { authorizeRole } from "../middlewares/authorizeRole.ts";
 import { validateMiddleware } from "../middlewares/validateMiddleware.ts";
-import {
-  deleteAuthorController,
-  putAuthorController,
-} from "../controllers/authorControllers/index.ts";
+import { deleteAuthorController } from "../controllers/authorControllers/index.ts";
 import { idSchema } from "../validations/fields.ts";
 import { authMiddleware } from "../middlewares/authMiddleware.ts";
 import { asyncHandler } from "../utils/asyncHandler.ts";
@@ -13,6 +10,7 @@ import { getAuthorOneController } from "@/controllers/authorControllers/get-auth
 import { postAuthorController } from "@/controllers/authorControllers/post-author-controller.ts";
 import { AuthorQuerySchema } from "@/validations/AuthorValidator.ts";
 import { AuthorFormSchema } from "@repo/contracts/schemas/author";
+import { putAuthorController } from "@/controllers/authorControllers/put-author-controller.ts";
 
 const authorRoutes = Router();
 
@@ -24,7 +22,6 @@ authorRoutes.get(
 authorRoutes.post(
   "/",
   asyncHandler(authMiddleware),
-  authorizeRole(["admin", "staff"], "create", "authors"),
   validateMiddleware(AuthorFormSchema, "body"),
   asyncHandler(postAuthorController),
 );
@@ -42,10 +39,9 @@ authorRoutes.delete(
 );
 authorRoutes.put(
   "/:id",
+  asyncHandler(authMiddleware),
   validateMiddleware(idSchema, "params"),
   validateMiddleware(AuthorFormSchema, "body"),
-  asyncHandler(authMiddleware),
-  authorizeRole(["admin"], "update", "authors"),
   asyncHandler(putAuthorController),
 );
 export default authorRoutes;
