@@ -1,8 +1,8 @@
 import type { FullResponseMap } from "./responseTypes";
-import type { AuthorDTO } from "@repo/contracts/dto/author";
+import type { AuthorThumbnailDTO } from "@repo/contracts/dto/author";
 
 export type AuthorResponseMap = {
-  detail: AuthorDTO[];
+  detail: AuthorThumbnailDTO[];
 };
 
 export type FetchAuthorsReturn<

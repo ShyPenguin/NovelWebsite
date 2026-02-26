@@ -56,20 +56,3 @@ export const getNovelPosterByIdTx = getNovelByIdFactory({
   type: "poster",
   schema: NovelPosterSchema,
 });
-// export const getNovelDetailByIdTx = async ({
-//   tx,
-//   id,
-// }: {
-//   tx: DbExecTypes;
-//   id: string;
-// }): Promise<NovelDetailEncodeDTO | null> => {
-//   const result = await tx
-//     .select(novelSelectMap["detail"])
-//     .from(NovelTable)
-//     .leftJoin(AuthorTable, eq(NovelTable.authorId, AuthorTable.id))
-//     .leftJoin(UserTable, eq(NovelTable.translatorId, UserTable.id))
-//     .where(eq(NovelTable.id, id));
-
-//   if (!result[0]) return null;
-//   return NovelDetailSchema.encode(result[0]);
-// };

@@ -1,10 +1,13 @@
 import { z } from "zod";
-import { AuthorFactory } from "../../factories/author";
+import { AuthorDetailFactory, AuthorFactory } from "../../factories/author";
 
 //READ
-export const AuthorSchema = AuthorFactory.getSchema();
-export const ArrayAuthorSchema = AuthorFactory.array();
-export const PaginatedAuthorSchema = AuthorFactory.paginate();
+export const AuthorThumbnailSchema = AuthorFactory.getSchema();
+export const ArrayAuthorThumbnailSchema = AuthorFactory.array();
+export const PaginatedAuthorThumbnailSchema = AuthorFactory.paginate();
+export const AuthorDetailSchema = AuthorDetailFactory.getSchema();
+export const ArrayAuthorDetailSchema = AuthorDetailFactory.array();
+export const PaginatedAuthorDetailSchema = AuthorDetailFactory.paginate();
 
 // QUERY
 export const AuthorQueryContract = z
@@ -16,5 +19,5 @@ export const AuthorQueryContract = z
   .strict();
 // WRITE
 export const AuthorFormSchema = z.object({
-  name: AuthorSchema.shape["name"],
+  name: AuthorThumbnailSchema.shape["name"],
 });

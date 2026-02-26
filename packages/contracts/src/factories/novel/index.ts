@@ -3,11 +3,10 @@ import { GetFactory } from "../read-factory";
 import {
   titleField,
   descriptionField,
-  idField,
   urlField,
   createIdField,
 } from "../../schemas/fields";
-import { AuthorSchema } from "../../schemas/author/schema";
+import { AuthorThumbnailSchema } from "../../schemas/author/schema";
 import { CategoryDetailSchema } from "../../schemas/category/schema";
 import {
   createStringNumberToNumber,
@@ -25,7 +24,7 @@ const NovelDetailSchema = z.object({
   title: titleField,
   description: descriptionField,
   totalChapters: createStringNumberToNumber("Total chapters"),
-  author: AuthorSchema.nullish(),
+  author: AuthorThumbnailSchema.nullish(),
   coverImageUrl: urlField.nullish(),
   coverImagePath: z.string().nullish(),
   release: isoStringToDate,

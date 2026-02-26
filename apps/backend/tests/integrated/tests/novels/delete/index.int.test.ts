@@ -3,9 +3,11 @@ import { seedBeforeAll } from "./seed.ts";
 import { app } from "../../../../../src/app.ts";
 import request from "supertest";
 import { COOKIE_SESSION_KEY } from "../../../../../src/constants/index.ts";
+import { getChaptersTx } from "../../../../../src/repositories/chapters/getChapters.ts";
 import { ApiResponseSchema } from "@repo/contracts/api";
 import { randomUUID } from "crypto";
 import { idFieldSchema } from "@repo/contracts/schemas/id";
+import { testDb } from "../../../db/db-test.ts";
 
 describe("DELETE /novels/:id", () => {
   let getters: Awaited<ReturnType<typeof seedBeforeAll>>;
@@ -134,6 +136,15 @@ describe("DELETE /novels/:id", () => {
       expect(parsedResult.ok).toBe(true);
       if (!parsedResult.ok) throw new Error("something went wrong");
       expect(parsedResult.data).toBe(novel.id);
+
+      // Chapters should cascade
+      const chapters = await getChaptersTx({
+        tx: testDb,
+        query: { novelId: novel.id },
+        type: "thumbnail",
+      });
+
+      expect(chapters.length).toBe(0);
     });
 
     it("200 deleted successfully by admin", async () => {

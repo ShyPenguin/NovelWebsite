@@ -14,7 +14,8 @@ export const buildAuthorsBaseQuery = ({
   const select = authorSelectMap[type];
 
   switch (type) {
-    case "detail": {
+    case "detail":
+    case "thumbnail": {
       return tx.select(select).from(AuthorTable);
     }
   }

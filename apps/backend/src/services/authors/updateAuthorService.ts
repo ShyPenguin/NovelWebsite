@@ -4,7 +4,7 @@ import { updateAuthorTx } from "@/repositories/authors/update.ts";
 import { BaseError, NotFoundError, ValidationError } from "@/utils/error.ts";
 import { requirePermission } from "@/utils/requirePermission.ts";
 import { UserSession } from "@repo/contracts/dto/auth";
-import { AuthorDTO, AuthorFormDTO } from "@repo/contracts/dto/author";
+import { AuthorThumbnailDTO, AuthorFormDTO } from "@repo/contracts/dto/author";
 
 export const updateAuthorService = async ({
   form,
@@ -13,10 +13,10 @@ export const updateAuthorService = async ({
   tx = db,
 }: {
   form: AuthorFormDTO;
-  id: AuthorDTO["id"];
+  id: AuthorThumbnailDTO["id"];
   user: UserSession;
   tx?: DbPoolType | DbClientType;
-}): Promise<AuthorDTO> => {
+}): Promise<AuthorThumbnailDTO> => {
   requirePermission({
     user,
     resource: "authors",

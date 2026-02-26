@@ -5,11 +5,11 @@ import type { AuthorResponseMap, FetchAuthorsReturn } from "../../types/author";
 import { type Paginated } from "../../types";
 import type { z, ZodType } from "zod";
 import {
-  ArrayAuthorSchema,
-  PaginatedAuthorSchema,
+  ArrayAuthorThumbnailSchema,
+  PaginatedAuthorThumbnailSchema,
 } from "@repo/contracts/schemas/author";
 import { ApiResponseSchema } from "@repo/contracts/api";
-import type { AuthorDTO } from "@repo/contracts/dto/author";
+import type { AuthorThumbnailDTO } from "@repo/contracts/dto/author";
 import type { FullResponseMap } from "@/types/responseTypes";
 import type { AuthorSearchType } from "@/schemas/authors";
 const urlRoute = "authors";
@@ -56,17 +56,17 @@ export const fetchAuthors = <
 const fetchAuthorsAll = fetchAuthors({
   type: "detail",
   paginated: false,
-  schema: ArrayAuthorSchema,
+  schema: ArrayAuthorThumbnailSchema,
 });
 
 const fetchAuthorAllPaginated = fetchAuthors({
   type: "paginated.detail",
   paginated: true,
-  schema: PaginatedAuthorSchema,
+  schema: PaginatedAuthorThumbnailSchema,
 });
 
 export const authorsQueryOptions = () =>
-  queryOptions<AuthorDTO[]>({
+  queryOptions<AuthorThumbnailDTO[]>({
     queryKey: ["authors"],
     queryFn: () => fetchAuthorsAll({ withQuery: false }),
     staleTime: 6 * 60 * 60 * 1000, // Consider chapter list fresh for 6 hour
@@ -75,7 +75,7 @@ export const authorsQueryOptions = () =>
 export const authorsInfiniteQueryOption = ({
   search,
 }: Omit<AuthorSearchType, "page">) =>
-  infiniteQueryOptions<Paginated<AuthorDTO[]>>({
+  infiniteQueryOptions<Paginated<AuthorThumbnailDTO[]>>({
     queryKey: ["authors", "infinite", search],
     queryFn: async ({ pageParam = 1 }) => {
       const page = typeof pageParam === "number" ? pageParam : 1;

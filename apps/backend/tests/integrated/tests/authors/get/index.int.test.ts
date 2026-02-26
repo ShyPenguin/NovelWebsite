@@ -5,9 +5,9 @@ import { app } from "../../../../../src/app.ts";
 import { ApiResponseSchema } from "@repo/contracts/api";
 import { randomUUID } from "crypto";
 import {
-  ArrayAuthorSchema,
-  AuthorSchema,
-  PaginatedAuthorSchema,
+  ArrayAuthorThumbnailSchema,
+  AuthorThumbnailSchema,
+  PaginatedAuthorThumbnailSchema,
 } from "@repo/contracts/schemas/author";
 import { AuthorQueryInput } from "../../../../../src/validations/AuthorValidator.ts";
 
@@ -25,7 +25,9 @@ describe("GET /authors", () => {
 
       const res = await testApp.get(`/authors/${author.id}`);
 
-      const parsedResult = ApiResponseSchema(AuthorSchema).parse(res.body);
+      const parsedResult = ApiResponseSchema(AuthorThumbnailSchema).parse(
+        res.body,
+      );
       expect(parsedResult.ok).toBe(true);
       if (!parsedResult.ok) throw Error();
       expect(parsedResult.data).toMatchObject(author);
@@ -35,7 +37,9 @@ describe("GET /authors", () => {
       const notRealId = randomUUID();
       const res = await testApp.get(`/authors/${notRealId}`).expect(404);
 
-      const parsedResult = ApiResponseSchema(AuthorSchema).parse(res.body);
+      const parsedResult = ApiResponseSchema(AuthorThumbnailSchema).parse(
+        res.body,
+      );
       expect(parsedResult).toMatchObject({
         ok: false,
         error: {
@@ -53,7 +57,9 @@ describe("GET /authors", () => {
         .get(`/authors`)
         .query({ search: "Cu" } satisfies AuthorQueryInput);
 
-      const parsedResult = ApiResponseSchema(ArrayAuthorSchema).parse(res.body);
+      const parsedResult = ApiResponseSchema(ArrayAuthorThumbnailSchema).parse(
+        res.body,
+      );
       if (!parsedResult.ok) throw new Error(parsedResult.error.message);
 
       expect(Array.isArray(parsedResult.data)).toBe(true);
@@ -65,7 +71,9 @@ describe("GET /authors", () => {
         .get(`/authors`)
         .query({ search: "Bogarts" } satisfies AuthorQueryInput);
 
-      const parsedResult = ApiResponseSchema(ArrayAuthorSchema).parse(res.body);
+      const parsedResult = ApiResponseSchema(ArrayAuthorThumbnailSchema).parse(
+        res.body,
+      );
 
       expect(parsedResult.ok).toBe(true);
       if (!parsedResult.ok) throw new Error(parsedResult.error.message);
@@ -80,9 +88,9 @@ describe("GET /authors", () => {
         .get(`/authors`)
         .query({ page: 1, pageSize: 4 } satisfies AuthorQueryInput);
 
-      const parsedResult = ApiResponseSchema(PaginatedAuthorSchema).parse(
-        res.body,
-      );
+      const parsedResult = ApiResponseSchema(
+        PaginatedAuthorThumbnailSchema,
+      ).parse(res.body);
       expect(parsedResult.ok).toBe(true);
       if (!parsedResult.ok) throw new Error(parsedResult.error.message);
 
@@ -97,9 +105,9 @@ describe("GET /authors", () => {
         .get(`/authors`)
         .query({ page: 5, pageSize: 4 } satisfies AuthorQueryInput);
 
-      const parsedResult = ApiResponseSchema(PaginatedAuthorSchema).parse(
-        res.body,
-      );
+      const parsedResult = ApiResponseSchema(
+        PaginatedAuthorThumbnailSchema,
+      ).parse(res.body);
 
       expect(parsedResult.ok).toBe(true);
       if (!parsedResult.ok) throw new Error(parsedResult.error.message);

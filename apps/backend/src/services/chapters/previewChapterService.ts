@@ -1,5 +1,4 @@
 import { auth, docs } from "@googleapis/docs";
-import { ServiceResult } from "../../types/index.ts";
 import {
   extractDocumentStructure,
   extractGoogleDocId,

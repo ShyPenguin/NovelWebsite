@@ -1,7 +1,7 @@
 import { db } from "@/db/index.ts";
 import { DbExecTypes } from "@/db/type.ts";
 import { AuthorQueryOutput } from "@/validations/AuthorValidator.ts";
-import { AuthorDTO, AuthorListDTO } from "@repo/contracts/dto/author";
+import { AuthorThumbnailDTO, AuthorListDTO } from "@repo/contracts/dto/author";
 import { ZodType } from "zod";
 import {
   GetFetchListReturn,
@@ -12,14 +12,16 @@ import {
   getAuthorsTx,
   getPaginatedAuthorsTx,
 } from "@/repositories/authors/getAuthors.ts";
-import { PAGE_SIZE, PAGE_SIZE_AUTHOR } from "@/constants/index.ts";
+import { PAGE_SIZE_AUTHOR } from "@/constants/index.ts";
 import {
-  ArrayAuthorSchema,
-  PaginatedAuthorSchema,
+  ArrayAuthorDetailSchema,
+  ArrayAuthorThumbnailSchema,
+  PaginatedAuthorDetailSchema,
+  PaginatedAuthorThumbnailSchema,
 } from "@repo/contracts/schemas/author";
 
-type AuthorDTOMap = {
-  [K in AuthorListDTO]: K extends "detail" ? AuthorDTO[] : never;
+type AuthorThumbnailDTOMap = {
+  [K in AuthorListDTO]: K extends "detail" ? AuthorThumbnailDTO[] : never;
 };
 
 type BaseArgs = {
@@ -27,7 +29,7 @@ type BaseArgs = {
   tx?: DbExecTypes;
 };
 
-export const getNovelsServiceFactory = <
+export const getAuthorsServiceFactory = <
   T extends AuthorListDTO,
   P extends boolean,
 >({
@@ -46,12 +48,12 @@ export const getNovelsServiceFactory = <
       page,
       pageSize,
     }: GetListParams<BaseArgs, P> = {} as GetListParams<BaseArgs, P>,
-  ): Promise<GetFetchListReturn<AuthorDTOMap, T, P>> => {
+  ): Promise<GetFetchListReturn<AuthorThumbnailDTOMap, T, P>> => {
     if (!paginated) {
       // Return array
-      const novels = await getAuthorsTx({ tx, query, type });
-      const parsedNovel = schema.encode(novels);
-      return parsedNovel as GetFetchListReturn<AuthorDTOMap, T, P>;
+      const authors = await getAuthorsTx({ tx, query, type });
+      const parsedNovel = schema.encode(authors);
+      return parsedNovel as GetFetchListReturn<AuthorThumbnailDTOMap, T, P>;
     }
     // Return paginated
     const paginatedData = await getPaginatedAuthorsTx({
@@ -63,25 +65,44 @@ export const getNovelsServiceFactory = <
     });
 
     const parsedPaginatedData = schema.encode(paginatedData);
-    return parsedPaginatedData as GetFetchListReturn<AuthorDTOMap, T, P>;
+    return parsedPaginatedData as GetFetchListReturn<
+      AuthorThumbnailDTOMap,
+      T,
+      P
+    >;
   };
 };
 
+// Thumbnails
+export const getAuthorsThumbnailService = getAuthorsServiceFactory({
+  type: "thumbnail",
+  paginated: false,
+  schema: ArrayAuthorThumbnailSchema,
+});
+export const getAuthorsThumbnailPaginatedService = getAuthorsServiceFactory({
+  type: "thumbnail",
+  paginated: true,
+  schema: PaginatedAuthorThumbnailSchema,
+});
 // Details
-export const getAuthorsService = getNovelsServiceFactory({
+export const getAuthorsDetailService = getAuthorsServiceFactory({
   type: "detail",
   paginated: false,
-  schema: ArrayAuthorSchema,
+  schema: ArrayAuthorDetailSchema,
 });
-export const getAuthorsPaginatedService = getNovelsServiceFactory({
+export const getAuthorsDetailPaginatedService = getAuthorsServiceFactory({
   type: "detail",
   paginated: true,
-  schema: PaginatedAuthorSchema,
+  schema: PaginatedAuthorDetailSchema,
 });
 
 export const GetAuthorsServices = {
   detail: {
-    list: getAuthorsService,
-    paginated: getAuthorsPaginatedService,
+    list: getAuthorsDetailService,
+    paginated: getAuthorsDetailPaginatedService,
+  },
+  thumbnail: {
+    list: getAuthorsThumbnailService,
+    paginated: getAuthorsThumbnailPaginatedService,
   },
 } satisfies GetServiceList<AuthorListDTO>;

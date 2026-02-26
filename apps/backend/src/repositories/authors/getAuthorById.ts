@@ -1,14 +1,22 @@
 import { DbExecTypes } from "@/db/type.ts";
 import { GetFetchReturn } from "@/services/types/index.ts";
-import { AuthorDTO, AuthorListDTO } from "@repo/contracts/dto/author";
+import {
+  AuthorThumbnailDTO,
+  AuthorListDTO,
+  AuthorDetailDTO,
+} from "@repo/contracts/dto/author";
 import { ZodType } from "zod";
 import { buildAuthorsBaseQuery } from "./buildBaseQuery.ts";
 import { eq } from "drizzle-orm";
 import { AuthorTable } from "@/db/schemas/authors.ts";
-import { AuthorSchema } from "@repo/contracts/schemas/author";
+import {
+  AuthorDetailSchema,
+  AuthorThumbnailSchema,
+} from "@repo/contracts/schemas/author";
 
 type AuthorDTOMap = {
-  detail: AuthorDTO;
+  thumbnail: AuthorThumbnailDTO;
+  detail: AuthorDetailDTO;
 };
 
 const getAuthorByIdFactory = <T extends AuthorListDTO>({
@@ -23,7 +31,7 @@ const getAuthorByIdFactory = <T extends AuthorListDTO>({
     id,
   }: {
     tx: DbExecTypes;
-    id: AuthorDTO["id"];
+    id: AuthorThumbnailDTO["id"];
   }): Promise<GetFetchReturn<AuthorDTOMap, T> | null> => {
     const baseQuery = buildAuthorsBaseQuery({
       type,
@@ -35,7 +43,12 @@ const getAuthorByIdFactory = <T extends AuthorListDTO>({
   };
 };
 
-export const getAuthorByIdTx = getAuthorByIdFactory({
+export const getAuthorThumbnailByIdTx = getAuthorByIdFactory({
+  type: "thumbnail",
+  schema: AuthorThumbnailSchema,
+});
+
+export const getAuthorDetailByIdTx = getAuthorByIdFactory({
   type: "detail",
-  schema: AuthorSchema,
+  schema: AuthorDetailSchema,
 });

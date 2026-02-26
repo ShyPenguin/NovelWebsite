@@ -4,7 +4,7 @@ import { beforeAll, expect, describe, it } from "vitest";
 import { seedBeforeAll } from "./seed.ts";
 import { COOKIE_SESSION_KEY } from "../../../../../src/constants/index.ts";
 import { ApiResponseSchema } from "@repo/contracts/api";
-import { AuthorSchema } from "@repo/contracts/schemas/author";
+import { AuthorThumbnailSchema } from "@repo/contracts/schemas/author";
 
 describe("POST / authors", () => {
   let getters: Awaited<ReturnType<typeof seedBeforeAll>>;
@@ -16,7 +16,9 @@ describe("POST / authors", () => {
 
   it("401 Unauthenticated", async () => {
     const res = await testApp.post(`/authors`).expect(401);
-    const parsedResult = ApiResponseSchema(AuthorSchema).parse(res.body);
+    const parsedResult = ApiResponseSchema(AuthorThumbnailSchema).parse(
+      res.body,
+    );
     expect(parsedResult).toMatchObject({
       ok: false,
       error: {
@@ -36,7 +38,9 @@ describe("POST / authors", () => {
       .set("Cookie", [`${COOKIE_SESSION_KEY}=${reader.sessionId}`])
       .expect(403);
 
-    const parsedResult = ApiResponseSchema(AuthorSchema).parse(res.body);
+    const parsedResult = ApiResponseSchema(AuthorThumbnailSchema).parse(
+      res.body,
+    );
     expect(parsedResult).toMatchObject({
       ok: false,
       error: {
@@ -59,7 +63,9 @@ describe("POST / authors", () => {
       .set("Cookie", [`${COOKIE_SESSION_KEY}=${staff.sessionId}`])
       .expect(400);
 
-    const parsedResult = ApiResponseSchema(AuthorSchema).parse(res.body);
+    const parsedResult = ApiResponseSchema(AuthorThumbnailSchema).parse(
+      res.body,
+    );
     expect(parsedResult).toMatchObject({
       ok: false,
       error: {
@@ -86,7 +92,9 @@ describe("POST / authors", () => {
       .set("Cookie", [`${COOKIE_SESSION_KEY}=${staff.sessionId}`])
       .expect(400);
 
-    const parsedResult = ApiResponseSchema(AuthorSchema).parse(res.body);
+    const parsedResult = ApiResponseSchema(AuthorThumbnailSchema).parse(
+      res.body,
+    );
     expect(parsedResult).toMatchObject({
       ok: false,
       error: {
@@ -109,7 +117,9 @@ describe("POST / authors", () => {
       .set("Cookie", [`${COOKIE_SESSION_KEY}=${staff.sessionId}`])
       .expect(201);
 
-    const parsedResult = ApiResponseSchema(AuthorSchema).parse(res.body);
+    const parsedResult = ApiResponseSchema(AuthorThumbnailSchema).parse(
+      res.body,
+    );
     if (!parsedResult.ok) throw new Error("something went wrong");
     expect(parsedResult.data.name).toBe(inputData.name);
   });

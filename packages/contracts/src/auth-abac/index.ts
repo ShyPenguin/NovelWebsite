@@ -1,5 +1,5 @@
 import { UserRole, UserSession } from "../dto/auth";
-import { AuthorDTO } from "../dto/author";
+import { AuthorThumbnailDTO } from "../dto/author";
 import { ChapterPosterDTO } from "../dto/chapter";
 import { NovelDetailDTO, NovelPosterDTO } from "../dto/novel";
 
@@ -28,7 +28,7 @@ export type Permissions = {
     action: Action;
   };
   authors: {
-    dataType: AuthorDTO;
+    dataType: AuthorThumbnailDTO;
     action: Exclude<Action, "preview">;
   };
   images: {

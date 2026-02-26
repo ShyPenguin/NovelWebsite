@@ -6,8 +6,10 @@ import { ApiResponseSchema } from "@repo/contracts/api";
 import { AuthorThumbnailSchema } from "@repo/contracts/schemas/author";
 import { seedBeforeAll } from "./seed.ts";
 import { randomUUID } from "crypto";
+import { idFieldSchema } from "@repo/contracts/schemas/id";
+import { NovelDetailSchema } from "@repo/contracts/schemas/novel";
 
-describe("PUT /authors/:id", () => {
+describe("DELETE /authors/:id", () => {
   let getters: Awaited<ReturnType<typeof seedBeforeAll>>;
   const testApp = request(app);
 
@@ -16,8 +18,8 @@ describe("PUT /authors/:id", () => {
   });
 
   it("401 Unauthenticated", async () => {
-    const dataToUpdate = getters.getDataToUpdate();
-    const res = await testApp.put(`/authors/${dataToUpdate.id}`).expect(401);
+    const dataToDelete = getters.getDataToDelete();
+    const res = await testApp.delete(`/authors/${dataToDelete.id}`).expect(401);
     const parsedResult = ApiResponseSchema(AuthorThumbnailSchema).parse(
       res.body,
     );
@@ -25,17 +27,18 @@ describe("PUT /authors/:id", () => {
       ok: false,
       error: {
         type: "AuthenticationError",
-        path: `/authors/${dataToUpdate.id}`,
+        path: `/authors/${dataToDelete.id}`,
         statusCode: 401,
         message: "User is not logged in",
       },
     });
   });
+
   it("403 Unauthorized", async () => {
     const reader = getters.getReader();
-    const dataToUpdate = getters.getDataToUpdate();
+    const dataToDelete = getters.getDataToDelete();
     const res = await testApp
-      .put(`/authors/${dataToUpdate.id}`)
+      .delete(`/authors/${dataToDelete.id}`)
       .send({ name: "test" })
       .set("Cookie", [`${COOKIE_SESSION_KEY}=${reader.sessionId}`])
       .expect(403);
@@ -46,71 +49,40 @@ describe("PUT /authors/:id", () => {
       ok: false,
       error: {
         type: "AuthorizationError",
-        path: `/authors/${dataToUpdate.id}`,
+        path: `/authors/${dataToDelete.id}`,
         statusCode: 403,
-        message: "User is not allowed to update this author",
+        message: "User is not allowed to delete this author",
       },
     });
   });
 
-  it("400 Validation Middleware Error", async () => {
+  it("400, Validation Middleware Error", async () => {
+    const authorId = "434343";
     const staff = getters.getStaff();
-    const dataToUpdate = getters.getDataToUpdate();
+
     const res = await testApp
-      .put(`/authors/${dataToUpdate.id}`)
-      .send({})
+      .delete(`/authors/${authorId}`)
       .set("Accept", "application/json")
       .set("Cookie", [`${COOKIE_SESSION_KEY}=${staff.sessionId}`])
       .expect(400);
 
-    const parsedResult = ApiResponseSchema(AuthorThumbnailSchema).parse(
-      res.body,
-    );
+    const parsedResult = ApiResponseSchema(idFieldSchema).parse(res.body);
     expect(parsedResult).toMatchObject({
       ok: false,
       error: {
         type: "ValidationError",
-        path: `/authors/${dataToUpdate.id}`,
+        path: `/authors/${authorId}`,
         statusCode: 400,
-        message: "Author's name is required",
-      },
-    });
-  });
-
-  it("400 Validation Name not unique error", async () => {
-    const staff = getters.getStaff();
-    const dataToUpdate = getters.getDataToUpdate();
-    const seededData = getters.getDataSeeded();
-
-    //data is equals to input author but with seeded's name
-    const data = { name: seededData.name };
-
-    const res = await testApp
-      .put(`/authors/${dataToUpdate.id}`)
-      .send(data)
-      .set("Accept", "application/json")
-      .set("Cookie", [`${COOKIE_SESSION_KEY}=${staff.sessionId}`])
-      .expect(400);
-
-    const parsedResult = ApiResponseSchema(AuthorThumbnailSchema).parse(
-      res.body,
-    );
-    expect(parsedResult).toMatchObject({
-      ok: false,
-      error: {
-        type: "ValidationError",
-        path: `/authors/${dataToUpdate.id}`,
-        statusCode: 400,
-        message: "Name is already taken",
+        message: "ID is not in correct format",
       },
     });
   });
 
   it("404 Not Found", async () => {
     const requester = getters.getStaff();
-    const dataToUpdate = randomUUID();
+    const dataToDelete = randomUUID();
     const res = await testApp
-      .put(`/authors/${dataToUpdate}`)
+      .delete(`/authors/${dataToDelete}`)
       .send({ name: "test" })
       .set("Cookie", [`${COOKIE_SESSION_KEY}=${requester.sessionId}`])
       .expect(404);
@@ -122,52 +94,54 @@ describe("PUT /authors/:id", () => {
       ok: false,
       error: {
         type: "NotFoundError",
-        path: `/authors/${dataToUpdate}`,
+        path: `/authors/${dataToDelete}`,
         statusCode: 404,
         message: "Author not found",
       },
     });
   });
 
-  it("successfully updated by staff", async () => {
+  it("successfully deleted by staff", async () => {
     const staff = getters.getStaff();
-    const dataToUpdate = getters.getDataToUpdate();
+    const dataToDelete = getters.getDataToDelete();
 
-    const inputData = {
-      name: "Monke",
-    };
     const res = await testApp
-      .put(`/authors/${dataToUpdate.id}`)
-      .send(inputData)
+      .delete(`/authors/${dataToDelete.id}`)
       .set("Accept", "application/json")
       .set("Cookie", [`${COOKIE_SESSION_KEY}=${staff.sessionId}`])
       .expect(200);
 
-    const parsedResult = ApiResponseSchema(AuthorThumbnailSchema).parse(
-      res.body,
-    );
+    const parsedResult = ApiResponseSchema(idFieldSchema).parse(res.body);
     if (!parsedResult.ok) throw new Error("something went wrong");
-    expect(parsedResult.data.name).toBe(inputData.name);
+    expect(parsedResult.data).toBe(dataToDelete.id);
+
+    const novel = getters.getNovels()[0];
+    const novelRes = await testApp
+      .get(`/novels/${novel.id}`)
+      .set("Accept", "application/json")
+      .set("Cookie", [`${COOKIE_SESSION_KEY}=${staff.sessionId}`])
+      .expect(200);
+
+    const parsedNovelResult = ApiResponseSchema(NovelDetailSchema).parse(
+      novelRes.body,
+    );
+    if (!parsedNovelResult.ok) throw new Error("something went wrong");
+    expect(parsedNovelResult.data.title).toBe(novel.title);
+    expect(parsedNovelResult.data.author).toBe(null);
   });
 
-  it("successfully updated by admin", async () => {
-    const staff = getters.getStaff();
-    const dataToUpdate = getters.getDataToUpdate();
+  it("successfully deleted by admin", async () => {
+    const admin = getters.getAdmin();
+    const dataToDelete = getters.getDataToDeleteAdmin();
 
-    const inputData = {
-      name: "Chicken",
-    };
     const res = await testApp
-      .put(`/authors/${dataToUpdate.id}`)
-      .send(inputData)
+      .delete(`/authors/${dataToDelete.id}`)
       .set("Accept", "application/json")
-      .set("Cookie", [`${COOKIE_SESSION_KEY}=${staff.sessionId}`])
+      .set("Cookie", [`${COOKIE_SESSION_KEY}=${admin.sessionId}`])
       .expect(200);
 
-    const parsedResult = ApiResponseSchema(AuthorThumbnailSchema).parse(
-      res.body,
-    );
+    const parsedResult = ApiResponseSchema(idFieldSchema).parse(res.body);
     if (!parsedResult.ok) throw new Error("something went wrong");
-    expect(parsedResult.data.name).toBe(inputData.name);
+    expect(parsedResult.data).toBe(dataToDelete.id);
   });
 });

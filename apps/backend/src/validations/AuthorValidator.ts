@@ -30,9 +30,9 @@ export const AuthorQuerySchema = AuthorQueryContract.pick({
 export type AuthorQueryInput = z.input<typeof AuthorQuerySchema>;
 export type AuthorQueryOutput = z.output<typeof AuthorQuerySchema>;
 
-export const AuthorSchema = z.object({
+export const AuthorThumbnailSchema = z.object({
   id: idField,
   name: authorNameField,
 });
 
-export type AuthorType = z.infer<typeof AuthorSchema>;
+export type AuthorType = z.infer<typeof AuthorThumbnailSchema>;

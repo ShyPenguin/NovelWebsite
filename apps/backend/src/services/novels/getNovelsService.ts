@@ -5,7 +5,6 @@ import {
   NovelTrendDTO,
   NovelListDTO,
 } from "@repo/contracts/dto/novel";
-import { Paginated } from "@repo/contracts/dto/paginated";
 import { ZodType } from "zod";
 import {
   ArrayNovelDetailSchema,

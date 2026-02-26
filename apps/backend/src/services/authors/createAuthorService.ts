@@ -4,7 +4,7 @@ import { createAuthorTx } from "@/repositories/authors/create.ts";
 import { BaseError, ValidationError } from "@/utils/error.ts";
 import { requirePermission } from "@/utils/requirePermission.ts";
 import { UserSession } from "@repo/contracts/dto/auth";
-import { AuthorDTO, AuthorFormDTO } from "@repo/contracts/dto/author";
+import { AuthorThumbnailDTO, AuthorFormDTO } from "@repo/contracts/dto/author";
 
 export const createAuthorService = async ({
   form,
@@ -14,7 +14,7 @@ export const createAuthorService = async ({
   form: AuthorFormDTO;
   user: UserSession;
   tx?: DbExecTypes;
-}): Promise<AuthorDTO> => {
+}): Promise<AuthorThumbnailDTO> => {
   requirePermission({
     user,
     resource: "authors",

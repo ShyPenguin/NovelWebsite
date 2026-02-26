@@ -1,4 +1,3 @@
-import { NovelFormDTO } from "@repo/contracts/dto/novel";
 import { AuthorTableSelect } from "../../../../../src/db/schemas/authors.ts";
 import { NovelTableInsert } from "../../../../../src/db/schemas/novels.ts";
 import { createAuthorTx } from "../../../../../src/repositories/authors/create.ts";
@@ -12,6 +11,8 @@ import {
 } from "../../../../mockdata.ts";
 import data from "../../../../mockdb.json" with { type: "json" };
 import { mockCreateUserWithSessionGoogle } from "../../../factory/user/with-session.ts";
+import { createNovelWithChapters } from "../../../factory/novel-with-chapters/index.ts";
+import { ChapterTableInsert } from "../../../../../src/db/schemas/chapters.ts";
 
 export const seedBeforeAll = async () => {
   const staff = await mockCreateUserWithSessionGoogle(
@@ -44,16 +45,28 @@ export const seedBeforeAll = async () => {
     form: data.authors[0],
   });
 
-  const novelByStaff = await createNovelTx({
-    tx: testDb,
-    form: {
-      ...(data.novels[0] as NovelTableInsert),
-      authorId: author!.id,
-      translatorId: staff!.user.id,
-      status: "ONGOING",
-    },
-  });
+  const chapters = data.chapters
+    .filter((chapter) => chapter.novel_id.includes(data.novels[0].title))
+    .map((chapter) => {
+      return {
+        title: chapter.title,
+        chapterNumber: chapter.chapterNumber,
+        contentHtml: chapter.contentHtml,
+        access: chapter.access ? "paid" : "free",
+        publishedAt: new Date(chapter.publishedAt),
+      };
+    }) as Omit<ChapterTableInsert, "novelId" | "sourceDocUrl">[];
 
+  const novelWithChapters = await createNovelWithChapters({
+    tx: testDb,
+    novel: data.novels[0] as NovelTableInsert,
+    authorId: author!.id,
+    translatorId: staff!.user.id,
+    schedule: ["FRI", "MON"],
+    categories: [],
+    chapters: chapters,
+  });
+  const novelByStaff = novelWithChapters.novel;
   const novelSecondByStaff = await createNovelTx({
     tx: testDb,
     form: {
