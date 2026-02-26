@@ -1,9 +1,9 @@
-import { describe, it, expect } from "vitest";
-import z from "zod";
 import {
   AuthorQueryInput,
   AuthorQuerySchema,
-} from "../../../../src/validations/AuthorValidator.ts";
+} from "@/features/authors/author.schema.ts";
+import { describe, it, expect } from "vitest";
+import z from "zod";
 
 const query = {
   search: "wew",

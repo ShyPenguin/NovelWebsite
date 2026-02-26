@@ -1,13 +1,13 @@
 import { beforeAll, expect, describe, it } from "vitest";
 import { seedBeforeAll } from "./seed.ts";
-import { app } from "../../../../../src/app.ts";
 import request from "supertest";
-import { COOKIE_SESSION_KEY } from "../../../../../src/constants/index.ts";
-import { getChaptersTx } from "../../../../../src/repositories/chapters/getChapters.ts";
 import { ApiResponseSchema } from "@repo/contracts/api";
 import { randomUUID } from "crypto";
 import { idFieldSchema } from "@repo/contracts/schemas/id";
-import { testDb } from "../../../db/db-test.ts";
+import { app } from "@/app.ts";
+import { COOKIE_SESSION_KEY } from "@/shared/constants/index.ts";
+import { testDb } from "tests/integrated/db/db-test.ts";
+import { getChaptersTx } from "@/features/chapters/repositories/get-chapters.repository.ts";
 
 describe("DELETE /novels/:id", () => {
   let getters: Awaited<ReturnType<typeof seedBeforeAll>>;

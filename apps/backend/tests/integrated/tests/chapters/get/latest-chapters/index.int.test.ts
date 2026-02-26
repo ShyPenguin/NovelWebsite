@@ -1,8 +1,8 @@
 import { describe, it, expect, beforeAll } from "vitest";
 import request from "supertest";
-import { app } from "../../../../../../src/app.ts";
 import { ApiResponseSchema, GetNovelLatestChapters } from "@repo/contracts/api";
 import { seedBeforeAll } from "./seed.ts";
+import { app } from "@/app.ts";
 
 describe("Get chapters/allLatestChapters", () => {
   const testApp = request(app);

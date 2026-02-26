@@ -1,5 +1,5 @@
+import { pageField } from "@/shared/validations/fields.ts";
 import { describe, it, expect } from "vitest";
-import { pageField } from "../../../src/validations/fieldsNew";
 import { z } from "zod";
 
 describe("Fields", () => {

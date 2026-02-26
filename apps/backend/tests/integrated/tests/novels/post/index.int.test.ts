@@ -1,11 +1,11 @@
 import request from "supertest";
-import { app } from "../../../../../src/app.ts";
 import { beforeAll, expect, describe, it } from "vitest";
 import { seedBeforeAll } from "./seed.ts";
-import { COOKIE_SESSION_KEY } from "../../../../../src/constants/index.ts";
 import { ApiResponseSchema } from "@repo/contracts/api";
 import { NovelDetailSchema } from "@repo/contracts/schemas/novel";
 import { randomUUID } from "crypto";
+import { app } from "@/app.ts";
+import { COOKIE_SESSION_KEY } from "@/shared/constants/index.ts";
 
 describe("POST /novels", () => {
   let getters: Awaited<ReturnType<typeof seedBeforeAll>>;

@@ -1,4 +1,4 @@
-import { UserTable } from "../src/db/schemas/index.ts";
+import { UserTable } from "@/infrastructure/db/schemas/users.ts";
 
 export const userAdmin: typeof UserTable.$inferInsert = {
   username: "jawadsnovelwebsite",

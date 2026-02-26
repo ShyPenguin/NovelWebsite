@@ -1,13 +1,11 @@
-import {
-  ChapterTableInsert,
-  NovelTableInsert,
-} from "../../../../src/db/schemas/index.ts";
-import { DbExecTypes } from "../../../../src/db/type.ts";
-import { createChapterTx } from "../../../../src/repositories/chapters/create.ts";
-import { upsertNovelCategoriesTx } from "../../../../src/repositories/novelCategories/upsertNovelCategories.ts";
-import { createNovelTx } from "../../../../src/repositories/novels/create.ts";
-import { upsertNovelScheduleTx } from "../../../../src/repositories/novelSchedule/index.ts";
-import { WeekDay } from "../../../../src/services/novelSchedule/index.ts";
+import { ChapterTableInsert } from "@/infrastructure/db/schemas/chapters.ts";
+import { NovelTableInsert } from "@/infrastructure/db/schemas/novels.ts";
+import { Week } from "@/infrastructure/db/schemas/novelSchedule.ts";
+import { DbExecTypes } from "@/infrastructure/db/type.ts";
+import { createChapterTx } from "@/features/chapters/repositories/create.repository.ts";
+import { createNovelTx } from "@/features/novels/repositories/create.repository.ts";
+import { upsertNovelCategoriesTx } from "@/features/categories/repository/upsert-novel-categories.ts";
+import { upsertNovelScheduleTx } from "@/features/novels/services/upsert-novel-schedule.service.ts";
 
 export const createNovelWithChapters = async ({
   tx,
@@ -22,7 +20,7 @@ export const createNovelWithChapters = async ({
   novel: NovelTableInsert;
   authorId: string;
   translatorId: string;
-  schedule: WeekDay[];
+  schedule: Week[];
   categories: string[];
   chapters: Omit<ChapterTableInsert, "novelId" | "sourceDocUrl">[];
 }) => {

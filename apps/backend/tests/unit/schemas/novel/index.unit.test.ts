@@ -1,9 +1,9 @@
-import { describe, it, expect } from "vitest";
-import z from "zod";
 import {
   NovelQueryInput,
   NovelQuerySchema,
-} from "../../../../src/validations/NovelValidator.ts";
+} from "@/features/novels/novel.schema..ts";
+import { describe, it, expect } from "vitest";
+import z from "zod";
 
 const query = {
   search: "test",

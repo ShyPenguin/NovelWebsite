@@ -1,11 +1,11 @@
 import { beforeAll, expect, describe, it } from "vitest";
 import { seedBeforeAll } from "./seed.ts";
-import { app } from "../../../../../src/app.ts";
 import request from "supertest";
-import { COOKIE_SESSION_KEY } from "../../../../../src/constants/index.ts";
 import { ApiResponseSchema } from "@repo/contracts/api";
 import { randomUUID } from "crypto";
 import { idFieldSchema } from "@repo/contracts/schemas/id";
+import { app } from "@/app.ts";
+import { COOKIE_SESSION_KEY } from "@/shared/constants/index.ts";
 
 describe("DELETE /chapters/:id", () => {
   let getters: Awaited<ReturnType<typeof seedBeforeAll>>;

@@ -1,14 +1,14 @@
 import { describe, it, expect, beforeAll } from "vitest";
 import { seedBeforeAll } from "./seed.ts";
 import request from "supertest";
-import { app } from "../../../../../../src/app.ts";
 import { ApiResponseSchema } from "@repo/contracts/api";
 import {
   ArrayChapterThumbnailSchema,
   PaginatedChapterThumbnailSchema,
 } from "@repo/contracts/schemas/chapter";
 import { randomUUID } from "crypto";
-import { ChapterQueryInput } from "../../../../../../src/validations/ChapterValidator.ts";
+import { app } from "@/app.ts";
+import { ChapterQueryInput } from "@/features/chapters/chapter.schema.ts";
 
 describe(" GET /novels/:id/chapters", () => {
   let getters: Awaited<ReturnType<typeof seedBeforeAll>>;
@@ -68,12 +68,10 @@ describe(" GET /novels/:id/chapters", () => {
       const novel = getters.getNovel();
       const chapter = getters.getChapterLast();
 
-      const res = await testApp
-        .get(`/novels/${novel.id}/chapters`)
-        .query({
-          search: "1",
-          sort: "desc(chapterNumber)",
-        } satisfies ChapterQueryInput);
+      const res = await testApp.get(`/novels/${novel.id}/chapters`).query({
+        search: "1",
+        sort: "desc(chapterNumber)",
+      } satisfies ChapterQueryInput);
 
       const parsedResult = ApiResponseSchema(ArrayChapterThumbnailSchema).parse(
         res.body,
@@ -168,13 +166,11 @@ describe(" GET /novels/:id/chapters", () => {
     it("paginates returns empty array, from search 'bla bla bla' page 1, total 0", async () => {
       const novel = getters.getNovel();
 
-      const res = await testApp
-        .get(`/novels/${novel.id}/chapters`)
-        .query({
-          search: "bla bla bla",
-          page: 1,
-          pageSize: 30,
-        } satisfies ChapterQueryInput);
+      const res = await testApp.get(`/novels/${novel.id}/chapters`).query({
+        search: "bla bla bla",
+        page: 1,
+        pageSize: 30,
+      } satisfies ChapterQueryInput);
 
       const parsedResult = ApiResponseSchema(
         PaginatedChapterThumbnailSchema,

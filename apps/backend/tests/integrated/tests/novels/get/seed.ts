@@ -1,20 +1,15 @@
-import { createAuthorTx } from "../../../../../src/repositories/authors/create.ts";
-import {
-  createNovelTx,
-  getNovelDetailByIdTx,
-} from "../../../../../src/repositories/novels/index.ts";
-import { createUserTx } from "../../../../../src/repositories/users/create.ts";
-import { userStaff } from "../../../../mockdata.ts";
-import data from "../../../../mockdb.json" with { type: "json" };
-import { testDb } from "../../../db/db-test.ts";
-import {
-  AuthorTableSelect,
-  NovelTableInsert,
-  UserTableSelect,
-} from "../../../../../src/db/schemas/index.ts";
+import { AuthorTableSelect } from "@/infrastructure/db/schemas/authors.ts";
+import { NovelTableInsert } from "@/infrastructure/db/schemas/novels.ts";
+import { UserTableSelect } from "@/infrastructure/db/schemas/users.ts";
+import { createAuthorTx } from "@/features/authors/repositories/create.repository.ts";
+import { createUserTx } from "@/features/users/repositories/create.ts";
+import data from "tests/mockdb.json" with { type: "json" };
 import { NovelDetailDTO } from "@repo/contracts/dto/novel";
 import { NovelDetailSchema } from "@repo/contracts/schemas/novel";
-
+import { testDb } from "tests/integrated/db/db-test.ts";
+import { userStaff } from "tests/mockdata.ts";
+import { createNovelTx } from "@/features/novels/repositories/create.repository.ts";
+import { getNovelDetailByIdTx } from "@/features/novels/repositories/get-novel-by-id.repository.ts";
 const createParsedNovel = async ({
   novel,
   authorId,

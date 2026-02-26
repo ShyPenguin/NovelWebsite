@@ -1,17 +1,14 @@
 import { beforeAll, expect, describe, it } from "vitest";
 import { seedBeforeAll } from "./seed.ts";
 import request from "supertest";
-import { app } from "../../../../../src/app.ts";
-import { COOKIE_SESSION_KEY } from "../../../../../src/constants/index.ts";
 import { ChapterDetailSchema } from "@repo/contracts/schemas/chapter";
 import { ChapterDetailDTO, ChapterFormDTO } from "@repo/contracts/dto/chapter";
 import { randomUUID } from "crypto";
 import { ApiResponseSchema } from "@repo/contracts/api";
-import {
-  TEST_SOURCE_DOC_URL,
-  TEST_SOURCE_DOC_URL_SECOND,
-} from "../../../../constants/index.ts";
 import { getFormattedDate } from "@repo/contracts/utils/getFormattedDate";
+import { app } from "@/app.ts";
+import { COOKIE_SESSION_KEY } from "@/shared/constants/index.ts";
+import { TEST_SOURCE_DOC_URL } from "tests/constants/index.ts";
 
 describe("PUT /chapters/:id", () => {
   let getters: Awaited<ReturnType<typeof seedBeforeAll>>;

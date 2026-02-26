@@ -1,11 +1,9 @@
-import {
-  ChapterTableInsert,
-  NovelTableInsert,
-  UserTableInsert,
-} from "../../../../src/db/schemas/index.ts";
-import { DbExecTypes } from "../../../../src/db/type.ts";
-import { createUserTx } from "../../../../src/repositories/users/create.ts";
-import { WeekDay } from "../../../../src/services/novelSchedule/index.ts";
+import { ChapterTableInsert } from "@/infrastructure/db/schemas/chapters.ts";
+import { NovelTableInsert } from "@/infrastructure/db/schemas/novels.ts";
+import { UserTableInsert } from "@/infrastructure/db/schemas/users.ts";
+import { DbExecTypes } from "@/infrastructure/db/type.ts";
+import { createUserTx } from "@/features/users/repositories/create.ts";
+import { WeekDay } from "@/services/novelSchedule/index.ts";
 import { createNovelWithChapters } from "../novel-with-chapters/index.ts";
 
 export const createUserWithNovelChapters = async ({

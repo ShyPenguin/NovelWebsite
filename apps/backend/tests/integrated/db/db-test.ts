@@ -1,8 +1,8 @@
 import dotenv from "dotenv";
 import { randomUUID } from "crypto";
 import { drizzle } from "drizzle-orm/node-postgres";
-import { DbPoolType } from "../../../src/db/type.ts";
-import * as schema from "../../../src/db/schemas/index.ts";
+import { DbPoolType } from "../../../src/infrastructure/db/type.ts";
+import * as schema from "../../../src/infrastructure/db/schemas/index.ts";
 import { Pool } from "pg";
 import { createRedisSessionStore, SessionStore } from "./redis-test.ts";
 dotenv.config({ path: ".env.test" });

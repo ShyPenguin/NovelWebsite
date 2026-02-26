@@ -1,13 +1,13 @@
 import { beforeAll, expect, describe, it } from "vitest";
-import { seedBeforeAll } from "./seed.ts";
 import request from "supertest";
-import { app } from "../../../../../src/app.ts";
-import { COOKIE_SESSION_KEY } from "../../../../../src/constants/index.ts";
 import { ApiResponseSchema } from "@repo/contracts/api";
 import { NovelDetailSchema } from "@repo/contracts/schemas/novel";
 import { randomUUID } from "crypto";
 import { NovelFormDTO } from "@repo/contracts/dto/novel";
 import { getFormattedDate } from "@repo/contracts/utils/getFormattedDate";
+import { app } from "@/app.ts";
+import { COOKIE_SESSION_KEY } from "@/shared/constants/index.ts";
+import { seedBeforeAll } from "./seed.ts";
 
 describe("PUT /novels/:id", () => {
   let getters: Awaited<ReturnType<typeof seedBeforeAll>>;

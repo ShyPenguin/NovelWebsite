@@ -1,19 +1,17 @@
 import { NovelDetailDTO } from "@repo/contracts/dto/novel";
 import { NovelDetailSchema } from "@repo/contracts/schemas/novel";
-import { AuthorTableSelect } from "../../../../../../src/db/schemas/authors.ts";
-import {
-  UserTableSelect,
-  NovelTableInsert,
-} from "../../../../../../src/db/schemas/index.ts";
-import { createAuthorTx } from "../../../../../../src/repositories/authors/create.ts";
-import { createNovelTx } from "../../../../../../src/repositories/novels/create.ts";
-import { getNovelDetailByIdTx } from "../../../../../../src/repositories/novels/getNovelById.ts";
-import { createUserTx } from "../../../../../../src/repositories/users/create.ts";
-import { testDb } from "../../../../db/db-test.ts";
-import { userStaff } from "../../../../../mockdata.ts";
-import data from "../../../../../mockdb.json" with { type: "json" };
-import { createChapterTx } from "../../../../../../src/repositories/chapters/create.ts";
 import { getFormattedDate } from "@repo/contracts/utils/getFormattedDate";
+import { createAuthorTx } from "@/features/authors/repositories/create.repository.ts";
+import { NovelTableInsert } from "@/infrastructure/db/schemas/novels.ts";
+import { UserTableSelect } from "@/infrastructure/db/schemas/users.ts";
+import { createUserTx } from "@/features/users/repositories/create.ts";
+import { testDb } from "tests/integrated/db/db-test.ts";
+import { userStaff } from "tests/mockdata.ts";
+import { AuthorTableSelect } from "@/infrastructure/db/schemas/authors.ts";
+import data from "tests/mockdb.json" with { type: "json" };
+import { createNovelTx } from "@/features/novels/repositories/create.repository.ts";
+import { getNovelDetailByIdTx } from "@/features/novels/repositories/get-novel-by-id.repository.ts";
+import { createChapterTx } from "@/features/chapters/repositories/create.repository.ts";
 
 export const seedBeforeAll = async () => {
   const staff: UserTableSelect = await createUserTx({

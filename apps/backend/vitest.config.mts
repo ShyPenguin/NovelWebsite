@@ -12,6 +12,7 @@ export default defineConfig({
           setupFiles: [],
           alias: {
             "@/": new URL("./src/", import.meta.url).pathname,
+            "tests/": new URL("./tests/", import.meta.url).pathname,
           },
         },
       },
@@ -24,6 +25,7 @@ export default defineConfig({
           maxWorkers: 16,
           alias: {
             "@/": new URL("./src/", import.meta.url).pathname,
+            "tests/": new URL("./tests/", import.meta.url).pathname,
           },
         },
       },

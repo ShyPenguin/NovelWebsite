@@ -1,11 +1,11 @@
 import { describe, it, expect, beforeAll } from "vitest";
 import request from "supertest";
-import { app } from "../../../../../../src/app.ts";
 import { ApiResponseSchema } from "@repo/contracts/api";
 import { seedBeforeAll } from "./seed.ts";
 import { randomUUID } from "crypto";
 import { ChapterDetailSchema } from "@repo/contracts/schemas/chapter";
 import { ChapterDetailDTO } from "@repo/contracts/dto/chapter";
+import { app } from "@/app.ts";
 
 describe("Get chapters/:id", () => {
   let getters: Awaited<ReturnType<typeof seedBeforeAll>>;

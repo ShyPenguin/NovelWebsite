@@ -1,6 +1,9 @@
 import { beforeEach, afterEach } from "vitest";
 import { sql } from "drizzle-orm";
-import { DbClientType, DbPoolType } from "../../../src/db/type.ts";
+import {
+  DbClientType,
+  DbPoolType,
+} from "../../../src/infrastructure/db/type.ts";
 
 let tx: DbClientType | DbPoolType | null;
 

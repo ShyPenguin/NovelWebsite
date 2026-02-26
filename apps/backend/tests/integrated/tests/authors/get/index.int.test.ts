@@ -1,7 +1,6 @@
 import { describe, it, expect, beforeAll } from "vitest";
 import { seedBeforeAll } from "./seed.ts";
 import request from "supertest";
-import { app } from "../../../../../src/app.ts";
 import { ApiResponseSchema } from "@repo/contracts/api";
 import { randomUUID } from "crypto";
 import {
@@ -9,7 +8,8 @@ import {
   AuthorThumbnailSchema,
   PaginatedAuthorThumbnailSchema,
 } from "@repo/contracts/schemas/author";
-import { AuthorQueryInput } from "../../../../../src/validations/AuthorValidator.ts";
+import { app } from "@/app.ts";
+import { AuthorQueryInput } from "@/features/authors/author.schema.ts";
 
 describe("GET /authors", () => {
   let getters: Awaited<ReturnType<typeof seedBeforeAll>>;

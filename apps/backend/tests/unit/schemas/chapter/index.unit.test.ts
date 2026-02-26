@@ -1,8 +1,9 @@
-import { describe, it, expect } from "vitest";
 import {
   ChapterQueryInput,
   ChapterQuerySchema,
-} from "../../../../src/validations/ChapterValidator.ts";
+} from "@/features/chapters/chapter.schema.ts";
+import { describe, it, expect } from "vitest";
+
 import z from "zod";
 
 const query = {

@@ -1,14 +1,12 @@
-import { db } from "../src/db/index.ts";
-import {
-  ChapterTableInsert,
-  NovelTableInsert,
-} from "../src/db/schemas/index.ts";
-import { createAuthorTx } from "../src/repositories/authors/create.ts";
-import { createCategoryTx } from "../src/repositories/categories/create.ts";
-import { createUserTx } from "../src/repositories/users/create.ts";
+import { db } from "@/infrastructure/db/index.ts";
+import { ChapterTableInsert } from "@/infrastructure/db/schemas/chapters.ts";
+import { NovelTableInsert } from "@/infrastructure/db/schemas/novels.ts";
+import { createAuthorTx } from "@/features/authors/repositories/create.repository.ts";
+import { createUserTx } from "@/features/users/repositories/create.ts";
 import { createNovelWithChapters } from "./integrated/factory/novel-with-chapters/index.ts";
 import { userAdmin, userStaff, userStaff2 } from "./mockdata.ts";
 import data from "./mockdb.json" with { type: "json" };
+import { createCategoryTx } from "@/features/categories/repository/create.ts";
 
 export const seed = async () => {
   console.log("seed");

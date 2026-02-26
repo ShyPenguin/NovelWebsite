@@ -1,13 +1,13 @@
-import { UserTable } from "../../../../src/db/schemas/users.ts";
-import { randomBytes } from "crypto";
-import { SESSION_EXPIRATION_SECONDS } from "../../../../src/constants/index.ts";
-import { createUserOauthAccountTx } from "../../../../src/repositories/userOauthAccount/create.ts";
-import { redisDb, testDb } from "../../db/db-test.ts";
-import { OAuthProvider } from "../../../../src/db/schemas/oauthProviders.ts";
-import { createUserTx } from "../../../../src/repositories/users/create.ts";
-import { DbPoolType } from "../../../../src/db/type.ts";
-import { SessionStore } from "../../db/redis-test.ts";
+import { SESSION_EXPIRATION_SECONDS } from "@/shared/constants/index.ts";
+import { OAuthProvider } from "@/infrastructure/db/schemas/oauthProviders.ts";
+import { UserTable } from "@/infrastructure/db/schemas/users.ts";
+import { DbPoolType } from "@/infrastructure/db/type.ts";
+import { createUserOauthAccountTx } from "@/features/auth/repositories/create.repository.ts";
+import { createUserTx } from "@/features/users/repositories/create.ts";
 import { sessionSchema } from "@repo/contracts/schemas/auth";
+import { randomBytes } from "crypto";
+import { testDb, redisDb } from "tests/integrated/db/db-test.ts";
+import { SessionStore } from "tests/integrated/db/redis-test.ts";
 
 export const mockCreateUserWithSession = (provider: OAuthProvider) => {
   return async (

@@ -12,4 +12,5 @@ export {
   novelStatusField,
   novelStatusQuery,
   novelStatusQueryField,
+  week,
 } from "../../../factories/novel/fields";

@@ -1,25 +1,23 @@
-import {
-  AuthorTableSelect,
-  NovelTableInsert,
-} from "../../../../../src/db/schemas/index.ts";
-import { createAuthorTx } from "../../../../../src/repositories/authors/create.ts";
-import {
-  readerFirst,
-  userAdmin,
-  userStaff,
-  userStaff2,
-} from "../../../../mockdata.ts";
-import { redisDb, testDb } from "../../../db/db-test.ts";
-import { mockCreateUserWithSessionGoogle } from "../../../factory/user/with-session.ts";
-import data from "../../../../mockdb.json" with { type: "json" };
-import { createNovelTx } from "../../../../../src/repositories/novels/index.ts";
+import { AuthorTableSelect } from "@/infrastructure/db/schemas/authors.ts";
+import { NovelTableInsert } from "@/infrastructure/db/schemas/novels.ts";
+import { createAuthorTx } from "@/features/authors/repositories/create.repository.ts";
+import { createChapterService } from "@/features/chapters/services/create-chapter.service.ts";
 import { ChapterFormDTO } from "@repo/contracts/dto/chapter";
-import { createChapterService } from "../../../../../src/services/chapters/createChapterService.ts";
 import {
   TEST_SOURCE_DOC_URL,
   TEST_SOURCE_DOC_URL_SECOND,
-} from "../../../../constants/index.ts";
+} from "tests/constants/index.ts";
+import { testDb, redisDb } from "tests/integrated/db/db-test.ts";
+import { mockCreateUserWithSessionGoogle } from "tests/integrated/factory/user/with-session.ts";
+import {
+  userStaff,
+  userAdmin,
+  readerFirst,
+  userStaff2,
+} from "tests/mockdata.ts";
+import data from "tests/mockdb.json" with { type: "json" };
 import { getFormattedDate } from "@repo/contracts/utils/getFormattedDate";
+import { createNovelTx } from "@/features/novels/repositories/create.repository.ts";
 
 export const seedBeforeAll = async () => {
   const staff = await mockCreateUserWithSessionGoogle(

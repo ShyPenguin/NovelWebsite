@@ -1,6 +1,7 @@
-import { createAuthorTx } from "../../../../../src/repositories/authors/create.ts";
-import data from "../../../../mockdb.json" with { type: "json" };
-import { testDb } from "../../../db/db-test.ts";
+import { createAuthorTx } from "@/features/authors/repositories/create.repository.ts";
+import { testDb } from "tests/integrated/db/db-test.ts";
+import data from "tests/mockdb.json" with { type: "json" };
+
 export const seedBeforeAll = async () => {
   // 14 total in Authors
   const sortedAuthors = data.authors.sort((a, b) =>

@@ -1,19 +1,17 @@
-import {
-  AuthorTableSelect,
-  ChapterTableInsert,
-  NovelTableInsert,
-} from "../../../../../src/db/schemas/index.ts";
-import { createAuthorTx } from "../../../../../src/repositories/authors/create.ts";
+import { AuthorTableSelect } from "@/infrastructure/db/schemas/authors.ts";
+import { ChapterTableInsert } from "@/infrastructure/db/schemas/chapters.ts";
+import { NovelTableInsert } from "@/infrastructure/db/schemas/novels.ts";
+import { createAuthorTx } from "@/features/authors/repositories/create.repository.ts";
+import { testDb, redisDb } from "tests/integrated/db/db-test.ts";
+import { createNovelWithChapters } from "tests/integrated/factory/novel-with-chapters/index.ts";
+import { mockCreateUserWithSessionGoogle } from "tests/integrated/factory/user/with-session.ts";
 import {
   userStaff,
   userAdmin,
   readerFirst,
   userStaff2,
-} from "../../../../mockdata.ts";
-import { testDb, redisDb } from "../../../db/db-test.ts";
-import { mockCreateUserWithSessionGoogle } from "../../../factory/user/with-session.ts";
-import data from "../../../../mockdb.json" with { type: "json" };
-import { createNovelWithChapters } from "../../../factory/novel-with-chapters/index.ts";
+} from "tests/mockdata.ts";
+import data from "tests/mockdb.json" with { type: "json" };
 
 export const seedBeforeAll = async () => {
   const staff = await mockCreateUserWithSessionGoogle(

@@ -2,10 +2,10 @@ import { describe, it, expect, beforeAll } from "vitest";
 import { seedBeforeAll } from "./seed.ts";
 import request from "supertest";
 import { ApiResponseSchema } from "@repo/contracts/api";
-import { app } from "../../../../../src/app.ts";
-import { COOKIE_SESSION_KEY } from "../../../../../src/constants/index.ts";
 import { ChapterPreviewSchema } from "@repo/contracts/schemas/chapter";
 import { ChapterPreviewDTO } from "@repo/contracts/dto/chapter";
+import { app } from "@/app.ts";
+import { COOKIE_SESSION_KEY } from "@/shared/constants/index.ts";
 
 describe(" POST /novels/:id/chapters/preview", () => {
   let getters: Awaited<ReturnType<typeof seedBeforeAll>>;
