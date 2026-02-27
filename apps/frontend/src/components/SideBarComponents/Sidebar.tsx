@@ -5,6 +5,7 @@ import UserIcon from "../../assets/icons/UserIcon";
 import { DiscordLink } from "../../constants";
 import { useSidebarOpen } from "../../stores/AppContext";
 import { ThemeButton } from "../ThemeButton";
+import { AUTHOR_SEARCH_DEFAULT } from "@/schemas/authors";
 
 function Sidebar() {
   const { setSideBarOpen } = useSidebarOpen();
@@ -28,11 +29,12 @@ function Sidebar() {
           />
           <SideItem icon={NovelIcon}>
             <Link
-              to="/about"
+              to="/authors"
+              search={AUTHOR_SEARCH_DEFAULT}
               className="[&.active]:font-bold text-inherit text-end py-2 px-4"
               onClick={() => setSideBarOpen(false)}
             >
-              About
+              Author
             </Link>
           </SideItem>
 

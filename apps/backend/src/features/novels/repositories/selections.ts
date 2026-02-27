@@ -1,7 +1,7 @@
 import { eq, sql } from "drizzle-orm";
 import {
   NovelDetailDTO,
-  NovelPosterDTO,
+  NovelAuthDTO,
   NovelSelectDTO,
   NovelThumbnailDTO,
   NovelTrendDTO,
@@ -48,6 +48,10 @@ export const novelSelectMap = {
     title: NovelTable.title,
     description: NovelTable.description,
     coverImageUrl: NovelTable.coverImageUrl,
+    translator: {
+      id: UserTable.id,
+      name: UserTable.name,
+    },
   } satisfies Record<keyof NovelThumbnailDTO, unknown>,
   trend: {
     id: NovelTable.id,
@@ -55,12 +59,11 @@ export const novelSelectMap = {
     coverImageUrl: NovelTable.coverImageUrl,
     totalChapters: getTotalChapter,
   } satisfies Record<keyof NovelTrendDTO, unknown>,
-  poster: {
+  auth: {
     id: NovelTable.id,
-    title: NovelTable.title,
     translator: {
       id: UserTable.id,
       name: UserTable.name,
     },
-  } satisfies Record<keyof NovelPosterDTO, unknown>,
+  } satisfies Record<keyof NovelAuthDTO, unknown>,
 } as const satisfies Record<NovelSelectDTO, unknown>;

@@ -1,6 +1,6 @@
 import { UserSession } from "@repo/contracts/dto/auth";
 import { AuthorizationError } from "../errors/index.ts";
-import { hasPermission, Permissions } from "@repo/contracts/auth-abac";
+import { hasPermission, Permissions } from "@repo/contracts/auth/permissions";
 
 export function requirePermission<Resource extends keyof Permissions>({
   user,

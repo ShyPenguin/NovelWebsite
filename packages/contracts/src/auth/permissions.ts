@@ -1,7 +1,7 @@
 import { UserRole, UserSession } from "../dto/auth";
 import { AuthorThumbnailDTO } from "../dto/author";
-import { ChapterPosterDTO } from "../dto/chapter";
-import { NovelDetailDTO, NovelPosterDTO } from "../dto/novel";
+import { ChapterAuthDTO } from "../dto/chapter";
+import { NovelDetailDTO, NovelAuthDTO } from "../dto/novel";
 
 export type Action = "view" | "delete" | "create" | "update" | "preview";
 
@@ -19,12 +19,12 @@ type RolesWithPermissions = {
 
 export type Permissions = {
   novels: {
-    dataType: NovelPosterDTO;
+    dataType: NovelAuthDTO;
     action: Exclude<Action, "preview">;
   };
   chapters: {
     // Can do something like Pick<Todo, "userId"> to get just the rows you use
-    dataType: ChapterPosterDTO;
+    dataType: ChapterAuthDTO;
     action: Action;
   };
   authors: {

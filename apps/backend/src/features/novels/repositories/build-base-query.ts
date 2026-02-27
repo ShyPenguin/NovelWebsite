@@ -25,13 +25,13 @@ export const buildNovelsBaseQuery = <T extends NovelSelectDTO>({
         .leftJoin(AuthorTable, eq(NovelTable.authorId, AuthorTable.id))
         .leftJoin(UserTable, eq(NovelTable.translatorId, UserTable.id));
     }
-    case "poster": {
+    case "thumbnail":
+    case "auth": {
       return tx
         .select(select)
         .from(NovelTable)
         .leftJoin(UserTable, eq(NovelTable.translatorId, UserTable.id));
     }
-    case "thumbnail":
     case "trend": {
       return tx.select(select).from(NovelTable);
     }

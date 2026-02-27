@@ -158,7 +158,7 @@
   }
 
   .container {
-    @apply w-full mx-auto;
+    @apply h-full w-full mx-auto;
   }
 
   .icon-button {

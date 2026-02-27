@@ -1,6 +1,6 @@
 import {
   NovelDetailDTO,
-  NovelPosterDTO,
+  NovelAuthDTO,
   NovelThumbnailDTO,
   NovelTrendDTO,
   NovelListDTO,
@@ -8,11 +8,11 @@ import {
 import { ZodType } from "zod";
 import {
   ArrayNovelDetailSchema,
-  ArrayNovelPosterSchema,
+  ArrayNovelAuthSchema,
   ArrayNovelThumbnailSchema,
   ArrayNovelTrendSchema,
   PaginatedNovelDetailSchema,
-  PaginatedNovelPosterSchema,
+  PaginatedNovelAuthSchema,
   PaginatedNovelThumbnailSchema,
   PaginatedNovelTrendSchema,
 } from "@repo/contracts/schemas/novel";
@@ -35,7 +35,7 @@ type NovelDTOMap = {
   detail: NovelDetailDTO[];
   trend: NovelTrendDTO[];
   thumbnail: NovelThumbnailDTO[];
-  poster: NovelPosterDTO[];
+  auth: NovelAuthDTO[];
 };
 
 type BaseArgs = {
@@ -108,15 +108,15 @@ export const getNovelsTrendPaginatedService = getNovelsServiceFactory({
 });
 
 // Trends
-export const getNovelsPosterService = getNovelsServiceFactory({
-  type: "poster",
+export const getNovelsAuthService = getNovelsServiceFactory({
+  type: "auth",
   paginated: false,
-  schema: ArrayNovelPosterSchema,
+  schema: ArrayNovelAuthSchema,
 });
-export const getNovelsPosterPaginatedService = getNovelsServiceFactory({
-  type: "poster",
+export const getNovelsAuthPaginatedService = getNovelsServiceFactory({
+  type: "auth",
   paginated: true,
-  schema: PaginatedNovelPosterSchema,
+  schema: PaginatedNovelAuthSchema,
 });
 
 // Details
@@ -144,8 +144,8 @@ export const GetNovelsServices = {
     list: getNovelsTrendService,
     paginated: getNovelsTrendPaginatedService,
   },
-  poster: {
-    list: getNovelsPosterService,
-    paginated: getNovelsPosterPaginatedService,
+  auth: {
+    list: getNovelsAuthService,
+    paginated: getNovelsAuthPaginatedService,
   },
 } satisfies GetServiceList<NovelListDTO>;

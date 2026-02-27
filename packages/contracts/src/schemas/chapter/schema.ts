@@ -2,7 +2,7 @@ import { z } from "zod";
 import { chapterAccessField } from "../../factories/chapter/fields";
 import {
   ChapterDetailFactory,
-  ChapterPosterFactory,
+  ChapterAuthFactory,
   chapterSortWithDirectionField,
   ChapterThumbnailFactory,
 } from "../../factories/chapter";
@@ -10,7 +10,7 @@ import {
 // READ
 export const ChapterDetailSchema = ChapterDetailFactory.getSchema();
 export const ChapterThumbnailSchema = ChapterThumbnailFactory.getSchema();
-export const ChapterPosterSchema = ChapterPosterFactory.getSchema();
+export const ChapterAuthSchema = ChapterAuthFactory.getSchema();
 
 // READ - ARRAY AND PAGE
 export const PaginatedChapterThumbnailSchema =

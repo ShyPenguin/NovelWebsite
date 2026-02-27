@@ -7,6 +7,7 @@ import { useScrollHide } from "../hooks/useScrollHide";
 import { useSidebarOpen } from "../stores/AppContext";
 import { ProfileSearchbar } from "../components/ProfileSearchbarComponents/ProfileSearchbar";
 import { NOVEL_SEARCH_DEFAULT } from "../schemas/novels";
+import { AUTHOR_SEARCH_DEFAULT } from "@/schemas/authors";
 
 function Navbar() {
   const { setSideBarOpen } = useSidebarOpen();
@@ -28,11 +29,15 @@ function Navbar() {
           <Link to="/" className="nav-link">
             Home
           </Link>
-          <Link to="/about" className="nav-link">
-            About
-          </Link>
           <Link to="/novels" className="nav-link" search={NOVEL_SEARCH_DEFAULT}>
             Novels
+          </Link>
+          <Link
+            to="/authors"
+            className="nav-link"
+            search={AUTHOR_SEARCH_DEFAULT}
+          >
+            Authors
           </Link>
           <div className="py-1">
             <ThemeButton className="icon-button pt-4 pl-2" />

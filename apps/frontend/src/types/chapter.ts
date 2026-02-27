@@ -17,7 +17,7 @@ export type ChapterUpdateData = {
 
 export type ChapterResponseMap = {
   detail: ChapterDetailDTO[];
-  thumbnails: ChapterThumbnailDTO[];
+  thumbnail: ChapterThumbnailDTO[];
 };
 
 export type FetchChaptersReturn<

@@ -43,7 +43,10 @@ export const Content = ({ novel }: { novel: NovelDetailDTO }) => {
           </div>
           <div className="flex w-full max-w-103.25 lg:max-w-full ">
             <ProtectedLink
-              allowedRoles={["admin", "staff"]}
+              permissionArgs={{
+                resource: "chapters",
+                action: "create",
+              }}
               to="/novels/$novelId/chapters/create"
               params={{ novelId: novel.id }}
               className="full-button bg-secondary dark:bg-secondary-black dark:text-white"

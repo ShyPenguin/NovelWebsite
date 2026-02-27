@@ -12,7 +12,7 @@ import { memo } from "react";
 const MemoizedLoginModal = memo(LoginModal);
 const MemoizedNavbar = memo(Navbar);
 const MemoizedFooter = memo(() => (
-  <div className="absolute bottom-0 flex-center w-full">
+  <div className="flex-center w-full">
     <Footer />
   </div>
 ));
@@ -28,11 +28,11 @@ function App() {
   useAuthUIEffects();
   return (
     <div
-      className={`${theme ? "" : "dark"} min-h-screen flex size-full bg-white text-black dark:text-white dark:bg-primary-black font-montserrat relative overflow-hidden`}
+      className={`${theme ? "" : "dark"} min-h-screen flex flex-col size-full bg-white text-black dark:text-white dark:bg-primary-black font-montserrat overflow-hidden`}
     >
       <MemoizedNavbar />
       <SidebarModal />
-      <div className="pt-17.5 pb-25 text-inherit dark:text-inherit bg-inherit dark:bg-inherit w-full h-full">
+      <div className="flex-1 pt-17.5 text-inherit dark:text-inherit bg-inherit dark:bg-inherit w-full h-full">
         <Outlet />
       </div>
       <MemoizedFooter />

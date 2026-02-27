@@ -23,10 +23,8 @@ export const buildChaptersBaseQuery = ({
         .leftJoin(NovelTable, eq(NovelTable.id, chapterAlias.novelId))
         .leftJoin(UserTable, eq(NovelTable.translatorId, UserTable.id));
     }
-    case "thumbnail": {
-      return tx.select(select).from(ChapterTable);
-    }
-    case "poster": {
+    case "thumbnail":
+    case "auth": {
       return tx
         .select(select)
         .from(ChapterTable)

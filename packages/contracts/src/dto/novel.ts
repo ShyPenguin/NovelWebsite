@@ -2,25 +2,25 @@ import { z } from "zod";
 import {
   NovelDetailSchema,
   NovelFormSchema,
-  NovelPosterSchema,
+  NovelAuthSchema,
   NovelQueryContract,
   NovelThumbnailSchema,
   NovelTrendSchema,
 } from "../schemas/novel/schema";
 
 //TYPES OF DATA TO READ
-export type NovelSelectDTO = "detail" | "thumbnail" | "trend" | "poster";
+export type NovelSelectDTO = "detail" | "thumbnail" | "trend" | "auth";
 //READ
 export type NovelDetailDTO = z.infer<typeof NovelDetailSchema>;
 export type NovelDetailEncodeDTO = z.input<typeof NovelDetailSchema>;
 export type NovelThumbnailDTO = z.infer<typeof NovelThumbnailSchema>;
 export type NovelTrendDTO = z.infer<typeof NovelTrendSchema>;
-export type NovelPosterDTO = z.infer<typeof NovelPosterSchema>;
+export type NovelAuthDTO = z.infer<typeof NovelAuthSchema>;
 
 // LISTABLE TYPES (ARRAY OR PAGINATION)
 export type NovelListDTO = Extract<
   NovelSelectDTO,
-  "thumbnail" | "detail" | "trend" | "poster"
+  "thumbnail" | "detail" | "trend" | "auth"
 >;
 // QUERY
 export type NovelQueryContractDTO = z.infer<typeof NovelQueryContract>;

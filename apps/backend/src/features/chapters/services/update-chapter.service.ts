@@ -14,7 +14,7 @@ import { DbClientType, DbPoolType } from "@/infrastructure/db/type.ts";
 import { UserSession } from "@repo/contracts/dto/auth";
 import { requirePermission } from "@/shared/utils/require-permission.ts";
 import {
-  getChapterPosterByIdTx,
+  getChapterAuthByIdTx,
   getChapterDetailByIdTx,
 } from "../repositories/get-chapter-by-id.repository.ts";
 import { updateChapterTx } from "../repositories/update.repository.ts";
@@ -36,7 +36,7 @@ export const updateChapterService = async ({
 
   try {
     const result = await tx.transaction(async (trx) => {
-      const chapter = await getChapterPosterByIdTx({
+      const chapter = await getChapterAuthByIdTx({
         tx: trx,
         id,
       });

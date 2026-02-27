@@ -1,13 +1,10 @@
 import { Link, useNavigate } from "@tanstack/react-router";
 import { formatTimeAgo } from "../../utils";
 import Pencil from "../../assets/icons/Pencil";
-import { useQuery } from "@tanstack/react-query";
-import { queryAuthOption } from "../../api/auth/auth";
 import { DeleteChapterButton } from "../../layouts/chapters/mutate/DeleteChapterButton";
 import type { ChapterThumbnailDTO } from "@repo/contracts/dto/chapter";
 import type { NovelDetailDTO } from "@repo/contracts/dto/novel";
-
-const roles = ["staff", "admin"];
+import { Can } from "../Can";
 
 export const ChapterThumbnail = ({
   id,
@@ -15,10 +12,13 @@ export const ChapterThumbnail = ({
   chapterNumber,
   updatedAt,
   novelId,
-}: Pick<ChapterThumbnailDTO, "id" | "title" | "chapterNumber" | "updatedAt"> & {
+  translator,
+}: Pick<
+  ChapterThumbnailDTO,
+  "id" | "title" | "chapterNumber" | "updatedAt" | "translator"
+> & {
   novelId: NovelDetailDTO["id"];
 }) => {
-  const { isSuccess, data } = useQuery(queryAuthOption());
   const navigate = useNavigate();
   return (
     <li
@@ -39,8 +39,17 @@ export const ChapterThumbnail = ({
           </span>
         </div>
       </div>
-      {isSuccess && data && roles.includes(data.role) && (
-        <div className="flex gap-2" onClick={(e) => e.stopPropagation()}>
+
+      <div className="flex gap-2" onClick={(e) => e.stopPropagation()}>
+        <Can
+          resource="chapters"
+          action={"update"}
+          data={{
+            id,
+            novelId,
+            translator,
+          }}
+        >
           <Link
             to="/novels/$novelId/chapters/$chapterId/edit"
             params={{ novelId: novelId, chapterId: id }}
@@ -48,14 +57,24 @@ export const ChapterThumbnail = ({
           >
             <Pencil className="w-5 h-5" />
           </Link>
+        </Can>
+        <Can
+          resource="chapters"
+          action={"update"}
+          data={{
+            id,
+            novelId,
+            translator,
+          }}
+        >
           <DeleteChapterButton
             id={id}
             title={title}
             chapterNumber={chapterNumber}
             novelId={novelId}
           />
-        </div>
-      )}
+        </Can>
+      </div>
     </li>
   );
 };

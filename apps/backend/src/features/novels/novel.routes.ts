@@ -26,12 +26,12 @@ novelRoutes.get(
   asyncHandler(getNovelsController({ type: "detail" })),
 );
 novelRoutes.get(
-  "/thumbnails",
+  "/thumbnail",
   validateMiddleware(NovelQuerySchema, "query"),
   asyncHandler(getNovelsController({ type: "thumbnail" })),
 );
 novelRoutes.get(
-  "/trends",
+  "/trend",
   validateMiddleware(NovelQuerySchema, "query"),
   asyncHandler(getNovelsController({ type: "trend" })),
 );

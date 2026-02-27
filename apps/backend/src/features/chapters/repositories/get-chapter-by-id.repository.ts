@@ -2,13 +2,13 @@ import { eq } from "drizzle-orm";
 import {
   ChapterDetailDTO,
   ChapterDetailEncodeDTO,
-  ChapterPosterDTO,
+  ChapterAuthDTO,
   ChapterSelectDTO,
   ChapterThumbnailDTO,
 } from "@repo/contracts/dto/chapter";
 import {
   ChapterDetailSchema,
-  ChapterPosterSchema,
+  ChapterAuthSchema,
   ChapterThumbnailSchema,
 } from "@repo/contracts/schemas/chapter";
 import { ZodType } from "zod";
@@ -21,7 +21,7 @@ import { chapterAlias } from "@/shared/utils/databaseAlises.ts";
 type ChapterDTOMap = {
   thumbnail: ChapterThumbnailDTO;
   detail: ChapterDetailEncodeDTO;
-  poster: ChapterPosterDTO;
+  auth: ChapterAuthDTO;
 };
 
 export const getChapterByIdFactory = <T extends ChapterSelectDTO>({
@@ -55,9 +55,9 @@ export const getChapterDetailByIdTx = getChapterByIdFactory({
   schema: ChapterDetailSchema,
 });
 
-export const getChapterPosterByIdTx = getChapterByIdFactory({
-  type: "poster",
-  schema: ChapterPosterSchema,
+export const getChapterAuthByIdTx = getChapterByIdFactory({
+  type: "auth",
+  schema: ChapterAuthSchema,
 });
 
 export const getChapterThumbnailByIdTx = getChapterByIdFactory({

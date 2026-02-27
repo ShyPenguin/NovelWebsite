@@ -70,7 +70,10 @@ const NovelCard = ({ novel }: { novel: NovelDetailDTO }) => {
           <p className="line-clamp-3 text-[14px]">{novel.description}</p>
           <div onClick={(e) => e.stopPropagation()}>
             <ProtectedLink
-              allowedRoles={["admin", "staff"]}
+              permissionArgs={{
+                resource: "novels",
+                action: "update",
+              }}
               to="/novels/$novelId"
               params={{ novelId: novel.id }}
               className="absolute top-0 left-0"

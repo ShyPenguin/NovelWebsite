@@ -1,21 +1,4 @@
-import { INTERVAL_24_HRS } from "../../constants";
 import { keepPreviousData, queryOptions } from "@tanstack/react-query";
-import type {
-  FetchNovelsReturn,
-  NovelThumbnail,
-  NovelTrend,
-  FetchType,
-  NovelResponseMap,
-  Paginated,
-} from "../../types";
-import { determineNovelRoute } from "../../utils";
-import { novelUrl } from "./url";
-import type { FullResponseMap } from "../../types/responseTypes";
-import type {
-  NovelSearchInput,
-  NovelSearchPaginated,
-  NovelSearchType,
-} from "../../schemas/novels";
 import type { NovelDetailDTO } from "@repo/contracts/dto/novel";
 import type { ZodType } from "zod";
 import {
@@ -25,6 +8,23 @@ import {
   PaginatedNovelDetailSchema,
 } from "@repo/contracts/schemas/novel";
 import { ApiResponseSchema } from "@repo/contracts/api";
+import { INTERVAL_24_HRS } from "@/constants";
+import type {
+  NovelSearchPaginated,
+  NovelSearchInput,
+  NovelSearchType,
+} from "@/schemas/novels";
+import type {
+  NovelResponseMap,
+  FetchType,
+  FetchNovelsReturn,
+  NovelThumbnail,
+  NovelTrend,
+  Paginated,
+} from "@/types";
+import type { FullResponseMap } from "@/types/responseTypes";
+import { determineNovelRoute } from "@/utils";
+import { novelUrl } from "./url";
 
 export const fetchNovels = <
   T extends keyof FullResponseMap<NovelResponseMap>,
@@ -75,41 +75,41 @@ export const fetchNovels = <
   };
 
 const fetchNovelList = fetchNovels({
-  type: "all",
+  type: "detail",
   paginated: false,
   schema: ArrayNovelDetailSchema,
 });
 const fetchNovelListThumbnails = fetchNovels({
-  type: "thumbnails",
+  type: "thumbnail",
   paginated: false,
   schema: ArrayNovelThumbnailSchema,
 });
 const fetchNovelListTrends = fetchNovels({
-  type: "trends",
+  type: "trend",
   paginated: false,
   schema: ArrayNovelTrendSchema,
 });
 const fetchNovelPaginated = fetchNovels({
-  type: "paginated.all",
+  type: "paginated.detail",
   paginated: true,
   schema: PaginatedNovelDetailSchema,
 });
 
 export const novelListThumbnailsQuery = () =>
   queryOptions<NovelThumbnail[]>({
-    queryKey: ["novels", "thumbnails"],
+    queryKey: ["novels", "thumbnail"],
     queryFn: () => fetchNovelListThumbnails({ withQuery: false }),
     staleTime: INTERVAL_24_HRS,
   });
 
 export const novelListTrendsQuery = () =>
   queryOptions<NovelTrend[]>({
-    queryKey: ["novels", "trends"],
+    queryKey: ["novels", "trend"],
     queryFn: () => fetchNovelListTrends({ withQuery: false }),
     staleTime: INTERVAL_24_HRS,
   });
 
-export const novelsAll = () =>
+export const novelsDetail = () =>
   queryOptions<NovelDetailDTO[]>({
     queryKey: ["novels"],
     queryFn: () => fetchNovelList({ withQuery: false }),

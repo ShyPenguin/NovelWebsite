@@ -1,9 +1,5 @@
 import { infiniteQueryOptions, queryOptions } from "@tanstack/react-query";
-import { BackendApiLink } from "../../constants";
-import type { FetchType } from "../../types";
-import type { AuthorResponseMap, FetchAuthorsReturn } from "../../types/author";
-import { type Paginated } from "../../types";
-import type { z, ZodType } from "zod";
+import type { ZodType } from "zod";
 import {
   ArrayAuthorThumbnailSchema,
   PaginatedAuthorThumbnailSchema,
@@ -12,6 +8,9 @@ import { ApiResponseSchema } from "@repo/contracts/api";
 import type { AuthorThumbnailDTO } from "@repo/contracts/dto/author";
 import type { FullResponseMap } from "@/types/responseTypes";
 import type { AuthorSearchType } from "@/schemas/authors";
+import { BackendApiLink } from "@/constants";
+import type { FetchType, Paginated } from "@/types";
+import type { AuthorResponseMap, FetchAuthorsReturn } from "@/types/author";
 const urlRoute = "authors";
 
 export const fetchAuthors = <
@@ -29,6 +28,7 @@ export const fetchAuthors = <
   async function (
     params: FetchType<AuthorSearchType>,
   ): Promise<FetchAuthorsReturn<T>> {
+    console.log("at fetch authors");
     let url = `${BackendApiLink}/${urlRoute}`;
 
     if (params.withQuery) {
@@ -36,8 +36,6 @@ export const fetchAuthors = <
 
       if (search) {
         url += `?search=${search}`;
-
-        console.log(params.data);
       }
       if (page && paginated) {
         url += `${search ? "&" : "?"}page=${page}`;
@@ -53,25 +51,38 @@ export const fetchAuthors = <
     return parsedResult.data as FetchAuthorsReturn<T>;
   };
 
-const fetchAuthorsAll = fetchAuthors({
-  type: "detail",
+const fetchAuthorsThumbnail = fetchAuthors({
+  type: "thumbnail",
   paginated: false,
   schema: ArrayAuthorThumbnailSchema,
 });
 
-const fetchAuthorAllPaginated = fetchAuthors({
-  type: "paginated.detail",
+const fetchAuthorThumbnailPaginated = fetchAuthors({
+  type: "paginated.thumbnail",
   paginated: true,
   schema: PaginatedAuthorThumbnailSchema,
 });
 
-export const authorsQueryOptions = () =>
+export const authorsQueryOption = () =>
   queryOptions<AuthorThumbnailDTO[]>({
     queryKey: ["authors"],
-    queryFn: () => fetchAuthorsAll({ withQuery: false }),
-    staleTime: 6 * 60 * 60 * 1000, // Consider chapter list fresh for 6 hour
+    queryFn: () => fetchAuthorsThumbnail({ withQuery: false }),
+    staleTime: 6 * 60 * 60 * 1000, // 6 hour
   });
 
+export const authorsPaginatedQueryOption = ({
+  search,
+  page,
+}: AuthorSearchType) =>
+  queryOptions({
+    queryKey: ["authors", { search, page }],
+    queryFn: () =>
+      fetchAuthorThumbnailPaginated({
+        withQuery: true,
+        data: { search, page },
+      }),
+    staleTime: 6 * 60 * 60 * 1000, // 6 hour
+  });
 export const authorsInfiniteQueryOption = ({
   search,
 }: Omit<AuthorSearchType, "page">) =>
@@ -79,7 +90,7 @@ export const authorsInfiniteQueryOption = ({
     queryKey: ["authors", "infinite", search],
     queryFn: async ({ pageParam = 1 }) => {
       const page = typeof pageParam === "number" ? pageParam : 1;
-      return await fetchAuthorAllPaginated({
+      return await fetchAuthorThumbnailPaginated({
         withQuery: true,
         data: { search: search, page: page },
       });

@@ -7,7 +7,7 @@ import {
 import { NotFoundError } from "@/shared/errors/index.ts";
 import { requirePermission } from "@/shared/utils/require-permission.ts";
 import { UserSession } from "@repo/contracts/dto/auth";
-import { Permissions } from "@repo/contracts/auth-abac";
+import { Permissions } from "@repo/contracts/auth/permissions";
 
 export const deleteResourceServiceFactory =
   <

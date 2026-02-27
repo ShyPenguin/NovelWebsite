@@ -31,9 +31,9 @@
       "types": "./src/fields/export/*/index.ts",
       "default": "./dist/fields/export/*/index.js"
     },
-    "./auth-abac": {
-      "types": "./src/auth-abac/index.ts",
-      "default": "./src/auth-abac/index.js"
+    "./auth/*": {
+      "types": "./src/auth/*.ts",
+      "default": "./src/auth/*.js"
     }
   },
   "scripts": {

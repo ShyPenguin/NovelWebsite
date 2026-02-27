@@ -127,7 +127,7 @@ const applyNovelFilters = ({
 
   if (query.author) {
     orFilters.push(ilike(AuthorTable.name, `%${query.author}%`));
-    if (type !== "detail" && type !== "poster") {
+    if (type !== "detail" && type !== "auth") {
       baseQuery.leftJoin(AuthorTable, eq(NovelTable.authorId, AuthorTable.id));
     }
   }

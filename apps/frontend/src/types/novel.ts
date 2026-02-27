@@ -23,9 +23,9 @@ export type NovelThumbnail = NovelThumbnailDTO;
 export type NovelTrend = NovelTrendDTO;
 
 export type NovelResponseMap = {
-  all: NovelDetailDTO[];
-  trends: NovelTrend[];
-  thumbnails: NovelThumbnail[];
+  detail: NovelDetailDTO[];
+  trend: NovelTrend[];
+  thumbnail: NovelThumbnail[];
 };
 
 export type FetchNovelsReturn<

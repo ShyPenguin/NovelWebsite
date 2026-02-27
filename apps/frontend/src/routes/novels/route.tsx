@@ -1,9 +1,4 @@
-import {
-  createFileRoute,
-  getRouteApi,
-  Link,
-  Outlet,
-} from "@tanstack/react-router";
+import { createFileRoute, getRouteApi, Outlet } from "@tanstack/react-router";
 import type { DropdownOption } from "../../types";
 import NovelSearch from "../../components/NovelsComponents/NovelSearch";
 import { RouteDropdown } from "../../components/DropdownButtons/RouteDropdown";
@@ -13,6 +8,7 @@ import {
 } from "@repo/contracts/fields/novel";
 import { parseKeysToLabel } from "../../utils/parseKeysToLabel";
 import { ProtectedLink } from "@/components/ProtectedLink";
+import SearchPage from "@/components/SearchPage";
 
 export const Route = createFileRoute("/novels")({
   component: RouteComponent,
@@ -44,17 +40,20 @@ function RouteComponent() {
     (option) => option.value == status,
   );
   return (
-    <div className="container p-5">
-      <h1 className="font-bold text-6xl text-foreground">All Novels</h1>
-      <div className="flex flex-col gap-4">
+    <SearchPage>
+      <SearchPage.Header title={"All Novels"} />
+      <SearchPage.Body>
         {/* SEARCH */}
-        <div className="w-full h-10 my-2">
+        <SearchPage.Searchbar>
           <NovelSearch />
-        </div>
+        </SearchPage.Searchbar>
         <div className="max-w-155">
           <div className="grid grid-cols-12 gap-2">
             <ProtectedLink
-              allowedRoles={["admin", "staff"]}
+              permissionArgs={{
+                resource: "novels",
+                action: "create",
+              }}
               to="/novels/create"
               className="full-button bg-secondary dark:bg-secondary-black dark:text-white col-span-full lg:col-span-4"
             >
@@ -84,8 +83,9 @@ function RouteComponent() {
             </div>
           </div>
         </div>
+        {/* LIST RESULT FROM THE SEARCH */}
         <Outlet />
-      </div>
-    </div>
+      </SearchPage.Body>
+    </SearchPage>
   );
 }

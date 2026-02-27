@@ -3,7 +3,6 @@ import {
   createYyyyMmDdStringToDate,
 } from "../../schemas/date/schema";
 import {
-  createDateField,
   createIdField,
   createUrlField,
   idField,
@@ -50,11 +49,11 @@ const ChapterThumbnailSchema = z.object({
   updatedAt: ChapterDetailSchema.shape["updatedAt"],
   access: ChapterDetailSchema.shape["access"],
   status: ChapterDetailSchema.shape["status"],
+  translator: ChapterDetailSchema.shape["translator"],
 });
 
-const ChapterPosterSchema = z.object({
+const ChapterAuthSchema = z.object({
   id: ChapterDetailSchema.shape["id"],
-  chapterNumber: ChapterDetailSchema.shape["chapterNumber"],
   novelId: ChapterDetailSchema.shape["novelId"],
   translator: ChapterDetailSchema.shape["translator"],
 });
@@ -78,6 +77,6 @@ export const ChapterThumbnailFactory = new GetFactory({
   schema: ChapterThumbnailSchema,
 });
 
-export const ChapterPosterFactory = new GetFactory({
-  schema: ChapterPosterSchema,
+export const ChapterAuthFactory = new GetFactory({
+  schema: ChapterAuthSchema,
 });

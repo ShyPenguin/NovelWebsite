@@ -16,7 +16,7 @@ import {
   BaseError,
 } from "@/shared/errors/index.ts";
 import {
-  getNovelPosterByIdTx,
+  getNovelAuthByIdTx,
   getNovelDetailByIdTx,
 } from "../repositories/get-novel-by-id.repository.ts";
 import { updateNovelTx } from "../repositories/update.repository.ts";
@@ -37,7 +37,7 @@ export const updateNovelService = async ({
     const result = await tx.transaction(async (trx) => {
       const { categories, schedule, release, ...inputNovel } = form;
 
-      const novel = await getNovelPosterByIdTx({ tx, id });
+      const novel = await getNovelAuthByIdTx({ tx, id });
 
       if (!novel) throw new NotFoundError("novels");
 

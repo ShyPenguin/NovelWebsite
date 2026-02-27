@@ -71,11 +71,11 @@ export const fetchNovelChapters = <
 // });
 
 const fetchNovelChaptersThumbnail = fetchNovelChapters({
-  type: "thumbnails",
+  type: "thumbnail",
   schema: ArrayChapterThumbnailSchema,
 });
 const fetchNovelChaptersPaginatedThumbnail = fetchNovelChapters({
-  type: "paginated.thumbnails",
+  type: "paginated.thumbnail",
   schema: PaginatedChapterThumbnailSchema,
 });
 

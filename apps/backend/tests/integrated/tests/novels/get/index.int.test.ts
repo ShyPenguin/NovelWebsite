@@ -57,7 +57,7 @@ describe("GET /novels", () => {
       const novel = getters.getNovelLastSearch();
 
       const res = await testApp
-        .get(`/novels/thumbnails`)
+        .get(`/novels/thumbnail`)
         .query({ search: "Reg" } satisfies NovelQueryInput)
         .expect(200);
 
@@ -78,7 +78,7 @@ describe("GET /novels", () => {
     it("Sort by asc(title), returns an array", async () => {
       const novel = getters.getNovel();
       const res = await testApp
-        .get(`/novels/thumbnails`)
+        .get(`/novels/thumbnail`)
         .query({
           sort: "asc(title)",
         } satisfies NovelQueryInput)
@@ -100,7 +100,7 @@ describe("GET /novels", () => {
 
     it("returns empty array when no match", async () => {
       const res = await testApp
-        .get(`/novels/thumbnails`)
+        .get(`/novels/thumbnail`)
         .query({ search: "Test" } satisfies NovelQueryInput)
         .expect(200);
 
@@ -118,7 +118,7 @@ describe("GET /novels", () => {
 
     it("paginates correctly", async () => {
       const res = await testApp
-        .get(`/novels/thumbnails`)
+        .get(`/novels/thumbnail`)
         .query({ page: 1, pageSize: 3 } satisfies NovelQueryInput)
         .expect(200);
 
@@ -137,7 +137,7 @@ describe("GET /novels", () => {
 
     it("paginates 2nd page correctly", async () => {
       const res = await testApp
-        .get(`/novels/thumbnails`)
+        .get(`/novels/thumbnail`)
         .query({ page: 2, pageSize: 3 } satisfies NovelQueryInput)
         .expect(200);
 
@@ -156,7 +156,7 @@ describe("GET /novels", () => {
 
     it("paginates returns empty array, page 4", async () => {
       const res = await testApp
-        .get(`/novels/thumbnails`)
+        .get(`/novels/thumbnail`)
         .query({ page: 4, pageSize: 3 } satisfies NovelQueryInput)
         .expect(200);
       const parsedResult = ApiResponseSchema(
@@ -176,7 +176,7 @@ describe("GET /novels", () => {
   describe("Novel types returns expected fields", () => {
     it("trend returns expected fields", async () => {
       const res = await testApp
-        .get(`/novels/trends`)
+        .get(`/novels/trend`)
         .query({ page: 1 })
         .expect(200);
 

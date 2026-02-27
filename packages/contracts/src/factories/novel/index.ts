@@ -41,6 +41,7 @@ const NovelThumbnailSchema = z.object({
   title: NovelDetailSchema.shape["title"],
   coverImageUrl: NovelDetailSchema.shape["coverImageUrl"],
   description: NovelDetailSchema.shape["description"],
+  translator: NovelDetailSchema.shape["translator"],
 });
 
 const NovelTrendSchema = z.object({
@@ -50,9 +51,8 @@ const NovelTrendSchema = z.object({
   totalChapters: NovelDetailSchema.shape["totalChapters"],
 });
 
-const NovelPosterSchema = z.object({
+const NovelAuthSchema = z.object({
   id: NovelDetailSchema.shape["id"],
-  title: NovelDetailSchema.shape["title"],
   translator: NovelDetailSchema.shape["translator"],
 });
 
@@ -79,6 +79,6 @@ export const NovelThumbnailFactory = new GetFactory({
   schema: NovelThumbnailSchema,
 });
 export const NovelTrendFactory = new GetFactory({ schema: NovelTrendSchema });
-export const NovelPosterFactory = new GetFactory({
-  schema: NovelPosterSchema,
+export const NovelAuthFactory = new GetFactory({
+  schema: NovelAuthSchema,
 });

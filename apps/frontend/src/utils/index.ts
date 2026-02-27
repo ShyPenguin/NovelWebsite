@@ -1,6 +1,7 @@
 import type { FullResponseMap } from "@/types/responseTypes";
 import type { NovelResponseMap } from "../types";
 import type { ChapterResponseMap } from "../types/chapter";
+import type { AuthorResponseMap } from "@/types/author";
 export * from "./formatTimeAge";
 export * from "./requireAuth";
 export * from "./requireRoles";
@@ -13,14 +14,12 @@ export const determineNovelRoute = (
   type: keyof FullResponseMap<NovelResponseMap>,
 ) => {
   switch (type) {
-    case "trends":
-      return "trends";
-    case "paginated.trends":
-      return "trends";
-    case "thumbnails":
-      return "thumbnails";
-    case "paginated.thumbnails":
-      return "thumbnails";
+    case "paginated.trend":
+    case "trend":
+      return "trend";
+    case "paginated.thumbnail":
+    case "thumbnail":
+      return "thumbnail";
     default:
       return "";
   }
@@ -30,11 +29,19 @@ export const determineChapterRoute = (
   type: keyof FullResponseMap<ChapterResponseMap>,
 ) => {
   switch (type) {
-    case "thumbnails":
-      return "thumbnails";
-    case "paginated.thumbnails":
-      return "thumbnails";
+    case "paginated.thumbnail":
+    case "thumbnail":
+      return "thumbnail";
     default:
+      return "";
+  }
+};
+
+export const determineAuthorRoute = (
+  type: keyof FullResponseMap<AuthorResponseMap>,
+) => {
+  switch (type) {
+    case "thumbnail":
       return "";
   }
 };

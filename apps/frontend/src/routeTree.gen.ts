@@ -10,12 +10,15 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as ProfileRouteImport } from './routes/profile'
-import { Route as AboutRouteImport } from './routes/about'
 import { Route as NovelsRouteRouteImport } from './routes/novels/route'
+import { Route as AuthorsRouteRouteImport } from './routes/authors/route'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as NovelsIndexRouteImport } from './routes/novels/index'
+import { Route as AuthorsIndexRouteImport } from './routes/authors/index'
 import { Route as NovelsCreateRouteImport } from './routes/novels_/create'
+import { Route as AuthorsCreateRouteImport } from './routes/authors_/create'
 import { Route as NovelsNovelIdIndexRouteImport } from './routes/novels_/$novelId/index'
+import { Route as AuthorsAuthorIdIndexRouteImport } from './routes/authors_/$authorId/index'
 import { Route as NovelsNovelIdChaptersRouteRouteImport } from './routes/novels_/$novelId/chapters/route'
 import { Route as NovelsNovelIdChaptersIndexRouteImport } from './routes/novels_/$novelId/chapters/index'
 import { Route as NovelsNovelIdChaptersCreateRouteImport } from './routes/novels_/$novelId/chapters_/create'
@@ -27,14 +30,14 @@ const ProfileRoute = ProfileRouteImport.update({
   path: '/profile',
   getParentRoute: () => rootRouteImport,
 } as any)
-const AboutRoute = AboutRouteImport.update({
-  id: '/about',
-  path: '/about',
-  getParentRoute: () => rootRouteImport,
-} as any)
 const NovelsRouteRoute = NovelsRouteRouteImport.update({
   id: '/novels',
   path: '/novels',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AuthorsRouteRoute = AuthorsRouteRouteImport.update({
+  id: '/authors',
+  path: '/authors',
   getParentRoute: () => rootRouteImport,
 } as any)
 const IndexRoute = IndexRouteImport.update({
@@ -47,14 +50,29 @@ const NovelsIndexRoute = NovelsIndexRouteImport.update({
   path: '/',
   getParentRoute: () => NovelsRouteRoute,
 } as any)
+const AuthorsIndexRoute = AuthorsIndexRouteImport.update({
+  id: '/',
+  path: '/',
+  getParentRoute: () => AuthorsRouteRoute,
+} as any)
 const NovelsCreateRoute = NovelsCreateRouteImport.update({
   id: '/novels_/create',
   path: '/novels/create',
   getParentRoute: () => rootRouteImport,
 } as any)
+const AuthorsCreateRoute = AuthorsCreateRouteImport.update({
+  id: '/authors_/create',
+  path: '/authors/create',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const NovelsNovelIdIndexRoute = NovelsNovelIdIndexRouteImport.update({
   id: '/novels_/$novelId/',
   path: '/novels/$novelId/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AuthorsAuthorIdIndexRoute = AuthorsAuthorIdIndexRouteImport.update({
+  id: '/authors_/$authorId/',
+  path: '/authors/$authorId/',
   getParentRoute: () => rootRouteImport,
 } as any)
 const NovelsNovelIdChaptersRouteRoute =
@@ -90,12 +108,15 @@ const NovelsNovelIdChaptersChapterIdEditRoute =
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/authors': typeof AuthorsRouteRouteWithChildren
   '/novels': typeof NovelsRouteRouteWithChildren
-  '/about': typeof AboutRoute
   '/profile': typeof ProfileRoute
+  '/authors/create': typeof AuthorsCreateRoute
   '/novels/create': typeof NovelsCreateRoute
+  '/authors/': typeof AuthorsIndexRoute
   '/novels/': typeof NovelsIndexRoute
   '/novels/$novelId/chapters': typeof NovelsNovelIdChaptersRouteRouteWithChildren
+  '/authors/$authorId/': typeof AuthorsAuthorIdIndexRoute
   '/novels/$novelId/': typeof NovelsNovelIdIndexRoute
   '/novels/$novelId/chapters/create': typeof NovelsNovelIdChaptersCreateRoute
   '/novels/$novelId/chapters/': typeof NovelsNovelIdChaptersIndexRoute
@@ -104,10 +125,12 @@ export interface FileRoutesByFullPath {
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
-  '/about': typeof AboutRoute
   '/profile': typeof ProfileRoute
+  '/authors/create': typeof AuthorsCreateRoute
   '/novels/create': typeof NovelsCreateRoute
+  '/authors': typeof AuthorsIndexRoute
   '/novels': typeof NovelsIndexRoute
+  '/authors/$authorId': typeof AuthorsAuthorIdIndexRoute
   '/novels/$novelId': typeof NovelsNovelIdIndexRoute
   '/novels/$novelId/chapters/create': typeof NovelsNovelIdChaptersCreateRoute
   '/novels/$novelId/chapters': typeof NovelsNovelIdChaptersIndexRoute
@@ -117,12 +140,15 @@ export interface FileRoutesByTo {
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/authors': typeof AuthorsRouteRouteWithChildren
   '/novels': typeof NovelsRouteRouteWithChildren
-  '/about': typeof AboutRoute
   '/profile': typeof ProfileRoute
+  '/authors_/create': typeof AuthorsCreateRoute
   '/novels_/create': typeof NovelsCreateRoute
+  '/authors/': typeof AuthorsIndexRoute
   '/novels/': typeof NovelsIndexRoute
   '/novels_/$novelId/chapters': typeof NovelsNovelIdChaptersRouteRouteWithChildren
+  '/authors_/$authorId/': typeof AuthorsAuthorIdIndexRoute
   '/novels_/$novelId/': typeof NovelsNovelIdIndexRoute
   '/novels_/$novelId/chapters_/create': typeof NovelsNovelIdChaptersCreateRoute
   '/novels_/$novelId/chapters/': typeof NovelsNovelIdChaptersIndexRoute
@@ -133,12 +159,15 @@ export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
   fullPaths:
     | '/'
+    | '/authors'
     | '/novels'
-    | '/about'
     | '/profile'
+    | '/authors/create'
     | '/novels/create'
+    | '/authors/'
     | '/novels/'
     | '/novels/$novelId/chapters'
+    | '/authors/$authorId/'
     | '/novels/$novelId/'
     | '/novels/$novelId/chapters/create'
     | '/novels/$novelId/chapters/'
@@ -147,10 +176,12 @@ export interface FileRouteTypes {
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
-    | '/about'
     | '/profile'
+    | '/authors/create'
     | '/novels/create'
+    | '/authors'
     | '/novels'
+    | '/authors/$authorId'
     | '/novels/$novelId'
     | '/novels/$novelId/chapters/create'
     | '/novels/$novelId/chapters'
@@ -159,12 +190,15 @@ export interface FileRouteTypes {
   id:
     | '__root__'
     | '/'
+    | '/authors'
     | '/novels'
-    | '/about'
     | '/profile'
+    | '/authors_/create'
     | '/novels_/create'
+    | '/authors/'
     | '/novels/'
     | '/novels_/$novelId/chapters'
+    | '/authors_/$authorId/'
     | '/novels_/$novelId/'
     | '/novels_/$novelId/chapters_/create'
     | '/novels_/$novelId/chapters/'
@@ -174,11 +208,13 @@ export interface FileRouteTypes {
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  AuthorsRouteRoute: typeof AuthorsRouteRouteWithChildren
   NovelsRouteRoute: typeof NovelsRouteRouteWithChildren
-  AboutRoute: typeof AboutRoute
   ProfileRoute: typeof ProfileRoute
+  AuthorsCreateRoute: typeof AuthorsCreateRoute
   NovelsCreateRoute: typeof NovelsCreateRoute
   NovelsNovelIdChaptersRouteRoute: typeof NovelsNovelIdChaptersRouteRouteWithChildren
+  AuthorsAuthorIdIndexRoute: typeof AuthorsAuthorIdIndexRoute
   NovelsNovelIdIndexRoute: typeof NovelsNovelIdIndexRoute
   NovelsNovelIdChaptersCreateRoute: typeof NovelsNovelIdChaptersCreateRoute
   NovelsNovelIdChaptersChapterIdEditRoute: typeof NovelsNovelIdChaptersChapterIdEditRoute
@@ -194,18 +230,18 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ProfileRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/about': {
-      id: '/about'
-      path: '/about'
-      fullPath: '/about'
-      preLoaderRoute: typeof AboutRouteImport
-      parentRoute: typeof rootRouteImport
-    }
     '/novels': {
       id: '/novels'
       path: '/novels'
       fullPath: '/novels'
       preLoaderRoute: typeof NovelsRouteRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/authors': {
+      id: '/authors'
+      path: '/authors'
+      fullPath: '/authors'
+      preLoaderRoute: typeof AuthorsRouteRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/': {
@@ -222,6 +258,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof NovelsIndexRouteImport
       parentRoute: typeof NovelsRouteRoute
     }
+    '/authors/': {
+      id: '/authors/'
+      path: '/'
+      fullPath: '/authors/'
+      preLoaderRoute: typeof AuthorsIndexRouteImport
+      parentRoute: typeof AuthorsRouteRoute
+    }
     '/novels_/create': {
       id: '/novels_/create'
       path: '/novels/create'
@@ -229,11 +272,25 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof NovelsCreateRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/authors_/create': {
+      id: '/authors_/create'
+      path: '/authors/create'
+      fullPath: '/authors/create'
+      preLoaderRoute: typeof AuthorsCreateRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/novels_/$novelId/': {
       id: '/novels_/$novelId/'
       path: '/novels/$novelId'
       fullPath: '/novels/$novelId/'
       preLoaderRoute: typeof NovelsNovelIdIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/authors_/$authorId/': {
+      id: '/authors_/$authorId/'
+      path: '/authors/$authorId'
+      fullPath: '/authors/$authorId/'
+      preLoaderRoute: typeof AuthorsAuthorIdIndexRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/novels_/$novelId/chapters': {
@@ -274,6 +331,18 @@ declare module '@tanstack/react-router' {
   }
 }
 
+interface AuthorsRouteRouteChildren {
+  AuthorsIndexRoute: typeof AuthorsIndexRoute
+}
+
+const AuthorsRouteRouteChildren: AuthorsRouteRouteChildren = {
+  AuthorsIndexRoute: AuthorsIndexRoute,
+}
+
+const AuthorsRouteRouteWithChildren = AuthorsRouteRoute._addFileChildren(
+  AuthorsRouteRouteChildren,
+)
+
 interface NovelsRouteRouteChildren {
   NovelsIndexRoute: typeof NovelsIndexRoute
 }
@@ -302,11 +371,13 @@ const NovelsNovelIdChaptersRouteRouteWithChildren =
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  AuthorsRouteRoute: AuthorsRouteRouteWithChildren,
   NovelsRouteRoute: NovelsRouteRouteWithChildren,
-  AboutRoute: AboutRoute,
   ProfileRoute: ProfileRoute,
+  AuthorsCreateRoute: AuthorsCreateRoute,
   NovelsCreateRoute: NovelsCreateRoute,
   NovelsNovelIdChaptersRouteRoute: NovelsNovelIdChaptersRouteRouteWithChildren,
+  AuthorsAuthorIdIndexRoute: AuthorsAuthorIdIndexRoute,
   NovelsNovelIdIndexRoute: NovelsNovelIdIndexRoute,
   NovelsNovelIdChaptersCreateRoute: NovelsNovelIdChaptersCreateRoute,
   NovelsNovelIdChaptersChapterIdEditRoute:

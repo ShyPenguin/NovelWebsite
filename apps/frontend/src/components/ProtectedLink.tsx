@@ -1,19 +1,23 @@
-import { useHasRole } from "@/hooks/useHasRole";
 import { Link, type LinkProps } from "@tanstack/react-router";
-import type { UserRole } from "@repo/contracts/dto/auth";
+import { useHasPermission } from "@/hooks/useHasPermission";
+import type { Resource, Permissions } from "@repo/contracts/auth/permissions";
 
 type ProtectedLinkProps = LinkProps & {
-  allowedRoles: UserRole[];
+  permissionArgs: {
+    resource: Resource;
+    action: Permissions[Resource]["action"];
+    data?: Permissions[Resource]["dataType"];
+  };
   className: string;
 };
 
 export const ProtectedLink = ({
-  allowedRoles,
+  permissionArgs,
   children,
   className,
   ...rest
 }: ProtectedLinkProps) => {
-  const canAccess = useHasRole(allowedRoles);
+  const canAccess = useHasPermission(permissionArgs);
 
   if (!canAccess) return null;
 

@@ -2,20 +2,20 @@ import { z } from "zod";
 import {
   ChapterDetailSchema,
   ChapterFormSchema,
-  ChapterPosterSchema,
+  ChapterAuthSchema,
   ChapterPreviewSchema,
   ChapterSearchQueryContract,
   ChapterThumbnailSchema,
 } from "../schemas/chapter/schema";
 
 //TYPES OF DATA TO READ
-export type ChapterSelectDTO = "detail" | "thumbnail" | "poster";
+export type ChapterSelectDTO = "detail" | "thumbnail" | "auth";
 // READ
 export type ChapterDetailDTO = z.infer<typeof ChapterDetailSchema>;
 export type ChapterDetailEncodeDTO = z.input<typeof ChapterDetailSchema>;
 
 export type ChapterThumbnailDTO = z.infer<typeof ChapterThumbnailSchema>;
-export type ChapterPosterDTO = z.infer<typeof ChapterPosterSchema>;
+export type ChapterAuthDTO = z.infer<typeof ChapterAuthSchema>;
 
 // LISTABLE TYPES (ARRAY OR PAGINATION)
 export type ChapterListDTO = Extract<ChapterSelectDTO, "thumbnail">;

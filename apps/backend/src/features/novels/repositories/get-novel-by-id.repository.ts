@@ -2,13 +2,13 @@ import { eq } from "drizzle-orm";
 import {
   NovelDetailDTO,
   NovelDetailEncodeDTO,
-  NovelPosterDTO,
+  NovelAuthDTO,
   NovelThumbnailDTO,
   NovelTrendDTO,
 } from "@repo/contracts/dto/novel";
 import {
   NovelDetailSchema,
-  NovelPosterSchema,
+  NovelAuthSchema,
 } from "@repo/contracts/schemas/novel";
 import { ZodType } from "zod";
 import { buildNovelsBaseQuery } from "./build-base-query.ts";
@@ -20,7 +20,7 @@ type NovelDTOMap = {
   detail: NovelDetailEncodeDTO;
   trend: NovelTrendDTO;
   thumbnail: NovelThumbnailDTO;
-  poster: NovelPosterDTO;
+  auth: NovelAuthDTO;
 };
 
 export const getNovelByIdFactory =
@@ -52,7 +52,7 @@ export const getNovelDetailByIdTx = getNovelByIdFactory({
   schema: NovelDetailSchema,
 });
 
-export const getNovelPosterByIdTx = getNovelByIdFactory({
-  type: "poster",
-  schema: NovelPosterSchema,
+export const getNovelAuthByIdTx = getNovelByIdFactory({
+  type: "auth",
+  schema: NovelAuthSchema,
 });

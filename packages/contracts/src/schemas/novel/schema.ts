@@ -6,7 +6,7 @@ import {
 } from "../../factories/novel/fields";
 import {
   NovelDetailFactory,
-  NovelPosterFactory,
+  NovelAuthFactory,
   novelSortWithDirectionField,
   NovelThumbnailFactory,
   NovelTrendFactory,
@@ -17,19 +17,19 @@ import { getFormattedDate } from "../../utils/export/getFormattedDate";
 export const NovelDetailSchema = NovelDetailFactory.getSchema();
 export const NovelThumbnailSchema = NovelThumbnailFactory.getSchema();
 export const NovelTrendSchema = NovelTrendFactory.getSchema();
-export const NovelPosterSchema = NovelPosterFactory.getSchema();
+export const NovelAuthSchema = NovelAuthFactory.getSchema();
 
 // READ - ARRAY
 export const ArrayNovelDetailSchema = NovelDetailFactory.array();
 export const ArrayNovelThumbnailSchema = NovelThumbnailFactory.array();
 export const ArrayNovelTrendSchema = NovelTrendFactory.array();
-export const ArrayNovelPosterSchema = NovelPosterFactory.array();
+export const ArrayNovelAuthSchema = NovelAuthFactory.array();
 
 // READ - PAGINATE
 export const PaginatedNovelDetailSchema = NovelDetailFactory.paginate();
 export const PaginatedNovelThumbnailSchema = NovelThumbnailFactory.paginate();
 export const PaginatedNovelTrendSchema = NovelTrendFactory.paginate();
-export const PaginatedNovelPosterSchema = NovelPosterFactory.paginate();
+export const PaginatedNovelAuthSchema = NovelAuthFactory.paginate();
 
 // WRITE
 export const NovelFormSchema = z.object({

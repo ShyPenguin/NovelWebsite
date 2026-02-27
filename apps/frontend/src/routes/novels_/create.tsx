@@ -22,7 +22,7 @@ function RouteComponent() {
   const [novelId, setIsNovelId] = useState("");
   const navigate = useNavigate();
   return (
-    <div className="flex items-start justify-center size-full py-4 px-2">
+    <div className="flex items-start justify-center size-full py-4 px-2 bg-inherit dark:bg-inherit">
       <div className="flex items-center md:items-start flex-col size-full max-w-4xl justify-center md:flex-row gap-2">
         {!novelId ? (
           <div className="w-full max-w-3xl flex-center relative card ">

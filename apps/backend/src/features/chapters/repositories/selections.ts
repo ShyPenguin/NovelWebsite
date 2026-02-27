@@ -4,7 +4,7 @@ import { getNextChapter, getPrevChapter } from "@/shared/utils/subqueries.ts";
 import { ChapterTable, UserTable } from "@/infrastructure/db/schemas/index.ts";
 import {
   ChapterDetailDTO,
-  ChapterPosterDTO,
+  ChapterAuthDTO,
   ChapterSelectDTO,
   ChapterThumbnailDTO,
 } from "@repo/contracts/dto/chapter";
@@ -28,14 +28,17 @@ export const chapterSelectMap = {
     publishedAt: ChapterTable.publishedAt,
     access: ChapterTable.access,
     status: ChapterTable.status,
+    translator: {
+      id: UserTable.id,
+      name: UserTable.name,
+    },
   } satisfies Record<keyof ChapterThumbnailDTO, unknown>,
-  poster: {
+  auth: {
     id: ChapterTable.id,
-    chapterNumber: ChapterTable.chapterNumber,
     novelId: ChapterTable.novelId,
     translator: {
       id: UserTable.id,
       name: UserTable.name,
     },
-  } satisfies Record<keyof ChapterPosterDTO, unknown>,
+  } satisfies Record<keyof ChapterAuthDTO, unknown>,
 } as const satisfies Record<ChapterSelectDTO, unknown>;
