@@ -1,9 +1,10 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { novelQueryOptions } from "../../../api/novels/fetchNovel";
-import { LoadingSpinner } from "../../../components/LoadingSpinner";
-import { requireRoles } from "../../../utils";
-import { Content } from "../../../layouts/novels/novelId/Content";
 import { useQuery } from "@tanstack/react-query";
+import { novelQueryOptions } from "@/api/novels/fetchNovel";
+import { LoadingSpinner } from "@/components/LoadingSpinner";
+import { requireRoles } from "@/utils";
+import { Content } from "@/layouts/novels/novelId/Content";
+import Page from "@/components/Page";
 
 export const Route = createFileRoute("/novels_/$novelId/")({
   loader: ({ context: { queryClient }, params: { novelId } }) => {
@@ -33,5 +34,9 @@ function RouteComponent() {
   const novelRouteData = Route.useLoaderData();
 
   const { data: novel } = useQuery(novelQueryOptions(novelRouteData.id));
-  return <Content novel={novel ? novel : novelRouteData} />;
+  return (
+    <Page>
+      <Content novel={novel ? novel : novelRouteData} />
+    </Page>
+  );
 }

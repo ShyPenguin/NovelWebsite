@@ -1,11 +1,14 @@
 import SideItem from "./SideItem";
 import { Link } from "@tanstack/react-router";
-import { Discord, House, NovelIcon } from "../../assets/icons/Index";
-import UserIcon from "../../assets/icons/UserIcon";
-import { DiscordLink } from "../../constants";
-import { useSidebarOpen } from "../../stores/AppContext";
-import { ThemeButton } from "../ThemeButton";
 import { AUTHOR_SEARCH_DEFAULT } from "@/schemas/authors";
+import { NOVEL_SEARCH_DEFAULT } from "@/schemas/novels";
+import Pencil from "@/assets/icons/Pencil";
+import { useSidebarOpen } from "@/stores/AppContext";
+import Discord from "@/assets/icons/Discord";
+import House from "@/assets/icons/House";
+import NovelIcon from "@/assets/icons/NovelIcon";
+import { DiscordLink } from "@/constants";
+import { ThemeButton } from "../ThemeButton";
 
 function Sidebar() {
   const { setSideBarOpen } = useSidebarOpen();
@@ -29,16 +32,26 @@ function Sidebar() {
           />
           <SideItem icon={NovelIcon}>
             <Link
+              to="/novels"
+              search={NOVEL_SEARCH_DEFAULT}
+              className="[&.active]:font-bold text-inherit text-end py-2 px-4"
+              onClick={() => setSideBarOpen(false)}
+            >
+              Novels
+            </Link>
+          </SideItem>
+          <SideItem icon={Pencil}>
+            <Link
               to="/authors"
               search={AUTHOR_SEARCH_DEFAULT}
               className="[&.active]:font-bold text-inherit text-end py-2 px-4"
               onClick={() => setSideBarOpen(false)}
             >
-              Author
+              Authors
             </Link>
           </SideItem>
 
-          <SideItem icon={UserIcon}>
+          {/* <SideItem icon={UserIcon}>
             <Link
               to="/profile"
               className="[&.active]:font-bold text-inherit text-end py-2 px-4"
@@ -46,7 +59,7 @@ function Sidebar() {
             >
               User
             </Link>
-          </SideItem>
+          </SideItem> */}
         </div>
         <div>
           <SideItem icon={Discord}>

@@ -1,8 +1,8 @@
-import { authorsPaginatedQueryOption } from "@/api/authors/fetchAuthors";
+import { authorsPaginatedQueryOption } from "@/authors/api/fetchAuthors";
 import Pagination from "@/components/Pagination/Pagination";
 import { ProtectedLink } from "@/auth/components/ProtectedLink";
-import SearchPage from "@/components/SearchPage";
-import AuthorSearch from "@/layouts/authors/AuthorSearch";
+import Page from "@/components/Page";
+import AuthorSearch from "@/authors/AuthorSearch";
 import { useSuspenseQuery } from "@tanstack/react-query";
 import { createFileRoute, getRouteApi, Outlet } from "@tanstack/react-router";
 import { Suspense } from "react";
@@ -13,12 +13,12 @@ export const Route = createFileRoute("/authors")({
 
 function RouteComponent() {
   return (
-    <SearchPage>
-      <SearchPage.Header title={"All Authors"} />
-      <SearchPage.Body>
-        <SearchPage.Searchbar>
+    <Page>
+      <Page.Header title={"All Authors"} />
+      <Page.Body>
+        <Page.Searchbar>
           <AuthorSearch />
-        </SearchPage.Searchbar>
+        </Page.Searchbar>
         <ProtectedLink
           permissionArgs={{
             resource: "authors",
@@ -30,13 +30,13 @@ function RouteComponent() {
           Create Author
         </ProtectedLink>
         <Outlet />
-      </SearchPage.Body>
-      <SearchPage.Footer>
+      </Page.Body>
+      <Page.Footer>
         <Suspense>
           <AuthorPagination />
         </Suspense>
-      </SearchPage.Footer>
-    </SearchPage>
+      </Page.Footer>
+    </Page>
   );
 }
 

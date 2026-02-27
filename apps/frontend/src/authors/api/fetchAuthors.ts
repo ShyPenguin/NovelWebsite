@@ -8,11 +8,9 @@ import { ApiResponseSchema } from "@repo/contracts/api";
 import type { AuthorThumbnailDTO } from "@repo/contracts/dto/author";
 import type { FullResponseMap } from "@/types/responseTypes";
 import type { AuthorSearchType } from "@/schemas/authors";
-import { BackendApiLink } from "@/constants";
 import type { FetchType, Paginated } from "@/types";
 import type { AuthorResponseMap, FetchAuthorsReturn } from "@/types/author";
-const urlRoute = "authors";
-
+import { urlApiRoute } from "../constant";
 export const fetchAuthors = <
   T extends keyof FullResponseMap<AuthorResponseMap>,
   P extends boolean,
@@ -28,8 +26,7 @@ export const fetchAuthors = <
   async function (
     params: FetchType<AuthorSearchType>,
   ): Promise<FetchAuthorsReturn<T>> {
-    console.log("at fetch authors");
-    let url = `${BackendApiLink}/${urlRoute}`;
+    let url = `${urlApiRoute}`;
 
     if (params.withQuery) {
       const { search, page } = params.data;

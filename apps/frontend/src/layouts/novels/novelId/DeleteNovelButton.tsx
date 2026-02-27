@@ -11,9 +11,11 @@ import { useState } from "react";
 export const DeleteNovelButton = ({
   id,
   title,
+  totalChapters,
 }: {
   id: NovelDetailDTO["id"];
   title: NovelDetailDTO["title"];
+  totalChapters: NovelDetailDTO["totalChapters"];
 }) => {
   const [openModal, setOpenModal] = useState(false);
 
@@ -31,10 +33,14 @@ export const DeleteNovelButton = ({
       {openModal && (
         <Modal onClose={() => setOpenModal(false)}>
           <Modal.Header>
-            <h1>Are you sure you want to delete this novel?</h1>
+            <p>Are you sure you want to delete this novel?</p>
           </Modal.Header>
           <Modal.Body>
-            <h2>Title: {title}</h2>
+            <h3>Title: {title}</h3>
+            <p>Chapters: {totalChapters}</p>
+            <p className="text-novelRed">
+              Deleting this novel will delete all its chapters
+            </p>
           </Modal.Body>
           <Modal.Footer>
             <button

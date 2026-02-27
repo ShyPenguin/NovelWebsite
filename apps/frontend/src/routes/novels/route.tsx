@@ -8,7 +8,7 @@ import {
 } from "@repo/contracts/fields/novel";
 import { parseKeysToLabel } from "../../utils/parseKeysToLabel";
 import { ProtectedLink } from "@/auth/components/ProtectedLink";
-import SearchPage from "@/components/SearchPage";
+import Page from "@/components/Page";
 
 export const Route = createFileRoute("/novels")({
   component: RouteComponent,
@@ -40,13 +40,13 @@ function RouteComponent() {
     (option) => option.value == status,
   );
   return (
-    <SearchPage>
-      <SearchPage.Header title={"All Novels"} />
-      <SearchPage.Body>
+    <Page>
+      <Page.Header title={"All Novels"} />
+      <Page.Body>
         {/* SEARCH */}
-        <SearchPage.Searchbar>
+        <Page.Searchbar>
           <NovelSearch />
-        </SearchPage.Searchbar>
+        </Page.Searchbar>
         <div className="max-w-155">
           <div className="grid grid-cols-12 gap-2">
             <ProtectedLink
@@ -85,7 +85,7 @@ function RouteComponent() {
         </div>
         {/* LIST RESULT FROM THE SEARCH */}
         <Outlet />
-      </SearchPage.Body>
-    </SearchPage>
+      </Page.Body>
+    </Page>
   );
 }

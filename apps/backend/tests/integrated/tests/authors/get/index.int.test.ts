@@ -5,7 +5,7 @@ import { ApiResponseSchema } from "@repo/contracts/api";
 import { randomUUID } from "crypto";
 import {
   ArrayAuthorThumbnailSchema,
-  AuthorThumbnailSchema,
+  AuthorDetailSchema,
   PaginatedAuthorThumbnailSchema,
 } from "@repo/contracts/schemas/author";
 import { app } from "@/app.ts";
@@ -22,22 +22,25 @@ describe("GET /authors", () => {
   describe("Get author by Id", () => {
     it("Success", async () => {
       const author = getters.getAuthor();
-
+      const novels = getters.getNovels();
       const res = await testApp.get(`/authors/${author.id}`);
 
-      const parsedResult = ApiResponseSchema(AuthorThumbnailSchema).parse(
+      const parsedResult = ApiResponseSchema(AuthorDetailSchema).parse(
         res.body,
       );
       expect(parsedResult.ok).toBe(true);
       if (!parsedResult.ok) throw Error();
-      expect(parsedResult.data).toMatchObject(author);
+      expect(parsedResult.data.id).toBe(author.id);
+      expect(parsedResult.data.name).toBe(author.name);
+      expect(parsedResult.data.novels.length).toBe(4);
+      expect(parsedResult.data.novels[0].title).toBe(novels[0].title);
     });
 
     it("Not found", async () => {
       const notRealId = randomUUID();
       const res = await testApp.get(`/authors/${notRealId}`).expect(404);
 
-      const parsedResult = ApiResponseSchema(AuthorThumbnailSchema).parse(
+      const parsedResult = ApiResponseSchema(AuthorDetailSchema).parse(
         res.body,
       );
       expect(parsedResult).toMatchObject({

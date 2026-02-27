@@ -13,6 +13,7 @@ import {
   AuthorDetailSchema,
   AuthorThumbnailSchema,
 } from "@repo/contracts/schemas/author";
+import { NovelTable } from "@/infrastructure/db/schemas/novels.ts";
 
 type AuthorDTOMap = {
   thumbnail: AuthorThumbnailDTO;

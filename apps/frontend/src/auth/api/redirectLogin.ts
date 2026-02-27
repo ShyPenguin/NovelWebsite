@@ -1,3 +1,4 @@
+import { toast } from "react-toastify";
 import { authURL } from ".";
 
 type Provider = "google";
@@ -8,7 +9,6 @@ export const redirectLogin = async (provider: Provider) => {
 
     window.location.href = `${authURL}/redirect/${provider}?returnTo=${encodeURIComponent(returnTo)}`;
   } catch (err: any) {
-    console.error(err.message);
-    throw new Error(err.message);
+    toast.error(err.message);
   }
 };

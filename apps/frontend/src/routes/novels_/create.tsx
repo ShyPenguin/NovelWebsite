@@ -1,5 +1,6 @@
 import { MutateNovelCoverForm } from "@/components/MutateNovelComponents/MutateNovelCoverForm";
 import { MutateNovelForm } from "@/components/MutateNovelComponents/MutateNovelForm";
+import Page from "@/components/Page";
 import { CREATE } from "@/constants";
 import { CHAPTER_SEARCH_DEFAULT } from "@/schemas/chapters";
 import { requireRoles } from "@/utils/requireRoles";
@@ -22,8 +23,9 @@ function RouteComponent() {
   const [novelId, setIsNovelId] = useState("");
   const navigate = useNavigate();
   return (
-    <div className="flex items-start justify-center size-full py-4 px-2 bg-inherit dark:bg-inherit">
-      <div className="flex items-center md:items-start flex-col size-full max-w-4xl justify-center md:flex-row gap-2">
+    <Page>
+      <Page.Header title="Create Novel" className="text-center" />
+      <Page.Body type={"center"}>
         {!novelId ? (
           <div className="w-full max-w-3xl flex-center relative card ">
             <MutateNovelForm type={CREATE} onClose={(id) => setIsNovelId(id)} />
@@ -43,7 +45,7 @@ function RouteComponent() {
             />
           </div>
         )}
-      </div>
-    </div>
+      </Page.Body>
+    </Page>
   );
 }

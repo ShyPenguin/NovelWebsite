@@ -5,7 +5,7 @@ import type {
   AuthorSelectDTO,
   AuthorDetailDTO,
 } from "@repo/contracts/dto/author";
-import { sql } from "drizzle-orm";
+import { eq, sql } from "drizzle-orm";
 
 const getAuthorNovels = sql<{ id: string; title: string }[]>`(
   SELECT COALESCE(
@@ -18,7 +18,7 @@ const getAuthorNovels = sql<{ id: string; title: string }[]>`(
     '[]'::json
   )
   FROM ${NovelTable}
-  WHERE ${NovelTable.authorId} = ${AuthorTable.id}
+  WHERE ${eq(NovelTable.authorId, AuthorTable.id)}
 )`.as("novels");
 
 export const authorSelectMap = {

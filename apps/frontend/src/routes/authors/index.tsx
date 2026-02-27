@@ -1,4 +1,4 @@
-import { authorsPaginatedQueryOption } from "@/api/authors/fetchAuthors";
+import { authorsPaginatedQueryOption } from "@/authors/api/fetchAuthors";
 import { AuthorSearchSchema } from "@/schemas/authors";
 import { useSuspenseQuery } from "@tanstack/react-query";
 import { createFileRoute, Link } from "@tanstack/react-router";

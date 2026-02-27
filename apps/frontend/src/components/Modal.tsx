@@ -38,11 +38,15 @@ const Modal = ({
 };
 
 function ModalHeader({ children }: { children: ReactNode }) {
-  return <div className="modal-header">{children}</div>;
+  return (
+    <div className="flex flex-col text-white font-semibold text-xl">
+      {children}
+    </div>
+  );
 }
 
 function ModalBody({ children }: { children: ReactNode }) {
-  return <div className="min-h-15 flex-center">{children}</div>;
+  return <div className="min-h-15 flex-center flex-col gap-3">{children}</div>;
 }
 
 function ModalFooter({ children }: { children: ReactNode }) {

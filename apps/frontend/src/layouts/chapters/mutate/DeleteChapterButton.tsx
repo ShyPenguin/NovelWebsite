@@ -27,10 +27,10 @@ export const DeleteChapterButton = (chapter: DeleteChapterButtonProp) => {
       {openModal && (
         <Modal onClose={() => setOpenModal(false)}>
           <Modal.Header>
-            <h1>Are you sure you want to delete this chapter?</h1>
+            <p>Are you sure you want to delete this chapter?</p>
           </Modal.Header>
           <Modal.Body>
-            <h2>Title: {chapter.title}</h2>
+            <h3>Title: {chapter.title}</h3>
             <p className="text-[14px]">
               Chapter Number: {chapter.chapterNumber}
             </p>

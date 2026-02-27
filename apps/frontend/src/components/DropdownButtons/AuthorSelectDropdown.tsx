@@ -1,6 +1,6 @@
 import { useInfiniteQuery } from "@tanstack/react-query";
 import { useMemo, useState } from "react";
-import { authorsInfiniteQueryOption } from "../../api/authors/fetchAuthors";
+import { authorsInfiniteQueryOption } from "../../authors/api/fetchAuthors";
 import { DropdownSearchWrapper } from "./DropdownSearchWrapper";
 
 export function AuthorSelectDropDown({
