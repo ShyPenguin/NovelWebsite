@@ -7,7 +7,7 @@ import {
   novelStatusQuery,
 } from "@repo/contracts/fields/novel";
 import { parseKeysToLabel } from "../../utils/parseKeysToLabel";
-import { ProtectedLink } from "@/components/ProtectedLink";
+import { ProtectedLink } from "@/auth/components/ProtectedLink";
 import SearchPage from "@/components/SearchPage";
 
 export const Route = createFileRoute("/novels")({

@@ -44,12 +44,12 @@ export const login = async (req: Request, res: Response): Promise<any> => {
     // cleanup
     cookies.set("oauthReturnTo", "", { expires: 0 });
 
-    const data = {
-      id: oAuthUser.id,
-      name: oAuthUser.name,
-      email: oAuthUser.email,
-      role: user.role,
-    };
+    // const data = {
+    //   id: oAuthUser.id,
+    //   name: oAuthUser.name,
+    //   email: oAuthUser.email,
+    //   role: user.role,
+    // };
 
     return res.redirect(
       `${process.env.FRONTEND_URL}/${returnTo ? returnTo : ""}`,

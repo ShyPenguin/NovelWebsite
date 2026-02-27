@@ -6,7 +6,7 @@ import BookmarkIcon from "../../../assets/icons/BookmarkIcon";
 import { NovelImage } from "./NovelImage";
 import type { NovelDetailDTO } from "@repo/contracts/dto/novel";
 import { NO_AUTHOR } from "@/constants";
-import { ProtectedLink } from "@/components/ProtectedLink";
+import { ProtectedLink } from "@/auth/components/ProtectedLink";
 
 export const Content = ({ novel }: { novel: NovelDetailDTO }) => {
   return (

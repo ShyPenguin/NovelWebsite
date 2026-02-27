@@ -1,17 +1,15 @@
-import { useQuery } from "@tanstack/react-query";
+import BookmarkIcon from "@/assets/icons/BookmarkIcon";
+import { Chevron } from "@/assets/icons/Chevron";
+import Gear from "@/assets/icons/Gear";
+import { LogoutIcon } from "@/assets/icons/LogoutIcon";
+import { logout } from "@/auth/api/logout";
+import { useAuth } from "@/auth/store/useAuth";
+import useClickInsideOrOutside from "@/hooks/useClickInsideOrOutside";
 import { useState, useRef, type Dispatch, type SetStateAction } from "react";
-import { queryAuthOption } from "../../api/auth/auth";
-import useClickInsideOrOutside from "../../hooks/useClickInsideOrOutside";
-import {
-  Chevron,
-  BookmarkIcon,
-  Gear,
-  LogoutIcon,
-} from "../../assets/icons/Index";
-import { logout } from "../../api/auth/logout";
 
 export const Profile = () => {
-  const { data } = useQuery(queryAuthOption());
+  const user = useAuth((s) => s.user);
+  console.log(user);
   const [isVisible, setIsVisible] = useState(false);
   const dropdownRef = useRef<HTMLDivElement>(null);
   const buttonRef = useRef<HTMLButtonElement>(null);
@@ -33,9 +31,9 @@ export const Profile = () => {
         ref={buttonRef}
       >
         <img
-          src={data?.imageUrl}
+          src={user?.imageUrl}
           className="rounded-4xl w-8 h-8 border border-border"
-          alt={`${data?.name}'s profile picture`}
+          alt={`${user?.name}'s profile picture`}
         />
         <div className="h-full flex items-center pr-4 pl-2 border-l border-border dark:border-secondary-black">
           <Chevron

@@ -4,7 +4,7 @@ import Pencil from "../../assets/icons/Pencil";
 import { DeleteChapterButton } from "../../layouts/chapters/mutate/DeleteChapterButton";
 import type { ChapterThumbnailDTO } from "@repo/contracts/dto/chapter";
 import type { NovelDetailDTO } from "@repo/contracts/dto/novel";
-import { Can } from "../Can";
+import { Can } from "@/auth/components/Can";
 
 export const ChapterThumbnail = ({
   id,

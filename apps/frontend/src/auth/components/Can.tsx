@@ -1,4 +1,4 @@
-import { useHasPermission } from "@/hooks/useHasPermission";
+import { useHasPermission } from "@/auth/hooks/useHasPermission";
 import type { Permissions } from "@repo/contracts/auth/permissions";
 
 type CanProps<Resource extends keyof Permissions> = {

@@ -1,3 +1,3 @@
-import { BackendApiLink } from "../../constants";
+import { BackendApiLink } from "@/constants";
 
 export const authURL = `${BackendApiLink}/oauth`;

@@ -14,7 +14,7 @@ import { DbExecTypes } from "@/infrastructure/db/type.ts";
 import { applyWhere } from "@/shared/utils/apply-where.ts";
 import { paginate } from "@/shared/utils/paginate.ts";
 import { parseSortQuery } from "@/shared/utils/parse-sort-query.ts";
-import { NovelQueryOutput } from "@/features/novels/novel.schema..ts";
+import { NovelQueryOutput } from "@/features/novels/novel.schema.ts";
 
 const sortableColumns = {
   title: NovelTable.title,

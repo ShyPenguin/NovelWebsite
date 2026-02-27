@@ -5,7 +5,7 @@ import { Suspense } from "react";
 import { NovelSearchSchema } from "../../schemas/novels";
 import type { NovelDetailDTO } from "@repo/contracts/dto/novel";
 import { NO_IMAGE_URL } from "@/constants";
-import { ProtectedLink } from "@/components/ProtectedLink";
+import { ProtectedLink } from "@/auth/components/ProtectedLink";
 import Pencil from "@/assets/icons/Pencil";
 import { CHAPTER_SEARCH_DEFAULT } from "@/schemas/chapters";
 import ButtonIcon from "@/components/ButtonIcon";

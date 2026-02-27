@@ -1,15 +1,14 @@
-// stores/useAuthUIStore.ts
 import { create } from "zustand";
-import type { Role } from "../types/AuthType";
+import type { UserRole } from "@repo/contracts/dto/auth";
 
 type AuthUIState = {
   reason: "login" | "role" | null;
-  requiredRoles: Role[];
+  requiredRoles: UserRole[];
 
   showLoginModal: boolean;
 
   requireLogin: () => void;
-  requireRoles: (role: Role[]) => void;
+  requireRoles: (role: UserRole[]) => void;
   closeLoginModal: () => void;
   consume: () => void;
 };
@@ -21,7 +20,7 @@ export const useAuthUIStore = create<AuthUIState>((set) => ({
   requireLogin: () =>
     set({
       reason: "login",
-      showLoginModal: true, // ✅ trigger modal
+      showLoginModal: true,
     }),
 
   requireRoles: (roles) =>

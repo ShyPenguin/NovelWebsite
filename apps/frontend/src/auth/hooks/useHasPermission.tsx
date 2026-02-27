@@ -1,9 +1,8 @@
-import { queryAuthOption } from "@/api/auth/auth";
 import {
   hasPermission,
   type Permissions,
 } from "@repo/contracts/auth/permissions";
-import { useQuery } from "@tanstack/react-query";
+import { useAuth } from "../store/useAuth";
 
 export const useHasPermission = <Resource extends keyof Permissions>({
   resource,
@@ -14,7 +13,7 @@ export const useHasPermission = <Resource extends keyof Permissions>({
   action: Permissions[Resource]["action"];
   data?: Permissions[Resource]["dataType"];
 }) => {
-  const { data: user } = useQuery(queryAuthOption());
+  const user = useAuth((s) => s.user);
 
   return user
     ? hasPermission({

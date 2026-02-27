@@ -5,9 +5,11 @@ import { TanStackRouterDevtools } from "@tanstack/react-router-devtools";
 import { Footer } from "./components/Footer";
 import Sidebar from "./components/SideBarComponents/Sidebar";
 import { ToastContainer } from "react-toastify";
-import { useAuthUIEffects } from "./hooks/useAuthUIEffects";
+import { useAuthUIEffects } from "./auth/hooks/useAuthUIEffects";
 import { LoginModal } from "./layouts/login/LoginModal";
 import { memo } from "react";
+import { useQuery } from "@tanstack/react-query";
+import { queryAuthOption } from "./auth/api/auth";
 
 const MemoizedLoginModal = memo(LoginModal);
 const MemoizedNavbar = memo(Navbar);
@@ -25,6 +27,10 @@ const SidebarModal = () => {
 
 function App() {
   const { theme } = useAppContext();
+
+  // For authentcation (globalized)
+  useQuery(queryAuthOption());
+
   useAuthUIEffects();
   return (
     <div

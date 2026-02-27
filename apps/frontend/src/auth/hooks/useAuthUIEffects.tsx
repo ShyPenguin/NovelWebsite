@@ -1,7 +1,6 @@
-// hooks/useAuthUIEffects.ts
 import { useEffect } from "react";
 import { toast } from "react-toastify";
-import { useAuthUIStore } from "../stores/useAuthUIStore";
+import { useAuthUIStore } from "../store/useAuthUIStore";
 
 export function useAuthUIEffects() {
   const { reason, requiredRoles, consume } = useAuthUIStore();
@@ -11,7 +10,7 @@ export function useAuthUIEffects() {
 
     if (reason === "role") {
       toast.error(
-        `You need one of the following roles: ${requiredRoles?.join(", ")}`
+        `You need one of the following roles: ${requiredRoles?.join(", ")}`,
       );
     }
 

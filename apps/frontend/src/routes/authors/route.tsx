@@ -1,6 +1,6 @@
 import { authorsPaginatedQueryOption } from "@/api/authors/fetchAuthors";
 import Pagination from "@/components/Pagination/Pagination";
-import { ProtectedLink } from "@/components/ProtectedLink";
+import { ProtectedLink } from "@/auth/components/ProtectedLink";
 import SearchPage from "@/components/SearchPage";
 import AuthorSearch from "@/layouts/authors/AuthorSearch";
 import { useSuspenseQuery } from "@tanstack/react-query";

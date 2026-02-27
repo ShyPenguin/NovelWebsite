@@ -1,9 +1,9 @@
 // auth/requireRole.ts
 import type { QueryClient } from "@tanstack/react-query";
 import { redirect } from "@tanstack/react-router";
-import type { Role } from "../types/AuthType";
-import { queryAuthOption } from "../api/auth/auth";
-import { useAuthUIStore } from "../stores/useAuthUIStore";
+import { queryAuthOption } from "../auth/api/auth";
+import { useAuthUIStore } from "../auth/store/useAuthUIStore";
+import type { UserRole } from "@repo/contracts/dto/auth";
 
 export async function requireRoles({
   queryClient,
@@ -11,7 +11,7 @@ export async function requireRoles({
   location,
 }: {
   queryClient: QueryClient;
-  roles: Role[];
+  roles: UserRole[];
   location: string;
 }) {
   const auth = await queryClient.ensureQueryData(queryAuthOption());

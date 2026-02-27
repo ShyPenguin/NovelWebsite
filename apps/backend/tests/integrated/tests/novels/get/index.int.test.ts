@@ -13,7 +13,7 @@ import {
 } from "@repo/contracts/schemas/novel";
 import { randomUUID } from "crypto";
 import { app } from "@/app.ts";
-import { NovelQueryInput } from "@/features/novels/novel.schema..ts";
+import { NovelQueryInput } from "@/features/novels/novel.schema.ts";
 
 describe("GET /novels", () => {
   let getters: Awaited<ReturnType<typeof seedBeforeAll>>;

@@ -14,7 +14,7 @@ import { authMiddleware } from "@/middlewares/auth-middleware.ts";
 import { upload } from "@/middlewares/upload.ts";
 import { validateMiddleware } from "@/middlewares/validate-middleware.ts";
 import { ChapterQuerySchema } from "@/features/chapters/chapter.schema.ts";
-import { NovelQuerySchema } from "@/features/novels/novel.schema..ts";
+import { NovelQuerySchema } from "@/features/novels/novel.schema.ts";
 import { idSchema } from "@repo/contracts/schemas/id";
 import { asyncHandler } from "@/shared/utils/async-handler.ts";
 

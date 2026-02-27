@@ -1,9 +1,8 @@
-export type Role = "user" | "admin" | "staff";
-
+import type { UserRole } from "@repo/contracts/dto/auth";
 export type AuthType = {
   id: string;
   email: string;
   name: string;
-  role: Role;
+  role: UserRole;
   imageUrl: string;
 };

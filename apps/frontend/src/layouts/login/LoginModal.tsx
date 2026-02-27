@@ -1,4 +1,4 @@
-import { useAuthUIStore } from "../../stores/useAuthUIStore";
+import { useAuthUIStore } from "../../auth/store/useAuthUIStore";
 import LoginLayout from "./LoginLayout";
 
 export const LoginModal = () => {

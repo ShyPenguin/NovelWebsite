@@ -1,5 +1,5 @@
 import { Link, type LinkProps } from "@tanstack/react-router";
-import { useHasPermission } from "@/hooks/useHasPermission";
+import { useHasPermission } from "@/auth/hooks/useHasPermission";
 import type { Resource, Permissions } from "@repo/contracts/auth/permissions";
 
 type ProtectedLinkProps = LinkProps & {

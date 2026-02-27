@@ -1,7 +1,7 @@
 import { useLayoutEffect } from "react";
 import { Discord, XIcon } from "../../assets/icons/Index";
-import { redirectLogin } from "../../api/auth/redirectLogin";
-import { useAuthUIStore } from "../../stores/useAuthUIStore";
+import { redirectLogin } from "../../auth/api/redirectLogin";
+import { useAuthUIStore } from "../../auth/store/useAuthUIStore";
 
 const LoginLayout = () => {
   const closeLoginModal = useAuthUIStore((state) => state.closeLoginModal);
@@ -34,21 +34,21 @@ const LoginLayout = () => {
           </p>
           <div className="flex flex-col mt-2 gap-4 items-center size-full">
             <div className="flex size-full items-center">
-              <div className="h-[1px] flex-grow bg-white" />
+              <div className="h-px grow bg-white" />
               <p className="px-1 font-medium text-white whitespace-nowrap">
                 SIGN IN WITH
               </p>
-              <div className="h-[1px] flex-grow bg-white" />
+              <div className="h-px grow bg-white" />
             </div>
             <button
-              className="w-[150px] flex-center py-3 bg-bluerple rounded-xl gap-2 text-white hover:bg-bluerple/90 cursor-pointer"
+              className="w-37.5 flex-center py-3 bg-bluerple rounded-xl gap-2 text-white hover:bg-bluerple/90 cursor-pointer"
               onClick={() => redirectLogin("google")}
             >
               <Discord className="w-5 h-5" />
               <p className="text-md font-semibold">Discord</p>
             </button>
             <button
-              className="w-[150px] flex-center py-3 bg-white rounded-xl gap-2 text-primary-black hover:bg-white/90 cursor-pointer"
+              className="w-37.5 flex-center py-3 bg-white rounded-xl gap-2 text-primary-black hover:bg-white/90 cursor-pointer"
               onClick={() => redirectLogin("google")}
             >
               <img
