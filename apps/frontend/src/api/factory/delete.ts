@@ -1,10 +1,10 @@
 import { BackendApiLink } from "@/constants";
-import type { Resources } from "@/types";
 import { idField } from "@/types/fields";
 import { ApiResponseSchema } from "@repo/contracts/api";
+import type { Resource } from "@repo/contracts/auth/permissions";
 
 export const deleteResourceFactory =
-  ({ resource }: { resource: Resources }) =>
+  ({ resource }: { resource: Resource }) =>
   async ({ id }: { id: string }): Promise<{ id: string }> => {
     const response = await fetch(`${BackendApiLink}/${resource}/${id}`, {
       method: "DELETE",

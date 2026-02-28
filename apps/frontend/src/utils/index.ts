@@ -1,7 +1,7 @@
 import type { FullResponseMap } from "@/types/responseTypes";
 import type { NovelResponseMap } from "../types";
 import type { ChapterResponseMap } from "../types/chapter";
-import type { AuthorResponseMap } from "@/types/author";
+import type { AuthorResponseMap } from "@/features/authors/author.type";
 export * from "./formatTimeAge";
 export * from "./requireAuth";
 export * from "./requireRoles";

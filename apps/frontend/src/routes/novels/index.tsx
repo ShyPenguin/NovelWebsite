@@ -1,14 +1,14 @@
-import { createFileRoute, Link } from "@tanstack/react-router";
+import { createFileRoute, Link, useNavigate } from "@tanstack/react-router";
 import { useSuspenseQuery } from "@tanstack/react-query";
 import { novelsListQuery } from "../../api/novels/fetchNovels";
 import { Suspense } from "react";
 import { NovelSearchSchema } from "../../schemas/novels";
 import type { NovelDetailDTO } from "@repo/contracts/dto/novel";
 import { NO_IMAGE_URL } from "@/constants";
-import { ProtectedLink } from "@/auth/components/ProtectedLink";
 import Pencil from "@/assets/icons/Pencil";
 import { CHAPTER_SEARCH_DEFAULT } from "@/schemas/chapters";
 import ButtonIcon from "@/components/ButtonIcon";
+import { Can } from "@/auth/components/Can";
 
 export const Route = createFileRoute("/novels/")({
   validateSearch: (search) => NovelSearchSchema.parse(search),
@@ -45,6 +45,8 @@ const Content = () => {
 };
 
 const NovelCard = ({ novel }: { novel: NovelDetailDTO }) => {
+  const navigate = useNavigate();
+
   return (
     <Link
       className="flex w-full gap-4 relative"
@@ -69,21 +71,23 @@ const NovelCard = ({ novel }: { novel: NovelDetailDTO }) => {
           <p className="status block w-fit">{novel.status}</p>
           <p className="line-clamp-3 text-[14px]">{novel.description}</p>
           <div onClick={(e) => e.stopPropagation()}>
-            <ProtectedLink
-              permissionArgs={{
-                resource: "novels",
-                action: "update",
-              }}
-              to="/novels/$novelId"
-              params={{ novelId: novel.id }}
-              className="absolute top-0 left-0"
-            >
-              <div className="absolute w-8 h-8">
-                <ButtonIcon>
-                  <Pencil className="w-full h-full rotate-270" />
-                </ButtonIcon>
+            <Can resource="novels" action="update" data={novel}>
+              <div className="absolute top-0 left-0">
+                <div
+                  className="absolute w-8 h-8"
+                  onClick={() =>
+                    navigate({
+                      to: "/novels/$novelId",
+                      params: { novelId: novel.id },
+                    })
+                  }
+                >
+                  <ButtonIcon>
+                    <Pencil className="w-full h-full rotate-270" />
+                  </ButtonIcon>
+                </div>
               </div>
-            </ProtectedLink>
+            </Can>
           </div>
         </div>
       </div>

@@ -1,4 +1,4 @@
-import type { FullResponseMap } from "./responseTypes";
+import type { FullResponseMap } from "../../types/responseTypes";
 import type {
   AuthorDetailDTO,
   AuthorThumbnailDTO,

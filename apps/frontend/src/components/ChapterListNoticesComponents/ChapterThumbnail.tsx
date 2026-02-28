@@ -60,7 +60,7 @@ export const ChapterThumbnail = ({
         </Can>
         <Can
           resource="chapters"
-          action={"update"}
+          action={"delete"}
           data={{
             id,
             novelId,

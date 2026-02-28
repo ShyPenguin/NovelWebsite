@@ -1,6 +1,7 @@
 import { Link } from "@tanstack/react-router";
 import type { NovelThumbnail } from "../../types";
 import { NO_IMAGE_URL } from "@/constants";
+import { CHAPTER_SEARCH_DEFAULT } from "@/schemas/chapters";
 
 export const NovelCard = ({
   id,
@@ -12,7 +13,7 @@ export const NovelCard = ({
     <Link
       to="/novels/$novelId/chapters"
       params={{ novelId: id }}
-      search={{ page: 1, sort: "desc", search: "" }}
+      search={CHAPTER_SEARCH_DEFAULT}
     >
       <div className="relative flex h-62.5 w-62.5 ml-4 items-center justify-center rounded-2xl shadow lg:w-70 lg:h-70">
         <div className="absolute top-0 z-auto h-full w-full rounded-2xl bg-radial from-transparent to-black"></div>
@@ -28,11 +29,9 @@ export const NovelCard = ({
         transition-all ease-in"
         >
           <h3 className="lg:text-[16px] font-semibold text-[12px]">{title}</h3>
-          {description && (
-            <p className="mt-1 text-[8px] lg:text-[12px] line-clamp-2 lg:line-clamp-3 text-white/80">
-              {description}
-            </p>
-          )}
+          <p className="mt-1 text-[8px] lg:text-[12px] line-clamp-2 lg:line-clamp-3 text-white/80">
+            {description}
+          </p>
         </div>
       </div>
     </Link>

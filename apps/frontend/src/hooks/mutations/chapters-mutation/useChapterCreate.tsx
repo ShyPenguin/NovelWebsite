@@ -1,10 +1,5 @@
 import { createChapterMutate } from "@/api/chapters/postChapter";
-import { CREATE } from "@/constants";
-import { mutationConfig } from "@/utils/mutation-configs";
-import {
-  getNovelChaptersQueryKey,
-  getChapterQueryKey,
-} from "@/utils/tanstack-keys/novelChapters";
+import { chapterMutationConfig } from "@/features/chapters/utils/chapter.mutation-config";
 import type {
   ChapterFormParsedDTO,
   ChapterDetailDTO,
@@ -13,21 +8,7 @@ import type { MutateOptions } from "@tanstack/react-query";
 
 export const useChapterCreate = () => {
   const mutation = createChapterMutate();
-  const baseHandlers = mutationConfig({
-    action: CREATE,
-    resource: "chapters",
-    queryArg: {
-      getListMutatekey: ({ id }: { id?: string }) =>
-        getNovelChaptersQueryKey({
-          id: id!,
-          page: 1,
-          sort: "desc",
-          search: "",
-        }),
-      exact: true,
-    },
-    getMutateKey: getChapterQueryKey,
-  });
+  const baseHandlers = chapterMutationConfig("create");
 
   const { mutate: _removed, ...rest } = mutation;
 

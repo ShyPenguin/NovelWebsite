@@ -1,6 +1,6 @@
 import SideItem from "./SideItem";
 import { Link } from "@tanstack/react-router";
-import { AUTHOR_SEARCH_DEFAULT } from "@/schemas/authors";
+import { AUTHOR_SEARCH_DEFAULT } from "@/features/authors/author.schema";
 import { NOVEL_SEARCH_DEFAULT } from "@/schemas/novels";
 import Pencil from "@/assets/icons/Pencil";
 import { useSidebarOpen } from "@/stores/AppContext";

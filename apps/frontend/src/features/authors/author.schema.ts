@@ -1,6 +1,6 @@
 import { AuthorQueryContract } from "@repo/contracts/schemas/author";
 import type z from "zod";
-import { pageField, searchFieldExtend } from "../fields";
+import { pageField, searchFieldExtend } from "../../schemas/fields";
 
 export const AUTHOR_SEARCH_DEFAULT = {
   page: 1,

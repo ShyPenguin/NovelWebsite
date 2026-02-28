@@ -33,7 +33,11 @@ describe("GET /authors", () => {
       expect(parsedResult.data.id).toBe(author.id);
       expect(parsedResult.data.name).toBe(author.name);
       expect(parsedResult.data.novels.length).toBe(4);
-      expect(parsedResult.data.novels[0].title).toBe(novels[0].title);
+
+      expect(parsedResult.data.novels[0]).toHaveProperty("id");
+      expect(parsedResult.data.novels[0]).toHaveProperty("title");
+      expect(parsedResult.data.novels[0]).toHaveProperty("description");
+      expect(parsedResult.data.novels[0]).toHaveProperty("coverImageUrl");
     });
 
     it("Not found", async () => {

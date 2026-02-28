@@ -7,7 +7,7 @@ import { useScrollHide } from "../hooks/useScrollHide";
 import { useSidebarOpen } from "../stores/AppContext";
 import { ProfileSearchbar } from "../components/ProfileSearchbarComponents/ProfileSearchbar";
 import { NOVEL_SEARCH_DEFAULT } from "../schemas/novels";
-import { AUTHOR_SEARCH_DEFAULT } from "@/schemas/authors";
+import { AUTHOR_SEARCH_DEFAULT } from "@/features/authors/author.schema";
 
 function Navbar() {
   const { setSideBarOpen } = useSidebarOpen();

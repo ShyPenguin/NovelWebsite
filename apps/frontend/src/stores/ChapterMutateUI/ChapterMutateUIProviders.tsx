@@ -3,6 +3,7 @@ import { MutatePreviewChapterProvider } from "./MutatePreviewChapterContext";
 import { NovelDetailOpenContextProvider } from "./NovelDetailOpenContext";
 import type { MutateTypes } from "../../types";
 import type { ChapterDetailDTO } from "@repo/contracts/dto/chapter";
+import { CREATE } from "@/constants";
 
 type ChapterUIMutateContextType = {
   type: MutateTypes;
@@ -10,7 +11,7 @@ type ChapterUIMutateContextType = {
 };
 
 const ChapterUIMutateContext = createContext<ChapterUIMutateContextType>({
-  type: "CREATE",
+  type: CREATE,
   chapter: null,
 });
 

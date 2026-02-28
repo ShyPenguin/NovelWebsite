@@ -1,5 +1,5 @@
 import { useDebouncedSearch } from "@/hooks/useDebouncedSearch";
-import type { AuthorSearchType } from "@/schemas/authors";
+import type { AuthorSearchType } from "@/features/authors/author.schema";
 import { getRouteApi } from "@tanstack/react-router";
 
 const AuthorSearch = () => {

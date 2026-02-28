@@ -1,30 +1,32 @@
 import { FormButton } from "@/components/Form/FormButton";
 import { FormInput } from "@/components/Form/FormInput";
-import { CREATE, EDIT } from "@/constants";
-import type { MutateTypes } from "@/types";
+import { CREATE, UPDATE } from "@/constants";
 import { zodResolver } from "@hookform/resolvers/zod";
 import type {
+  AuthorDetailDTO,
   AuthorFormDTO,
-  AuthorThumbnailDTO,
 } from "@repo/contracts/dto/author";
 import { AuthorFormSchema } from "@repo/contracts/schemas/author";
 import { useForm, type SubmitHandler } from "react-hook-form";
+import { useAuthorCreate } from "./hooks/useAuthorCreate";
+import { useAuthorUpdate } from "./hooks/useAuthorUpdate";
 
 type AuthorFormProp = {
-  type: MutateTypes;
-  author?: AuthorThumbnailDTO;
+  type: "create" | "update";
+  author?: AuthorDetailDTO;
 } & (
   | {
-      type: typeof EDIT;
-      author: AuthorThumbnailDTO;
+      type: typeof UPDATE;
       onClose: () => void;
+      author: AuthorDetailDTO;
     }
   | {
       type: typeof CREATE;
+      onClose: (id: string) => void;
       author?: null;
     }
 );
-export const AuthorForm = ({ type, author }: AuthorFormProp) => {
+export const AuthorForm = ({ type, author, onClose }: AuthorFormProp) => {
   const {
     register,
     handleSubmit,
@@ -36,12 +38,18 @@ export const AuthorForm = ({ type, author }: AuthorFormProp) => {
     },
   });
 
+  const mutation = !author ? useAuthorCreate() : useAuthorUpdate(author);
   const onSubmit: SubmitHandler<AuthorFormDTO> = (data) => {
-    console.log(data);
+    mutation.mutate({
+      formData: data,
+      options: {
+        onSuccess: (data) => onClose(CREATE && data.id),
+      },
+    });
   };
   return (
     <form
-      className="flex flex-col gap-4 max-w-100 flex-center"
+      className="flex flex-col gap-4 max-w-100 size-full flex-center"
       onSubmit={handleSubmit(onSubmit)}
     >
       <FormInput<AuthorFormDTO>
@@ -51,15 +59,14 @@ export const AuthorForm = ({ type, author }: AuthorFormProp) => {
         placeholder="Author's name"
         errorMessage={errors.name?.message}
         register={register}
-        options={{ valueAsNumber: true }}
       />
 
       <div className="w-30">
         <FormButton
           type={"submit"}
-          isPending={false}
-          isPendingLabel={type == CREATE ? "Creating" : "Editing"}
-          label={type == CREATE ? "Create" : "Edit"}
+          isPending={mutation.isPending}
+          isPendingLabel={type == CREATE ? "Creating" : "Updating"}
+          label={type == CREATE ? "Create" : "Update"}
           className="flex justify-center"
         />
       </div>

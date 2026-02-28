@@ -1,6 +1,6 @@
 import z from "zod";
 import { idField } from "./fields";
-import type { ACTIONS, CREATE, EDIT, RESOURCES } from "@/constants";
+import type { ACTIONS, CREATE, EDIT } from "@/constants";
 export * from "./novel";
 export * from "./fetchingTypes";
 export * from "./dropdownprops";
@@ -10,7 +10,6 @@ export type ClassName = {
 };
 
 export type Actions = (typeof ACTIONS)[number];
-export type Resources = (typeof RESOURCES)[number];
 
 export type IconProps = ClassName & {
   fillColor?: string;

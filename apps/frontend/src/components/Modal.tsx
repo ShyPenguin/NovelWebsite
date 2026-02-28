@@ -19,7 +19,7 @@ const Modal = ({
     };
   }, []);
   return (
-    <div className="modal-background z-300 flex-center">
+    <div className="modal-background z-300 flex-center p-5">
       <div className="w-fit h-fit text-white text-center flex-center flex-col gap-4 bg-primary-black rounded-xl py-8 px-10 relative shadow-xs shadow-white">
         {children}
         <button

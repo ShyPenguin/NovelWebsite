@@ -1,24 +1,11 @@
 import { deleteNovelMutate } from "@/api/novels/deleteNovel";
-import { DELETE } from "@/constants";
-import { mutationConfig } from "@/utils/mutation-configs";
-import {
-  getNovelOneQueryKey,
-  getNovelsQueryKey,
-} from "@/utils/tanstack-keys/novels";
+import { novelMutationConfig } from "@/features/novels/utils/novel.mutation-config";
 import type { NovelDetailDTO } from "@repo/contracts/dto/novel";
 import type { MutateOptions } from "@tanstack/react-query";
 
 export const useNovelDelete = ({ id }: { id: NovelDetailDTO["id"] }) => {
   const mutation = deleteNovelMutate(id);
-  const baseHandlers = mutationConfig({
-    action: DELETE,
-    resource: "novels",
-    queryArg: {
-      getListMutatekey: () => getNovelsQueryKey,
-      exact: false,
-    },
-    getMutateKey: getNovelOneQueryKey,
-  });
+  const baseHandlers = novelMutationConfig("delete");
 
   const { mutate: _removed, ...rest } = mutation;
 

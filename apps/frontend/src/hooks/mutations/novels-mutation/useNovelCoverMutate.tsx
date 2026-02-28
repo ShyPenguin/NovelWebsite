@@ -20,10 +20,10 @@ export const useNovelCoverMutate = ({
     action: "UPDATE",
     resource: "novels",
     queryArg: {
-      getListMutatekey: () => getNovelsQueryKey,
+      getListQueryKey: () => getNovelsQueryKey,
       exact: false,
     },
-    getMutateKey: getNovelOneQueryKey,
+    getQueryKey: getNovelOneQueryKey,
   });
   return {
     mutate: ({

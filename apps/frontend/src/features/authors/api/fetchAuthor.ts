@@ -1,23 +1,25 @@
 import type { AuthorDetailDTO } from "@repo/contracts/dto/author";
-import { getAuthorOneQueryKey } from "../authors.tanstack-keys";
+import { getAuthorOneQueryKey } from "../utils/authors.tanstack-keys";
 import { ApiResponseSchema } from "@repo/contracts/api";
 import { queryOptions } from "@tanstack/react-query";
-import { urlApiRoute } from "../constant";
+import { urlApiRoute } from "../author.constant";
 import { INTERVAL_24_HRS } from "@/constants";
 import { AuthorDetailSchema } from "@repo/contracts/schemas/author";
+import { notFound } from "@tanstack/react-router";
 
 export const fetchAuthor = async ({
   id,
 }: {
   id: string;
 }): Promise<AuthorDetailDTO> => {
-  const response = await fetch(`${urlApiRoute}/${id}`, {
-    method: "GET",
-  });
+  const response = await fetch(`${urlApiRoute}/${id}`);
+
+  if (response.status === 404 || response.status === 400) {
+    throw notFound();
+  }
 
   const result = await response.json();
 
-  console.log(result);
   const parsedResult = ApiResponseSchema(AuthorDetailSchema).parse(result);
   if (!parsedResult.ok) {
     throw new Error(parsedResult.error.message);

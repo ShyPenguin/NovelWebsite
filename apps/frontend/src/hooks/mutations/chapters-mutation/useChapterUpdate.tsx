@@ -1,10 +1,5 @@
 import { updateChapterMutate } from "@/api/chapters/putChapter";
-import { UPDATE } from "@/constants";
-import { mutationConfig } from "@/utils/mutation-configs";
-import {
-  getNovelChaptersQueryKey,
-  getChapterQueryKey,
-} from "@/utils/tanstack-keys/novelChapters";
+import { chapterMutationConfig } from "@/features/chapters/utils/chapter.mutation-config";
 import type {
   ChapterFormParsedDTO,
   ChapterDetailDTO,
@@ -13,21 +8,7 @@ import type { MutateOptions } from "@tanstack/react-query";
 
 export const useChapterUpdate = (chapter: ChapterDetailDTO) => {
   const mutation = updateChapterMutate(chapter.id);
-  const baseHandlers = mutationConfig({
-    action: UPDATE,
-    resource: "chapters",
-    queryArg: {
-      getListMutatekey: ({ id }: { id?: string }) =>
-        getNovelChaptersQueryKey({
-          id: id || "",
-          page: 1,
-          sort: "desc",
-          search: "",
-        }),
-      exact: true,
-    },
-    getMutateKey: getChapterQueryKey,
-  });
+  const baseHandlers = chapterMutationConfig("update");
 
   return {
     mutate: ({
@@ -49,7 +30,11 @@ export const useChapterUpdate = (chapter: ChapterDetailDTO) => {
           ...baseHandlers,
           ...options,
           onSuccess: (data, vars, onResult, ctx) => {
-            baseHandlers.onSuccess?.(data, data.novelId);
+            baseHandlers.onSuccess?.({
+              data,
+              id: data.id,
+              parentId: data.novelId,
+            });
             options?.onSuccess?.(data, vars, onResult, ctx);
           },
           onError(error, vars, onResult, ctx) {

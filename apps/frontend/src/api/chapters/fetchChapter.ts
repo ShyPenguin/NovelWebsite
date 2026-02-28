@@ -3,6 +3,7 @@ import { queryOptions } from "@tanstack/react-query";
 import { ApiResponseSchema } from "@repo/contracts/api";
 import { ChapterDetailSchema } from "@repo/contracts/schemas/chapter";
 import { BackendApiLink, INTERVAL_12_HRS } from "@/constants";
+import { notFound } from "@tanstack/react-router";
 
 const urlRoute = "chapters";
 export const fetchChapter = async ({
@@ -10,9 +11,12 @@ export const fetchChapter = async ({
 }: {
   chapterId: ChapterDetailDTO["id"];
 }): Promise<ChapterDetailDTO> => {
-  const response = await fetch(`${BackendApiLink}/${urlRoute}/${chapterId}`, {
-    method: "GET",
-  });
+  const response = await fetch(`${BackendApiLink}/${urlRoute}/${chapterId}`);
+
+  if (response.status === 404 || response.status === 400) {
+    throw notFound();
+  }
+
   const result = await response.json();
 
   const parsedData = ApiResponseSchema(ChapterDetailSchema).parse(result);

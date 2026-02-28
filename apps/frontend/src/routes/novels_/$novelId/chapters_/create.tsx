@@ -11,6 +11,7 @@ import { MutateChapterNavbar } from "../../../../layouts/chapters/mutate/MutateC
 import { LeftSideContent } from "../../../../layouts/chapters/mutate/LeftSideContent";
 import { Main } from "../../../../layouts/chapters/mutate/Main";
 import { ChapterMutateUIProviders } from "../../../../stores/ChapterMutateUI/ChapterMutateUIProviders";
+import { CREATE } from "@/constants";
 
 export const Route = createFileRoute("/novels_/$novelId/chapters_/create")({
   loader: ({ context: { queryClient }, params: { novelId } }) => {
@@ -30,7 +31,7 @@ export const Route = createFileRoute("/novels_/$novelId/chapters_/create")({
 function RouteComponent() {
   return (
     <PreviewChapterProvider>
-      <ChapterMutateUIProviders type={"CREATE"}>
+      <ChapterMutateUIProviders type={CREATE}>
         <Content />
       </ChapterMutateUIProviders>
     </PreviewChapterProvider>

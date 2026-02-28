@@ -1,17 +1,11 @@
-import { deleteChapterMutate } from "@/api/chapters/deleteChapter";
-import { chapterMutationConfig } from "@/features/chapters/utils/chapter.mutation-config";
-import type { ChapterDetailDTO } from "@repo/contracts/dto/chapter";
+import { authorMutationConfig } from "@/features/authors/utils/author.mutation-config";
+import type { AuthorDetailDTO } from "@repo/contracts/dto/author";
 import type { MutateOptions } from "@tanstack/react-query";
+import { deleteAuthorMutate } from "../api/deleteAuthor";
 
-export const useChapterDelete = ({
-  id,
-  novelId,
-}: {
-  id: ChapterDetailDTO["id"];
-  novelId: ChapterDetailDTO["novelId"];
-}) => {
-  const mutation = deleteChapterMutate(id);
-  const baseHandlers = chapterMutationConfig("delete");
+export const useAuthorDelete = ({ id }: { id: AuthorDetailDTO["id"] }) => {
+  const mutation = deleteAuthorMutate(id);
+  const baseHandlers = authorMutationConfig("delete");
 
   const { mutate: _removed, ...rest } = mutation;
 
@@ -20,20 +14,20 @@ export const useChapterDelete = ({
       options,
     }: {
       options?: MutateOptions<
-        { id: ChapterDetailDTO["id"] },
+        { id: AuthorDetailDTO["id"] },
         unknown,
-        { chapterId: ChapterDetailDTO["id"] }
+        { authorId: AuthorDetailDTO["id"] }
       >;
     }) =>
       mutation.mutate(
         {
-          chapterId: id,
+          authorId: id,
         },
         {
           ...baseHandlers,
           ...options,
           onSuccess: (data, vars, onResult, ctx) => {
-            baseHandlers.onSuccess?.({ data, id: data.id, parentId: novelId });
+            baseHandlers.onSuccess?.({ data, id: data.id });
             options?.onSuccess?.(data, vars, onResult, ctx);
           },
           onError(error, vars, onResult, ctx) {

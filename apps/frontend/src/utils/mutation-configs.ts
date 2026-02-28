@@ -1,26 +1,26 @@
-import { GET, PREVIEW } from "@/constants";
+import { VIEW, PREVIEW } from "@/constants";
 import { queryClient } from "@/routes";
-import type { Actions, Resources } from "@/types";
 import { toast } from "react-toastify";
 import { capitalizeFirstLetter } from "./capitalizeFirstLetter";
+import type { Action, Resource } from "@repo/contracts/auth/permissions";
 
 export const mutationConfig = <T>({
   action,
   resource,
   queryArg,
-  getMutateKey,
+  getQueryKey,
 }: {
-  action: Exclude<Actions, typeof GET | typeof PREVIEW>;
-  resource: Resources;
+  action: Exclude<Action, typeof VIEW | typeof PREVIEW>;
+  resource: Resource;
   queryArg: {
-    getListMutatekey: ({
+    getListQueryKey: ({
       id,
     }: {
       id?: string;
     }) => (string | number | undefined)[];
     exact: boolean;
   };
-  getMutateKey: ({ id }: { id: string }) => (string | number | undefined)[];
+  getQueryKey: ({ id }: { id: string }) => (string | number | undefined)[];
 }) => {
   return {
     onSuccess: async ({
@@ -33,11 +33,11 @@ export const mutationConfig = <T>({
       parentId?: string;
     }) => {
       // Update single novel cache
-      queryClient.setQueryData(getMutateKey({ id }), data);
+      queryClient.setQueryData(getQueryKey({ id }), data);
 
       // Invalidate lists
       await queryClient.invalidateQueries({
-        queryKey: queryArg.getListMutatekey(parentId ? { id: parentId } : {}),
+        queryKey: queryArg.getListQueryKey(parentId ? { id: parentId } : {}),
         exact: queryArg.exact,
         refetchType: "active",
       });

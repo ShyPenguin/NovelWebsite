@@ -100,7 +100,7 @@ export const novelChaptersPaginatedQueryOptions = ({
 
 export const novelChaptersQueryOptions = ({ novelId }: { novelId: string }) =>
   queryOptions<ChapterThumbnailDTO[]>({
-    queryKey: ["novelChapters", novelId],
+    queryKey: ["chapters", novelId],
     queryFn: () =>
       fetchNovelChaptersThumbnail({ params: { withQuery: false }, novelId }),
     staleTime: 6 * 60 * 60 * 1000, // Consider chapter list fresh for 6 hour

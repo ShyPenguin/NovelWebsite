@@ -13,7 +13,10 @@ export const getNovelChaptersQueryKey = ({
   page?: number;
 }) => ["chapters", id, page, sort, search];
 
-export const getChapterQueryKey = ({ id }: { id: ChapterDetailDTO["id"] }) => [
-  "chapter",
+export const getChapterOneQueryKey = ({
   id,
-];
+}: {
+  id: ChapterDetailDTO["id"];
+}) => ["chapter", id];
+
+export const getChaptersQueryKey = ["chapters"];

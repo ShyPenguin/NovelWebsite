@@ -31,12 +31,12 @@ export const Route = createFileRoute("/novels_/$novelId/")({
 });
 
 function RouteComponent() {
-  const novelRouteData = Route.useLoaderData();
+  const { novelId } = Route.useParams();
 
-  const { data: novel } = useQuery(novelQueryOptions(novelRouteData.id));
+  const { data: novel } = useQuery(novelQueryOptions(novelId));
   return (
     <Page>
-      <Content novel={novel ? novel : novelRouteData} />
+      <Content novel={novel!} />
     </Page>
   );
 }

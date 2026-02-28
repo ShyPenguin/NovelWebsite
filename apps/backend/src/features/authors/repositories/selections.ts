@@ -12,7 +12,9 @@ const getAuthorNovels = sql<{ id: string; title: string }[]>`(
     json_agg(
       jsonb_build_object(
         'id', ${NovelTable.id},
-        'title', ${NovelTable.title}
+        'title', ${NovelTable.title},
+        'coverImageUrl', ${NovelTable.coverImageUrl},
+        'description', ${NovelTable.description}
       )
     ),
     '[]'::json

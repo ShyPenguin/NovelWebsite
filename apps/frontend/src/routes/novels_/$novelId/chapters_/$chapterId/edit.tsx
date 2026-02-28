@@ -7,16 +7,17 @@ import { LeftSideContent } from "../../../../../layouts/chapters/mutate/LeftSide
 import { Main } from "../../../../../layouts/chapters/mutate/Main";
 import { novelQueryOptions } from "../../../../../api/novels/fetchNovel";
 import { ChapterMutateUIProviders } from "../../../../../stores/ChapterMutateUI/ChapterMutateUIProviders";
+import { EDIT } from "@/constants";
 
 export const Route = createFileRoute(
-  "/novels_/$novelId/chapters_/$chapterId/edit"
+  "/novels_/$novelId/chapters_/$chapterId/edit",
 )({
   loader: async ({
     context: { queryClient },
     params: { chapterId, novelId },
   }) => {
     const chapter = await queryClient.ensureQueryData(
-      fetchChapterQueryOptions({ chapterId: chapterId })
+      fetchChapterQueryOptions({ chapterId: chapterId }),
     );
     const novel = await queryClient.ensureQueryData(novelQueryOptions(novelId));
     return { chapter, novel };
@@ -36,7 +37,7 @@ function RouteComponent() {
   const { chapter } = Route.useLoaderData();
 
   return (
-    <ChapterMutateUIProviders type={"EDIT"} chapter={chapter}>
+    <ChapterMutateUIProviders type={EDIT} chapter={chapter}>
       <Content />
     </ChapterMutateUIProviders>
   );

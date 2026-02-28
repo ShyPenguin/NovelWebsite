@@ -1,8 +1,8 @@
-import { authorsPaginatedQueryOption } from "@/authors/api/fetchAuthors";
+import { authorsPaginatedQueryOption } from "@/features/authors/api/fetchAuthors";
 import Pagination from "@/components/Pagination/Pagination";
 import { ProtectedLink } from "@/auth/components/ProtectedLink";
 import Page from "@/components/Page";
-import AuthorSearch from "@/authors/AuthorSearch";
+import AuthorSearch from "@/features/authors/AuthorSearch";
 import { useSuspenseQuery } from "@tanstack/react-query";
 import { createFileRoute, getRouteApi, Outlet } from "@tanstack/react-router";
 import { Suspense } from "react";

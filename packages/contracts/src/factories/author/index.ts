@@ -1,5 +1,11 @@
 import { z } from "zod";
-import { createIdField, idField, titleField } from "../../schemas/fields";
+import {
+  createIdField,
+  descriptionField,
+  idField,
+  titleField,
+  urlField,
+} from "../../schemas/fields";
 import { GetFactory } from "../read-factory";
 import { StringSchemaBuilder } from "../../fields/builders/StringSchema";
 
@@ -16,6 +22,8 @@ const AuthorDetailSchema = z.object({
     z.object({
       id: createIdField("Novel"),
       title: titleField,
+      coverImageUrl: urlField.nullish(),
+      description: descriptionField,
     }),
   ),
 });
