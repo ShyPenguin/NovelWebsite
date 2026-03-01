@@ -6,14 +6,14 @@ import {
 } from "@repo/contracts/schemas/author";
 import { ApiResponseSchema } from "@repo/contracts/api";
 import type { AuthorThumbnailDTO } from "@repo/contracts/dto/author";
-import type { FullResponseMap } from "@/types/responseTypes";
 import type { AuthorSearchType } from "@/features/authors/author.schema";
-import type { FetchType, Paginated } from "@/types";
 import type {
   AuthorResponseMap,
   FetchAuthorsReturn,
 } from "@/features/authors/author.type";
 import { urlApiRoute } from "../author.constant";
+import type { FetchType, Paginated } from "@/shared/types";
+import type { FullResponseMap } from "@/shared/types/responseTypes";
 export const fetchAuthors = <
   T extends keyof FullResponseMap<AuthorResponseMap>,
   P extends boolean,

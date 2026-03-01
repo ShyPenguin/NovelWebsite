@@ -1,6 +1,6 @@
 import { useMutation } from "@tanstack/react-query";
 import type { AuthorDetailDTO } from "@repo/contracts/dto/author";
-import { deleteResourceFactory } from "@/api/factory/delete";
+import { deleteResourceFactory } from "@/shared/api/delete";
 
 export const deleteAuthor = deleteResourceFactory({ resource: "authors" });
 

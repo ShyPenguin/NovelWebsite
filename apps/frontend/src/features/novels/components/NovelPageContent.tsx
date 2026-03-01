@@ -1,0 +1,122 @@
+import Pencil from "@/assets/icons/Pencil";
+import { NO_IMAGE_URL } from "@/shared/constants";
+import { Can } from "@/features/auth/components/Can";
+import { CHAPTER_SEARCH_DEFAULT } from "@/features/chapters/chapter.schema";
+import ButtonIcon from "@/shared/components/ButtonIcon";
+import type { NovelDetailDTO } from "@repo/contracts/dto/novel";
+import { useSuspenseQuery } from "@tanstack/react-query";
+import { useNavigate, Link, getRouteApi } from "@tanstack/react-router";
+import { Suspense } from "react";
+import { novelsListQuery } from "../api/fetchNovels";
+
+export function NovelPageContent() {
+  return (
+    <div className="mt-7">
+      <Suspense fallback={<SkeletonNovels />}>
+        <Content />
+      </Suspense>
+    </div>
+  );
+}
+
+const Content = () => {
+  const route = getRouteApi("/novels/");
+  const { sort, search, status } = route.useSearch();
+
+  const { data: novels, isSuccess } = useSuspenseQuery(
+    novelsListQuery({ sort, status, search }),
+  );
+  return (
+    <ul className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+      {isSuccess &&
+        novels.length > 0 &&
+        novels.map((novel) => (
+          <li key={novel.id}>
+            <NovelCard novel={novel} />
+          </li>
+        ))}
+    </ul>
+  );
+};
+
+const NovelCard = ({ novel }: { novel: NovelDetailDTO }) => {
+  const navigate = useNavigate();
+
+  return (
+    <Link
+      className="flex w-full gap-4 relative"
+      to="/novels/$novelId/chapters"
+      params={{
+        novelId: novel.id,
+      }}
+      search={CHAPTER_SEARCH_DEFAULT}
+    >
+      <img
+        className="h-full min-h-36.5 lg:min-h-45 w-25 lg:w-30 rounded-2xl object-cover"
+        src={novel.coverImageUrl ? novel.coverImageUrl : NO_IMAGE_URL}
+      />
+      <div className="flex flex-col gap-2">
+        <h1 className="text-primary-black dark:text-white font-bold text-lg line-clamp-1">
+          {novel.title}
+        </h1>
+        <div className="flex flex-col gap-2">
+          <p className="text-[12px] text-muted-foreground">
+            {novel.author ? novel.author.name : "No Author"}
+          </p>
+          <p className="status block w-fit">{novel.status}</p>
+          <p className="line-clamp-3 text-[14px]">{novel.description}</p>
+          <div onClick={(e) => e.stopPropagation()}>
+            <Can resource="novels" action="update" data={novel}>
+              <div className="absolute top-0 left-0">
+                <div
+                  className="absolute w-8 h-8"
+                  onClick={() =>
+                    navigate({
+                      to: "/novels/$novelId",
+                      params: { novelId: novel.id },
+                    })
+                  }
+                >
+                  <ButtonIcon>
+                    <Pencil className="w-full h-full rotate-270" />
+                  </ButtonIcon>
+                </div>
+              </div>
+            </Can>
+          </div>
+        </div>
+      </div>
+    </Link>
+  );
+};
+
+function SkeletonNovels() {
+  return (
+    <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+      <div className="flex gap-4">
+        <div className="h-36.5 lg:h-45 w-25 lg:w-30 rounded-md animate-pulse skeleton-color" />
+        <div className="size-full rounded-md animate-pulse skeleton-color" />
+      </div>
+      <div className="flex gap-4">
+        <div className="h-36.5 lg:h-45 w-25 lg:w-30 rounded-md animate-pulse skeleton-color" />
+        <div className="size-full rounded-md animate-pulse skeleton-color" />
+      </div>
+      <div className="flex gap-4">
+        <div className="h-36.5 lg:h-45 w-25 lg:w-30 rounded-md animate-pulse skeleton-color" />
+        <div className="size-full rounded-md animate-pulse skeleton-color" />
+      </div>
+      <div className="flex gap-4">
+        <div className="h-36.5 lg:h-45 w-25 lg:w-30 rounded-md animate-pulse skeleton-color" />
+        <div className="size-full rounded-md animate-pulse skeleton-color" />
+      </div>
+      <div className="flex gap-4">
+        <div className="h-36.5 lg:h-45 w-25 lg:w-30 rounded-md animate-pulse skeleton-color" />
+        <div className="size-full rounded-md animate-pulse skeleton-color" />
+      </div>
+      <div className="flex gap-4">
+        <div className="h-36.5 lg:h-45 w-25 lg:w-30 rounded-md animate-pulse skeleton-color" />
+        <div className="size-full rounded-md animate-pulse skeleton-color" />
+      </div>
+    </div>
+  );
+}

@@ -1,9 +1,9 @@
-import type { VIEW, PREVIEW } from "@/constants";
-import { mutationConfig } from "@/utils/mutation-configs";
+import type { VIEW, PREVIEW } from "@/shared/constants";
+import { mutationConfig } from "@/shared/utils/mutation-configs";
 import {
   getChapterOneQueryKey,
   getChaptersQueryKey,
-} from "@/utils/tanstack-keys/novelChapters";
+} from "@/features/chapters/utils/chapters.tanstack-keys.";
 import type { Action } from "@repo/contracts/auth/permissions";
 
 export const chapterMutationConfig = (

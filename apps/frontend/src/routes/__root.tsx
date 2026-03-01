@@ -1,6 +1,6 @@
 import { createRootRouteWithContext } from "@tanstack/react-router";
-import { AppProvider } from "../stores/AppContext";
-import App from "../App";
+import { AppProvider } from "../app/stores/AppContext";
+import App from "../app/App";
 import type { QueryClient } from "@tanstack/react-query";
 
 export const Route = createRootRouteWithContext<{

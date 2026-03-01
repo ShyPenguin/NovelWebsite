@@ -1,13 +1,8 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { fetchChapterQueryOptions } from "../../../../../api/chapters/fetchChapter";
-import { LoadingSpinner } from "../../../../../components/LoadingSpinner";
-import { MutateChapterNavbar } from "../../../../../layouts/chapters/mutate/MutateChapterNavbar";
-import { LeftSidebar } from "../../../../../layouts/chapters/mutate/LeftSidebar";
-import { LeftSideContent } from "../../../../../layouts/chapters/mutate/LeftSideContent";
-import { Main } from "../../../../../layouts/chapters/mutate/Main";
-import { novelQueryOptions } from "../../../../../api/novels/fetchNovel";
-import { ChapterMutateUIProviders } from "../../../../../stores/ChapterMutateUI/ChapterMutateUIProviders";
-import { EDIT } from "@/constants";
+import { ChapterEditPage } from "@/features/chapters/pages/ChapterEditPage";
+import { fetchChapterQueryOptions } from "@/features/chapters/api/fetchChapter";
+import { novelQueryOptions } from "@/features/novels/api/fetchNovel";
+import { LoadingSpinner } from "@/shared/components/LoadingSpinner";
 
 export const Route = createFileRoute(
   "/novels_/$novelId/chapters_/$chapterId/edit",
@@ -30,36 +25,5 @@ export const Route = createFileRoute(
   notFoundComponent: () => {
     return <h4 className="test-inherit text-xxs">Chapter not found</h4>;
   },
-  component: RouteComponent,
+  component: ChapterEditPage,
 });
-
-function RouteComponent() {
-  const { chapter } = Route.useLoaderData();
-
-  return (
-    <ChapterMutateUIProviders type={EDIT} chapter={chapter}>
-      <Content />
-    </ChapterMutateUIProviders>
-  );
-}
-
-const Content = () => {
-  const { chapter, novel } = Route.useLoaderData();
-
-  return (
-    <>
-      <section className="relative min-h-screen dark:bg-primary-black bg-white">
-        {/* PAGE NAVBAR */}
-        <MutateChapterNavbar />
-
-        {/* LEFT BAR */}
-        <div className="px-5 pt-5">
-          <LeftSidebar>
-            <LeftSideContent {...novel} />
-          </LeftSidebar>
-        </div>
-        <Main chapter={chapter} />
-      </section>
-    </>
-  );
-};

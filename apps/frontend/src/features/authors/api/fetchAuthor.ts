@@ -3,7 +3,7 @@ import { getAuthorOneQueryKey } from "../utils/authors.tanstack-keys";
 import { ApiResponseSchema } from "@repo/contracts/api";
 import { queryOptions } from "@tanstack/react-query";
 import { urlApiRoute } from "../author.constant";
-import { INTERVAL_24_HRS } from "@/constants";
+import { INTERVAL_24_HRS } from "@/shared/constants";
 import { AuthorDetailSchema } from "@repo/contracts/schemas/author";
 import { notFound } from "@tanstack/react-router";
 

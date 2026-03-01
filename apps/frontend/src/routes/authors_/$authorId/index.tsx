@@ -1,8 +1,7 @@
 import { authorQueryOptions } from "@/features/authors/api/fetchAuthor";
-import { LoadingSpinner } from "@/components/LoadingSpinner";
-import { useQuery } from "@tanstack/react-query";
+import AuthorDetail from "@/features/authors/components/AuthorDetail";
+import { LoadingSpinner } from "@/shared/components/LoadingSpinner";
 import { createFileRoute } from "@tanstack/react-router";
-import AuthorDetail from "@/features/authors/AuthorDetail";
 
 export const Route = createFileRoute("/authors_/$authorId/")({
   loader: ({ context: { queryClient }, params: { authorId } }) => {
@@ -16,14 +15,5 @@ export const Route = createFileRoute("/authors_/$authorId/")({
   notFoundComponent: () => {
     return <h4 className="test-inherit text-xxs">Author not found</h4>;
   },
-
-  component: RouteComponent,
+  component: AuthorDetail,
 });
-
-function RouteComponent() {
-  const { authorId } = Route.useParams();
-
-  const { data: author } = useQuery(authorQueryOptions(authorId));
-
-  return <AuthorDetail author={author!} />;
-}

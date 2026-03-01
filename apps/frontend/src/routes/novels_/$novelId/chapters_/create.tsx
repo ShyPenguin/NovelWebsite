@@ -1,23 +1,22 @@
-// routes/novels/$novelId/chapters/create.tsx
 import { createFileRoute } from "@tanstack/react-router";
-import { novelQueryOptions } from "../../../../api/novels/fetchNovel";
-import {
-  PreviewChapterProvider,
-  usePreviewChapter,
-} from "../../../../stores/ChapterMutateUI/PreviewChapterContext";
-import { LeftSidebar } from "../../../../layouts/chapters/mutate/LeftSidebar";
-import { requireRoles } from "../../../../utils";
-import { MutateChapterNavbar } from "../../../../layouts/chapters/mutate/MutateChapterNavbar";
-import { LeftSideContent } from "../../../../layouts/chapters/mutate/LeftSideContent";
-import { Main } from "../../../../layouts/chapters/mutate/Main";
-import { ChapterMutateUIProviders } from "../../../../stores/ChapterMutateUI/ChapterMutateUIProviders";
-import { CREATE } from "@/constants";
+import { ChapterCreatePage } from "@/features/chapters/pages/ChapterCreatePage";
+import { LoadingSpinner } from "@/shared/components/LoadingSpinner";
+import { novelQueryOptions } from "@/features/novels/api/fetchNovel";
+import { requireRoles } from "@/shared/utils";
 
 export const Route = createFileRoute("/novels_/$novelId/chapters_/create")({
   loader: ({ context: { queryClient }, params: { novelId } }) => {
     return queryClient.ensureQueryData(novelQueryOptions(novelId));
   },
-  component: RouteComponent,
+  pendingComponent: () => (
+    <div className="min-h-screen flex-center">
+      <LoadingSpinner text="Loading Novel" />
+    </div>
+  ),
+  notFoundComponent: () => {
+    return <h4 className="test-inherit text-xxs">Novel not found</h4>;
+  },
+  component: ChapterCreatePage,
   beforeLoad: async ({ context: { queryClient }, params: { novelId } }) => {
     const url = `/novels/${novelId}/chapters`;
     await requireRoles({
@@ -27,38 +26,3 @@ export const Route = createFileRoute("/novels_/$novelId/chapters_/create")({
     });
   },
 });
-
-function RouteComponent() {
-  return (
-    <PreviewChapterProvider>
-      <ChapterMutateUIProviders type={CREATE}>
-        <Content />
-      </ChapterMutateUIProviders>
-    </PreviewChapterProvider>
-  );
-}
-
-const Content = () => {
-  const { previewed } = usePreviewChapter();
-  const novel = Route.useLoaderData();
-
-  return (
-    <>
-      <section className="relative flex size-full min-h-screen dark:bg-primary-black bg-white">
-        {/* PAGE NAVBAR */}
-        {previewed && <MutateChapterNavbar />}
-
-        {/* LEFT BAR */}
-        <div className="px-5 pt-5">
-          {!previewed && <LeftSideContent {...novel} />}
-          {previewed && (
-            <LeftSidebar>
-              <LeftSideContent {...novel} />
-            </LeftSidebar>
-          )}
-        </div>
-        {previewed && <Main />}
-      </section>
-    </>
-  );
-};

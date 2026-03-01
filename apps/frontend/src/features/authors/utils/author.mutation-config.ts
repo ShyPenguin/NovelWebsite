@@ -1,5 +1,5 @@
-import type { VIEW, PREVIEW } from "@/constants";
-import { mutationConfig } from "@/utils/mutation-configs";
+import type { VIEW, PREVIEW } from "@/shared/constants";
+import { mutationConfig } from "@/shared/utils/mutation-configs";
 import {
   getAuthorOneQueryKey,
   getAuthorsQueryKey,
