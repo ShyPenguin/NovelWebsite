@@ -8,7 +8,7 @@ import { queryAuthOption } from "../features/auth/api/auth";
 import { useAuthUIEffects } from "../features/auth/hooks/useAuthUIEffects";
 import { LoginModal } from "../features/auth/components/LoginModal";
 import Sidebar from "../shared/components/SideBarComponents/Sidebar";
-import Navbar from "./layouts/Navbar";
+import Navbar from "./components/Navbar";
 import { Footer } from "./components/Footer";
 
 const MemoizedLoginModal = memo(LoginModal);
