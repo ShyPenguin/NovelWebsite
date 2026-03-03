@@ -6,10 +6,16 @@ export const idField = z.uuid({
     iss.input === undefined ? "ID is required" : "ID is not in correct format",
 });
 
+export const emailField = z.email({
+  error: (iss) =>
+    iss.input === undefined || iss.input === null || iss.input === ""
+      ? "Email is required"
+      : "Email is invalid",
+});
 export const createIdField = (fieldName: string) =>
   z.uuid({
     error: (iss) =>
-      iss.input === undefined
+      iss.input === undefined || iss.input === null || iss.input === ""
         ? `${fieldName}'s ID is required`
         : `${fieldName}'s ID is not in correct format`,
   });

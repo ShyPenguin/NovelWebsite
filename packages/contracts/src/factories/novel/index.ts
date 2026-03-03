@@ -1,61 +1,52 @@
 import { z } from "zod";
 import { GetFactory } from "../read-factory";
-import {
-  titleField,
-  descriptionField,
-  urlField,
-  createIdField,
-} from "../../schemas/fields";
-import { AuthorThumbnailSchema } from "../../schemas/author/schema";
-import { CategoryDetailSchema } from "../../schemas/category/schema";
-import {
-  createStringNumberToNumber,
-  languageField,
-  novelStatusField,
-  novelTypeField,
-  weekDayField,
-} from "./fields";
-import { isoStringToDate } from "../../schemas/date/schema";
 import { createSortWithDirection } from "../../utils/createSortWithDirection";
 import { TranslatorSchema } from "../translator";
+import { NovelBaseSchema } from "../../base/novel.base";
+import { AuthorBaseSchema } from "../../base/author.base";
+import { CategoryBaseSchema } from "../../base/category.base";
 
-const NovelDetailSchema = z.object({
-  id: createIdField("Novel"),
-  title: titleField,
-  description: descriptionField,
-  totalChapters: createStringNumberToNumber("Total chapters"),
-  author: AuthorThumbnailSchema.nullish(),
-  coverImageUrl: urlField.nullish(),
-  coverImagePath: z.string().nullish(),
-  release: isoStringToDate,
-  type: novelTypeField,
-  language: languageField,
-  status: novelStatusField,
-  schedule: weekDayField.array(),
-  categories: z.array(CategoryDetailSchema),
-  translator: TranslatorSchema.nullish(),
+const NovelThumbnailSchema = NovelBaseSchema.pick({
+  id: true, //
+  title: true, //
+  coverImageUrl: true, //
+  description: true, //
+}).extend({
+  translator: TranslatorSchema.nullish(), //
 });
 
-const NovelThumbnailSchema = z.object({
-  id: NovelDetailSchema.shape["id"],
-  title: NovelDetailSchema.shape["title"],
-  coverImageUrl: NovelDetailSchema.shape["coverImageUrl"],
-  description: NovelDetailSchema.shape["description"],
-  translator: NovelDetailSchema.shape["translator"],
+const NovelTrendSchema = NovelBaseSchema.pick({
+  id: true,
+  title: true,
+  coverImageUrl: true,
+  totalChapters: true,
 });
 
-const NovelTrendSchema = z.object({
-  id: NovelDetailSchema.shape["id"],
-  title: NovelDetailSchema.shape["title"],
-  coverImageUrl: NovelDetailSchema.shape["coverImageUrl"],
-  totalChapters: NovelDetailSchema.shape["totalChapters"],
+const NovelAuthSchema = NovelThumbnailSchema.pick({
+  id: true,
+  translator: true,
 });
 
-const NovelAuthSchema = z.object({
-  id: NovelDetailSchema.shape["id"],
-  translator: NovelDetailSchema.shape["translator"],
+const NovelDetailSchema = NovelBaseSchema.pick({
+  id: true, //
+  title: true, //
+  coverImageUrl: true, //
+  coverImagePath: true,
+  description: true, //
+  totalChapters: true, //
+  release: true, //
+  type: true, //
+  language: true, //
+  status: true, //
+  schedule: true, //
+}).extend({
+  translator: NovelThumbnailSchema.shape["translator"], //
+  author: AuthorBaseSchema.pick({
+    id: true,
+    name: true,
+  }).nullish(), //
+  categories: z.array(CategoryBaseSchema),
 });
-
 export const novelSort = ["createdAt", "updatedAt", "title"] as const;
 
 export const novelSortField = z.enum(novelSort, {
@@ -74,7 +65,6 @@ export const novelSortWithDirectionField = z.enum(novelSortWithDirection, {
   message: `Sort must be ${fullText}`,
 });
 
-export const NovelDetailFactory = new GetFactory({ schema: NovelDetailSchema });
 export const NovelThumbnailFactory = new GetFactory({
   schema: NovelThumbnailSchema,
 });
@@ -82,3 +72,5 @@ export const NovelTrendFactory = new GetFactory({ schema: NovelTrendSchema });
 export const NovelAuthFactory = new GetFactory({
   schema: NovelAuthSchema,
 });
+
+export const NovelDetailFactory = new GetFactory({ schema: NovelDetailSchema });

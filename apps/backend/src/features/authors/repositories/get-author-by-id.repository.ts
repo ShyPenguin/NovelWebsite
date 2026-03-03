@@ -13,7 +13,6 @@ import {
   AuthorDetailSchema,
   AuthorThumbnailSchema,
 } from "@repo/contracts/schemas/author";
-import { NovelTable } from "@/infrastructure/db/schemas/novels.ts";
 
 type AuthorDTOMap = {
   thumbnail: AuthorThumbnailDTO;
@@ -40,6 +39,7 @@ const getAuthorByIdFactory = <T extends AuthorListDTO>({
     });
     const result = await baseQuery.where(eq(AuthorTable.id, id));
     if (!result[0]) return null;
+
     return schema.encode(result[0]) as GetFetchReturn<AuthorDTOMap, T>;
   };
 };

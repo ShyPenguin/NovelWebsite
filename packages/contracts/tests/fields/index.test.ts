@@ -1,13 +1,5 @@
 import { expect, describe, it } from "vitest";
-import {
-  createDateField,
-  createIdField,
-  createUrlField,
-  dateField,
-  descriptionField,
-  idField,
-  titleField,
-} from "../../src/schemas/fields";
+
 import { z } from "zod";
 import { randomUUID } from "crypto";
 import {
@@ -16,6 +8,15 @@ import {
   yyyyMmDdStringToDate,
 } from "../../src/schemas/date/schema";
 import { getFormattedDate } from "../../src/utils/export/getFormattedDate";
+import {
+  titleField,
+  descriptionField,
+  idField,
+  createIdField,
+  dateField,
+  createDateField,
+  createUrlField,
+} from "../../src/fields/fields";
 
 describe("Fields", () => {
   describe("titleField", () => {

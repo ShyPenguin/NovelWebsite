@@ -22,7 +22,6 @@ describe("GET /authors", () => {
   describe("Get author by Id", () => {
     it("Success", async () => {
       const author = getters.getAuthor();
-      const novels = getters.getNovels();
       const res = await testApp.get(`/authors/${author.id}`);
 
       const parsedResult = ApiResponseSchema(AuthorDetailSchema).parse(
@@ -43,7 +42,6 @@ describe("GET /authors", () => {
     it("Not found", async () => {
       const notRealId = randomUUID();
       const res = await testApp.get(`/authors/${notRealId}`).expect(404);
-
       const parsedResult = ApiResponseSchema(AuthorDetailSchema).parse(
         res.body,
       );

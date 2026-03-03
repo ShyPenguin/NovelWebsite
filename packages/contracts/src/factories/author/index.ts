@@ -1,33 +1,27 @@
 import { z } from "zod";
-import {
-  createIdField,
-  descriptionField,
-  idField,
-  titleField,
-  urlField,
-} from "../../schemas/fields";
 import { GetFactory } from "../read-factory";
-import { StringSchemaBuilder } from "../../fields/builders/StringSchema";
+import { NovelBaseSchema } from "../../base/novel.base";
+import { AuthorBaseSchema } from "../../base/author.base";
 
 //READ
-const AuthorThumbnailSchema = z.object({
-  id: idField,
-  name: new StringSchemaBuilder("Author's name").min(1).max(50).build(),
+const AuthorThumbnailSchema = AuthorBaseSchema.pick({
+  id: true,
+  name: true,
 });
 
-const AuthorDetailSchema = z.object({
-  id: AuthorThumbnailSchema.shape["id"],
-  name: AuthorThumbnailSchema.shape["name"],
+const AuthorDetailSchema = AuthorThumbnailSchema.extend({
   novels: z.array(
-    z.object({
-      id: createIdField("Novel"),
-      title: titleField,
-      coverImageUrl: urlField.nullish(),
-      description: descriptionField,
+    NovelBaseSchema.pick({
+      id: true,
+      title: true,
+      coverImageUrl: true,
+      description: true,
     }),
   ),
 });
+
 export const AuthorFactory = new GetFactory({ schema: AuthorThumbnailSchema });
+
 export const AuthorDetailFactory = new GetFactory({
   schema: AuthorDetailSchema,
 });

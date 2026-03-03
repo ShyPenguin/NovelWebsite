@@ -1,61 +1,44 @@
-import {
-  createIsoStringToDateField,
-  createYyyyMmDdStringToDate,
-} from "../../schemas/date/schema";
-import {
-  createIdField,
-  createUrlField,
-  idField,
-  titleField,
-} from "../../schemas/fields";
-import { NovelDetailSchema } from "../../schemas/novel/schema";
+import { ChapterBaseSchema } from "../../base/chapter.base";
+import { NovelBaseSchema } from "../../base/novel.base";
 import { createSortWithDirection } from "../../utils/createSortWithDirection";
 import { GetFactory } from "../read-factory";
 import { TranslatorSchema } from "../translator";
-import {
-  chapterAccessField,
-  chapterNumberField,
-  chapterStatusField,
-} from "./fields";
 import { z } from "zod";
 
-const ChapterDetailSchema = z.object({
-  id: idField,
-  novelId: NovelDetailSchema.shape["id"],
-  chapterNumber: chapterNumberField,
-  title: titleField,
-  sourceDocUrl: createUrlField("Source document url"),
-  publishedAt: createYyyyMmDdStringToDate("Published at").nullish(),
-  createdAt: createIsoStringToDateField("createdAt"),
-  updatedAt: createIsoStringToDateField("updatedAt"),
-  contentHtml: z.string({
-    error: (iss) =>
-      iss.input === undefined || iss.input === null
-        ? "Content is required"
-        : "Content must be a string",
-  }),
-  access: chapterAccessField,
-  status: chapterStatusField,
+const ChapterAuthSchema = ChapterBaseSchema.pick({
+  id: true,
+}).extend({
   translator: TranslatorSchema.nullish(),
-  prevChapter: createIdField("prevChapter").nullish(),
-  nextChapter: createIdField("nextChapter").nullish(),
+  novelId: NovelBaseSchema.shape["id"],
+});
+const ChapterThumbnailSchema = ChapterBaseSchema.pick({
+  id: true,
+  title: true,
+  chapterNumber: true,
+  publishedAt: true,
+  updatedAt: true,
+  access: true,
+  status: true,
+}).extend({
+  translator: ChapterAuthSchema.shape["translator"],
 });
 
-const ChapterThumbnailSchema = z.object({
-  id: ChapterDetailSchema.shape["id"],
-  title: ChapterDetailSchema.shape["title"],
-  chapterNumber: ChapterDetailSchema.shape["chapterNumber"],
-  publishedAt: ChapterDetailSchema.shape["publishedAt"],
-  updatedAt: ChapterDetailSchema.shape["updatedAt"],
-  access: ChapterDetailSchema.shape["access"],
-  status: ChapterDetailSchema.shape["status"],
-  translator: ChapterDetailSchema.shape["translator"],
-});
-
-const ChapterAuthSchema = z.object({
-  id: ChapterDetailSchema.shape["id"],
-  novelId: ChapterDetailSchema.shape["novelId"],
-  translator: ChapterDetailSchema.shape["translator"],
+const ChapterDetailSchema = ChapterBaseSchema.pick({
+  id: true,
+  title: true,
+  chapterNumber: true,
+  publishedAt: true,
+  createdAt: true,
+  updatedAt: true,
+  access: true,
+  status: true,
+  sourceDocUrl: true,
+  contentHtml: true,
+  prevChapter: true,
+  nextChapter: true,
+}).extend({
+  novelId: ChapterAuthSchema.shape["novelId"],
+  translator: ChapterAuthSchema.shape["translator"],
 });
 
 export const chapterSort = ["chapterNumber"] as const;
@@ -70,13 +53,14 @@ export const chapterSortWithDirectionField = z.enum(chapterSortWithDirection, {
   message: `Sort must be ${fullText}`,
 });
 
-export const ChapterDetailFactory = new GetFactory({
-  schema: ChapterDetailSchema,
-});
 export const ChapterThumbnailFactory = new GetFactory({
   schema: ChapterThumbnailSchema,
 });
 
 export const ChapterAuthFactory = new GetFactory({
   schema: ChapterAuthSchema,
+});
+
+export const ChapterDetailFactory = new GetFactory({
+  schema: ChapterDetailSchema,
 });

@@ -2,12 +2,12 @@ import { z } from "zod";
 import { AuthorDetailFactory, AuthorFactory } from "../../factories/author";
 
 //READ
+export const AuthorDetailSchema = AuthorDetailFactory.getSchema();
+export const ArrayAuthorDetailScehma = AuthorDetailFactory.getSchema();
+export const PaginatedAuthorDetailSchema = AuthorDetailFactory.paginate();
 export const AuthorThumbnailSchema = AuthorFactory.getSchema();
 export const ArrayAuthorThumbnailSchema = AuthorFactory.array();
 export const PaginatedAuthorThumbnailSchema = AuthorFactory.paginate();
-export const AuthorDetailSchema = AuthorDetailFactory.getSchema();
-export const ArrayAuthorDetailSchema = AuthorDetailFactory.array();
-export const PaginatedAuthorDetailSchema = AuthorDetailFactory.paginate();
 
 // QUERY
 export const AuthorQueryContract = z

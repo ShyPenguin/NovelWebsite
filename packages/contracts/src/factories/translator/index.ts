@@ -1,6 +1,6 @@
 import { z } from "zod";
 import { AuthDetailSchema } from "../../schemas/auth/schema";
-import { createIdField } from "../../schemas/fields";
+import { createIdField } from "../../fields/fields";
 
 export const TranslatorSchema = z.object({
   id: createIdField("Translator"),

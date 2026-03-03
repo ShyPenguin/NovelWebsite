@@ -1,8 +1,8 @@
 import { z } from "zod";
 import { chapterAccessField } from "../../factories/chapter/fields";
 import {
-  ChapterDetailFactory,
   ChapterAuthFactory,
+  ChapterDetailFactory,
   chapterSortWithDirectionField,
   ChapterThumbnailFactory,
 } from "../../factories/chapter";

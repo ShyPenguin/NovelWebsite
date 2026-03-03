@@ -21,13 +21,13 @@ export const chapterSelectMap = {
     nextChapter: getNextChapter,
   } satisfies Record<keyof ChapterDetailDTO, unknown>,
   thumbnail: {
-    id: ChapterTable.id,
-    title: ChapterTable.title,
-    chapterNumber: ChapterTable.chapterNumber,
-    updatedAt: ChapterTable.updatedAt,
-    publishedAt: ChapterTable.publishedAt,
-    access: ChapterTable.access,
-    status: ChapterTable.status,
+    id: ChapterTable.id, //
+    title: ChapterTable.title, //
+    chapterNumber: ChapterTable.chapterNumber, //
+    updatedAt: ChapterTable.updatedAt, //
+    publishedAt: ChapterTable.publishedAt, //
+    access: ChapterTable.access, //
+    status: ChapterTable.status, //
     translator: {
       id: UserTable.id,
       name: UserTable.name,

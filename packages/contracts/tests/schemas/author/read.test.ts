@@ -11,14 +11,23 @@ const input: AuthorDetailDTO = {
     {
       id: randomUUID(),
       title: "Omniscient",
+      coverImageUrl:
+        "https://pberoczdewdtspygrofa.supabase.co/storage/v1/object/public/novelwebsite-images/novels/covers/Infinite_Regressor.avif",
+      description: "eqweqwe",
     },
     {
       id: randomUUID(),
       title: "Regressor",
+      coverImageUrl:
+        "https://pberoczdewdtspygrofa.supabase.co/storage/v1/object/public/novelwebsite-images/novels/covers/Infinite_Regressor.avif",
+      description: "eqweqwe",
     },
     {
       id: randomUUID(),
       title: "Lacoste",
+      coverImageUrl:
+        "https://pberoczdewdtspygrofa.supabase.co/storage/v1/object/public/novelwebsite-images/novels/covers/Infinite_Regressor.avif",
+      description: "eqweqwe",
     },
   ],
 };
