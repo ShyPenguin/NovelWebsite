@@ -23,7 +23,6 @@ export type Permissions = {
     action: Exclude<Action, "preview">;
   };
   chapters: {
-    // Can do something like Pick<Todo, "userId"> to get just the rows you use
     dataType: ChapterAuthDTO;
     action: Action;
   };

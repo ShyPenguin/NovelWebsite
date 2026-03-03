@@ -1,5 +1,4 @@
 import { SESSION_EXPIRATION_SECONDS } from "@/shared/constants/index.ts";
-import { OAuthProvider } from "@/infrastructure/db/schemas/oauthProviders.ts";
 import { UserTable } from "@/infrastructure/db/schemas/users.ts";
 import { DbPoolType } from "@/infrastructure/db/type.ts";
 import { createUserOauthAccountTx } from "@/features/auth/repositories/create.repository.ts";
@@ -8,8 +7,9 @@ import { sessionSchema } from "@repo/contracts/schemas/auth";
 import { randomBytes } from "crypto";
 import { testDb, redisDb } from "tests/integrated/db/db-test.ts";
 import { SessionStore } from "tests/integrated/db/redis-test.ts";
+import { OAuthProviders } from "@repo/contracts/dto/auth";
 
-export const mockCreateUserWithSession = (provider: OAuthProvider) => {
+export const mockCreateUserWithSession = (provider: OAuthProviders) => {
   return async (
     userData: typeof UserTable.$inferInsert,
     providerAccountId: string,

@@ -1,8 +1,5 @@
 import { z } from "zod";
-import {
-  weekDayField,
-  novelStatusQueryField,
-} from "../../factories/novel/fields";
+import { weekDayField, novelStatusQueryField } from "../../fields/novel.fields";
 import {
   NovelAuthFactory,
   NovelDetailFactory,
@@ -15,7 +12,7 @@ import {
   titleField,
   descriptionField,
   createDateField,
-} from "../../fields/fields";
+} from "../../fields/general";
 
 // READ
 export const NovelDetailSchema = NovelDetailFactory.getSchema();

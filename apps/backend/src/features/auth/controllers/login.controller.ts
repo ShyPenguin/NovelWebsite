@@ -1,7 +1,6 @@
 import { Request, Response } from "express";
 import { eq } from "drizzle-orm";
 import {
-  OAuthProvider,
   UserOAuthAccountTable,
   UserTable,
 } from "@/infrastructure/db/schemas/index.ts";
@@ -14,6 +13,7 @@ import { createCookieWrapper } from "@/shared/utils/cookies-function.ts";
 import { db } from "@/infrastructure/db/index.ts";
 import { sessionSchema } from "@repo/contracts/schemas/auth";
 import { createUserSession } from "../session.service.ts";
+import { OAuthProviders } from "@repo/contracts/dto/auth";
 
 export const login = async (req: Request, res: Response): Promise<any> => {
   const { provider } = providerSchema.parse(req.params);
@@ -44,13 +44,6 @@ export const login = async (req: Request, res: Response): Promise<any> => {
     // cleanup
     cookies.set("oauthReturnTo", "", { expires: 0 });
 
-    // const data = {
-    //   id: oAuthUser.id,
-    //   name: oAuthUser.name,
-    //   email: oAuthUser.email,
-    //   role: user.role,
-    // };
-
     return res.redirect(
       `${process.env.FRONTEND_URL}/${returnTo ? returnTo : ""}`,
     );
@@ -65,7 +58,7 @@ export const login = async (req: Request, res: Response): Promise<any> => {
 
 function connectUserToAccount(
   { id, email, name, imageUrl }: OAuthUser,
-  provider: OAuthProvider,
+  provider: OAuthProviders,
 ) {
   return db.transaction(async (trx) => {
     let user = await trx.query.UserTable.findFirst({

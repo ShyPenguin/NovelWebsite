@@ -1,6 +1,9 @@
 import { ChapterBaseSchema } from "../../base/chapter.base";
 import { NovelBaseSchema } from "../../base/novel.base";
-import { createSortWithDirection } from "../../utils/createSortWithDirection";
+import {
+  createSortWithDirection,
+  createSortWithDirectionField,
+} from "../../utils/createSortWithDirection";
 import { GetFactory } from "../read-factory";
 import { TranslatorSchema } from "../translator";
 import { z } from "zod";
@@ -41,17 +44,13 @@ const ChapterDetailSchema = ChapterBaseSchema.pick({
   translator: ChapterAuthSchema.shape["translator"],
 });
 
-export const chapterSort = ["chapterNumber"] as const;
+export const chapterSort = ["chapterNumber"] as const satisfies ReadonlyArray<
+  keyof z.infer<typeof ChapterDetailSchema>
+>;
 export const chapterSortWithDirection = createSortWithDirection(chapterSort);
-const fullText = chapterSortWithDirection
-  .map((item, i, arr) =>
-    i === 0 ? item : i === arr.length - 1 ? ` or ${item}` : `, ${item}`,
-  )
-  .join("");
 
-export const chapterSortWithDirectionField = z.enum(chapterSortWithDirection, {
-  message: `Sort must be ${fullText}`,
-});
+export const chapterSortWithDirectionField =
+  createSortWithDirectionField(chapterSort);
 
 export const ChapterThumbnailFactory = new GetFactory({
   schema: ChapterThumbnailSchema,

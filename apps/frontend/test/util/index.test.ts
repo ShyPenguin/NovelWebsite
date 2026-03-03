@@ -1,5 +1,5 @@
 import { expect, describe, it } from "vitest";
-import { parseKeysToLabel } from "../../src/utils/parseKeysToLabel";
+import { parseKeysToLabel } from "../../src/shared/utils/parseKeysToLabel";
 import {
   novelSortWithDirection,
   novelStatusQuery,
@@ -12,7 +12,7 @@ describe("parsekeysToLabel", () => {
     expect(result).toBe("Created at");
   });
 
-  it("Filter novelSort to desc only and \
+  it("Filter novelSortWithDrecition to desc only and \
     automatically have the labels parsed from the keys", () => {
     const filtered = novelSortWithDirection
       .filter((item) => item.includes("desc"))

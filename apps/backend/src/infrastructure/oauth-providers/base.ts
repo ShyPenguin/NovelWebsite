@@ -1,10 +1,10 @@
 import { z } from "zod";
 import crypto from "crypto";
 import "dotenv/config";
-import { OAuthProvider } from "@/infrastructure/db/schemas/oauthProviders.ts";
 import { RETURN_TO_COOKIE_KEY } from "@/shared/constants/index.ts";
 import { Cookies } from "@/shared/types/index.ts";
 import { createGoogleOAuthClient } from "./google.ts";
+import { OAuthProviders } from "@repo/contracts/dto/auth";
 
 const STATE_COOKIE_KEY = "oAuthState";
 const CODE_VERIFIER_COOKIE_KEY = "oAuthCodeVerifier";
@@ -19,7 +19,7 @@ export type OAuthUser = {
 };
 
 export class OAuthClient<T> {
-  private readonly provider: OAuthProvider;
+  private readonly provider: OAuthProviders;
   private readonly clientId: string;
   private readonly clientSecret: string;
   private readonly scopes: string[];
@@ -45,7 +45,7 @@ export class OAuthClient<T> {
     urls,
     userInfo,
   }: {
-    provider: OAuthProvider;
+    provider: OAuthProviders;
     clientId: string;
     clientSecret: string;
     scopes: string[];
@@ -156,14 +156,11 @@ export class OAuthClient<T> {
   }
 }
 
-export function getOAuthClient(provider: OAuthProvider) {
+export function getOAuthClient(provider: OAuthProviders) {
   switch (provider) {
     case "discord":
       return;
-    // return createDiscordOAuthClient();
-    case "github":
-      // return createGithubOAuthClient();
-      return;
+    // return createDiscordOAuthClient();\
     case "google":
       return createGoogleOAuthClient();
     default:

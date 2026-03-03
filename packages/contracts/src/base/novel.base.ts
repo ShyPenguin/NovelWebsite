@@ -4,14 +4,17 @@ import {
   novelStatusField,
   weekDayField,
   createStringNumberToNumber,
-} from "../factories/novel/fields";
+} from "../fields/novel.fields";
 import {
   createIdField,
   titleField,
   descriptionField,
   urlField,
-} from "../fields/fields";
-import { isoStringToDate } from "../schemas/date/schema";
+} from "../fields/general";
+import {
+  createIsoStringToDateField,
+  isoStringToDate,
+} from "../schemas/date/schema";
 import { z } from "zod";
 
 export const NovelBaseSchema = z.object({
@@ -22,6 +25,8 @@ export const NovelBaseSchema = z.object({
   coverImagePath: z.string().nullish(),
   totalChapters: createStringNumberToNumber("Total chapters"),
   release: isoStringToDate,
+  createdAt: createIsoStringToDateField("createdAt"),
+  updatedAt: createIsoStringToDateField("updatedAt"),
   type: novelTypeField,
   language: languageField,
   status: novelStatusField,

@@ -3,7 +3,7 @@ import { AuthorDetailFactory, AuthorFactory } from "../../factories/author";
 
 //READ
 export const AuthorDetailSchema = AuthorDetailFactory.getSchema();
-export const ArrayAuthorDetailScehma = AuthorDetailFactory.getSchema();
+export const ArrayAuthorDetailSchema = AuthorDetailFactory.array();
 export const PaginatedAuthorDetailSchema = AuthorDetailFactory.paginate();
 export const AuthorThumbnailSchema = AuthorFactory.getSchema();
 export const ArrayAuthorThumbnailSchema = AuthorFactory.array();

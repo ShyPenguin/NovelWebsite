@@ -1,5 +1,4 @@
 export {
-  novelSort,
   novelSortField,
   novelSortWithDirection,
   novelSortWithDirectionField,
@@ -13,4 +12,4 @@ export {
   novelStatusQuery,
   novelStatusQueryField,
   week,
-} from "../../../factories/novel/fields";
+} from "../../novel.fields";

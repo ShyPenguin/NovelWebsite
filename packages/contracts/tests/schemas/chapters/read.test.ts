@@ -125,7 +125,7 @@ describe("Chapter Detail", () => {
       const flattened = z.flattenError(error!);
 
       expect(flattened.fieldErrors.access?.[0]).toBe(
-        "Access must be free or paid",
+        "Access must be either free or paid",
       );
     });
     it("fails when status is missing", () => {
@@ -138,7 +138,7 @@ describe("Chapter Detail", () => {
       const flattened = z.flattenError(error!);
 
       expect(flattened.fieldErrors.status?.[0]).toBe(
-        "Status must be draft, review or published",
+        "Status must be either draft, review or published",
       );
     });
 

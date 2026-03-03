@@ -30,7 +30,7 @@ describe("Chapter Query", () => {
       expect(success).toBe(false);
       const flattened = z.flattenError(error!);
       expect(flattened.fieldErrors.sort?.[0]).toBe(
-        "Sort must be asc(chapterNumber) or desc(chapterNumber)",
+        "Sort must be either asc(chapterNumber) or desc(chapterNumber)",
       );
     });
   });

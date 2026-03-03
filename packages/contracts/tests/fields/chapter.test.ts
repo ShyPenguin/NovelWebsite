@@ -4,7 +4,7 @@ import {
   chapterAccessField,
   chapterNumberField,
   chapterStatusField,
-} from "../../src/factories/chapter/fields";
+} from "../../src/fields/chapter.fields";
 
 describe("Chapter fields", () => {
   describe("chapterStatusField", () => {
@@ -14,7 +14,7 @@ describe("Chapter fields", () => {
       expect(success).toBe(false);
       const flattened = z.flattenError(error!);
       expect(flattened.formErrors[0]).toBe(
-        "Status must be draft, review or published",
+        "Status must be either draft, review or published",
       );
     });
 
@@ -24,7 +24,7 @@ describe("Chapter fields", () => {
       expect(success).toBe(false);
       const flattened = z.flattenError(error!);
       expect(flattened.formErrors[0]).toBe(
-        "Status must be draft, review or published",
+        "Status must be either draft, review or published",
       );
     });
 
@@ -41,7 +41,9 @@ describe("Chapter fields", () => {
 
       expect(success).toBe(false);
       const flattened = z.flattenError(error!);
-      expect(flattened.formErrors[0]).toBe("Access must be free or paid");
+      expect(flattened.formErrors[0]).toBe(
+        "Access must be either free or paid",
+      );
     });
 
     it("returns fail when chapterAccessField is not supported status (russian)", () => {
@@ -49,7 +51,9 @@ describe("Chapter fields", () => {
 
       expect(success).toBe(false);
       const flattened = z.flattenError(error!);
-      expect(flattened.formErrors[0]).toBe("Access must be free or paid");
+      expect(flattened.formErrors[0]).toBe(
+        "Access must be either free or paid",
+      );
     });
 
     it("success", () => {

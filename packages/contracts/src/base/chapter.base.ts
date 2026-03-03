@@ -3,13 +3,13 @@ import {
   chapterNumberField,
   chapterAccessField,
   chapterStatusField,
-} from "../factories/chapter/fields";
+} from "../fields/chapter.fields";
 import {
   createIdField,
   createUrlField,
   idField,
   titleField,
-} from "../fields/fields";
+} from "../fields/general";
 import {
   createYyyyMmDdStringToDate,
   createIsoStringToDateField,

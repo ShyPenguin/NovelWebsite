@@ -1,5 +1,5 @@
 import { z } from "zod";
-import { chapterAccessField } from "../../factories/chapter/fields";
+import { chapterAccessField } from "../../fields/chapter.fields";
 import {
   ChapterAuthFactory,
   ChapterDetailFactory,
@@ -16,15 +16,6 @@ export const ChapterAuthSchema = ChapterAuthFactory.getSchema();
 export const PaginatedChapterThumbnailSchema =
   ChapterThumbnailFactory.paginate();
 export const ArrayChapterThumbnailSchema = ChapterThumbnailFactory.array();
-
-// QUERY
-export const ChapterSearchQueryContract = z.object({
-  sort: chapterSortWithDirectionField.optional(),
-  search: z.string().optional(),
-  page: z.coerce.number().optional(),
-  pageSize: z.coerce.number().optional(),
-  access: chapterAccessField.optional(),
-});
 
 // WRITE
 export const ChapterFormSchema = z.object({
@@ -43,4 +34,13 @@ export const ChapterPreviewSchema = z.object({
   status: ChapterFormSchema.shape["status"],
   access: ChapterFormSchema.shape["access"],
   publishedAt: ChapterFormSchema.shape["publishedAt"],
+});
+
+// QUERY
+export const ChapterSearchQueryContract = z.object({
+  sort: chapterSortWithDirectionField.optional(),
+  search: z.string().optional(),
+  page: z.coerce.number().optional(),
+  pageSize: z.coerce.number().optional(),
+  access: chapterAccessField.optional(),
 });

@@ -1,18 +1,18 @@
 import { expect, describe, it } from "vitest";
-import {
-  novelTypeField,
-  languageField,
-  weekDayField,
-  novelStatusField,
-  novelStatusQueryField,
-  bookmarksField,
-  createStringNumberToNumber,
-} from "../../src/factories/novel/fields";
 import { z } from "zod";
 import {
   novelSortField,
   novelSortWithDirectionField,
 } from "../../src/factories/novel";
+import {
+  novelTypeField,
+  languageField,
+  novelStatusField,
+  weekDayField,
+  novelStatusQueryField,
+  createStringNumberToNumber,
+  bookmarksField,
+} from "../../src/fields/novel.fields";
 
 describe("Novel fields", () => {
   describe("novelTypeField", () => {
@@ -50,7 +50,7 @@ describe("Novel fields", () => {
       expect(success).toBe(false);
       const flattened = z.flattenError(error!);
       expect(flattened.formErrors[0]).toBe(
-        "Language is not supported. Language should be english, korean, chinese, or japanese",
+        "Language must be either english, korean, chinese or japanese",
       );
     });
 
@@ -60,7 +60,7 @@ describe("Novel fields", () => {
       expect(success).toBe(false);
       const flattened = z.flattenError(error!);
       expect(flattened.formErrors[0]).toBe(
-        "Language is not supported. Language should be english, korean, chinese, or japanese",
+        "Language must be either english, korean, chinese or japanese",
       );
     });
 
@@ -78,7 +78,7 @@ describe("Novel fields", () => {
       expect(success).toBe(false);
       const flattened = z.flattenError(error!);
       expect(flattened.formErrors[0]).toBe(
-        "Status must be either ONGOING, DROPPED, HIATUS, or COMPLETED",
+        "Status must be either ONGOING, COMPLETED, HIATUS or DROPPED",
       );
     });
 
@@ -88,7 +88,7 @@ describe("Novel fields", () => {
       expect(success).toBe(false);
       const flattened = z.flattenError(error!);
       expect(flattened.formErrors[0]).toBe(
-        "Status must be either ONGOING, DROPPED, HIATUS, or COMPLETED",
+        "Status must be either ONGOING, COMPLETED, HIATUS or DROPPED",
       );
     });
 
@@ -135,7 +135,7 @@ describe("Novel fields", () => {
       expect(success).toBe(false);
       const flattened = z.flattenError(error!);
       expect(flattened.formErrors[0]).toBe(
-        "Sort must be asc(createdAt), desc(createdAt), asc(updatedAt), desc(updatedAt), asc(title) or desc(title)",
+        "Sort must be either asc(createdAt), desc(createdAt), asc(updatedAt), desc(updatedAt), asc(title) or desc(title)",
       );
     });
 
@@ -146,7 +146,7 @@ describe("Novel fields", () => {
       expect(success).toBe(false);
       const flattened = z.flattenError(error!);
       expect(flattened.formErrors[0]).toBe(
-        "Sort must be asc(createdAt), desc(createdAt), asc(updatedAt), desc(updatedAt), asc(title) or desc(title)",
+        "Sort must be either asc(createdAt), desc(createdAt), asc(updatedAt), desc(updatedAt), asc(title) or desc(title)",
       );
     });
 
@@ -193,7 +193,7 @@ describe("Novel fields", () => {
       expect(success).toBe(false);
       const flattened = z.flattenError(error!);
       expect(flattened.formErrors[0]).toBe(
-        "Status must be either ALL, ONGOING, DROPPED, HIATUS, or COMPLETED",
+        "Status must be either ALL, ONGOING, COMPLETED, HIATUS or DROPPED",
       );
     });
 
@@ -203,7 +203,7 @@ describe("Novel fields", () => {
       expect(success).toBe(false);
       const flattened = z.flattenError(error!);
       expect(flattened.formErrors[0]).toBe(
-        "Status must be either ALL, ONGOING, DROPPED, HIATUS, or COMPLETED",
+        "Status must be either ALL, ONGOING, COMPLETED, HIATUS or DROPPED",
       );
     });
 

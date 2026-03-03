@@ -4,4 +4,4 @@ export {
   chapterStatusField,
   chapterAccessField,
   chapterNumberField,
-} from "../../../factories/chapter/fields";
+} from "../../chapter.fields";

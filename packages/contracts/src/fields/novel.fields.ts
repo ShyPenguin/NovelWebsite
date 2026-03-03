@@ -1,18 +1,17 @@
 import { z } from "zod";
+import { createEnumError } from "../utils/createEnumError";
 
 export const week = ["SUN", "MON", "TUE", "WED", "THU", "FRI", "SAT"] as const;
 export const novelTypes = ["original", "translated"] as const;
 export const language = ["english", "korean", "chinese", "japanese"] as const;
 
 export const novelTypeField = z.enum(novelTypes, {
-  message: "Type must be either original or translated",
+  message: createEnumError({ fieldName: "Type", array: novelTypes }),
 });
 
 export const languageField = z.enum(language, {
-  message:
-    "Language is not supported. Language should be english, korean, chinese, or japanese",
+  message: createEnumError({ fieldName: "Language", array: language }),
 });
-
 export const weekDayField = z.enum(week, {
   message: "day must be: SUN, MON, TUE, WED, THU, FRI, or SAT",
 });
@@ -50,7 +49,7 @@ export const novelStatus = [
 ] as const;
 
 export const novelStatusField = z.enum(novelStatus, {
-  message: "Status must be either ONGOING, DROPPED, HIATUS, or COMPLETED",
+  message: createEnumError({ fieldName: "Status", array: novelStatus }),
 });
 
 // READ NOVEL STATUS (QUERY)
@@ -60,5 +59,5 @@ export const novelStatusQuery = [
 ] as const;
 
 export const novelStatusQueryField = z.enum(novelStatusQuery, {
-  message: "Status must be either ALL, ONGOING, DROPPED, HIATUS, or COMPLETED",
+  message: createEnumError({ fieldName: "Status", array: novelStatusQuery }),
 });

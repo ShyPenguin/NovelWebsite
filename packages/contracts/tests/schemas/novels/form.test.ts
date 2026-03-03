@@ -74,7 +74,7 @@ describe("NovelFormSchema", () => {
       const flattened = z.flattenError(error!);
 
       expect(flattened.fieldErrors.language?.[0]).toBe(
-        "Language is not supported. Language should be english, korean, chinese, or japanese",
+        "Language must be either english, korean, chinese or japanese",
       );
     });
 
@@ -97,7 +97,7 @@ describe("NovelFormSchema", () => {
       )[0] as keyof typeof fieldErrors;
 
       expect(fieldErrors[firstErrorField]?.[0]).toBe(
-        "Status must be either ONGOING, DROPPED, HIATUS, or COMPLETED",
+        "Status must be either ONGOING, COMPLETED, HIATUS or DROPPED",
       );
     });
 

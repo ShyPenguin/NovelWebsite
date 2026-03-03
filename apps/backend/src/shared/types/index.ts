@@ -1,4 +1,5 @@
 import { UserRole } from "@repo/contracts/dto/auth";
+import { oAuthProviders } from "@repo/contracts/fields/users";
 import { Request } from "express";
 import { z } from "zod";
 
@@ -24,7 +25,7 @@ export interface AuthRequest extends Request {
 }
 
 export const providerSchema = z.object({
-  provider: z.enum(["google", "discord", "github"]),
+  provider: z.enum(oAuthProviders),
 });
 
 type CookieOptions = {

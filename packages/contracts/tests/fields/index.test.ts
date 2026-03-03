@@ -1,5 +1,4 @@
 import { expect, describe, it } from "vitest";
-
 import { z } from "zod";
 import { randomUUID } from "crypto";
 import {
@@ -16,7 +15,7 @@ import {
   dateField,
   createDateField,
   createUrlField,
-} from "../../src/fields/fields";
+} from "../../src/fields/general";
 
 describe("Fields", () => {
   describe("titleField", () => {

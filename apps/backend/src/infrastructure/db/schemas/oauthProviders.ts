@@ -8,9 +8,8 @@ import {
   uuid,
 } from "drizzle-orm/pg-core";
 import { UserTable } from "./users.ts";
+import { oAuthProviders } from "@repo/contracts/fields/users";
 
-export const oAuthProviders = ["discord", "github", "google"] as const;
-export type OAuthProvider = (typeof oAuthProviders)[number];
 export const oAuthProviderEnum = pgEnum("oauth_provides", oAuthProviders);
 
 export const UserOAuthAccountTable = pgTable(
@@ -20,14 +19,14 @@ export const UserOAuthAccountTable = pgTable(
       .notNull()
       .references(() => UserTable.id, { onDelete: "cascade" }),
     provider: oAuthProviderEnum().notNull(),
-    providerAccountId: text().notNull().unique(),
+    providerAccountId: text().notNull(),
     createdAt: timestamp({ withTimezone: true }).notNull().defaultNow(),
     updatedAt: timestamp({ withTimezone: true })
       .notNull()
       .defaultNow()
       .$onUpdate(() => new Date()),
   },
-  (t) => [primaryKey({ columns: [t.providerAccountId, t.provider] })]
+  (t) => [primaryKey({ columns: [t.providerAccountId, t.provider] })],
 );
 
 export const userOauthAccountRelationships = relations(
@@ -37,5 +36,5 @@ export const userOauthAccountRelationships = relations(
       fields: [UserOAuthAccountTable.userId],
       references: [UserTable.id],
     }),
-  })
+  }),
 );

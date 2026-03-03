@@ -1,5 +1,5 @@
 import { z } from "zod";
-import { idField } from "../fields/fields";
+import { idField } from "../fields/general";
 
 const categoryNameField = z
   .string({
