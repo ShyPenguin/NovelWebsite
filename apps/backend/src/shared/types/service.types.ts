@@ -2,12 +2,12 @@ import { Paginated } from "@repo/contracts/dto/paginated";
 
 export type PaginationArgs<P extends boolean> = P extends true
   ? {
-      page: number; // ✅ required
-      pageSize: number; // ✅ required
+      page: number;
+      pageSize: number;
     }
   : {
-      page?: never; // 🚫 not allowed
-      pageSize?: never; // 🚫 not allowed
+      page?: never;
+      pageSize?: never;
     };
 
 export type GetListParams<TBaseArgs, P extends boolean> = TBaseArgs &
