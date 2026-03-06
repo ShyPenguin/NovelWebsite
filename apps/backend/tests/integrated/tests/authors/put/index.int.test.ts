@@ -27,7 +27,7 @@ describe("PUT /authors/:id", () => {
         type: "AuthenticationError",
         path: `/authors/${dataToUpdate.id}`,
         statusCode: 401,
-        message: "User is not logged in",
+        message: "You're not logged in",
       },
     });
   });
@@ -48,7 +48,7 @@ describe("PUT /authors/:id", () => {
         type: "AuthorizationError",
         path: `/authors/${dataToUpdate.id}`,
         statusCode: 403,
-        message: "User is not allowed to update this author",
+        message: "You're not allowed to update this author",
       },
     });
   });

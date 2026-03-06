@@ -74,7 +74,7 @@ describe("DELETE /chapters/:id", () => {
           type: "AuthenticationError",
           path: `/chapters/${chapter?.id}`,
           statusCode: 401,
-          message: "User is not logged in",
+          message: "You're not logged in",
         },
       });
     });
@@ -95,7 +95,7 @@ describe("DELETE /chapters/:id", () => {
           type: "AuthorizationError",
           path: `/chapters/${chapter?.id}`,
           statusCode: 403,
-          message: "User is not allowed to delete this chapter",
+          message: "You're not allowed to delete this chapter",
         },
       });
     });
@@ -116,7 +116,7 @@ describe("DELETE /chapters/:id", () => {
           type: "AuthorizationError",
           path: `/chapters/${chapter?.id}`,
           statusCode: 403,
-          message: "User is not allowed to delete this chapter",
+          message: "You're not allowed to delete this chapter",
         },
       });
     });

@@ -29,7 +29,7 @@ describe(" POST /novels/:id/chapters/preview", () => {
         type: "AuthenticationError",
         path: `/novels/${novelId}/chapters/preview`,
         statusCode: 401,
-        message: "User is not logged in",
+        message: "You're not logged in",
       },
     });
   });
@@ -52,7 +52,7 @@ describe(" POST /novels/:id/chapters/preview", () => {
         type: "AuthorizationError",
         path: `/novels/${novelId}/chapters/preview`,
         statusCode: 403,
-        message: "User is not allowed to preview a chapter",
+        message: "You're not allowed to preview a chapter",
       },
     });
   });

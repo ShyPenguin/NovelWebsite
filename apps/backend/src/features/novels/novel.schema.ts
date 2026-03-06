@@ -1,8 +1,8 @@
-import { NovelQueryContract } from "@repo/contracts/schemas/novel";
 import { z } from "zod";
 import { NumberSchemaBuilder } from "@repo/contracts/fields/builders";
 import { searchField } from "@repo/contracts/fields/general";
 import { pageField } from "@/shared/validations/fields.ts";
+import { NovelQueryContract } from "@repo/contracts/schemas/novel";
 
 export type novelSchedule = {
   novelId: string;

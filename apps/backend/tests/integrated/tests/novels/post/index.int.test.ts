@@ -24,7 +24,7 @@ describe("POST /novels", () => {
         type: "AuthenticationError",
         path: `/novels`,
         statusCode: 401,
-        message: "User is not logged in",
+        message: "You're not logged in",
       },
     });
   });
@@ -45,7 +45,7 @@ describe("POST /novels", () => {
         type: "AuthorizationError",
         path: `/novels`,
         statusCode: 403,
-        message: "User is not allowed to create a novel",
+        message: "You're not allowed to create a novel",
       },
     });
   });

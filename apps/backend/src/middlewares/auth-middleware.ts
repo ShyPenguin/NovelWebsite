@@ -17,7 +17,7 @@ export const authMiddleware = async (
   const user = await getUserFromSession(cookie);
 
   if (!user) {
-    throw new AuthenticationError("User is not logged in");
+    throw new AuthenticationError("You're not logged in");
   }
 
   await updateUserSessionExpiration(cookie);

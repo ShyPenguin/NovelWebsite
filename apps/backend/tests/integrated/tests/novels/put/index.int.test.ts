@@ -54,7 +54,7 @@ describe("PUT /novels/:id", () => {
         type: "AuthenticationError",
         path: `/novels/${novel?.id}`,
         statusCode: 401,
-        message: "User is not logged in",
+        message: "You're not logged in",
       },
     });
   });
@@ -77,7 +77,7 @@ describe("PUT /novels/:id", () => {
         type: "AuthorizationError",
         path: `/novels/${novel?.id}`,
         statusCode: 403,
-        message: "User is not allowed to update this novel",
+        message: "You're not allowed to update this novel",
       },
     });
   });
@@ -101,7 +101,7 @@ describe("PUT /novels/:id", () => {
         type: "AuthorizationError",
         path: `/novels/${novel?.id}`,
         statusCode: 403,
-        message: "User is not allowed to update this novel",
+        message: "You're not allowed to update this novel",
       },
     });
   });

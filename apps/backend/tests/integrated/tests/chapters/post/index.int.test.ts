@@ -26,7 +26,7 @@ describe(" POST /novels/:id/chapters", () => {
         type: "AuthenticationError",
         path: `/novels/${novelId}/chapters`,
         statusCode: 401,
-        message: "User is not logged in",
+        message: "You're not logged in",
       },
     });
   });
@@ -47,7 +47,7 @@ describe(" POST /novels/:id/chapters", () => {
         type: "AuthorizationError",
         path: `/novels/${novelId}/chapters`,
         statusCode: 403,
-        message: "User is not allowed to create a chapter",
+        message: "You're not allowed to create a chapter",
       },
     });
   });

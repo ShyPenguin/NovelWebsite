@@ -25,7 +25,7 @@ describe("POST / authors", () => {
         type: "AuthenticationError",
         path: `/authors`,
         statusCode: 401,
-        message: "User is not logged in",
+        message: "You're not logged in",
       },
     });
   });
@@ -47,7 +47,7 @@ describe("POST / authors", () => {
         type: "AuthorizationError",
         path: `/authors`,
         statusCode: 403,
-        message: "User is not allowed to create an author",
+        message: "You're not allowed to create an author",
       },
     });
   });

@@ -75,7 +75,7 @@ describe("DELETE /novels/:id", () => {
           type: "AuthenticationError",
           path: `/novels/${novel?.id}`,
           statusCode: 401,
-          message: "User is not logged in",
+          message: "You're not logged in",
         },
       });
     });
@@ -96,7 +96,7 @@ describe("DELETE /novels/:id", () => {
           type: "AuthorizationError",
           path: `/novels/${novel?.id}`,
           statusCode: 403,
-          message: "User is not allowed to delete this novel",
+          message: "You're not allowed to delete this novel",
         },
       });
     });
@@ -117,7 +117,7 @@ describe("DELETE /novels/:id", () => {
           type: "AuthorizationError",
           path: `/novels/${novel?.id}`,
           statusCode: 403,
-          message: "User is not allowed to delete this novel",
+          message: "You're not allowed to delete this novel",
         },
       });
     });

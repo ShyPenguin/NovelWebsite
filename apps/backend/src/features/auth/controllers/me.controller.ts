@@ -11,7 +11,7 @@ export const me = async (req: Request, res: Response): Promise<any> => {
 
   if (!userSession) {
     return res.status(401).json({
-      message: "User is not logged in",
+      message: "You're not logged in",
     });
   }
 

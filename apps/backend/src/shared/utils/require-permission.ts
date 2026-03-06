@@ -5,7 +5,9 @@ import {
   hasPermission,
   PermissionMap,
   Resource,
+  ROLE_RANK,
 } from "@repo/contracts/auth/permissions";
+import { cantAssignRole } from "@/shared/utils/cannot-assign-role.ts";
 
 export function requirePermission<R extends Resource, A extends Action<R>>({
   user,
@@ -19,6 +21,12 @@ export function requirePermission<R extends Resource, A extends Action<R>>({
   ctx: PermissionMap[R][A];
 }) {
   if (!hasPermission({ user, resource, action, ctx })) {
+    if (resource == "users" && action == "changeRole") {
+      cantAssignRole({
+        userRole: user.role,
+        ctx: ctx as PermissionMap["users"]["changeRole"],
+      });
+    }
     throw new AuthorizationError({ action, resource });
   }
 }

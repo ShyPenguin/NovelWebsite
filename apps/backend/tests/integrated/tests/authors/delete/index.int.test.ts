@@ -29,7 +29,7 @@ describe("DELETE /authors/:id", () => {
         type: "AuthenticationError",
         path: `/authors/${dataToDelete.id}`,
         statusCode: 401,
-        message: "User is not logged in",
+        message: "You're not logged in",
       },
     });
   });
@@ -51,7 +51,7 @@ describe("DELETE /authors/:id", () => {
         type: "AuthorizationError",
         path: `/authors/${dataToDelete.id}`,
         statusCode: 403,
-        message: "User is not allowed to delete this author",
+        message: "You're not allowed to delete this author",
       },
     });
   });

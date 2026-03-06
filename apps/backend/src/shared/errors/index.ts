@@ -41,7 +41,7 @@ export class DatabaseError extends BaseError {
 }
 
 export class AuthenticationError extends BaseError {
-  constructor(message = "User is not logged in") {
+  constructor(message = "You're not logged in") {
     super(401, message);
   }
 }
@@ -50,7 +50,7 @@ export class AuthorizationError<R extends Resource> extends BaseError {
   constructor({ action, resource }: { action: Action<R>; resource: R }) {
     super(
       403,
-      `User is not allowed to ${String(action)} ${action == "create" || action == "preview" ? aOrAn({ resource }) : "this"} ${mapSingularResource[resource]}`,
+      `You're not allowed to ${String(action)} ${action == "create" || action == "preview" ? aOrAn({ resource }) : "this"} ${mapSingularResource[resource]}`,
     );
   }
 }

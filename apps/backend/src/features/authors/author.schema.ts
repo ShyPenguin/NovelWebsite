@@ -1,8 +1,8 @@
 import { z } from "zod";
-import { AuthorQueryContract } from "@repo/contracts/schemas/author";
 import { searchField } from "@repo/contracts/fields/general";
+import { pageField } from "@/shared/validations/fields.ts";
 import { NumberSchemaBuilder } from "@repo/contracts/fields/builders";
-import { pageField } from "../../shared/validations/fields.ts";
+import { AuthorQueryContract } from "@repo/contracts/schemas/author";
 
 export const AuthorQuerySchema = AuthorQueryContract.pick({
   page: true,
