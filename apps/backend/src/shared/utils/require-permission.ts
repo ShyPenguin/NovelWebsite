@@ -12,24 +12,13 @@ export function requirePermission<R extends Resource, A extends Action<R>>({
   resource,
   action,
   ctx,
-}:
-  | {
-      user: UserSession;
-      resource: R;
-      action: A;
-      ctx?: never;
-    }
-  | {
-      user: UserSession;
-      resource: R;
-      action: A;
-      ctx: PermissionMap[R][A];
-    }) {
-  if (ctx !== undefined && !hasPermission({ user, resource, action, ctx })) {
-    throw new AuthorizationError({ action, resource });
-  }
-
-  if (!hasPermission({ user, resource, action })) {
+}: {
+  user: UserSession;
+  resource: R;
+  action: A;
+  ctx: PermissionMap[R][A];
+}) {
+  if (!hasPermission({ user, resource, action, ctx })) {
     throw new AuthorizationError({ action, resource });
   }
 }

@@ -143,7 +143,7 @@ describe("Chapter Query Validation", () => {
         expect(success).toBe(false);
         const flattened = z.flattenError(error!);
         expect(flattened.fieldErrors.sort?.[0]).toBe(
-          "Sort must be asc(chapterNumber) or desc(chapterNumber)",
+          "Sort must be either asc(chapterNumber) or desc(chapterNumber)",
         );
       });
 
@@ -170,7 +170,7 @@ describe("Chapter Query Validation", () => {
       expect(success).toBe(false);
       const flattened = z.flattenError(error!);
       expect(flattened.fieldErrors.access?.[0]).toBe(
-        "Access must be free or paid",
+        "Access must be either free or paid",
       );
     });
 

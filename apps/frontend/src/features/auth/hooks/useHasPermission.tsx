@@ -1,17 +1,19 @@
 import {
   hasPermission,
-  type Permissions,
+  type Action,
+  type PermissionMap,
+  type Resource,
 } from "@repo/contracts/auth/permissions";
 import { useAuth } from "../store/useAuth";
 
-export const useHasPermission = <Resource extends keyof Permissions>({
+export const useHasPermission = <R extends Resource, A extends Action<R>>({
   resource,
   action,
-  data,
+  ctx,
 }: {
-  resource: Resource;
-  action: Permissions[Resource]["action"];
-  data?: Permissions[Resource]["dataType"];
+  resource: R;
+  action: A;
+  ctx: PermissionMap[R][A];
 }) => {
   const user = useAuth((s) => s.user);
 
@@ -23,7 +25,7 @@ export const useHasPermission = <Resource extends keyof Permissions>({
         },
         resource,
         action,
-        data,
+        ctx,
       })
     : null;
 };

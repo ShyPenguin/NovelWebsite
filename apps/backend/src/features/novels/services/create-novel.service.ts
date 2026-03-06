@@ -23,6 +23,7 @@ export const createNovelService = async ({
     user,
     resource: "novels",
     action: "create",
+    ctx: {},
   });
   try {
     const result = await tx.transaction(async (trx) => {

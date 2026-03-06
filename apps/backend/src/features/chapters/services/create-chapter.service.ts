@@ -26,13 +26,13 @@ export const createChapterService = async ({
   form: ChapterFormParsedDTO;
   novelId: NovelDetailDTO["id"];
   user: UserSession;
-
   tx?: DbPoolType | DbClientType;
 }): Promise<ChapterDetailEncodeDTO> => {
   requirePermission({
     user,
     resource: "chapters",
     action: "create",
+    ctx: {},
   });
   const { sourceDocUrl, chapterNumber } = form;
 

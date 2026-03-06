@@ -13,6 +13,7 @@ export const previewChapterWithAuthService = async ({
     user,
     resource: "chapters",
     action: "preview",
+    ctx: {},
   });
 
   return await previewChapterService(docUrl);

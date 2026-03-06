@@ -1,7 +1,6 @@
-import { ProtectedLink } from "@/features/auth/components/ProtectedLink";
 import { RouteDropdown } from "@/shared/components/DropdownButtons/RouteDropdown";
 import Page from "@/shared/components/Page";
-import { getRouteApi, Outlet } from "@tanstack/react-router";
+import { getRouteApi, Link, Outlet } from "@tanstack/react-router";
 import NovelSearch from "../components/NovelSearch";
 import type { DropdownOption } from "@/shared/types";
 import { parseKeysToLabel } from "@/shared/utils/parseKeysToLabel";
@@ -9,6 +8,7 @@ import {
   novelSortWithDirection,
   novelStatusQuery,
 } from "@repo/contracts/fields/novel";
+import { Can } from "@/features/auth/components/Can";
 
 const options: DropdownOption[] = novelSortWithDirection
   .filter((item) => item.includes("desc"))
@@ -46,16 +46,14 @@ export const NovelPage = () => {
         </Page.Searchbar>
         <div className="max-w-155">
           <div className="grid grid-cols-12 gap-2">
-            <ProtectedLink
-              permissionArgs={{
-                resource: "novels",
-                action: "create",
-              }}
-              to="/novels/create"
-              className="full-button bg-secondary dark:bg-secondary-black dark:text-white col-span-full lg:col-span-4"
-            >
-              Create Novel
-            </ProtectedLink>
+            <Can resource="novels" action="create" ctx={{}}>
+              <Link
+                to="/novels/create"
+                className="full-button bg-secondary dark:bg-secondary-black dark:text-white col-span-full lg:col-span-4"
+              >
+                Create Novel
+              </Link>
+            </Can>
             <div className="col-span-6 lg:col-span-4">
               <RouteDropdown
                 options={options}

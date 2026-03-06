@@ -1,11 +1,11 @@
-import { ProtectedLink } from "@/features/auth/components/ProtectedLink";
 import Page from "@/shared/components/Page";
 import Pagination from "@/shared/components/Pagination/Pagination";
 import { useSuspenseQuery } from "@tanstack/react-query";
-import { Outlet, getRouteApi } from "@tanstack/react-router";
+import { Link, Outlet, getRouteApi } from "@tanstack/react-router";
 import { Suspense } from "react";
 import { authorsPaginatedQueryOption } from "../api/fetchAuthors";
 import AuthorSearch from "../components/AuthorSearch";
+import { Can } from "@/features/auth/components/Can";
 
 export const AuthorPage = () => {
   return (
@@ -15,16 +15,14 @@ export const AuthorPage = () => {
         <Page.Searchbar>
           <AuthorSearch />
         </Page.Searchbar>
-        <ProtectedLink
-          permissionArgs={{
-            resource: "authors",
-            action: "create",
-          }}
-          to="/authors/create"
-          className="full-button max-w-37.5 bg-secondary dark:bg-secondary-black dark:text-white col-span-full lg:col-span-4"
-        >
-          Create Author
-        </ProtectedLink>
+        <Can resource="authors" action="create" ctx={{}}>
+          <Link
+            to="/authors/create"
+            className="full-button max-w-37.5 bg-secondary dark:bg-secondary-black dark:text-white col-span-full lg:col-span-4"
+          >
+            Create Author
+          </Link>
+        </Can>
         {/* LIST OF AUTHORS */}
         <Outlet />
       </Page.Body>

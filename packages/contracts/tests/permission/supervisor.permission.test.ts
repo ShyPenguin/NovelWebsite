@@ -1,7 +1,7 @@
 import { expect, describe, it } from "vitest";
 import { randomUUID } from "crypto";
 import { UserSession } from "../../src/dto/auth";
-import { hasPermission, ROLE_RANK } from "../../src/auth/permissions";
+import { hasPermission } from "../../src/auth/permissions";
 
 const sampleData = {
   email: "string",
@@ -12,7 +12,6 @@ const user = {
   id: randomUUID(),
   role: "supervisor",
 } satisfies UserSession;
-console.log(ROLE_RANK[user.role] < ROLE_RANK["supervisor"]);
 describe("Role: Supervisor", () => {
   describe("update", () => {
     it("Can update itself (not including role)", () => {

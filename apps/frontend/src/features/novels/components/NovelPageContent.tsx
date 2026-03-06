@@ -66,7 +66,11 @@ const NovelCard = ({ novel }: { novel: NovelDetailDTO }) => {
           <p className="status block w-fit">{novel.status}</p>
           <p className="line-clamp-3 text-[14px]">{novel.description}</p>
           <div onClick={(e) => e.stopPropagation()}>
-            <Can resource="novels" action="update" data={novel}>
+            <Can
+              resource="novels"
+              action="update"
+              ctx={{ data: { id: novel.id, translator: novel.translator } }}
+            >
               <div className="absolute top-0 left-0">
                 <div
                   className="absolute w-8 h-8"

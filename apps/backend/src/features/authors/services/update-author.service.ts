@@ -25,6 +25,9 @@ export const updateAuthorService = async ({
     user,
     resource: "authors",
     action: "update",
+    ctx: {
+      data: { id },
+    },
   });
   try {
     const result = await updateAuthorTx({

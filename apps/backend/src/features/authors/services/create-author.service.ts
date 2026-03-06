@@ -19,6 +19,7 @@ export const createAuthorService = async ({
     user,
     resource: "authors",
     action: "create",
+    ctx: {},
   });
 
   try {

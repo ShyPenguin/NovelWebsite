@@ -22,10 +22,18 @@ const AuthorDetail = () => {
           <div className="flex justify-between">
             <h1 className="text-2xl">Author: {author!.name}</h1>
             <div className="flex gap-4">
-              <Can resource="authors" action="update">
+              <Can
+                resource="authors"
+                action="update"
+                ctx={{ data: { id: author!.id } }}
+              >
                 <AuthorUpdateButton author={author!} />
               </Can>
-              <Can resource="authors" action="delete">
+              <Can
+                resource="authors"
+                action="delete"
+                ctx={{ data: { id: author!.id } }}
+              >
                 <AuthorDeleteButton author={author!} />
               </Can>
             </div>

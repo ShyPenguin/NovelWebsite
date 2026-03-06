@@ -1,22 +1,26 @@
-import type { Permissions } from "@repo/contracts/auth/permissions";
+import type {
+  PermissionMap,
+  Resource,
+  Action,
+} from "@repo/contracts/auth/permissions";
 import { useHasPermission } from "../hooks/useHasPermission";
 
-type CanProps<Resource extends keyof Permissions> = {
-  resource: Resource;
-  action: Permissions[Resource]["action"];
-  data?: Permissions[Resource]["dataType"];
+type CanProps<R extends Resource, A extends Action<R>> = {
+  resource: R;
+  action: A;
+  ctx: PermissionMap[R][A];
   children: React.ReactNode;
   fallback?: React.ReactNode;
 };
 
-export function Can<Resource extends keyof Permissions>({
+export function Can<R extends Resource, A extends Action<R>>({
   resource,
   action,
-  data,
+  ctx,
   children,
   fallback = null,
-}: CanProps<Resource>) {
-  const allowed = useHasPermission({ resource, action, data });
+}: CanProps<R, A>) {
+  const allowed = useHasPermission({ resource, action, ctx });
 
   if (allowed === null) return null; // loading
   if (!allowed) return <>{fallback}</>;

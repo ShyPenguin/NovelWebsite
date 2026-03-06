@@ -165,7 +165,7 @@ describe("Chapter Query Validation", () => {
         expect(success).toBe(false);
         const flattened = z.flattenError(error!);
         expect(flattened.fieldErrors.sort?.[0]).toBe(
-          "Sort must be asc(createdAt), desc(createdAt), asc(updatedAt), desc(updatedAt), asc(title) or desc(title)",
+          "Sort must be either asc(createdAt), desc(createdAt), asc(updatedAt), desc(updatedAt), asc(title) or desc(title)",
         );
       });
 
@@ -190,7 +190,7 @@ describe("Chapter Query Validation", () => {
         expect(success).toBe(false);
         const flattened = z.flattenError(error!);
         expect(flattened.fieldErrors.status?.[0]).toBe(
-          "Status must be either ALL, ONGOING, DROPPED, HIATUS, or COMPLETED",
+          "Status must be either ALL, ONGOING, COMPLETED, HIATUS or DROPPED",
         );
       });
 

@@ -1,14 +1,14 @@
 import { useQuery } from "@tanstack/react-query";
 import { novelQueryOptions } from "../api/fetchNovel";
-import { getRouteApi, Outlet } from "@tanstack/react-router";
+import { getRouteApi, Link, Outlet } from "@tanstack/react-router";
 import BookmarkIcon from "@/assets/icons/BookmarkIcon";
 import { Schedule } from "@/shared/components/Schedule/Schedule";
 import { NO_AUTHOR } from "@/shared/constants";
-import { ProtectedLink } from "@/features/auth/components/ProtectedLink";
 import { NovelImage } from "@/features/novels/components/NovelImage";
 import HorizontalLine from "@/shared/components/HorizontalLine";
 import type { NovelDetailDTO } from "@repo/contracts/dto/novel";
 import { NovelChaptersPageContent } from "../components/NovelChaptersPageContent";
+import { Can } from "@/features/auth/components/Can";
 
 const route = getRouteApi("/novels_/$novelId/chapters");
 
@@ -58,7 +58,11 @@ const Content = ({ novel }: { novel: NovelDetailDTO }) => {
         {/* RIGHT SIDE  */}
         <div className="col-span-12 lg:col-span-3 order-1 lg:order-1 flex flex-col gap-y-2 items-center justify-start lg:-translate-y-32.5">
           <div className="p-1 rounded-xl overflow-hidden">
-            <NovelImage coverImageUrl={novel.coverImageUrl} id={novel.id} />
+            <NovelImage
+              coverImageUrl={novel.coverImageUrl}
+              id={novel.id}
+              translator={novel.translator}
+            />
           </div>
           <div className="flex w-full max-w-103.25 lg:max-w-full justify-center gap-2">
             <div className="flex flex-col items-center justify-center gap-1">
@@ -70,17 +74,15 @@ const Content = ({ novel }: { novel: NovelDetailDTO }) => {
             </button>
           </div>
           <div className="flex w-full max-w-103.25 lg:max-w-full ">
-            <ProtectedLink
-              permissionArgs={{
-                resource: "chapters",
-                action: "create",
-              }}
-              to="/novels/$novelId/chapters/create"
-              params={{ novelId: novel.id }}
-              className="full-button bg-secondary dark:bg-secondary-black dark:text-white"
-            >
-              Create Chapter
-            </ProtectedLink>
+            <Can resource="chapters" action="create" ctx={{}}>
+              <Link
+                to="/novels/$novelId/chapters/create"
+                params={{ novelId: novel.id }}
+                className="full-button bg-secondary dark:bg-secondary-black dark:text-white"
+              >
+                Create Chapter
+              </Link>
+            </Can>
           </div>
           <Schedule schedule={novel.schedule} />
 

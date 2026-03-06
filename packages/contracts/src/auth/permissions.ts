@@ -1,42 +1,42 @@
 import { UserRole, UserSession } from "../dto/auth";
 import { AuthorThumbnailDTO } from "../dto/author";
-import { ChapterAuthDTO, ChapterFormDTO } from "../dto/chapter";
-import { NovelDetailDTO, NovelAuthDTO, NovelFormDTO } from "../dto/novel";
+import { ChapterAuthDTO } from "../dto/chapter";
+import { NovelAuthDTO } from "../dto/novel";
 import { UserThumbnailDTO } from "../dto/user";
 
 export type PermissionMap = {
   novels: {
-    view: {};
-    create: {};
+    view: { data?: never };
+    create: { data?: never };
     update: { data: NovelAuthDTO };
     delete: { data: NovelAuthDTO };
   };
 
   chapters: {
-    view: {};
-    create: {};
+    view: { data?: never };
+    create: { data?: never };
     update: { data: ChapterAuthDTO };
     delete: { data: ChapterAuthDTO };
-    preview: { data: ChapterAuthDTO };
+    preview: { data?: never };
   };
 
   authors: {
-    view: {};
-    create: {};
-    update: { data: AuthorThumbnailDTO };
-    delete: { data: AuthorThumbnailDTO };
+    view: { data?: never };
+    create: { data?: never };
+    update: { data: { id: AuthorThumbnailDTO["id"] } };
+    delete: { data: { id: AuthorThumbnailDTO["id"] } };
   };
 
   images: {
-    view: {};
-    create: {};
-    update: { data: NovelDetailDTO };
-    delete: { data: NovelDetailDTO };
+    view: { data?: never };
+    create: { data?: never };
+    update: { data: NovelAuthDTO };
+    delete: { data: NovelAuthDTO };
   };
 
   users: {
-    view: {};
-    create: {};
+    view: { data?: never };
+    create: { data?: never };
     update: { data: UserThumbnailDTO };
     delete: { data: UserThumbnailDTO };
     changeRole: {

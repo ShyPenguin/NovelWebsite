@@ -44,10 +44,12 @@ export const ChapterThumbnail = ({
         <Can
           resource="chapters"
           action={"update"}
-          data={{
-            id,
-            novelId,
-            translator,
+          ctx={{
+            data: {
+              id,
+              novelId,
+              translator,
+            },
           }}
         >
           <Link
@@ -61,10 +63,12 @@ export const ChapterThumbnail = ({
         <Can
           resource="chapters"
           action={"delete"}
-          data={{
-            id,
-            novelId,
-            translator,
+          ctx={{
+            data: {
+              id,
+              novelId,
+              translator,
+            },
           }}
         >
           <DeleteChapterButton
