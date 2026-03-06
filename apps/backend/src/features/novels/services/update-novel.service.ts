@@ -45,7 +45,9 @@ export const updateNovelService = async ({
         user,
         resource: "novels",
         action: "update",
-        data: novel,
+        ctx: {
+          data: novel,
+        },
       });
       await updateNovelTx({
         tx: trx,

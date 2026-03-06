@@ -48,7 +48,9 @@ export const updateChapterService = async ({
         user,
         resource: "chapters",
         action: "update",
-        data: chapter,
+        ctx: {
+          data: chapter,
+        },
       });
       const updateChapter = await updateChapterTx({
         tx: trx,

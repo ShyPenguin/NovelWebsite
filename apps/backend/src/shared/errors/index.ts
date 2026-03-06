@@ -46,11 +46,13 @@ export class AuthenticationError extends BaseError {
   }
 }
 
-export class AuthorizationError extends BaseError {
-  constructor({ action, resource }: { action: Action; resource: Resource }) {
+export class AuthorizationError<R extends Resource> extends BaseError {
+  constructor({ action, resource }: { action: Action<R>; resource: R }) {
     super(
       403,
-      `User is not allowed to ${action} ${action == "create" || action == "preview" ? aOrAn({ resource }) : "this"} ${mapSingularResource[resource]}`,
+      `User is not allowed to ${String(action)} \ 
+      ${resource == "chapters" ? (action == "create" || action == "preview" ? aOrAn({ resource }) : "this") : "this"} \
+      ${mapSingularResource[resource]}`,
     );
   }
 }

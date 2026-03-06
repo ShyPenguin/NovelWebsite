@@ -1,53 +1,75 @@
 import { UserRole, UserSession } from "../dto/auth";
 import { AuthorThumbnailDTO } from "../dto/author";
-import { ChapterAuthDTO } from "../dto/chapter";
-import { NovelDetailDTO, NovelAuthDTO } from "../dto/novel";
+import { ChapterAuthDTO, ChapterFormDTO } from "../dto/chapter";
+import { NovelDetailDTO, NovelAuthDTO, NovelFormDTO } from "../dto/novel";
 import { UserThumbnailDTO } from "../dto/user";
 
-export type Action = "view" | "delete" | "create" | "update" | "preview";
+export type PermissionMap = {
+  novels: {
+    view: {};
+    create: {};
+    update: { data: NovelAuthDTO };
+    delete: { data: NovelAuthDTO };
+  };
 
-type PermissionCheck<Key extends keyof Permissions> =
+  chapters: {
+    view: {};
+    create: {};
+    update: { data: ChapterAuthDTO };
+    delete: { data: ChapterAuthDTO };
+    preview: { data: ChapterAuthDTO };
+  };
+
+  authors: {
+    view: {};
+    create: {};
+    update: { data: AuthorThumbnailDTO };
+    delete: { data: AuthorThumbnailDTO };
+  };
+
+  images: {
+    view: {};
+    create: {};
+    update: { data: NovelDetailDTO };
+    delete: { data: NovelDetailDTO };
+  };
+
+  users: {
+    view: {};
+    create: {};
+    update: { data: UserThumbnailDTO };
+    delete: { data: UserThumbnailDTO };
+    changeRole: {
+      data: UserThumbnailDTO;
+      payload: { role: UserRole };
+    };
+  };
+};
+
+export type Resource = keyof PermissionMap;
+
+export type Action<R extends Resource> = keyof PermissionMap[R];
+
+type PermissionContext<R extends Resource, A extends Action<R>> = {
+  user: UserSession;
+} & PermissionMap[R][A];
+
+type PermissionFn<R extends Resource, A extends Action<R>> = (
+  ctx: PermissionContext<R, A>,
+) => boolean;
+
+type PermissionValue<R extends Resource, A extends Action<R>> =
   | boolean
-  | ((
-      user: UserSession,
-      data: Permissions[Key]["dataType"],
-      privilege: boolean,
-    ) => boolean);
+  | PermissionFn<R, A>;
 
 type RolesWithPermissions = {
-  [R in UserRole]: Partial<{
-    [Key in keyof Permissions]: Partial<{
-      [Action in Permissions[Key]["action"]]: PermissionCheck<Key>;
-    }>;
-  }>;
-};
-
-export type Permissions = {
-  novels: {
-    dataType: NovelAuthDTO;
-    action: Exclude<Action, "preview">;
-  };
-  chapters: {
-    dataType: ChapterAuthDTO;
-    action: Action;
-  };
-  authors: {
-    dataType: AuthorThumbnailDTO;
-    action: Exclude<Action, "preview">;
-  };
-  images: {
-    dataType: NovelDetailDTO;
-    action: Exclude<Action, "preview">;
-  };
-  users: {
-    dataType: UserThumbnailDTO;
-    action: Exclude<Action, "preview">;
+  [K in UserRole]: {
+    [R in Resource]?: {
+      [A in Action<R>]?: PermissionValue<R, A>;
+    };
   };
 };
-
-export type Resource = keyof Permissions;
-
-const ROLES = {
+const ROLES: RolesWithPermissions = {
   admin: {
     novels: {
       view: true,
@@ -77,17 +99,18 @@ const ROLES = {
     users: {
       view: true,
       create: true,
-      update: (user, userToUpdate, privilege) => {
-        if (privilege) return userToUpdate.role !== "admin";
-
-        return userToUpdate.role == "admin"
-          ? user.id !== userToUpdate.id
+      update: ({ user, data }) => {
+        return data.role == "admin"
+          ? user.id !== data.id
             ? false
             : true
           : true;
       },
-      delete: (user, userToDelete) => {
-        return userToDelete.role !== "admin";
+      delete: ({ user, data }) => {
+        return user.role !== data.role;
+      },
+      changeRole: ({ user, data }) => {
+        return user.role !== data.role;
       },
     },
   },
@@ -119,19 +142,21 @@ const ROLES = {
     },
     users: {
       view: true,
-      create: true,
-      update: (user, userToUpdate, privilege) => {
-        if (privilege)
-          return !["admin", "supervisor"].includes(userToUpdate.role);
+      update: ({ user, data }) => {
+        if (ROLE_RANK[data.role] < ROLE_RANK[user.role]) return false;
+        if (data.role == "supervisor" && user.id !== data.id) return false;
 
-        return userToUpdate.role == "admin" || user.id !== userToUpdate.id
-          ? false
-          : true;
+        return true;
       },
-      delete: (user, userToDelete, privilege) => {
-        if (userToDelete.role == "admin") return false;
-        if (userToDelete.role == "supervisor" && user.id !== userToDelete.id)
-          return false;
+      delete: ({ user, data }) => {
+        if (ROLE_RANK[data.role] < ROLE_RANK[user.role]) return false;
+        if (data.role == "supervisor" && user.id !== data.id) return false;
+
+        return true;
+      },
+      changeRole: ({ user, data, payload }) => {
+        if (ROLE_RANK[data.role] <= ROLE_RANK[user.role]) return false;
+        if (ROLE_RANK[payload.role] < ROLE_RANK[user.role]) return false;
 
         return true;
       },
@@ -141,14 +166,14 @@ const ROLES = {
     novels: {
       view: true,
       create: true,
-      update: (user, novel) => novel.translator?.id == user.id,
-      delete: (user, novel) => novel.translator?.id == user.id,
+      update: ({ user, data }) => data.translator?.id == user.id,
+      delete: ({ user, data }) => data.translator?.id == user.id,
     },
     chapters: {
       view: true,
       create: true,
-      update: (user, chapter) => chapter.translator?.id == user.id,
-      delete: (user, chapter) => chapter.translator?.id == user.id,
+      update: ({ user, data }) => data.translator?.id == user.id,
+      delete: ({ user, data }) => data.translator?.id == user.id,
       preview: true,
     },
     authors: {
@@ -160,23 +185,13 @@ const ROLES = {
     images: {
       view: true,
       create: true,
-      update: (user, novel) => novel.translator?.id == user.id,
-      delete: (user, novel) => novel.translator?.id == user.id,
+      update: ({ user, data }) => data.translator?.id == user.id,
+      delete: ({ user, data }) => data.translator?.id == user.id,
     },
     users: {
       view: true,
-      create: true,
-      update: (user, userToUpdate, privilege) => {
-        if (privilege) return false;
-
-        return !["admin", "supervisor"].includes(userToUpdate.role) &&
-          user.id !== userToUpdate.id
-          ? false
-          : true;
-      },
-      delete: (user, userToDelete, privilege) => {
-        return user.id !== userToDelete.id ? false : true;
-      },
+      update: ({ user, data }) => user.id == data.id,
+      delete: ({ user, data }) => user.id == data.id,
     },
   },
   user: {
@@ -194,38 +209,49 @@ const ROLES = {
     },
     users: {
       view: true,
-      create: true,
-      update: (user, userToUpdate, privilege) => {
-        if (privilege) return false;
-        return user.id !== userToUpdate.id ? false : true;
-      },
-      delete: (user, userToDelete) => {
-        return userToDelete.role == "admin" || user.id !== userToDelete.id
-          ? false
-          : true;
-      },
+      update: ({ user, data }) => user.id == data.id,
+      delete: ({ user, data }) => user.id == data.id,
     },
   },
-} as const satisfies RolesWithPermissions;
+};
 
-export function hasPermission<Resource extends keyof Permissions>({
+export function hasPermission<R extends Resource, A extends Action<R>>({
   user,
   resource,
   action,
-  data,
-  privilege = false,
-}: {
-  user: UserSession;
-  resource: Resource;
-  action: Permissions[Resource]["action"];
-  data?: Permissions[Resource]["dataType"];
-  privilege?: boolean;
-}) {
-  const permission = (ROLES as RolesWithPermissions)[user.role][resource]?.[
-    action
-  ];
-  if (permission == null) return false;
+  ctx,
+}:
+  | {
+      user: UserSession;
+      resource: R;
+      action: A;
+      ctx?: never;
+    }
+  | {
+      user: UserSession;
+      resource: R;
+      action: A;
+      ctx: PermissionMap[R][A];
+    }): boolean {
+  const permission = ROLES[user.role]?.[resource]?.[action];
 
-  if (typeof permission === "boolean") return permission;
-  return data != null && permission(user, data, privilege);
+  if (!permission) return false;
+
+  if (typeof permission === "boolean") {
+    return permission;
+  }
+
+  return (
+    ctx !== undefined &&
+    permission({
+      user,
+      ...ctx,
+    })
+  );
 }
+export const ROLE_RANK = {
+  admin: 1,
+  supervisor: 2,
+  staff: 3,
+  user: 4,
+} as const satisfies Record<UserRole, number>;

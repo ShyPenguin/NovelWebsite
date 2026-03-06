@@ -2,7 +2,6 @@ import "dotenv/config";
 import { drizzle } from "drizzle-orm/node-postgres";
 import { Pool } from "pg";
 import * as schema from "./schemas/index.ts";
-import { Permissions } from "@repo/contracts/auth/permissions";
 
 const pool = new Pool({
   connectionString: process.env.DATABASE_URL,
@@ -19,5 +18,3 @@ export type TableNameFromSchema = {
     ? N
     : never;
 }[keyof Schema];
-
-export type Resource = keyof Permissions;

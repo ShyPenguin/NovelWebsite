@@ -5,4 +5,5 @@ export const mapSingularResource = {
   novels: "novel",
   chapters: "chapter",
   images: "image",
+  users: "user",
 } satisfies Record<Resource, string>;

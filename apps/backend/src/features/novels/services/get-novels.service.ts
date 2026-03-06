@@ -19,7 +19,6 @@ import {
 import { PAGE_SIZE } from "@/shared/constants/index.ts";
 import { db } from "@/infrastructure/db/index.ts";
 import { DbExecTypes } from "@/infrastructure/db/type.ts";
-
 import { NovelQueryOutput } from "@/features/novels/novel.schema.ts";
 import {
   GetListParams,

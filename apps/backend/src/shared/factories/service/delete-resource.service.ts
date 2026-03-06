@@ -1,4 +1,4 @@
-import { db, Resource } from "@/infrastructure/db/index.ts";
+import { db } from "@/infrastructure/db/index.ts";
 import {
   DbClientType,
   DbExecTypes,
@@ -7,11 +7,11 @@ import {
 import { NotFoundError } from "@/shared/errors/index.ts";
 import { requirePermission } from "@/shared/utils/require-permission.ts";
 import { UserSession } from "@repo/contracts/dto/auth";
-import { Permissions } from "@repo/contracts/auth/permissions";
+import { PermissionMap, Resource } from "@repo/contracts/auth/permissions";
 
 export const deleteResourceServiceFactory =
   <
-    TData extends Permissions[Resource]["dataType"],
+    TData extends PermissionMap[Resource]["delete"]["data"],
     TResource extends Resource,
     U extends { id: string },
   >({
@@ -55,7 +55,9 @@ export const deleteResourceServiceFactory =
         user,
         resource,
         action: "delete",
-        data: resourceDetailed,
+        ctx: {
+          data: resourceDetailed,
+        },
       });
 
       const result = await deleteResourceRepo({

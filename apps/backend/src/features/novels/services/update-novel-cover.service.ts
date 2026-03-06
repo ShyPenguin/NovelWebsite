@@ -43,7 +43,9 @@ export const updateNovelCoverService = async ({
     user,
     resource: "novels",
     action: "update",
-    data: novel,
+    ctx: {
+      data: novel,
+    },
   });
 
   const { path, url } = await uploadImageToSupabase(file);
