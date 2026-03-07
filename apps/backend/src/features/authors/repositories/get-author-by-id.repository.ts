@@ -2,54 +2,63 @@ import { DbExecTypes } from "@/infrastructure/db/type.ts";
 import { GetFetchReturn } from "@/shared/types/service.types.ts";
 import {
   AuthorThumbnailDTO,
-  AuthorListDTO,
   AuthorDetailDTO,
+  AuthorSelectDTO,
 } from "@repo/contracts/dto/author";
 import { ZodType } from "zod";
 import { buildAuthorsBaseQuery } from "./build-base-query.ts";
-import { eq } from "drizzle-orm";
-import { AuthorTable } from "@/infrastructure/db/schemas/authors.ts";
 import {
   AuthorDetailSchema,
   AuthorThumbnailSchema,
 } from "@repo/contracts/schemas/author";
+import { AuthorWhere, authorWhereMap } from "./author.where.ts";
 
+// Map's keys must follow AuthorSelectDTO
 type AuthorDTOMap = {
   thumbnail: AuthorThumbnailDTO;
   detail: AuthorDetailDTO;
 };
 
-const getAuthorByIdFactory = <T extends AuthorListDTO>({
-  type,
+const getAuthorOneFactory = <T extends AuthorSelectDTO>({
+  select,
   schema,
+  where,
 }: {
-  type: T;
+  select: T;
   schema: ZodType;
+  where: AuthorWhere;
 }) => {
   return async ({
     tx,
     id,
   }: {
     tx: DbExecTypes;
-    id: AuthorThumbnailDTO["id"];
+    id: Parameters<(typeof authorWhereMap)[AuthorWhere]>[0];
   }): Promise<GetFetchReturn<AuthorDTOMap, T> | null> => {
     const baseQuery = buildAuthorsBaseQuery({
-      type,
+      type: select,
       tx,
     });
-    const result = await baseQuery.where(eq(AuthorTable.id, id));
+    const result = await baseQuery.where(authorWhereMap[where](id));
     if (!result[0]) return null;
-
     return schema.encode(result[0]) as GetFetchReturn<AuthorDTOMap, T>;
   };
 };
 
-export const getAuthorThumbnailByIdTx = getAuthorByIdFactory({
-  type: "thumbnail",
+export const getAuthorThumbnailByIdTx = getAuthorOneFactory({
+  select: "thumbnail",
   schema: AuthorThumbnailSchema,
+  where: "id",
 });
 
-export const getAuthorDetailByIdTx = getAuthorByIdFactory({
-  type: "detail",
+export const getAuthorDetailByIdTx = getAuthorOneFactory({
+  select: "detail",
   schema: AuthorDetailSchema,
+  where: "id",
+});
+
+export const getAuthorByNameTx = getAuthorOneFactory({
+  select: "detail",
+  schema: AuthorDetailSchema,
+  where: "name",
 });

@@ -2,7 +2,7 @@ import { SESSION_EXPIRATION_SECONDS } from "@/shared/constants/index.ts";
 import { UserTable } from "@/infrastructure/db/schemas/users.ts";
 import { DbPoolType } from "@/infrastructure/db/type.ts";
 import { createUserOauthAccountTx } from "@/features/auth/repositories/create.repository.ts";
-import { createUserTx } from "@/features/users/repositories/create.ts";
+import { createUserTx } from "@/features/users/repositories/create.repository.ts";
 import { sessionSchema } from "@repo/contracts/schemas/auth";
 import { randomBytes } from "crypto";
 import { testDb, redisDb } from "tests/integrated/db/db-test.ts";

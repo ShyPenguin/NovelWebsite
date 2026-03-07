@@ -1,6 +1,6 @@
 import { AuthorTable } from "@/infrastructure/db/schemas/authors.ts";
 import { DbExecTypes } from "@/infrastructure/db/type.ts";
-import { authorSelectMap } from "@/features/authors/repositories/selections.ts";
+import { authorSelectMap } from "@/features/authors/repositories/author.selections.ts";
 import { AuthorSelectDTO } from "@repo/contracts/dto/author";
 import { sql } from "drizzle-orm";
 

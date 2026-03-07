@@ -7,7 +7,9 @@ import type {
 } from "@repo/contracts/dto/author";
 import { eq, sql } from "drizzle-orm";
 
-const getAuthorNovels = sql<{ id: string; title: string }[]>`(
+const getAuthorNovels = sql<
+  { id: string; title: string; coverImageUrl: string; description: string }[]
+>`(
   SELECT COALESCE(
     json_agg(
       jsonb_build_object(

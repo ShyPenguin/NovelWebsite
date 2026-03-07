@@ -2,7 +2,7 @@ import { db } from "@/infrastructure/db/index.ts";
 import { ChapterTableInsert } from "@/infrastructure/db/schemas/chapters.ts";
 import { NovelTableInsert } from "@/infrastructure/db/schemas/novels.ts";
 import { createAuthorTx } from "@/features/authors/repositories/create.repository.ts";
-import { createUserTx } from "@/features/users/repositories/create.ts";
+import { createUserTx } from "@/features/users/repositories/create.repository.ts";
 import { createNovelWithChapters } from "./integrated/factory/novel-with-chapters/index.ts";
 import { userAdmin, userStaff, userStaff2 } from "./mockdata.ts";
 import data from "./mockdb.json" with { type: "json" };

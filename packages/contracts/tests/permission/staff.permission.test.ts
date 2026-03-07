@@ -1,12 +1,15 @@
 import { expect, describe, it } from "vitest";
 import { randomUUID } from "crypto";
-import { UserSession } from "../../src/dto/auth";
+import { OAuthProviders, UserSession } from "../../src/dto/auth";
 import { hasPermission } from "../../src/auth/permissions";
 
 const sampleData = {
   email: "string",
   name: "string",
   imageUrl: "string",
+  oAuthProviders: ["google"] satisfies OAuthProviders[],
+  createdAt: new Date(),
+  updatedAt: new Date(),
 };
 const user = {
   id: randomUUID(),
@@ -132,9 +135,7 @@ describe("Role: Staff", () => {
         ctx: {
           data: {
             ...user,
-            email: "string",
-            name: "string",
-            imageUrl: "string",
+            ...sampleData,
           },
         },
       });
@@ -149,9 +150,7 @@ describe("Role: Staff", () => {
           data: {
             id: randomUUID(),
             role: "staff",
-            email: "string",
-            name: "string",
-            imageUrl: "string",
+            ...sampleData,
           },
         },
       });
@@ -166,9 +165,7 @@ describe("Role: Staff", () => {
           data: {
             id: randomUUID(),
             role: "supervisor",
-            email: "string",
-            name: "string",
-            imageUrl: "string",
+            ...sampleData,
           },
         },
       });
@@ -183,9 +180,7 @@ describe("Role: Staff", () => {
           data: {
             id: randomUUID(),
             role: "admin",
-            email: "string",
-            name: "string",
-            imageUrl: "string",
+            ...sampleData,
           },
         },
       });

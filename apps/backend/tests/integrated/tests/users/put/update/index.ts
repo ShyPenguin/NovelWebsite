@@ -105,6 +105,30 @@ describe("PATCH /users/:id", () => {
       },
     });
   });
+  it("400, Validation Error, name already taken", async () => {
+    const input = {
+      name: "",
+    } satisfies UserFormDTO;
+    const user = getters.getSupervisor();
+    const resourceToUpdate = getters.getStaff().user;
+    const res = await testApp
+      .patch(`/users/${resourceToUpdate.id}`)
+      .send(input)
+      .set("Accept", "application/json")
+      .set("Cookie", [`${COOKIE_SESSION_KEY}=${user.sessionId}`])
+      .expect(400);
+
+    const parsedResult = ApiResponseSchema(UserDetailSchema).parse(res.body);
+    expect(parsedResult).toMatchObject({
+      ok: false,
+      error: {
+        type: "ValidationError",
+        path: `/users/${resourceToUpdate.id}`,
+        statusCode: 400,
+        message: "name is already taken",
+      },
+    });
+  });
   it("200, Success", async () => {
     const user = getters.getSupervisor();
     const resourceToUpdate = getters.getStaff().user;

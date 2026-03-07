@@ -2,7 +2,7 @@ import { AuthorTableSelect } from "@/infrastructure/db/schemas/authors.ts";
 import { NovelTableInsert } from "@/infrastructure/db/schemas/novels.ts";
 import { UserTableSelect } from "@/infrastructure/db/schemas/users.ts";
 import { createAuthorTx } from "@/features/authors/repositories/create.repository.ts";
-import { createUserTx } from "@/features/users/repositories/create.ts";
+import { createUserTx } from "@/features/users/repositories/create.repository.ts";
 import data from "tests/mockdb.json" with { type: "json" };
 import { NovelDetailDTO } from "@repo/contracts/dto/novel";
 import { NovelDetailSchema } from "@repo/contracts/schemas/novel";

@@ -878,5 +878,19 @@
     { "name": "Sil" },
     { "name": "Fion" },
     { "name": "Goldilucks" }
+  ],
+  "users": [
+    {
+      "username": "wheat",
+      "email": "wheat@gmail.com",
+      "name": "Wheat Anor",
+      "role": "user"
+    },
+    {
+      "username": "test",
+      "email": "test@gmail.com",
+      "name": "test Anor",
+      "role": "staff"
+    }
   ]
 }

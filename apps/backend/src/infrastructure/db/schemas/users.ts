@@ -1,4 +1,4 @@
-import { relations } from "drizzle-orm";
+import { getTableColumns, relations } from "drizzle-orm";
 import {
   pgEnum,
   pgTable,
@@ -36,5 +36,6 @@ export const userRelations = relations(UserTable, ({ many, one }) => ({
   comments: many(CommentTable),
 }));
 
+export const getUserColumns = () => getTableColumns(UserTable);
 export type UserTableSelect = typeof UserTable.$inferSelect;
 export type UserTableInsert = typeof UserTable.$inferInsert;

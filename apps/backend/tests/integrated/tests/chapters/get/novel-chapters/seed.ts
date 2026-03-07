@@ -4,7 +4,7 @@ import { getFormattedDate } from "@repo/contracts/utils/getFormattedDate";
 import { createAuthorTx } from "@/features/authors/repositories/create.repository.ts";
 import { NovelTableInsert } from "@/infrastructure/db/schemas/novels.ts";
 import { UserTableSelect } from "@/infrastructure/db/schemas/users.ts";
-import { createUserTx } from "@/features/users/repositories/create.ts";
+import { createUserTx } from "@/features/users/repositories/create.repository.ts";
 import { testDb } from "tests/integrated/db/db-test.ts";
 import { userStaff } from "tests/mockdata.ts";
 import { AuthorTableSelect } from "@/infrastructure/db/schemas/authors.ts";

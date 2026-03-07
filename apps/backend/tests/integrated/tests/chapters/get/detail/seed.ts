@@ -2,7 +2,7 @@ import { NovelTableInsert } from "@/infrastructure/db/schemas/novels.ts";
 import { createAuthorTx } from "@/features/authors/repositories/create.repository.ts";
 import { createChapterTx } from "@/features/chapters/repositories/create.repository.ts";
 import { createNovelTx } from "@/features/novels/repositories/create.repository.ts";
-import { createUserTx } from "@/features/users/repositories/create.ts";
+import { createUserTx } from "@/features/users/repositories/create.repository.ts";
 import { getFormattedDate } from "@repo/contracts/utils/getFormattedDate";
 import { SOURCE_DOC_URL } from "tests/constants/index.ts";
 import { testDb } from "tests/integrated/db/db-test.ts";

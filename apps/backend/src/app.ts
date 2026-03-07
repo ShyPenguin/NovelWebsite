@@ -8,6 +8,7 @@ import authorRoutes from "./features/authors/author.routes.ts";
 import chapterRoutes from "./features/chapters/chapter.routes.ts";
 import novelRoutes from "./features/novels/novel.routes.ts";
 import oauthRoutes from "./features/auth/auth.routes.ts";
+import userRoutes from "./features/users/user.routes.ts";
 dotenv.config();
 
 const app = express();
@@ -26,7 +27,7 @@ app.use("/oauth", oauthRoutes);
 app.use("/novels", novelRoutes);
 app.use("/authors", authorRoutes);
 app.use("/chapters", chapterRoutes);
-
+app.use("/users", userRoutes);
 app.get("/", (req, res) => {
   res.send("Hello, Novel Translation Backend Website!").status(200);
 });

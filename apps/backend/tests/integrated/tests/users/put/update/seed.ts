@@ -12,6 +12,7 @@ import {
 // One Authorization Error Due to Managing User with Higher Role
 // One Authorization Error Due To Resource Role
 // One Validation Error
+// One Validation Error Username is arleady taken
 // One NotFound Error
 // Success
 
@@ -42,7 +43,7 @@ export const seedBeforeAll = async () => {
   );
 
   const input = {
-    name: "supervisor",
+    name: "Mon",
   } satisfies UserFormDTO;
 
   return {

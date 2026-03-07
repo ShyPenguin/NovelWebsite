@@ -18,8 +18,12 @@ const UserThumbnailSchema = UserBaseSchema.pick({
   id: true,
   email: true,
   name: true,
+  username: true,
   role: true,
   imageUrl: true,
+  createdAt: true,
+  updatedAt: true,
+  oAuthProviders: true,
 });
 
 export const userSort = ["name"] as const satisfies ReadonlyArray<

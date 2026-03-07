@@ -1,13 +1,17 @@
 import { expect, describe, it } from "vitest";
 import { randomUUID } from "crypto";
-import { UserSession } from "../../src/dto/auth";
+import { OAuthProviders, UserSession } from "../../src/dto/auth";
 import { hasPermission } from "../../src/auth/permissions";
 
 const sampleData = {
   email: "string",
   name: "string",
   imageUrl: "string",
+  oAuthProviders: ["google"] satisfies OAuthProviders[],
+  createdAt: new Date(),
+  updatedAt: new Date(),
 };
+
 const user = {
   id: randomUUID(),
   role: "supervisor",
@@ -117,6 +121,38 @@ describe("Role: Supervisor", () => {
         },
       });
       expect(result).toBe(true);
+    });
+    it("Can changeRole staff/user role to supervisor", () => {
+      const result = hasPermission({
+        user,
+        action: "changeRole",
+        resource: "users",
+        ctx: {
+          data: {
+            id: randomUUID(),
+            role: "staff",
+            ...sampleData,
+          },
+          payload: { role: "supervisor" },
+        },
+      });
+      expect(result).toBe(true);
+    });
+    it("Can't changeRole staff/user role to admin", () => {
+      const result = hasPermission({
+        user,
+        action: "changeRole",
+        resource: "users",
+        ctx: {
+          data: {
+            id: randomUUID(),
+            role: "staff",
+            ...sampleData,
+          },
+          payload: { role: "admin" },
+        },
+      });
+      expect(result).toBe(false);
     });
     it("Can changeRole users role", () => {
       const result = hasPermission({

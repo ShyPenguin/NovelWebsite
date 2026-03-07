@@ -1,12 +1,15 @@
 import { expect, describe, it } from "vitest";
 import { randomUUID } from "crypto";
-import { UserSession } from "../../src/dto/auth";
+import { OAuthProviders, UserSession } from "../../src/dto/auth";
 import { hasPermission } from "../../src/auth/permissions";
 
 const sampleData = {
   email: "string",
   name: "string",
   imageUrl: "string",
+  oAuthProviders: ["google"] satisfies OAuthProviders[],
+  createdAt: new Date(),
+  updatedAt: new Date(),
 };
 
 const user = {
@@ -104,7 +107,7 @@ describe("Role: admin", () => {
       });
       expect(result).toBe(false);
     });
-    it("Can changeRole supervisor role", () => {
+    it("Can changeRole supervisor role to admin", () => {
       const result = hasPermission({
         user,
         action: "changeRole",

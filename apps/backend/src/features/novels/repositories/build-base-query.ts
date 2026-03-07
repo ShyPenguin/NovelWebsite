@@ -6,7 +6,7 @@ import {
 import { DbExecTypes } from "@/infrastructure/db/type.ts";
 import { NovelSelectDTO } from "@repo/contracts/dto/novel";
 import { sql, eq } from "drizzle-orm";
-import { novelSelectMap } from "./selections.ts";
+import { novelSelectMap } from "./novel.selections.ts";
 
 export const buildNovelsBaseQuery = <T extends NovelSelectDTO>({
   type,

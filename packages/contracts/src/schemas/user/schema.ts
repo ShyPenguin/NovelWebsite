@@ -15,12 +15,16 @@ export const PaginatedUserThumbnailSchema = UserThumbnailFactory.paginate();
 
 // WRITE
 export const UserFormSchema = z.object({
+  name: UserDetailSchema.shape["name"],
+});
+
+export const UserRoleChangeSchema = z.object({
   role: UserDetailSchema.shape["role"].optional().default("user"),
 });
 
 // export const UserQueryContract = z.object({
 //   sort: novelSortWithDirectionField.optional(),
-//   role: userRolesQueryField.optional(),
+//   role: userRolesQueryField.boptional(),
 //   search: z.string().optional(),
 //   page: z.coerce.number().optional(),
 //   pageSize: z.coerce.number().optional(),
