@@ -5,8 +5,12 @@ import { validateMiddleware } from "@/middlewares/validate-middleware.ts";
 import { idSchema } from "@repo/contracts/schemas/id";
 import { deleteUserController } from "./controllers/delete-user.controller.ts";
 import { authMiddleware } from "@/middlewares/auth-middleware.ts";
-import { UserRoleChangeSchema } from "@repo/contracts/schemas/user";
+import {
+  UserFormSchema,
+  UserRoleChangeSchema,
+} from "@repo/contracts/schemas/user";
 import { patchUserRoleController } from "./controllers/patch-user-role.controller.ts";
+import { patchUserController } from "./controllers/patch-user.controller.ts";
 
 const userRoutes = Router();
 
@@ -23,5 +27,13 @@ userRoutes.patch(
   asyncHandler(authMiddleware),
   validateMiddleware(UserRoleChangeSchema, "body"),
   asyncHandler(patchUserRoleController),
+);
+
+userRoutes.patch(
+  "/:id",
+  validateMiddleware(idSchema, "params"),
+  asyncHandler(authMiddleware),
+  validateMiddleware(UserFormSchema, "body"),
+  asyncHandler(patchUserController),
 );
 export default userRoutes;

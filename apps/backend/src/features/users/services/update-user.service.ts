@@ -12,19 +12,20 @@ import { UserSession } from "@repo/contracts/dto/auth";
 import {
   UserChangeRoleDTO,
   UserDetailDTO,
+  UserFormDTO,
   UserThumbnailEncodeDTO,
 } from "@repo/contracts/dto/user";
 import { getUserThumbnailByIdTx } from "../repositories/get-user-one.repository.ts";
 import { updateUserTx } from "../repositories/update.repository.ts";
 import { UserThumbnailSchema } from "@repo/contracts/schemas/user";
 
-export const updateUserRoleService = async (
+export const updateUserService = async (
   {
     form,
     user,
     id,
   }: {
-    form: UserChangeRoleDTO;
+    form: UserFormDTO;
     user: UserSession;
     id: UserDetailDTO["id"];
   },
@@ -38,10 +39,9 @@ export const updateUserRoleService = async (
       requirePermission({
         user,
         resource: "users",
-        action: "changeRole",
+        action: "update",
         ctx: {
           data: UserThumbnailSchema.decode(userResource),
-          payload: form,
         },
       });
 
@@ -61,14 +61,15 @@ export const updateUserRoleService = async (
 
     return result;
   } catch (err: any) {
+    if (err.code === "23505" && err.detail?.includes("name")) {
+      throw new ValidationError("Name is already taken");
+    }
+
     if (err.constructor.name == "NotFoundError")
       throw new NotFoundError("users");
 
     if (err.constructor.name == "AuthorizationError")
       throw new AuthorizationError({ action: "update", resource: "users" });
-
-    if (err.constructor.name == "CustomizedAuthorizationError")
-      throw new CustomizedAuthorizationError(err.message);
 
     throw new BaseError(500, "Internal Server Error");
   }

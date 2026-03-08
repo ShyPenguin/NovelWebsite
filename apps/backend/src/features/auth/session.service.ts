@@ -70,10 +70,12 @@ export const updateUserSessionExpiration = async (
   if (sessionId == null) return null;
 
   const user = await getUserSessionById(sessionId);
-  if (user == null) return;
+  if (!user) return null;
 
   await redis.set(`session:${sessionId}`, user, {
     ex: SESSION_EXPIRATION_SECONDS,
   });
   setCookie(sessionId, cookies);
+
+  return user;
 };

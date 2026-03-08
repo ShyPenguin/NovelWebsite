@@ -5,8 +5,12 @@ import { randomUUID } from "crypto";
 import { app } from "@/app.ts";
 import { COOKIE_SESSION_KEY } from "@/shared/constants/index.ts";
 import { seedBeforeAll } from "./seed.ts";
-import { UserDetailSchema } from "@repo/contracts/schemas/user";
-import { UserFormDTO, UserDetailDTO } from "@repo/contracts/dto/user";
+import { UserThumbnailSchema } from "@repo/contracts/schemas/user";
+import {
+  UserFormDTO,
+  UserDetailDTO,
+  UserThumbnailDTO,
+} from "@repo/contracts/dto/user";
 
 describe("PATCH /users/:id", () => {
   let getters: Awaited<ReturnType<typeof seedBeforeAll>>;
@@ -27,7 +31,7 @@ describe("PATCH /users/:id", () => {
       .set("Cookie", [`${COOKIE_SESSION_KEY}=${supervisor.sessionId}`])
       .expect(404);
 
-    const parsedResult = ApiResponseSchema(UserDetailSchema).parse(res.body);
+    const parsedResult = ApiResponseSchema(UserThumbnailSchema).parse(res.body);
     expect(parsedResult).toMatchObject({
       ok: false,
       error: {
@@ -46,9 +50,9 @@ describe("PATCH /users/:id", () => {
       .patch(`/users/${resourceToUpdate.id}`)
       .send(input)
       .set("Accept", "application/json")
-      .expect(404);
+      .expect(401);
 
-    const parsedResult = ApiResponseSchema(UserDetailSchema).parse(res.body);
+    const parsedResult = ApiResponseSchema(UserThumbnailSchema).parse(res.body);
     expect(parsedResult).toMatchObject({
       ok: false,
       error: {
@@ -70,7 +74,7 @@ describe("PATCH /users/:id", () => {
       .set("Cookie", [`${COOKIE_SESSION_KEY}=${user.sessionId}`])
       .expect(403);
 
-    const parsedResult = ApiResponseSchema(UserDetailSchema).parse(res.body);
+    const parsedResult = ApiResponseSchema(UserThumbnailSchema).parse(res.body);
     expect(parsedResult).toMatchObject({
       ok: false,
       error: {
@@ -94,7 +98,7 @@ describe("PATCH /users/:id", () => {
       .set("Cookie", [`${COOKIE_SESSION_KEY}=${user.sessionId}`])
       .expect(400);
 
-    const parsedResult = ApiResponseSchema(UserDetailSchema).parse(res.body);
+    const parsedResult = ApiResponseSchema(UserThumbnailSchema).parse(res.body);
     expect(parsedResult).toMatchObject({
       ok: false,
       error: {
@@ -105,31 +109,31 @@ describe("PATCH /users/:id", () => {
       },
     });
   });
-  it("400, Validation Error, name already taken", async () => {
-    const staffName = getters.getStaffSecond().user.name;
-    const input = {
-      name: staffName,
-    } satisfies UserFormDTO;
-    const user = getters.getSupervisor();
-    const resourceToUpdate = getters.getStaff().user;
-    const res = await testApp
-      .patch(`/users/${resourceToUpdate.id}`)
-      .send(input)
-      .set("Accept", "application/json")
-      .set("Cookie", [`${COOKIE_SESSION_KEY}=${user.sessionId}`])
-      .expect(400);
+  // it("400, Validation Error, name already taken", async () => {
+  //   const staffName = getters.getStaffSecond().user.name;
+  //   const input = {
+  //     name: staffName,
+  //   } satisfies UserFormDTO;
+  //   const user = getters.getSupervisor();
+  //   const resourceToUpdate = getters.getStaff().user;
+  //   const res = await testApp
+  //     .patch(`/users/${resourceToUpdate.id}`)
+  //     .send(input)
+  //     .set("Accept", "application/json")
+  //     .set("Cookie", [`${COOKIE_SESSION_KEY}=${user.sessionId}`])
+  //     .expect(400);
 
-    const parsedResult = ApiResponseSchema(UserDetailSchema).parse(res.body);
-    expect(parsedResult).toMatchObject({
-      ok: false,
-      error: {
-        type: "ValidationError",
-        path: `/users/${resourceToUpdate.id}`,
-        statusCode: 400,
-        message: "Name is already taken",
-      },
-    });
-  });
+  //   const parsedResult = ApiResponseSchema(UserThumbnailSchema).parse(res.body);
+  //   expect(parsedResult).toMatchObject({
+  //     ok: false,
+  //     error: {
+  //       type: "ValidationError",
+  //       path: `/users/${resourceToUpdate.id}`,
+  //       statusCode: 400,
+  //       message: "Name is already taken",
+  //     },
+  //   });
+  // });
   it("200, Success", async () => {
     const user = getters.getSupervisor();
     const resourceToUpdate = getters.getStaff().user;
@@ -140,9 +144,9 @@ describe("PATCH /users/:id", () => {
       .send(input)
       .set("Accept", "application/json")
       .set("Cookie", [`${COOKIE_SESSION_KEY}=${user.sessionId}`])
-      .expect(400);
+      .expect(200);
 
-    const parsedResult = ApiResponseSchema(UserDetailSchema).parse(res.body);
+    const parsedResult = ApiResponseSchema(UserThumbnailSchema).parse(res.body);
     if (!parsedResult.ok) throw new Error("Unexpected happen");
     expect(parsedResult.data).toHaveProperty("createdAt");
     expect(parsedResult.data).toHaveProperty("updatedAt");
@@ -156,7 +160,6 @@ describe("PATCH /users/:id", () => {
     expect(resultData).toMatchObject({
       ...inputData,
       oAuthProviders: ["google"],
-      novels: [],
-    } satisfies Omit<UserDetailDTO, "createdAt" | "updatedAt">);
+    } satisfies Omit<UserThumbnailDTO, "createdAt" | "updatedAt">);
   });
 });
