@@ -14,9 +14,8 @@ import {
 import { ZodType } from "zod";
 import { buildChaptersBaseQuery } from "./build-base-query.ts";
 import { GetFetchReturn } from "@/shared/types/service.types.ts";
-import { ChapterTable } from "@/infrastructure/db/schemas/chapters.ts";
 import { DbExecTypes } from "@/infrastructure/db/type.ts";
-import { chapterAlias } from "@/shared/utils/databaseAlises.ts";
+import { ChapterWhere, chapterWhereMap } from "./chapter.where.ts";
 
 type ChapterDTOMap = {
   thumbnail: ChapterThumbnailDTO;
@@ -24,27 +23,33 @@ type ChapterDTOMap = {
   auth: ChapterAuthDTO;
 };
 
-export const getChapterByIdFactory = <T extends ChapterSelectDTO>({
+type ChapterWhereParams<W extends ChapterWhere> = {
+  [K in W]: Parameters<(typeof chapterWhereMap)[K]>[0];
+};
+
+export const getChapterByIdFactory = <
+  T extends ChapterSelectDTO,
+  Where extends ChapterWhere,
+>({
   type,
   schema,
+  where,
 }: {
   type: T;
   schema: ZodType;
+  where: Where;
 }) => {
-  return async ({
-    tx,
-    id,
-  }: {
-    tx: DbExecTypes;
-    id: ChapterDetailDTO["id"];
-  }): Promise<GetFetchReturn<ChapterDTOMap, T> | null> => {
+  return async (
+    params: ChapterWhereParams<Where>,
+    tx: DbExecTypes,
+  ): Promise<GetFetchReturn<ChapterDTOMap, T> | null> => {
     const baseQuery = buildChaptersBaseQuery({
       type,
       tx,
     });
-    const result = await baseQuery.where(
-      eq(type == "detail" ? chapterAlias.id : ChapterTable.id, id),
-    );
+    const value = params[where];
+
+    const result = await baseQuery.where(chapterWhereMap[where](value));
     if (!result[0]) return null;
     return schema.encode(result[0]) as GetFetchReturn<ChapterDTOMap, T>;
   };
@@ -53,14 +58,17 @@ export const getChapterByIdFactory = <T extends ChapterSelectDTO>({
 export const getChapterDetailByIdTx = getChapterByIdFactory({
   type: "detail",
   schema: ChapterDetailSchema,
+  where: "id",
 });
 
 export const getChapterAuthByIdTx = getChapterByIdFactory({
   type: "auth",
   schema: ChapterAuthSchema,
+  where: "id",
 });
 
 export const getChapterThumbnailByIdTx = getChapterByIdFactory({
   type: "thumbnail",
   schema: ChapterThumbnailSchema,
+  where: "id",
 });

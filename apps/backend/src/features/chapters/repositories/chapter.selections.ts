@@ -1,5 +1,4 @@
 import { getTableColumns } from "drizzle-orm/utils";
-import { chapterAlias } from "@/shared/utils/databaseAlises.ts";
 import { getNextChapter, getPrevChapter } from "@/shared/utils/subqueries.ts";
 import { ChapterTable, UserTable } from "@/infrastructure/db/schemas/index.ts";
 import {
@@ -9,7 +8,7 @@ import {
   ChapterThumbnailDTO,
 } from "@repo/contracts/dto/chapter";
 
-const chapterColumns = getTableColumns(chapterAlias);
+const chapterColumns = getTableColumns(ChapterTable);
 export const chapterSelectMap = {
   detail: {
     ...chapterColumns,
@@ -21,13 +20,13 @@ export const chapterSelectMap = {
     nextChapter: getNextChapter,
   } satisfies Record<keyof ChapterDetailDTO, unknown>,
   thumbnail: {
-    id: ChapterTable.id, //
-    title: ChapterTable.title, //
-    chapterNumber: ChapterTable.chapterNumber, //
-    updatedAt: ChapterTable.updatedAt, //
-    publishedAt: ChapterTable.publishedAt, //
-    access: ChapterTable.access, //
-    status: ChapterTable.status, //
+    id: ChapterTable.id,
+    title: ChapterTable.title,
+    chapterNumber: ChapterTable.chapterNumber,
+    updatedAt: ChapterTable.updatedAt,
+    publishedAt: ChapterTable.publishedAt,
+    access: ChapterTable.access,
+    status: ChapterTable.status,
     translator: {
       id: UserTable.id,
       name: UserTable.name,

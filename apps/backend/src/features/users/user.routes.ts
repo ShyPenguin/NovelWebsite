@@ -4,6 +4,6 @@ import { getUserOneController } from "./controllers/get-user-one.controller.ts";
 
 const userRoutes = Router();
 
-userRoutes.get("/:id", asyncHandler(getUserOneController));
+userRoutes.get("/:username", asyncHandler(getUserOneController));
 
 export default userRoutes;

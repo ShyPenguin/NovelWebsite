@@ -1,6 +1,4 @@
-import { eq } from "drizzle-orm";
 import {
-  NovelDetailDTO,
   NovelDetailEncodeDTO,
   NovelAuthDTO,
   NovelThumbnailDTO,
@@ -13,8 +11,8 @@ import {
 import { ZodType } from "zod";
 import { buildNovelsBaseQuery } from "./build-base-query.ts";
 import { GetFetchReturn } from "@/shared/types/service.types.ts";
-import { NovelTable } from "@/infrastructure/db/schemas/novels.ts";
 import { DbExecTypes } from "@/infrastructure/db/type.ts";
+import { NovelWhere, novelWhereMap } from "./novel.where.ts";
 
 type NovelDTOMap = {
   detail: NovelDetailEncodeDTO;
@@ -23,26 +21,32 @@ type NovelDTOMap = {
   auth: NovelAuthDTO;
 };
 
+type NovelWhereParams<W extends NovelWhere> = {
+  [K in W]: Parameters<(typeof novelWhereMap)[K]>[0];
+};
+
 export const getNovelByIdFactory =
-  <T extends keyof NovelDTOMap>({
+  <T extends keyof NovelDTOMap, Where extends NovelWhere>({
     type,
     schema,
+    where,
   }: {
     type: T;
     schema: ZodType;
+    where: Where;
   }) =>
-  async ({
-    tx,
-    id,
-  }: {
-    tx: DbExecTypes;
-    id: NovelDetailDTO["id"];
-  }): Promise<GetFetchReturn<NovelDTOMap, T> | null> => {
+  async (
+    params: NovelWhereParams<Where>,
+    tx: DbExecTypes,
+  ): Promise<GetFetchReturn<NovelDTOMap, T> | null> => {
     const baseQuery = buildNovelsBaseQuery({
       type,
       tx,
     });
-    const result = await baseQuery.where(eq(NovelTable.id, id));
+
+    const value = params[where];
+
+    const result = await baseQuery.where(novelWhereMap[where](value));
     if (!result[0]) return null;
     return schema.encode(result[0]) as GetFetchReturn<NovelDTOMap, T>;
   };
@@ -50,9 +54,11 @@ export const getNovelByIdFactory =
 export const getNovelDetailByIdTx = getNovelByIdFactory({
   type: "detail",
   schema: NovelDetailSchema,
+  where: "id",
 });
 
 export const getNovelAuthByIdTx = getNovelByIdFactory({
   type: "auth",
   schema: NovelAuthSchema,
+  where: "id",
 });

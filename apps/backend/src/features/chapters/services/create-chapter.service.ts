@@ -15,7 +15,7 @@ import { DbClientType, DbPoolType } from "@/infrastructure/db/type.ts";
 import { requirePermission } from "@/shared/utils/require-permission.ts";
 import { UserSession } from "@repo/contracts/dto/auth";
 import { createChapterTx } from "../repositories/create.repository.ts";
-import { getChapterDetailByIdTx } from "../repositories/get-chapter-by-id.repository.ts";
+import { getChapterDetailByIdTx } from "../repositories/get-chapter-one.repository.ts";
 
 export const createChapterService = async ({
   form,
@@ -51,10 +51,12 @@ export const createChapterService = async ({
     const result = await tx.transaction(async (trx) => {
       const chapter = await createChapterTx({ tx: trx, form: chapterData });
 
-      const chapterDetailed = await getChapterDetailByIdTx({
-        tx: trx,
-        id: chapter.id,
-      });
+      const chapterDetailed = await getChapterDetailByIdTx(
+        {
+          id: chapter.id,
+        },
+        trx,
+      );
 
       return chapterDetailed;
     });
@@ -67,6 +69,7 @@ export const createChapterService = async ({
     if (err.code === "23505" && err.constraint === "idx_unique_novel_chapter") {
       throw new ValidationError("Chapter's number is already taken");
     }
+    console.log(err);
     throw new BaseError(500, "Internal Server Error");
   }
 };

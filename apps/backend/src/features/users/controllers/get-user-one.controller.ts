@@ -3,7 +3,7 @@ import { getOneControllerFactory } from "@/shared/factories/controller/get-one.c
 import { getUserOneService } from "../services/get-user-one.service.ts";
 
 export const getUserOneController = getOneControllerFactory<
-  { id: string },
+  { username: string },
   UserDetailDTO
 >({
   service: getUserOneService,

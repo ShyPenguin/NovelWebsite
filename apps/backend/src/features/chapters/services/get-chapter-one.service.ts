@@ -1,7 +1,7 @@
-import { getResourceByIdServiceFactory } from "@/shared/factories/service/get-resource-by-id.service.ts";
-import { getChapterDetailByIdTx } from "../repositories/get-chapter-by-id.repository.ts";
+import { getResourceServiceFactory } from "@/shared/factories/service/get-resource-one.service.ts";
+import { getChapterDetailByIdTx } from "../repositories/get-chapter-one.repository.ts";
 
-export const getChapterOneService = getResourceByIdServiceFactory({
+export const getChapterOneService = getResourceServiceFactory({
   resource: "chapters",
   repository: getChapterDetailByIdTx,
 });

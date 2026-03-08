@@ -5,7 +5,7 @@ import { upsertNovelCategoriesTx } from "@/features/categories/repository/upsert
 import { testDb, redisDb } from "tests/integrated/db/db-test.ts";
 import { mockCreateUserWithSessionGoogle } from "tests/integrated/factory/user/with-session.ts";
 import { userStaff, readerFirst } from "tests/mockdata.ts";
-import data from "../../../../mockdb.json" with { type: "json" };
+import data from "tests/mockdb.json" with { type: "json" };
 import { createNovelTx } from "@/features/novels/repositories/create.repository.ts";
 import { createCategoryTx } from "@/features/categories/repository/create.ts";
 

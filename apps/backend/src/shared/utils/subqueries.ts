@@ -1,6 +1,4 @@
 import { sql } from "drizzle-orm";
-import { alias } from "drizzle-orm/pg-core";
-import { chapterAlias } from "./databaseAlises.ts";
 import { CategoryTable } from "@/infrastructure/db/schemas/categories.ts";
 import { ChapterTable } from "@/infrastructure/db/schemas/chapters.ts";
 import { NovelCategoryTable } from "@/infrastructure/db/schemas/novelCategories.ts";
@@ -39,23 +37,20 @@ export const getNovelSchedule = sql<Week[]>`(
   WHERE ${NovelScheduleTable.novelId} = ${NovelTable.id}
 )`.as("schedules");
 
-export const next = alias(ChapterTable, "n");
-export const prev = alias(ChapterTable, "p");
-
 export const getNextChapter = sql<string | null>`(
-  SELECT ${ChapterTable.id}
-  FROM ${ChapterTable}
-  WHERE ${ChapterTable.novelId} = ${chapterAlias.novelId}
-    AND ${ChapterTable.chapterNumber} > ${chapterAlias.chapterNumber}
-  ORDER BY ${ChapterTable.chapterNumber} ASC
+  SELECT n.id
+  FROM chapters n
+  WHERE n."novelId" = ${ChapterTable.novelId}
+    AND n."chapterNumber" > ${ChapterTable.chapterNumber}
+  ORDER BY n."chapterNumber" ASC
   LIMIT 1
 )`.as("nextChapter");
 
 export const getPrevChapter = sql<string | null>`(
-  SELECT ${ChapterTable.id}
-  FROM ${ChapterTable}
-  WHERE ${ChapterTable.novelId} = ${chapterAlias.novelId}
-    AND ${ChapterTable.chapterNumber} < ${chapterAlias.chapterNumber}
-  ORDER BY ${ChapterTable.chapterNumber} DESC
+  SELECT n.id
+  FROM chapters n
+  WHERE n."novelId" = ${ChapterTable.novelId}
+    AND n."chapterNumber" < ${ChapterTable.chapterNumber}
+  ORDER BY n."chapterNumber" DESC
   LIMIT 1
 )`.as("prevChapter");

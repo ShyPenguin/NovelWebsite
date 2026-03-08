@@ -20,13 +20,14 @@ export const deleteResourceServiceFactory =
     deleteResourceRepo,
   }: {
     resource: TResource;
-    getResourceRepo: ({
-      tx,
-      id,
-    }: {
-      tx: DbExecTypes;
-      id: string;
-    }) => Promise<TData | null>;
+    getResourceRepo: (
+      {
+        id,
+      }: {
+        id: string;
+      },
+      tx: DbExecTypes,
+    ) => Promise<TData | null>;
     deleteResourceRepo: ({
       tx,
       id,
@@ -45,7 +46,7 @@ export const deleteResourceServiceFactory =
     user: UserSession;
   }): Promise<U> => {
     const result = await tx.transaction(async (trx) => {
-      const resourceDetailed = await getResourceRepo({ tx: trx, id: id });
+      const resourceDetailed = await getResourceRepo({ id }, trx);
 
       if (!resourceDetailed) {
         throw new NotFoundError(resource);

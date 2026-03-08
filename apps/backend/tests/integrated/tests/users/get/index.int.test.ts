@@ -20,10 +20,9 @@ describe("Get username/:id", () => {
       .get(`/users/${resourceToGet.username}`)
       .expect(200);
 
-    console.log(res.body);
     const parsedResult = ApiResponseSchema(UserDetailSchema).parse(res.body);
     expect(parsedResult.ok).toBe(true);
-    if (!parsedResult.ok) throw Error();
+    if (!parsedResult.ok) throw Error("WTF");
   });
   it("404, User not found", async () => {
     const resourceToGet = randomUUID();

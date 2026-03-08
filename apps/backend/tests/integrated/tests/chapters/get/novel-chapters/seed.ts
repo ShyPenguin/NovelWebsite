@@ -10,7 +10,7 @@ import { userStaff } from "tests/mockdata.ts";
 import { AuthorTableSelect } from "@/infrastructure/db/schemas/authors.ts";
 import data from "tests/mockdb.json" with { type: "json" };
 import { createNovelTx } from "@/features/novels/repositories/create.repository.ts";
-import { getNovelDetailByIdTx } from "@/features/novels/repositories/get-novel-by-id.repository.ts";
+import { getNovelDetailByIdTx } from "@/features/novels/repositories/get-novel-one.ts";
 import { createChapterTx } from "@/features/chapters/repositories/create.repository.ts";
 
 export const seedBeforeAll = async () => {
@@ -31,10 +31,7 @@ export const seedBeforeAll = async () => {
     },
   });
 
-  const getResult = await getNovelDetailByIdTx({
-    tx: testDb,
-    id: novelResult.id,
-  });
+  const getResult = await getNovelDetailByIdTx({ id: novelResult.id }, testDb);
   const novel: NovelDetailDTO = NovelDetailSchema.parse(getResult);
 
   const filteredChapters = data.chapters.filter((chapter) =>

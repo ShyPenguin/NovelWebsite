@@ -11,7 +11,7 @@ import {
 import { UserSession } from "@repo/contracts/dto/auth";
 import { deleteImageFromSupabase } from "@/infrastructure/supabase/repository/supabaseDelete.ts";
 import { uploadImageToSupabase } from "@/infrastructure/supabase/repository/supabaseUpload.ts";
-import { getNovelDetailByIdTx } from "../repositories/get-novel-by-id.repository.ts";
+import { getNovelDetailByIdTx } from "../repositories/get-novel-one.ts";
 import { updateNovelTx } from "../repositories/update.repository.ts";
 import { requirePermission } from "@/shared/utils/require-permission.ts";
 
@@ -32,10 +32,7 @@ export const updateNovelCoverService = async ({
     throw new ValidationError("Invalid file type");
   }
 
-  const novel = await getNovelDetailByIdTx({
-    id,
-    tx: db,
-  });
+  const novel = await getNovelDetailByIdTx({ id }, db);
 
   if (!novel) throw new NotFoundError("novels");
 

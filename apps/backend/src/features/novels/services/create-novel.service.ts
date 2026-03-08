@@ -7,7 +7,7 @@ import { upsertNovelCategoriesTx } from "@/features/categories/repository/upsert
 import { upsertNovelScheduleTx } from "@/features/novels/services/upsert-novel-schedule.service.ts";
 import { ValidationError, BaseError } from "@/shared/errors/index.ts";
 import { createNovelTx } from "../repositories/create.repository.ts";
-import { getNovelDetailByIdTx } from "../repositories/get-novel-by-id.repository.ts";
+import { getNovelDetailByIdTx } from "../repositories/get-novel-one.ts";
 import { getCategoriesByIdsTx } from "@/features/categories/repository/get.ts";
 
 export const createNovelService = async ({
@@ -53,7 +53,7 @@ export const createNovelService = async ({
       );
 
       await upsertNovelScheduleTx(trx, novel.id, schedule ? schedule : []);
-      const novelDetailed = getNovelDetailByIdTx({ tx: trx, id: novel.id });
+      const novelDetailed = getNovelDetailByIdTx({ id: novel.id }, trx);
       return novelDetailed;
     });
 

@@ -19,40 +19,46 @@ type UserDTOMap = {
   detail: UserDetailDTO;
 };
 
-const getUserByIdFactory = <T extends UserSelectDTO>({
+type UserWhereParams<W extends UserWhere> = {
+  [K in W]: Parameters<(typeof userWhereMap)[K]>[0];
+};
+
+const getUserOneFactory = <T extends UserSelectDTO, W extends UserWhere>({
   type,
   schema,
   where,
 }: {
   type: T;
   schema: ZodType;
-  where: UserWhere;
+  where: W;
 }) => {
-  return async ({
-    tx,
-    id,
-  }: {
-    tx: DbExecTypes;
-    id: UserThumbnailDTO["id"];
-  }): Promise<GetFetchReturn<UserDTOMap, T> | null> => {
+  return async (
+    params: UserWhereParams<W>,
+    tx: DbExecTypes,
+  ): Promise<GetFetchReturn<UserDTOMap, T> | null> => {
     const baseQuery = buildUsersBaseQuery({
       type,
       tx,
     });
-    const result = await baseQuery.where(userWhereMap[where](id));
+
+    // extract the correct value dynamically
+    const value = params[where];
+
+    const result = await baseQuery.where(userWhereMap[where](value));
+
     if (!result[0]) return null;
 
     return schema.encode(result[0]) as GetFetchReturn<UserDTOMap, T>;
   };
 };
 
-export const getUserThumbnailByIdTx = getUserByIdFactory({
+export const getUserThumbnailByIdTx = getUserOneFactory({
   type: "thumbnail",
   schema: UserThumbnailSchema,
   where: "id",
 });
 
-export const getUserDetailByUsernameTx = getUserByIdFactory({
+export const getUserDetailByUsernameTx = getUserOneFactory({
   type: "detail",
   schema: UserDetailSchema,
   where: "username",

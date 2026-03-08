@@ -18,7 +18,7 @@ import {
 import {
   getNovelAuthByIdTx,
   getNovelDetailByIdTx,
-} from "../repositories/get-novel-by-id.repository.ts";
+} from "../repositories/get-novel-one.ts";
 import { updateNovelTx } from "../repositories/update.repository.ts";
 import { getCategoriesByIdsTx } from "@/features/categories/repository/get.ts";
 
@@ -37,7 +37,7 @@ export const updateNovelService = async ({
     const result = await tx.transaction(async (trx) => {
       const { categories, schedule, release, ...inputNovel } = form;
 
-      const novel = await getNovelAuthByIdTx({ tx, id });
+      const novel = await getNovelAuthByIdTx({ id }, tx);
 
       if (!novel) throw new NotFoundError("novels");
 
@@ -73,7 +73,7 @@ export const updateNovelService = async ({
       );
 
       await upsertNovelScheduleTx(trx, novel.id, schedule ? schedule : []);
-      const novelDetailed = getNovelDetailByIdTx({ tx: trx, id: novel.id });
+      const novelDetailed = getNovelDetailByIdTx({ id: novel.id }, trx);
       return novelDetailed;
     });
 

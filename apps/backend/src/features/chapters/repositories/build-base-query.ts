@@ -1,8 +1,10 @@
-import { ChapterTable } from "@/infrastructure/db/schemas/chapters.ts";
-import { NovelTable, UserTable } from "@/infrastructure/db/schemas/index.ts";
+import {
+  ChapterTable,
+  NovelTable,
+  UserTable,
+} from "@/infrastructure/db/schemas/index.ts";
 import { DbExecTypes } from "@/infrastructure/db/type.ts";
 import { chapterSelectMap } from "@/features/chapters/repositories/chapter.selections.ts";
-import { chapterAlias } from "@/shared/utils/databaseAlises.ts";
 import { ChapterSelectDTO } from "@repo/contracts/dto/chapter";
 import { eq, sql } from "drizzle-orm";
 
@@ -19,8 +21,8 @@ export const buildChaptersBaseQuery = ({
     case "detail": {
       return tx
         .select(select)
-        .from(chapterAlias)
-        .leftJoin(NovelTable, eq(NovelTable.id, chapterAlias.novelId))
+        .from(ChapterTable)
+        .leftJoin(NovelTable, eq(NovelTable.id, ChapterTable.novelId))
         .leftJoin(UserTable, eq(NovelTable.translatorId, UserTable.id));
     }
     case "thumbnail":

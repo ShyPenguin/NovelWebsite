@@ -16,7 +16,7 @@ import { requirePermission } from "@/shared/utils/require-permission.ts";
 import {
   getChapterAuthByIdTx,
   getChapterDetailByIdTx,
-} from "../repositories/get-chapter-by-id.repository.ts";
+} from "../repositories/get-chapter-one.repository.ts";
 import { updateChapterTx } from "../repositories/update.repository.ts";
 
 export const updateChapterService = async ({
@@ -36,10 +36,12 @@ export const updateChapterService = async ({
 
   try {
     const result = await tx.transaction(async (trx) => {
-      const chapter = await getChapterAuthByIdTx({
-        tx: trx,
-        id,
-      });
+      const chapter = await getChapterAuthByIdTx(
+        {
+          id,
+        },
+        trx,
+      );
 
       if (!chapter) {
         throw new NotFoundError("chapters");
@@ -62,10 +64,12 @@ export const updateChapterService = async ({
           contentHtml,
         },
       });
-      const chapterDetailed = await getChapterDetailByIdTx({
-        tx: trx,
-        id: updateChapter.id,
-      });
+      const chapterDetailed = await getChapterDetailByIdTx(
+        {
+          id: updateChapter.id,
+        },
+        trx,
+      );
 
       return chapterDetailed;
     });

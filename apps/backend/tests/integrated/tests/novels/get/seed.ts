@@ -9,7 +9,7 @@ import { NovelDetailSchema } from "@repo/contracts/schemas/novel";
 import { testDb } from "tests/integrated/db/db-test.ts";
 import { userStaff } from "tests/mockdata.ts";
 import { createNovelTx } from "@/features/novels/repositories/create.repository.ts";
-import { getNovelDetailByIdTx } from "@/features/novels/repositories/get-novel-by-id.repository.ts";
+import { getNovelDetailByIdTx } from "@/features/novels/repositories/get-novel-one.ts";
 const createParsedNovel = async ({
   novel,
   authorId,
@@ -28,10 +28,10 @@ const createParsedNovel = async ({
     },
   });
 
-  const getRegResult = await getNovelDetailByIdTx({
-    tx: testDb,
-    id: novelRegResult.id || "",
-  });
+  const getRegResult = await getNovelDetailByIdTx(
+    { id: novelRegResult.id || "" },
+    testDb,
+  );
   return NovelDetailSchema.parse(getRegResult);
 };
 export const seedBeforeAll = async () => {

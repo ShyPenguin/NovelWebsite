@@ -1,5 +1,5 @@
 import { NovelFormDTO } from "@repo/contracts/dto/novel";
-import data from "../../../../mockdb.json" with { type: "json" };
+import data from "tests/mockdb.json" with { type: "json" };
 import { AuthorTableSelect } from "@/infrastructure/db/schemas/authors.ts";
 import { NovelTableInsert } from "@/infrastructure/db/schemas/novels.ts";
 import { createAuthorTx } from "@/features/authors/repositories/create.repository.ts";
@@ -13,7 +13,7 @@ import {
   userStaff2,
 } from "tests/mockdata.ts";
 import { createNovelTx } from "@/features/novels/repositories/create.repository.ts";
-import { getNovelDetailByIdTx } from "@/features/novels/repositories/get-novel-by-id.repository.ts";
+import { getNovelDetailByIdTx } from "@/features/novels/repositories/get-novel-one.ts";
 import { createCategoryTx } from "@/features/categories/repository/create.ts";
 
 export const seedBeforeAll = async () => {
@@ -98,15 +98,19 @@ export const seedBeforeAll = async () => {
     category2.id,
   ]);
 
-  const novelByStaff = await getNovelDetailByIdTx({
-    tx: testDb,
-    id: novelByStaffInitial.id,
-  });
+  const novelByStaff = await getNovelDetailByIdTx(
+    {
+      id: novelByStaffInitial.id,
+    },
+    testDb,
+  );
 
-  const novelSecondByStaff = await getNovelDetailByIdTx({
-    tx: testDb,
-    id: novelSecondByStaffInitial.id,
-  });
+  const novelSecondByStaff = await getNovelDetailByIdTx(
+    {
+      id: novelSecondByStaffInitial.id,
+    },
+    testDb,
+  );
 
   const { coverImagePath, coverImageUrl, ...inputNovel } = {
     ...data.novels[2],

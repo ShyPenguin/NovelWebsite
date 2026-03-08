@@ -19,27 +19,33 @@ type AuthorDTOMap = {
   detail: AuthorDetailDTO;
 };
 
-const getAuthorOneFactory = <T extends AuthorSelectDTO>({
+type AuthorWhereParams<W extends AuthorWhere> = {
+  [K in W]: Parameters<(typeof authorWhereMap)[K]>[0];
+};
+
+const getAuthorOneFactory = <
+  T extends AuthorSelectDTO,
+  Where extends AuthorWhere,
+>({
   select,
   schema,
   where,
 }: {
   select: T;
   schema: ZodType;
-  where: AuthorWhere;
+  where: Where;
 }) => {
-  return async ({
-    tx,
-    id,
-  }: {
-    tx: DbExecTypes;
-    id: Parameters<(typeof authorWhereMap)[AuthorWhere]>[0];
-  }): Promise<GetFetchReturn<AuthorDTOMap, T> | null> => {
+  return async (
+    params: AuthorWhereParams<Where>,
+    tx: DbExecTypes,
+  ): Promise<GetFetchReturn<AuthorDTOMap, T> | null> => {
     const baseQuery = buildAuthorsBaseQuery({
       type: select,
       tx,
     });
-    const result = await baseQuery.where(authorWhereMap[where](id));
+    const value = params[where];
+
+    const result = await baseQuery.where(authorWhereMap[where](value));
     if (!result[0]) return null;
     return schema.encode(result[0]) as GetFetchReturn<AuthorDTOMap, T>;
   };

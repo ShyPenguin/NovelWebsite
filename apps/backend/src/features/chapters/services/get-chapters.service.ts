@@ -11,7 +11,7 @@ import {
 import { DbExecTypes } from "@/infrastructure/db/type.ts";
 import { db } from "@/infrastructure/db/index.ts";
 import { NotFoundError } from "@/shared/errors/index.ts";
-import { getNovelAuthByIdTx } from "@/features/novels/repositories/get-novel-by-id.repository.ts";
+import { getNovelAuthByIdTx } from "@/features/novels/repositories/get-novel-one.ts";
 import {
   GetListParams,
   GetFetchListReturn,
@@ -59,7 +59,7 @@ export const getChapterServiceFactory = <
       novelId: id,
     };
     const result = await tx.transaction(async (trx) => {
-      const novel = await getNovelAuthByIdTx({ tx: trx, id: id });
+      const novel = await getNovelAuthByIdTx({ id }, trx);
       if (!novel) throw new NotFoundError("novels");
 
       if (!paginated) {

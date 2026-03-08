@@ -12,6 +12,9 @@ export const errorResponse = (
       ? false
       : true;
 
+  if (error.statusCode == 500) {
+    console.log(error);
+  }
   res.status(error.statusCode || 500).json({
     ok: false,
     error: {
