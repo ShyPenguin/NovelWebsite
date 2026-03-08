@@ -10,13 +10,17 @@ export interface SessionStore {
 
 class NodeRedisSessionStore implements SessionStore {
   private client: ReturnType<typeof createClient>;
-
-  constructor(client: ReturnType<typeof createClient>) {
+  private prefix: string;
+  constructor(client: ReturnType<typeof createClient>, prefix: string) {
     this.client = client;
+    this.prefix = prefix;
   }
 
   async connect() {
     await this.client.connect();
+  }
+  private key(key: string) {
+    return `${this.prefix}${key}`;
   }
 
   private async ensureConnected() {
@@ -28,14 +32,14 @@ class NodeRedisSessionStore implements SessionStore {
   async get<T>(key: string) {
     await this.ensureConnected();
 
-    const raw = await this.client.get(key);
+    const raw = await this.client.get(this.key(key));
     return raw ? JSON.parse(raw) : null;
   }
 
   async set<T>(key: string, value: T, opts?: { ex?: number }) {
     await this.ensureConnected();
 
-    await this.client.set(key, JSON.stringify(value), {
+    await this.client.set(this.key(key), JSON.stringify(value), {
       EX: opts?.ex,
     });
   }
@@ -43,7 +47,7 @@ class NodeRedisSessionStore implements SessionStore {
   async del(key: string) {
     await this.ensureConnected();
 
-    await this.client.del(key);
+    await this.client.del(this.key(key));
   }
 
   async flushDb() {
@@ -59,14 +63,15 @@ class NodeRedisSessionStore implements SessionStore {
 }
 
 export const createRedisSessionStore = async (): Promise<SessionStore> => {
+  const workerId = process.env.VITEST_WORKER_ID ?? "0";
+
   const client = createClient({
     url: process.env.REDIS_URL,
-    database: Number(process.env.VITEST_WORKER_ID ?? 0),
   });
 
   await client.connect();
 
-  return new NodeRedisSessionStore(client);
+  return new NodeRedisSessionStore(client, `worker:${workerId}:`);
 };
 
 // In function type

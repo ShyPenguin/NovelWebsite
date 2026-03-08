@@ -1,9 +1,9 @@
 import { DbExecTypes } from "@/infrastructure/db/type.ts";
 import { GetFetchReturn } from "@/shared/types/service.types.ts";
 import {
-  UserThumbnailDTO,
   UserSelectDTO,
-  UserDetailDTO,
+  UserThumbnailEncodeDTO,
+  UserDetailEncodeDTO,
 } from "@repo/contracts/dto/user";
 import { ZodType } from "zod";
 import {
@@ -15,8 +15,8 @@ import { UserWhere, userWhereMap } from "./user.where.ts";
 
 // Map's keys must follow UserSelectDTO
 type UserDTOMap = {
-  thumbnail: UserThumbnailDTO;
-  detail: UserDetailDTO;
+  thumbnail: UserThumbnailEncodeDTO;
+  detail: UserDetailEncodeDTO;
 };
 
 type UserWhereParams<W extends UserWhere> = {

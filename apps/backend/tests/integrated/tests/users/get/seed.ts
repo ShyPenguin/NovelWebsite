@@ -29,7 +29,15 @@ export const seedBeforeAll = async () => {
       }),
     ),
   );
+
+  const novel = {
+    id: novels[0].id,
+    title: novels[0].title,
+    coverImageUrl: novels[0].coverImageUrl,
+    description: novels[0].description,
+  };
   return {
     getAdmin: () => admin,
+    getNovel: () => novel,
   };
 };

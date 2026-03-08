@@ -5,8 +5,12 @@ import { randomUUID } from "crypto";
 import { app } from "@/app.ts";
 import { COOKIE_SESSION_KEY } from "@/shared/constants/index.ts";
 import { seedBeforeAll } from "./seed.ts";
-import { UserDetailSchema } from "@repo/contracts/schemas/user";
-import { UserChangeRoleDTO, UserDetailDTO } from "@repo/contracts/dto/user";
+import {
+  UserChangeRoleDTO,
+  UserDetailDTO,
+  UserThumbnailDTO,
+} from "@repo/contracts/dto/user";
+import { UserThumbnailSchema } from "@repo/contracts/schemas/user";
 
 describe("PATCH /users/:id/role", () => {
   let getters: Awaited<ReturnType<typeof seedBeforeAll>>;
@@ -27,7 +31,7 @@ describe("PATCH /users/:id/role", () => {
       .set("Cookie", [`${COOKIE_SESSION_KEY}=${supervisor.sessionId}`])
       .expect(404);
 
-    const parsedResult = ApiResponseSchema(UserDetailSchema).parse(res.body);
+    const parsedResult = ApiResponseSchema(UserThumbnailSchema).parse(res.body);
     expect(parsedResult).toMatchObject({
       ok: false,
       error: {
@@ -46,9 +50,9 @@ describe("PATCH /users/:id/role", () => {
       .patch(`/users/${resourceToUpdate.id}/role`)
       .send(input)
       .set("Accept", "application/json")
-      .expect(404);
+      .expect(401);
 
-    const parsedResult = ApiResponseSchema(UserDetailSchema).parse(res.body);
+    const parsedResult = ApiResponseSchema(UserThumbnailSchema).parse(res.body);
     expect(parsedResult).toMatchObject({
       ok: false,
       error: {
@@ -70,7 +74,7 @@ describe("PATCH /users/:id/role", () => {
       .set("Cookie", [`${COOKIE_SESSION_KEY}=${user.sessionId}`])
       .expect(403);
 
-    const parsedResult = ApiResponseSchema(UserDetailSchema).parse(res.body);
+    const parsedResult = ApiResponseSchema(UserThumbnailSchema).parse(res.body);
     expect(parsedResult).toMatchObject({
       ok: false,
       error: {
@@ -94,11 +98,11 @@ describe("PATCH /users/:id/role", () => {
       .set("Cookie", [`${COOKIE_SESSION_KEY}=${user.sessionId}`])
       .expect(403);
 
-    const parsedResult = ApiResponseSchema(UserDetailSchema).parse(res.body);
+    const parsedResult = ApiResponseSchema(UserThumbnailSchema).parse(res.body);
     expect(parsedResult).toMatchObject({
       ok: false,
       error: {
-        type: "AuthorizationError",
+        type: "CustomizedAuthorizationError",
         path: `/users/${resourceToUpdate.id}/role`,
         statusCode: 403,
         message: "Supervisors cannot assign admin role",
@@ -118,7 +122,7 @@ describe("PATCH /users/:id/role", () => {
       .set("Cookie", [`${COOKIE_SESSION_KEY}=${user.sessionId}`])
       .expect(400);
 
-    const parsedResult = ApiResponseSchema(UserDetailSchema).parse(res.body);
+    const parsedResult = ApiResponseSchema(UserThumbnailSchema).parse(res.body);
     expect(parsedResult).toMatchObject({
       ok: false,
       error: {
@@ -139,9 +143,9 @@ describe("PATCH /users/:id/role", () => {
       .send(input)
       .set("Accept", "application/json")
       .set("Cookie", [`${COOKIE_SESSION_KEY}=${user.sessionId}`])
-      .expect(400);
+      .expect(200);
 
-    const parsedResult = ApiResponseSchema(UserDetailSchema).parse(res.body);
+    const parsedResult = ApiResponseSchema(UserThumbnailSchema).parse(res.body);
     if (!parsedResult.ok) throw new Error("Unexpected happen");
     expect(parsedResult.data).toHaveProperty("createdAt");
     expect(parsedResult.data).toHaveProperty("updatedAt");
@@ -154,8 +158,8 @@ describe("PATCH /users/:id/role", () => {
     } = resourceToUpdate;
     expect(resultData).toMatchObject({
       ...inputData,
+      role: input.role,
       oAuthProviders: ["google"],
-      novels: [],
-    } satisfies Omit<UserDetailDTO, "createdAt" | "updatedAt">);
+    } satisfies Omit<UserThumbnailDTO, "createdAt" | "updatedAt">);
   });
 });

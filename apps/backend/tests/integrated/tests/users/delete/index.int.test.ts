@@ -69,7 +69,7 @@ describe("DELETE /users/:id", () => {
       error: {
         type: "AuthorizationError",
         path: `/users/${resourceToDelete?.id}`,
-        statusCode: 401,
+        statusCode: 403,
         message: "You're not allowed to delete this user",
       },
     });
@@ -79,7 +79,7 @@ describe("DELETE /users/:id", () => {
     const user = getters.getAdmin();
     const resourceToDelete = randomUUID();
     const res = await testApp
-      .delete(`/users/${resourceToDelete}/role`)
+      .delete(`/users/${resourceToDelete}`)
       .set("Accept", "application/json")
       .set("Cookie", [`${COOKIE_SESSION_KEY}=${user.sessionId}`])
       .expect(404);
@@ -89,7 +89,7 @@ describe("DELETE /users/:id", () => {
       ok: false,
       error: {
         type: "NotFoundError",
-        path: `/users/${resourceToDelete}/role`,
+        path: `/users/${resourceToDelete}`,
         statusCode: 404,
         message: "User not found",
       },

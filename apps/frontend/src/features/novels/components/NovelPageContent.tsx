@@ -65,7 +65,12 @@ const NovelCard = ({ novel }: { novel: NovelDetailDTO }) => {
           </p>
           <p className="status block w-fit">{novel.status}</p>
           <p className="line-clamp-3 text-[14px]">{novel.description}</p>
-          <div onClick={(e) => e.stopPropagation()}>
+          <div
+            onClick={(e) => {
+              e.stopPropagation();
+              e.preventDefault();
+            }}
+          >
             <Can
               resource="novels"
               action="update"
@@ -74,12 +79,12 @@ const NovelCard = ({ novel }: { novel: NovelDetailDTO }) => {
               <div className="absolute top-0 left-0">
                 <div
                   className="absolute w-8 h-8"
-                  onClick={() =>
+                  onClick={() => {
                     navigate({
                       to: "/novels/$novelId",
                       params: { novelId: novel.id },
-                    })
-                  }
+                    });
+                  }}
                 >
                   <ButtonIcon>
                     <Pencil className="w-full h-full rotate-270" />

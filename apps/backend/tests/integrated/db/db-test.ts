@@ -43,6 +43,6 @@ export const startTestDb = async ({
 export const stopTestDb = async ({ adminPool }: { adminPool: Pool }) => {
   testPool.end();
   await adminPool.query(`DROP DATABASE IF EXISTS "${databaseName}"`);
-  // await redisDb.flushDb();
-  // await redisDb.quit();
+  await redisDb.flushDb();
+  await redisDb.quit();
 };

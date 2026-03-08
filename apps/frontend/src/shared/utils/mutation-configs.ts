@@ -4,14 +4,14 @@ import { toast } from "react-toastify";
 import { capitalizeFirstLetter } from "./capitalizeFirstLetter";
 import type { Action, Resource } from "@repo/contracts/auth/permissions";
 
-export const mutationConfig = <T>({
+export const mutationConfig = <T, R extends Resource>({
   action,
   resource,
   queryArg,
   getQueryKey,
 }: {
-  action: Exclude<Action, typeof VIEW | typeof PREVIEW>;
-  resource: Resource;
+  action: Exclude<Action<R>, typeof VIEW | typeof PREVIEW> & string;
+  resource: R;
   queryArg: {
     getListQueryKey: ({
       id,
@@ -33,7 +33,9 @@ export const mutationConfig = <T>({
       parentId?: string;
     }) => {
       // Update single novel cache
-      queryClient.setQueryData(getQueryKey({ id }), data);
+      queryClient.setQueryData(getQueryKey({ id }), (oldData: T) => {
+        return { ...oldData, ...data };
+      });
 
       // Invalidate lists
       await queryClient.invalidateQueries({

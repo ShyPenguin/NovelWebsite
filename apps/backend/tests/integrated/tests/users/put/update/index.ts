@@ -106,8 +106,9 @@ describe("PATCH /users/:id", () => {
     });
   });
   it("400, Validation Error, name already taken", async () => {
+    const staffName = getters.getStaffSecond().user.name;
     const input = {
-      name: "",
+      name: staffName,
     } satisfies UserFormDTO;
     const user = getters.getSupervisor();
     const resourceToUpdate = getters.getStaff().user;
@@ -125,7 +126,7 @@ describe("PATCH /users/:id", () => {
         type: "ValidationError",
         path: `/users/${resourceToUpdate.id}`,
         statusCode: 400,
-        message: "name is already taken",
+        message: "Name is already taken",
       },
     });
   });

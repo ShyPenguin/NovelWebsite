@@ -6,7 +6,7 @@ import { randomUUID } from "crypto";
 import { app } from "@/app.ts";
 import { UserDetailSchema } from "@repo/contracts/schemas/user";
 
-describe("Get username/:id", () => {
+describe("Get users/:username", () => {
   let getters: Awaited<ReturnType<typeof seedBeforeAll>>;
   const testApp = request(app);
 
@@ -23,6 +23,13 @@ describe("Get username/:id", () => {
     const parsedResult = ApiResponseSchema(UserDetailSchema).parse(res.body);
     expect(parsedResult.ok).toBe(true);
     if (!parsedResult.ok) throw Error("WTF");
+
+    const { novels, ...resultWithoutNovels } = parsedResult.data;
+    expect(resultWithoutNovels).toMatchObject(resourceToGet);
+    expect(parsedResult.data).toHaveProperty("novels");
+
+    const novelSeeded = getters.getNovel();
+    expect(novels[0]).toMatchObject(novelSeeded);
   });
   it("404, User not found", async () => {
     const resourceToGet = randomUUID();

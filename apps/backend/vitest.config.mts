@@ -4,6 +4,7 @@ dotenv.config({ path: ".env.test" });
 
 export default defineConfig({
   test: {
+    maxWorkers: 8,
     projects: [
       {
         test: {
@@ -22,7 +23,7 @@ export default defineConfig({
           include: ["**/*.int.test.ts"],
           setupFiles: ["./tests/integrated/setup/index.ts"],
           testTimeout: 60_000,
-          maxWorkers: 16,
+          maxWorkers: 8,
           alias: {
             "@/": new URL("./src/", import.meta.url).pathname,
             "tests/": new URL("./tests/", import.meta.url).pathname,

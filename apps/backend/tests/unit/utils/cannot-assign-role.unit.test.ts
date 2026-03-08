@@ -12,6 +12,7 @@ import { describe, it, expect } from "vitest";
 const sampleData = {
   email: "string",
   name: "string",
+  username: "string",
   imageUrl: "string",
   oAuthProviders: ["google"] satisfies OAuthProviders[],
   createdAt: new Date(),
@@ -40,7 +41,7 @@ describe("Can't Assign Role", () => {
 
     const fn = () => cantAssignRole({ userRole, ctx });
     expect(fn).toThrow(CustomizedAuthorizationError);
-    expect(fn).toThrow(`${userRole}s cannot assign ${ctx.payload.role} role`);
+    expect(fn).toThrow(`Supervisors cannot assign ${ctx.payload.role} role`);
   });
   it("does not throw when admin assigned an admin role", () => {
     const dataUser = {

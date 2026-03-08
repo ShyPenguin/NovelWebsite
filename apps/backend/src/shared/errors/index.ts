@@ -56,8 +56,10 @@ export class AuthorizationError<R extends Resource> extends BaseError {
 }
 
 export class CustomizedAuthorizationError extends BaseError {
+  message: string;
   constructor(message: string) {
     super(403, message);
+    this.message = message;
   }
 }
 export type ValidationIssue = {
