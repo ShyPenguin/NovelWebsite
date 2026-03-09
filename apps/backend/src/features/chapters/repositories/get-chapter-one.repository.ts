@@ -12,7 +12,7 @@ import {
   ChapterThumbnailSchema,
 } from "@repo/contracts/schemas/chapter";
 import { ZodType } from "zod";
-import { buildChaptersBaseQuery } from "./build-base-query.ts";
+import { buildChaptersBaseQuery } from "./chapter.build-base-query.ts";
 import { GetFetchReturn } from "@/shared/types/service.types.ts";
 import { DbExecTypes } from "@/infrastructure/db/type.ts";
 import { ChapterWhere, chapterWhereMap } from "./chapter.where.ts";

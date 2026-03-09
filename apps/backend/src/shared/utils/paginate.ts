@@ -1,6 +1,6 @@
 import { Paginated } from "@repo/contracts/dto/paginated";
 
-export const paginate = async ({
+export const paginate = async <T>({
   query,
   countQuery,
   page,
@@ -12,7 +12,7 @@ export const paginate = async ({
   page: number;
   pageSize: number;
   sort?: any;
-}): Promise<Paginated<any>> => {
+}): Promise<Paginated<T>> => {
   const [items, totalResult] = await Promise.all([
     query
       .limit(pageSize)

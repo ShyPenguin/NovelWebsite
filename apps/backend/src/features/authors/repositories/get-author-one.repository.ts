@@ -6,7 +6,7 @@ import {
   AuthorSelectDTO,
 } from "@repo/contracts/dto/author";
 import { ZodType } from "zod";
-import { buildAuthorsBaseQuery } from "./build-base-query.ts";
+import { buildAuthorsBaseQuery } from "./author.build-base-query.ts";
 import {
   AuthorDetailSchema,
   AuthorThumbnailSchema,

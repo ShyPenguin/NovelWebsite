@@ -11,8 +11,16 @@ import {
 } from "@repo/contracts/schemas/user";
 import { patchUserRoleController } from "./controllers/patch-user-role.controller.ts";
 import { patchUserController } from "./controllers/patch-user.controller.ts";
+import { UserQuerySchema } from "./user.schema.ts";
+import { getUsersController } from "./controllers/get-users.controller.ts";
 
 const userRoutes = Router();
+
+userRoutes.get(
+  "/",
+  validateMiddleware(UserQuerySchema, "query"),
+  asyncHandler(getUsersController({ type: "thumbnail" })),
+);
 
 userRoutes.get("/:username", asyncHandler(getUserOneController));
 userRoutes.delete(

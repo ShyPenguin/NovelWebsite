@@ -5,7 +5,7 @@ import {
   AuthorBaseQuery,
   buildAuthorCountQuery,
   buildAuthorsBaseQuery,
-} from "./build-base-query.ts";
+} from "./author.build-base-query.ts";
 import { ilike, SQL } from "drizzle-orm";
 import { AuthorTable } from "@/infrastructure/db/schemas/authors.ts";
 import { applyWhere } from "@/shared/utils/apply-where.ts";

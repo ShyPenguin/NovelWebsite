@@ -4,7 +4,7 @@ import { NovelSelectDTO } from "@repo/contracts/dto/novel";
 import {
   buildNovelCountQuery,
   buildNovelsBaseQuery,
-} from "./build-base-query.ts";
+} from "./novel.build-base-query.ts";
 import { PAGE_SIZE } from "@/shared/constants/index.ts";
 import { AuthorTable } from "@/infrastructure/db/schemas/authors.ts";
 import { CategoryTable } from "@/infrastructure/db/schemas/categories.ts";

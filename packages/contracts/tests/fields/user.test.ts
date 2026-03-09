@@ -3,8 +3,9 @@ import { z } from "zod";
 import {
   oAuthProvidersField,
   userRolesField,
+  userRolesQueryField,
 } from "../../src/fields/user.fields";
-
+import { userSortWithDirectionField } from "../../src/factories/users/index";
 // Only Original fields
 describe("User fields", () => {
   describe("userRolesField", () => {
@@ -34,6 +35,33 @@ describe("User fields", () => {
       expect(success).toBe(true);
     });
   });
+  describe("userRolesQueryField", () => {
+    it("returns fail when userRolesQueryField is undefined", () => {
+      const { success, error } = userRolesQueryField.safeParse(undefined);
+
+      expect(success).toBe(false);
+      const flattened = z.flattenError(error!);
+      expect(flattened.formErrors[0]).toBe(
+        "Role must be either all, user, staff, supervisor or admin",
+      );
+    });
+
+    it("returns fail when userRolesQueryField is not supported status (master)", () => {
+      const { success, error } = userRolesQueryField.safeParse("master");
+
+      expect(success).toBe(false);
+      const flattened = z.flattenError(error!);
+      expect(flattened.formErrors[0]).toBe(
+        "Role must be either all, user, staff, supervisor or admin",
+      );
+    });
+
+    it("success", () => {
+      const { success } = userRolesQueryField.safeParse("admin");
+
+      expect(success).toBe(true);
+    });
+  });
   describe("oAuthProvidersField", () => {
     it("returns fail when oAuthProvidersField is undefined", () => {
       const { success, error } = oAuthProvidersField.safeParse(undefined);
@@ -57,6 +85,36 @@ describe("User fields", () => {
 
     it("success", () => {
       const { success } = oAuthProvidersField.safeParse("google");
+
+      expect(success).toBe(true);
+    });
+  });
+
+  describe("userSortWithDirectionField", () => {
+    it("returns fail when userSortWithDirectionField is undefined", () => {
+      const { success, error } =
+        userSortWithDirectionField.safeParse(undefined);
+
+      expect(success).toBe(false);
+      const flattened = z.flattenError(error!);
+      expect(flattened.formErrors[0]).toBe(
+        "Sort must be either asc(createdAt), desc(createdAt), asc(updatedAt), desc(updatedAt), asc(name), desc(name), asc(username) or desc(username)",
+      );
+    });
+
+    it("returns fail when userSortWithDirectionField is not supported status asc(chicken)", () => {
+      const { success, error } =
+        userSortWithDirectionField.safeParse("asc(chicken)");
+
+      expect(success).toBe(false);
+      const flattened = z.flattenError(error!);
+      expect(flattened.formErrors[0]).toBe(
+        "Sort must be either asc(createdAt), desc(createdAt), asc(updatedAt), desc(updatedAt), asc(name), desc(name), asc(username) or desc(username)",
+      );
+    });
+
+    it("success", () => {
+      const { success } = userSortWithDirectionField.safeParse("desc(name)");
 
       expect(success).toBe(true);
     });

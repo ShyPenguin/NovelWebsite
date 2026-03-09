@@ -3,6 +3,8 @@ import { createNovelTx } from "@/features/novels/repositories/create.repository.
 import { createUserTx } from "@/features/users/repositories/create.repository.ts";
 import { AuthorTableSelect } from "@/infrastructure/db/schemas/authors.ts";
 import { NovelTableInsert } from "@/infrastructure/db/schemas/novels.ts";
+import { UserTableInsert } from "@/infrastructure/db/schemas/users.ts";
+import { UserThumbnailDTO } from "@repo/contracts/dto/user";
 import { testDb } from "tests/integrated/db/db-test.ts";
 import { userAdmin } from "tests/mockdata.ts";
 import data from "tests/mockdb.json" with { type: "json" };
@@ -36,8 +38,25 @@ export const seedBeforeAll = async () => {
     coverImageUrl: novels[0].coverImageUrl,
     description: novels[0].description,
   };
+
+  const users = await Promise.all(
+    data.users.map((user) =>
+      createUserTx({
+        tx: testDb,
+        form: user as UserTableInsert,
+      }),
+    ),
+  );
+
+  const sortedUsers = users.sort((a, b) => a.name.localeCompare(b.name));
+  const firstUser = {
+    ...sortedUsers[0],
+    oAuthProviders: [],
+  } satisfies UserThumbnailDTO;
   return {
     getAdmin: () => admin,
     getNovel: () => novel,
+    getFirstUser: () => firstUser,
+    getUsersCount: () => sortedUsers.length + 1,
   };
 };

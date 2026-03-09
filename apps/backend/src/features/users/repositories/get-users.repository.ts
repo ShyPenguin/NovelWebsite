@@ -1,32 +1,40 @@
-import { eq, ilike, SQL } from "drizzle-orm";
+import { eq, ilike, sql, SQL } from "drizzle-orm";
 import { Paginated } from "@repo/contracts/dto/paginated";
-import { CHAPTER_PAGE_SIZE } from "@repo/contracts/constants";
-import { ChapterSelectDTO } from "@repo/contracts/dto/chapter";
+import { DEFAULT_PAGE_SIZE } from "@repo/contracts/constants";
+import { UserSelectDTO } from "@repo/contracts/dto/user";
 import {
-  buildChapterCountQuery,
-  buildChaptersBaseQuery,
-} from "./chapter.build-base-query.ts";
-import { ChapterTable } from "@/infrastructure/db/schemas/chapters.ts";
+  buildUserCountQuery,
+  buildUsersBaseQuery,
+} from "./user.build-base-query.ts";
+import { UserTable } from "@/infrastructure/db/schemas/users.ts";
 import { DbExecTypes } from "@/infrastructure/db/type.ts";
 import { applyWhere } from "@/shared/utils/apply-where.ts";
 import { paginate } from "@/shared/utils/paginate.ts";
 import { parseSortQuery } from "@/shared/utils/parse-sort-query.ts";
+import { userSort, userSortWithDirection } from "@repo/contracts/fields/users";
 
+type UserSort = (typeof userSort)[number];
+type UserSortWithDirection = (typeof userSortWithDirection)[number];
 const sortableColumns = {
-  chapterNumber: ChapterTable.chapterNumber,
-};
+  name: UserTable.name,
+  username: UserTable.username,
+  createdAt: UserTable.createdAt,
+  updatedAt: UserTable.updatedAt,
+} satisfies Record<UserSort, unknown>;
 
-export const getChaptersTx = async ({
+export const getUsersTx = async ({
   tx,
   query,
   type,
 }: {
   tx: DbExecTypes;
   query: Record<string, any>;
-  type: ChapterSelectDTO;
+  type: UserSelectDTO;
 }) => {
   const sortOrder = parseSortQuery({
-    sortParam: query.sort ? query.sort : "asc(chapterNumber)",
+    sortParam: query.sort
+      ? query.sort
+      : ("asc(name)" satisfies UserSortWithDirection),
     sortableColumns: sortableColumns,
   });
 
@@ -35,22 +43,22 @@ export const getChaptersTx = async ({
   return result;
 };
 
-export const getPaginatedChaptersTx = async <T>({
+export const getPaginatedUsersTx = async <T>({
   tx,
   query,
   page,
-  pageSize = CHAPTER_PAGE_SIZE,
+  pageSize = DEFAULT_PAGE_SIZE,
   type,
 }: {
   tx: DbExecTypes;
   query: Record<string, any>;
   page: number;
   pageSize: number;
-  type: ChapterSelectDTO;
+  type: UserSelectDTO;
 }): Promise<Paginated<T>> => {
   // Parse the sort
   const sortOrder = parseSortQuery({
-    sortParam: query.sort ? query.sort : "asc(chapterNumber)",
+    sortParam: query.sort ? query.sort : "asc(userNumber)",
     sortableColumns: sortableColumns,
   });
 
@@ -62,7 +70,7 @@ export const getPaginatedChaptersTx = async <T>({
     type: "count",
   });
 
-  return paginate({
+  return paginate<T>({
     query: baseQuery,
     countQuery,
     page,
@@ -78,18 +86,18 @@ const preparingQuery = ({
 }: {
   tx: DbExecTypes;
   query: Record<string, any>;
-  type: ChapterSelectDTO | "count";
+  type: UserSelectDTO | "count";
 }) => {
   const baseQuery =
     type !== "count"
-      ? buildChaptersBaseQuery({ tx, type })
-      : buildChapterCountQuery({ tx });
+      ? buildUsersBaseQuery({ tx, type })
+      : buildUserCountQuery({ tx });
 
-  applyChaptersFilters({ query, baseQuery });
+  applyUsersFilters({ query, baseQuery });
   return baseQuery;
 };
 
-const applyChaptersFilters = <Q extends any>({
+const applyUsersFilters = <Q extends any>({
   query,
   baseQuery,
 }: {
@@ -99,21 +107,15 @@ const applyChaptersFilters = <Q extends any>({
   const andFilters: SQL[] = [];
   const orFilters: SQL[] = [];
 
+  console.log(query.search);
   if (query.search) {
-    orFilters.push(ilike(ChapterTable.title, `%${query.search}%`));
-    if (/^\d+$/.test(query.search)) {
-      orFilters.push(eq(ChapterTable.chapterNumber, Number(query.search)));
-    } else {
-      orFilters.push(ilike(ChapterTable.title, `%${query.search}%`));
-    }
-  }
-  // Example: novelId must match exactly → AND
-  if (query.novelId) {
-    andFilters.push(eq(ChapterTable.novelId, query.novelId));
+    orFilters.push(ilike(UserTable.name, `%${query.search}%`));
+    orFilters.push(ilike(UserTable.username, `%${query.search}%`));
+    orFilters.push(ilike(UserTable.email, `%${query.search}%`));
   }
 
-  if (query.access) {
-    andFilters.push(eq(ChapterTable.access, query.access));
+  if (query.role && query.role !== "all") {
+    andFilters.push(eq(UserTable.role, query.role));
   }
 
   applyWhere({ q: baseQuery, orFilters, andFilters });

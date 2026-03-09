@@ -14,7 +14,7 @@ describe("UserFormSchema", () => {
     expect(success).toBe(false);
     const flattened = z.flattenError(error!);
 
-    expect(flattened.fieldErrors.name?.[0]).toBe("name is required");
+    expect(flattened.fieldErrors.name?.[0]).toBe("Name is required");
   });
   it("Fails when name is empty string", () => {
     const formWithEmptyname = {
@@ -47,7 +47,7 @@ describe("UserFormSchema", () => {
     expect(success).toBe(false);
     const flattened = z.flattenError(error!);
 
-    expect(flattened.fieldErrors.name?.[0]).toBe("name must be a string");
+    expect(flattened.fieldErrors.name?.[0]).toBe("Name must be a string");
   });
   it("Fails when name isn't character", () => {
     const { success, error } = UserFormSchema.safeParse(form);

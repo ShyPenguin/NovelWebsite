@@ -6,6 +6,7 @@ import { hasPermission } from "../../src/auth/permissions";
 const sampleData = {
   email: "string",
   name: "string",
+  username: "string",
   imageUrl: "string",
   oAuthProviders: ["google"] satisfies OAuthProviders[],
   createdAt: new Date(),

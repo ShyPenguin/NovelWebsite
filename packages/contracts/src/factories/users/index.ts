@@ -2,6 +2,10 @@ import { z } from "zod";
 import { UserBaseSchema } from "../../base/user.base";
 import { NovelBaseSchema } from "../../base/novel.base";
 import { GetFactory } from "../read-factory";
+import {
+  createSortWithDirection,
+  createSortWithDirectionField,
+} from "../../utils/createSortWithDirection";
 
 const UserDetailSchema = UserBaseSchema.extend({
   novels: z.array(
@@ -26,9 +30,17 @@ const UserThumbnailSchema = UserBaseSchema.pick({
   oAuthProviders: true,
 });
 
-export const userSort = ["name"] as const satisfies ReadonlyArray<
-  keyof z.infer<typeof UserDetailSchema>
->;
+export const userSort = [
+  "createdAt",
+  "updatedAt",
+  "name",
+  "username",
+] as const satisfies ReadonlyArray<keyof z.infer<typeof UserDetailSchema>>;
+
+export const userSortWithDirection = createSortWithDirection(userSort);
+
+export const userSortWithDirectionField =
+  createSortWithDirectionField(userSort);
 
 export const UserDetailFactory = new GetFactory({ schema: UserDetailSchema });
 export const UserThumbnailFactory = new GetFactory({

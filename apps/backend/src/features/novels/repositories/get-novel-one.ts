@@ -9,7 +9,7 @@ import {
   NovelAuthSchema,
 } from "@repo/contracts/schemas/novel";
 import { ZodType } from "zod";
-import { buildNovelsBaseQuery } from "./build-base-query.ts";
+import { buildNovelsBaseQuery } from "./novel.build-base-query.ts";
 import { GetFetchReturn } from "@/shared/types/service.types.ts";
 import { DbExecTypes } from "@/infrastructure/db/type.ts";
 import { NovelWhere, novelWhereMap } from "./novel.where.ts";

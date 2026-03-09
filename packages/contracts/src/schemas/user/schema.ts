@@ -1,5 +1,10 @@
-import { UserDetailFactory, UserThumbnailFactory } from "../../factories/users";
+import {
+  UserDetailFactory,
+  userSortWithDirectionField,
+  UserThumbnailFactory,
+} from "../../factories/users";
 import { z } from "zod";
+import { userRolesQueryField } from "../../fields/user.fields";
 
 // READ
 export const UserDetailSchema = UserDetailFactory.getSchema();
@@ -22,10 +27,10 @@ export const UserRoleChangeSchema = z.object({
   role: UserDetailSchema.shape["role"].optional().default("user"),
 });
 
-// export const UserQueryContract = z.object({
-//   sort: novelSortWithDirectionField.optional(),
-//   role: userRolesQueryField.boptional(),
-//   search: z.string().optional(),
-//   page: z.coerce.number().optional(),
-//   pageSize: z.coerce.number().optional(),
-// });
+export const UserQueryContract = z.object({
+  sort: userSortWithDirectionField.optional(),
+  role: userRolesQueryField.optional(),
+  search: z.string().optional(),
+  page: z.coerce.number().optional(),
+  pageSize: z.coerce.number().optional(),
+});
