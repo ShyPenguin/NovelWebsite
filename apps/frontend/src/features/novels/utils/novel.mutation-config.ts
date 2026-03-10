@@ -7,7 +7,7 @@ import {
 import type { Action } from "@repo/contracts/auth/permissions";
 
 export const novelMutationConfig = (
-  action: Exclude<Action, typeof VIEW | typeof PREVIEW>,
+  action: Exclude<Action<"novels">, typeof VIEW | typeof PREVIEW>,
 ) => {
   return mutationConfig({
     action,

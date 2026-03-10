@@ -23,6 +23,7 @@ userRoutes.get(
 );
 
 userRoutes.get("/:username", asyncHandler(getUserOneController));
+
 userRoutes.delete(
   "/:id",
   validateMiddleware(idSchema, "params"),

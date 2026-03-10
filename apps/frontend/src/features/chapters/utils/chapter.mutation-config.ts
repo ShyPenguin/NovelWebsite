@@ -3,11 +3,11 @@ import { mutationConfig } from "@/shared/utils/mutation-configs";
 import {
   getChapterOneQueryKey,
   getChaptersQueryKey,
-} from "@/features/chapters/utils/chapters.tanstack-keys.";
+} from "@/features/chapters/utils/chapter.tanstack-keys";
 import type { Action } from "@repo/contracts/auth/permissions";
 
 export const chapterMutationConfig = (
-  action: Exclude<Action, typeof VIEW | typeof PREVIEW>,
+  action: Exclude<Action<"chapters">, typeof VIEW | typeof PREVIEW> & string,
 ) => {
   return mutationConfig({
     action,

@@ -9,7 +9,9 @@ export const NovelFields = ({ novel }: { novel: NovelDetailDTO }) => {
       {/* TITLE */}
       <div className="[grid-area:a] novel-form-child">
         <label className="form-label">Title</label>
-        <h3 className="text-xl font-bold text-center">{novel.title}</h3>
+        <h3 className="text-xl font-bold text-center wrap-anywhere">
+          {novel.title}
+        </h3>
       </div>
       {/* TYPE */}
       <div className="[grid-area:b] novel-form-child">

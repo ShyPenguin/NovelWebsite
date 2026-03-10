@@ -25,7 +25,7 @@ export const Profile = () => {
   return (
     <>
       <button
-        className="flex justify-center gap-x-2 border border-border dark:border-secondary-black rounded-4xl"
+        className="flex size-full justify-center items-center gap-x-2 border border-border dark:border-secondary-black rounded-4xl"
         onClick={() => setIsVisible((prev) => !prev)}
         ref={buttonRef}
       >
@@ -34,7 +34,13 @@ export const Profile = () => {
           className="rounded-4xl w-8 h-8 border border-border"
           alt={`${user?.name}'s profile picture`}
         />
-        <div className="h-full flex items-center pr-4 pl-2 border-l border-border dark:border-secondary-black">
+        <div
+          data-orientation="vertical"
+          role="none"
+          className="shrink-0 bg-border dark:bg-secondary-black w-px h-8"
+        />
+
+        <div className="size-full flex items-center">
           <Chevron
             isOpen={isVisible}
             initialRotation="rotate-0"

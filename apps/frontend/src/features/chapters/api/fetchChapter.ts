@@ -4,6 +4,7 @@ import { ApiResponseSchema } from "@repo/contracts/api";
 import { ChapterDetailSchema } from "@repo/contracts/schemas/chapter";
 import { BackendApiLink, INTERVAL_12_HRS } from "@/shared/constants";
 import { notFound } from "@tanstack/react-router";
+import { getChapterOneQueryKey } from "../utils/chapter.tanstack-keys";
 
 const urlRoute = "chapters";
 export const fetchChapter = async ({
@@ -34,7 +35,7 @@ export const fetchChapterQueryOptions = ({
   chapterId: ChapterDetailDTO["id"];
 }) =>
   queryOptions<ChapterDetailDTO>({
-    queryKey: ["chapter", chapterId],
+    queryKey: getChapterOneQueryKey({ id: chapterId }),
     queryFn: () => fetchChapter({ chapterId }),
     staleTime: INTERVAL_12_HRS,
   });

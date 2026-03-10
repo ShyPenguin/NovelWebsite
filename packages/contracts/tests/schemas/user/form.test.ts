@@ -36,7 +36,7 @@ describe("UserFormSchema", () => {
     expect(success).toBe(false);
     const flattened = z.flattenError(error!);
 
-    expect(flattened.fieldErrors.name?.[0]).toBe("50 Letters maximum for name");
+    expect(flattened.fieldErrors.name?.[0]).toBe("30 Letters maximum for name");
   });
   it("Fails when name isn't character", () => {
     const formWithNumbername = {

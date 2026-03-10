@@ -9,6 +9,7 @@ import { LOGO_URL, DiscordLink } from "@/shared/constants";
 import { useScrollHide } from "@/shared/hooks/useScrollHide";
 import { motion } from "motion/react";
 import { useSidebarOpen } from "../stores/AppContext";
+import { USER_SEARCH_DEFAULT } from "@/features/users/user.schema";
 
 function Navbar() {
   const { setSideBarOpen } = useSidebarOpen();
@@ -32,6 +33,9 @@ function Navbar() {
           </Link>
           <Link to="/novels" className="nav-link" search={NOVEL_SEARCH_DEFAULT}>
             Novels
+          </Link>
+          <Link to="/users" className="nav-link" search={USER_SEARCH_DEFAULT}>
+            Users
           </Link>
           <Link
             to="/authors"
@@ -63,7 +67,7 @@ function Navbar() {
         </div>
 
         {/* TOP RIGHT */}
-        <div className="w-full ml-10 lg:w-fit">
+        <div className="w-full h-full ml-10 lg:w-fit">
           <ProfileSearchbar />
         </div>
       </div>

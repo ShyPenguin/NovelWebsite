@@ -56,7 +56,7 @@ const NovelCard = ({ novel }: { novel: NovelDetailDTO }) => {
         src={novel.coverImageUrl ? novel.coverImageUrl : NO_IMAGE_URL}
       />
       <div className="flex flex-col gap-2">
-        <h1 className="text-primary-black dark:text-white font-bold text-lg line-clamp-1">
+        <h1 className="text-primary-black dark:text-white font-bold text-lg line-clamp-1 wrap-anywhere">
           {novel.title}
         </h1>
         <div className="flex flex-col gap-2">

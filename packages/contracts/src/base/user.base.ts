@@ -7,8 +7,8 @@ import { createIsoStringToDateField } from "../schemas/date/schema";
 export const UserBaseSchema = z.object({
   id: createIdField("User"),
   email: emailField,
-  name: new StringSchemaBuilder("Name").min(1).max(50).build(),
-  username: new StringSchemaBuilder("Username").min(1).max(50).build(),
+  name: new StringSchemaBuilder("Name").min(1).max(30).build(),
+  username: new StringSchemaBuilder("Username").min(1).max(30).build(),
   role: userRolesField,
   imageUrl: urlField.nullable(),
   oAuthProviders: z.array(oAuthProvidersField),

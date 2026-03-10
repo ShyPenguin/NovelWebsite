@@ -1,5 +1,5 @@
 import { authorQueryOptions } from "@/features/authors/api/fetchAuthor";
-import AuthorDetail from "@/features/authors/components/AuthorDetail";
+import { AuthorDetailPage } from "@/features/authors/pages/AuthorDetailPage";
 import { LoadingSpinner } from "@/shared/components/LoadingSpinner";
 import { createFileRoute } from "@tanstack/react-router";
 
@@ -15,5 +15,5 @@ export const Route = createFileRoute("/authors_/$authorId/")({
   notFoundComponent: () => {
     return <h4 className="test-inherit text-xxs">Author not found</h4>;
   },
-  component: AuthorDetail,
+  component: AuthorDetailPage,
 });

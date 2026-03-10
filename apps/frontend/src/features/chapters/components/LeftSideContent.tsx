@@ -1,5 +1,5 @@
 import type { NovelDetailDTO } from "@repo/contracts/dto/novel";
-import { ChapterForm } from "./ChapterForm";
+import { ChapterForm } from "./form/ChapterForm";
 import { NovelDetail } from "../../novels/components/NovelDetail";
 
 export const LeftSideContent = (novel: NovelDetailDTO) => {

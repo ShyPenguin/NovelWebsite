@@ -7,8 +7,10 @@ export const getUsersController = ({ type }: { type: UserListDTO }) => {
   return async (req: Request, res: Response): Promise<any> => {
     const page = Number(req.query.page) ?? null;
     const pageSize = Number(req.query.pageSize) ?? null;
+
     const query = UserQuerySchema.parse(req.query);
     const service = GetUsersServices[type][page ? "paginated" : "list"];
+
     const result = page
       ? await (service as (typeof GetUsersServices)[typeof type]["paginated"])({
           query,

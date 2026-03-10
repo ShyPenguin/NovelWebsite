@@ -1,7 +1,7 @@
 import { CREATE } from "@/shared/constants";
 import Page from "@/shared/components/Page";
 import { useNavigate } from "@tanstack/react-router";
-import { AuthorForm } from "../components/AuthorForm";
+import { AuthorForm } from "../components/form/AuthorForm";
 
 export const AuthorCreatePage = () => {
   const navigate = useNavigate();

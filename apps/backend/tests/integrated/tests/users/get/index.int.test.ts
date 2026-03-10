@@ -8,7 +8,6 @@ import {
   ArrayUserThumbnailSchema,
   PaginatedUserThumbnailSchema,
   UserDetailSchema,
-  UserThumbnailSchema,
 } from "@repo/contracts/schemas/user";
 import { UserQueryInput } from "@/features/users/user.schema.ts";
 
@@ -20,6 +19,21 @@ describe("Get /users", () => {
     getters = await seedBeforeAll();
   });
   describe("Query, Sorting,& pagination behavior", () => {
+    it("Get all users, returns an array of all users", async () => {
+      const resourceCount = getters.getUsersCount();
+      const res = await testApp.get(`/users`).expect(200);
+
+      const parsedResult = ApiResponseSchema(ArrayUserThumbnailSchema).parse(
+        res.body,
+      );
+
+      expect(parsedResult.ok).toBe(true);
+      if (!parsedResult.ok) throw new Error(parsedResult.error.message);
+
+      expect(Array.isArray(parsedResult.data)).toBe(true);
+      expect(parsedResult.data.length).toBe(resourceCount);
+    });
+
     it("filters by search, returns an array", async () => {
       const resourceToCompare = getters.getAdmin();
       const res = await testApp

@@ -55,7 +55,7 @@ export const updateUserService = async (
         ...userResource,
         createdAt: updatedUser.createdAt,
         updatedAt: updatedUser.updatedAt,
-        role: updatedUser.role,
+        name: updatedUser.name,
       });
     });
 

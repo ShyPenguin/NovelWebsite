@@ -6,7 +6,7 @@ import {
 } from "@/features/chapters/stores/ChapterMutateUI/PreviewChapterContext";
 import type { NovelDetailDTO } from "@repo/contracts/dto/novel";
 import { LeftSideContent } from "../../components/LeftSideContent";
-import { MutateChapterNavbar } from "../../components/MutateChapterNavbar";
+import { MutateChapterNavbar } from "../../components/form/MutateChapterNavbar";
 import { LeftSidebar } from "../LeftSidebar";
 import { Main } from "../../components/Main";
 

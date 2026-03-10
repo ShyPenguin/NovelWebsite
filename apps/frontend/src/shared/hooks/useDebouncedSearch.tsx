@@ -1,6 +1,6 @@
 import type { UseNavigateResult } from "@tanstack/react-router";
-import type { AppRoutePaths } from "../components/DropdownSelects/DropdownSelect";
 import { useDebouncedCallback } from "use-debounce";
+import type { AppRoutePaths } from "../components/DropdownButtons/RouteDropdown";
 
 export function useDebouncedSearch<T>({
   navigate,

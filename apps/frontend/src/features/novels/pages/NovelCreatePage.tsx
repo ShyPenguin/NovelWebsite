@@ -3,8 +3,8 @@ import { CHAPTER_SEARCH_DEFAULT } from "@/features/chapters/chapter.schema";
 import Page from "@/shared/components/Page";
 import { useNavigate } from "@tanstack/react-router";
 import { useState } from "react";
-import { NovelCoverForm } from "../components/forms/NovelCoverForm";
-import { NovelForm } from "../components/forms/NovelForm";
+import { NovelCoverForm } from "../components/form/NovelCoverForm";
+import { NovelForm } from "../components/form/NovelForm";
 
 const NovelCreatePage = () => {
   const [novelId, setIsNovelId] = useState("");

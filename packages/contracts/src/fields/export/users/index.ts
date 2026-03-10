@@ -1,4 +1,4 @@
-export { userRoles, oAuthProviders } from "../../user.fields";
+export { userRoles, oAuthProviders, userRolesQuery } from "../../user.fields";
 export {
   userSort,
   userSortWithDirection,

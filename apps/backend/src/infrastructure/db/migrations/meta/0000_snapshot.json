@@ -1,5 +1,5 @@
 {
-  "id": "ce3aa522-f268-41d9-b3e6-84c57a044fdb",
+  "id": "3ef67c33-ffbb-4a2a-9bca-96f25bc481b6",
   "prevId": "00000000-0000-0000-0000-000000000000",
   "version": "7",
   "dialect": "postgresql",
@@ -722,13 +722,13 @@
         },
         "username": {
           "name": "username",
-          "type": "varchar(50)",
+          "type": "varchar(30)",
           "primaryKey": false,
           "notNull": true
         },
         "name": {
           "name": "name",
-          "type": "varchar(50)",
+          "type": "varchar(30)",
           "primaryKey": false,
           "notNull": true
         },
@@ -771,6 +771,13 @@
       "foreignKeys": {},
       "compositePrimaryKeys": {},
       "uniqueConstraints": {
+        "users_username_unique": {
+          "name": "users_username_unique",
+          "nullsNotDistinct": false,
+          "columns": [
+            "username"
+          ]
+        },
         "users_email_unique": {
           "name": "users_email_unique",
           "nullsNotDistinct": false,
@@ -846,15 +853,7 @@
           ]
         }
       },
-      "uniqueConstraints": {
-        "user_oauth_accounts_providerAccountId_unique": {
-          "name": "user_oauth_accounts_providerAccountId_unique",
-          "nullsNotDistinct": false,
-          "columns": [
-            "providerAccountId"
-          ]
-        }
-      },
+      "uniqueConstraints": {},
       "policies": {},
       "checkConstraints": {},
       "isRLSEnabled": false
@@ -984,9 +983,8 @@
       "name": "oauth_provides",
       "schema": "public",
       "values": [
-        "discord",
-        "github",
-        "google"
+        "google",
+        "discord"
       ]
     },
     "public.week_day": {

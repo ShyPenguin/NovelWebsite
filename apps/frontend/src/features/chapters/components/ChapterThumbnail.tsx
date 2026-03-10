@@ -3,8 +3,8 @@ import type { ChapterThumbnailDTO } from "@repo/contracts/dto/chapter";
 import type { NovelDetailDTO } from "@repo/contracts/dto/novel";
 import Pencil from "@/assets/icons/Pencil";
 import { Can } from "@/features/auth/components/Can";
-import { DeleteChapterButton } from "@/features/chapters/components/DeleteChapterButton";
 import { formatTimeAgo } from "@/shared/utils";
+import { ChapterDeleteButton } from "./form/ChapterDeleteButton";
 
 export const ChapterThumbnail = ({
   id,
@@ -71,7 +71,7 @@ export const ChapterThumbnail = ({
             },
           }}
         >
-          <DeleteChapterButton
+          <ChapterDeleteButton
             id={id}
             title={title}
             chapterNumber={chapterNumber}

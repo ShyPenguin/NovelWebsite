@@ -5,7 +5,6 @@ import {
   BaseError,
   CustomizedAuthorizationError,
   NotFoundError,
-  ValidationError,
 } from "@/shared/errors/index.ts";
 import { requirePermission } from "@/shared/utils/require-permission.ts";
 import { UserSession } from "@repo/contracts/dto/auth";

@@ -19,15 +19,12 @@ export type NovelCoverImageFormWithButton = NovelCoverImageForm & {
   showButtons?: boolean;
 };
 
-export type NovelThumbnail = NovelThumbnailDTO;
-export type NovelTrend = NovelTrendDTO;
-
 export type NovelResponseMap = {
   detail: NovelDetailDTO[];
-  trend: NovelTrend[];
-  thumbnail: NovelThumbnail[];
+  trend: NovelTrendDTO[];
+  thumbnail: NovelThumbnailDTO[];
 };
 
 export type FetchNovelsReturn<
   T extends keyof FullResponseMap<NovelResponseMap>,
-> = Promise<FullResponseMap<NovelResponseMap>[T]>;
+> = FullResponseMap<NovelResponseMap>[T];

@@ -3,12 +3,12 @@ import type { NovelDetailDTO } from "@repo/contracts/dto/novel";
 import { EDIT } from "@/shared/constants";
 import { Chevron } from "@/assets/icons/Chevron";
 import Pencil from "@/assets/icons/Pencil";
-import { NovelCoverForm } from "@/features/novels/components/forms/NovelCoverForm";
+import { NovelCoverForm } from "@/features/novels/components/form/NovelCoverForm";
 import ButtonIcon from "@/shared/components/ButtonIcon";
 import Page from "@/shared/components/Page";
-import { NovelForm } from "@/features/novels/components/forms/NovelForm";
-import { DeleteNovelButton } from "@/features/novels/components/DeleteNovelButton";
+import { NovelForm } from "@/features/novels/components/form/NovelForm";
 import { NovelFields } from "@/features/novels/components/NovelFields";
+import { NovelDeleteButton } from "../components/form/NovelDeleteButton";
 
 export const NovelDetailPage = ({ novel }: { novel: NovelDetailDTO }) => {
   const [isEdit, setIsEdit] = useState(false);
@@ -50,7 +50,7 @@ export const NovelDetailPage = ({ novel }: { novel: NovelDetailDTO }) => {
           </div>
           <div className="absolute -top-1.25 left-0">
             <div className="absolute w-8 h-8">
-              <DeleteNovelButton
+              <NovelDeleteButton
                 id={novel.id}
                 title={novel.title}
                 totalChapters={novel.totalChapters}

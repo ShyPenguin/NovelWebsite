@@ -35,15 +35,30 @@ function PageBody({
     <section className="flex-1 flex flex-col gap-4">{children}</section>
   ) : (
     <section className="flex items-start justify-center size-full py-4 px-2 bg-inherit dark:bg-inherit">
-      <div className="flex items-center md:items-start flex-col size-full max-w-4xl justify-center md:flex-row gap-2">
+      <div className="flex items-center md:items-start flex-col md:flex-row  size-full max-w-4xl justify-center gap-2">
         {children}
       </div>
     </section>
   );
 }
 
-function PageFooter({ children }: { children: ReactNode }) {
-  return <div className="flex-center w-full h-10">{children}</div>;
+function PageFooter({
+  children,
+  type = "full",
+  className,
+}: {
+  children: ReactNode;
+  type?: "full" | "center";
+
+  className?: string;
+}) {
+  return type == "full" ? (
+    <div className={`flex-center w-full h-10 ${className}`}>{children}</div>
+  ) : (
+    <div className="size-full flex justify-center">
+      <div className={`flex max-w-4xl size-full ${className}`}>{children}</div>
+    </div>
+  );
 }
 
 Page.Header = PageHeader;

@@ -28,7 +28,9 @@ export const NovelCard = ({
         group-data-[current=false]:opacity-0
         transition-all ease-in"
         >
-          <h3 className="lg:text-[16px] font-semibold text-[12px]">{title}</h3>
+          <h3 className="lg:text-[16px] font-semibold text-[12px] line-clamp-2">
+            {title}
+          </h3>
           <p className="mt-1 text-[8px] lg:text-[12px] line-clamp-2 lg:line-clamp-3 text-white/80">
             {description}
           </p>

@@ -4,7 +4,7 @@ import { toast } from "react-toastify";
 import { capitalizeFirstLetter } from "./capitalizeFirstLetter";
 import type { Action, Resource } from "@repo/contracts/auth/permissions";
 
-export const mutationConfig = <T, R extends Resource>({
+export const mutationConfig = <T, R extends Resource, QueryKeyParam>({
   action,
   resource,
   queryArg,
@@ -20,20 +20,24 @@ export const mutationConfig = <T, R extends Resource>({
     }) => (string | number | undefined)[];
     exact: boolean;
   };
-  getQueryKey: ({ id }: { id: string }) => (string | number | undefined)[];
+  getQueryKey: (
+    queryKeyParam: QueryKeyParam,
+  ) => (string | number | undefined)[];
 }) => {
   return {
-    onSuccess: async ({
-      data,
-      id,
-      parentId,
-    }: {
-      data: T;
-      id: string;
-      parentId?: string;
-    }) => {
-      // Update single novel cache
-      queryClient.setQueryData(getQueryKey({ id }), (oldData: T) => {
+    onSuccess: async (
+      {
+        data,
+        parentId,
+      }: {
+        data: T;
+        parentId?: string;
+      },
+      queryKeyParam: QueryKeyParam,
+    ) => {
+      console.log(queryKeyParam);
+      // Update single resource cache
+      queryClient.setQueryData(getQueryKey(queryKeyParam), (oldData: T) => {
         return { ...oldData, ...data };
       });
 

@@ -13,7 +13,7 @@ import {
 import { ApiResponseSchema } from "@repo/contracts/api";
 import type { ChapterThumbnailDTO } from "@repo/contracts/dto/chapter";
 import type { NovelDetailDTO } from "@repo/contracts/dto/novel";
-import { getNovelChaptersQueryKey } from "@/features/chapters/utils/chapters.tanstack-keys.";
+import { getNovelChaptersQueryKey } from "@/features/chapters/utils/chapter.tanstack-keys";
 import type { FetchType, Paginated } from "@/shared/types";
 import type { FullResponseMap } from "@/shared/types/responseTypes";
 

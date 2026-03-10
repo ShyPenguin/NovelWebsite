@@ -29,14 +29,16 @@ export const useAuthorUpdate = (author: AuthorDetailDTO) => {
           ...baseHandlers,
           ...options,
           onSuccess: (data, vars, onResult, ctx) => {
-            baseHandlers.onSuccess?.({
-              data: {
-                id: data.id,
-                name: data.name,
-                novels: author.novels,
+            baseHandlers.onSuccess?.(
+              {
+                data: {
+                  id: data.id,
+                  name: data.name,
+                  novels: author.novels,
+                },
               },
-              id: data.id,
-            });
+              { id: data.id },
+            );
             options?.onSuccess?.(data, vars, onResult, ctx);
           },
           onError(error, vars, onResult, ctx) {

@@ -45,22 +45,22 @@
     @apply cursor-pointer;
   }
   h1 {
-    @apply text-base lg:text-2xl font-semibold text-inherit dark:text-inherit;
+    @apply text-base lg:text-2xl font-semibold text-inherit dark:text-inherit wrap-anywhere;
   }
   h2 {
-    @apply text-xl text-inherit;
+    @apply text-xl text-inherit wrap-anywhere;
   }
 
   h3 {
-    @apply text-lg text-inherit;
+    @apply text-lg text-inherit wrap-anywhere;
   }
 
   h4 {
-    @apply text-xl lg:text-2xl;
+    @apply text-xl lg:text-2xl wrap-anywhere;
   }
 
   h5 {
-    @apply text-muted-foreground text-base dark:text-muted-foreground;
+    @apply text-muted-foreground text-base dark:text-muted-foreground wrap-anywhere;
   }
 
   .dark input[type="date"]::-webkit-calendar-picker-indicator {

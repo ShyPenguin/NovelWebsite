@@ -20,11 +20,12 @@ export const TrendingItem = ({
         <h2 className="flex flex-col justify-center font-bold text-lg">
           #{rank}
         </h2>
+
         <img
           src={coverImageUrl ?? NO_IMAGE_URL}
           className="h-full min-h-12.5 w-8.75 object-scale-down rounded"
         />
-        <div className="flex flex-col items-start size-full gap-1">
+        <div className="flex-1 min-w-0 flex flex-col items-start size-full gap-1">
           <h2 className="text-left text-[16px] font-bold line-clamp-1">
             {title}
           </h2>

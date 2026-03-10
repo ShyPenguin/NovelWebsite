@@ -2,10 +2,10 @@ import { useSuspenseQuery } from "@tanstack/react-query";
 import { novelChaptersPaginatedQueryOptions } from "../api/fetchNovelChapters";
 import { ChapterThumbnail } from "./ChapterThumbnail";
 import { memo, useState } from "react";
-import { Chevron } from "../../../assets/icons/Index";
-import HorizontalLine from "../../../shared/components/HorizontalLine";
-import Pagination from "../../../shared/components/Pagination/Pagination";
 import { getRouteApi } from "@tanstack/react-router";
+import { Chevron } from "@/assets/icons/Chevron";
+import HorizontalLine from "@/shared/components/HorizontalLine";
+import Pagination from "@/shared/components/Pagination/Pagination";
 
 const routeApi = getRouteApi("/novels_/$novelId/chapters/");
 

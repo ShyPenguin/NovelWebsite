@@ -107,7 +107,6 @@ const applyUsersFilters = <Q extends any>({
   const andFilters: SQL[] = [];
   const orFilters: SQL[] = [];
 
-  console.log(query.search);
   if (query.search) {
     orFilters.push(ilike(UserTable.name, `%${query.search}%`));
     orFilters.push(ilike(UserTable.username, `%${query.search}%`));
