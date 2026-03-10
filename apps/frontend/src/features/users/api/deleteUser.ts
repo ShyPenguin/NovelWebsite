@@ -4,10 +4,13 @@ import { deleteResourceFactory } from "@/shared/api/delete";
 
 export const deleteUser = deleteResourceFactory({ resource: "users" });
 
-export const deleteUserMutate = (username: UserDetailDTO["username"]) => {
+export const deleteUserMutate = ({
+  username,
+}: {
+  username: UserDetailDTO["username"];
+}) => {
   return useMutation({
     mutationKey: ["user", "delete", username],
-    mutationFn: ({ username }: { username: UserDetailDTO["username"] }) =>
-      deleteUser({ id: username }),
+    mutationFn: ({ id }: { id: UserDetailDTO["id"] }) => deleteUser({ id: id }),
   });
 };

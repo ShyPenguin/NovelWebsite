@@ -1,39 +1,45 @@
-import { useState } from "react";
-import type { ChapterDetailDTO } from "@repo/contracts/dto/chapter";
-import { useChapterDelete } from "@/features/chapters/hooks/useChapterDelete";
 import Modal from "@/shared/components/Modal";
-import Trashcan from "@/assets/icons/Trashcan";
+import type { UserDetailDTO } from "@repo/contracts/dto/user";
+import { useNavigate } from "@tanstack/react-router";
+import { useState } from "react";
 import { FormButton } from "@/shared/components/Form/FormButton";
+import { USER_SEARCH_DEFAULT } from "../../user.schema";
+import { useUserDelete } from "../../hooks/useUserDelete";
 
-type ChapterDeleteButtonProp = {
-  id: ChapterDetailDTO["id"];
-  title: ChapterDetailDTO["title"];
-  chapterNumber: ChapterDetailDTO["chapterNumber"];
-  novelId: ChapterDetailDTO["novelId"];
-};
-export const ChapterDeleteButton = (chapter: ChapterDeleteButtonProp) => {
+export const UserDeleteButton = ({ user }: { user: UserDetailDTO }) => {
   const [openModal, setOpenModal] = useState(false);
+
   return (
     <>
       <button
-        className="dark:text-white text-secondary-black hover:text-novelRed cursor-pointer rounded-full p-2 bg-primary-black/5 dark:bg-primary-black/15"
         onClick={() => {
           setOpenModal(true);
         }}
       >
-        <Trashcan className="w-5 h-5" pathClassName="stroke-3" />
+        <h3 className="status text-novelRed bg-novelRed/20">Delete</h3>
       </button>
-
       {openModal && (
         <Modal onClose={() => setOpenModal(false)}>
           <Modal.Header>
-            <p>Are you sure you want to delete this chapter?</p>
+            <p>Are you sure you want to delete this user?</p>
           </Modal.Header>
           <Modal.Body>
-            <h3>Title: {chapter.title}</h3>
-            <p className="text-[14px]">
-              Chapter Number: {chapter.chapterNumber}
+            <h3>Name: {user.name}</h3>
+            <p className="text-novelRed">
+              Deleting this user will result to these novel's translator to be
+              unknown:
             </p>
+            <ul className="grid grid-cols-1 gap-2">
+              {user.novels.length > 0 ? (
+                user.novels.map((novel) => (
+                  <li className="italic max-w-100" key={novel.id}>
+                    {novel.title}
+                  </li>
+                ))
+              ) : (
+                <p>No Novels</p>
+              )}
+            </ul>
           </Modal.Body>
           <Modal.Footer>
             <button
@@ -46,8 +52,8 @@ export const ChapterDeleteButton = (chapter: ChapterDeleteButtonProp) => {
               No, please.
             </button>
             <ConfirmButton
-              id={chapter.id}
-              novelId={chapter.novelId}
+              id={user.id}
+              username={user.username}
               closeModal={() => setOpenModal(false)}
             />
           </Modal.Footer>
@@ -59,20 +65,24 @@ export const ChapterDeleteButton = (chapter: ChapterDeleteButtonProp) => {
 
 const ConfirmButton = ({
   id,
-  novelId,
+  username,
   closeModal,
 }: {
-  id: ChapterDetailDTO["id"];
-  novelId: ChapterDetailDTO["novelId"];
+  id: UserDetailDTO["id"];
+  username: UserDetailDTO["username"];
   closeModal: () => void;
 }) => {
-  const { mutate, isPending } = useChapterDelete({ id, novelId });
-
+  const { mutate, isPending } = useUserDelete({ id, username });
+  const navigate = useNavigate();
   const handleButtonClick = () => {
     mutate({
       options: {
         onSuccess: () => {
           closeModal();
+          navigate({
+            to: "/users",
+            search: USER_SEARCH_DEFAULT,
+          });
         },
       },
     });

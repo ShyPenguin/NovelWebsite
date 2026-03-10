@@ -58,7 +58,7 @@ export const UserChangeRoleForm = ({
                     userRolesOptions[0]
                   }
                   onChange={(option) => field.onChange(option.value)}
-                  className="max-w-full"
+                  className="max-w-full bg-primary-black"
                 />
                 {fieldState.error && (
                   <p className="mt-1 text-sm text-red-600">

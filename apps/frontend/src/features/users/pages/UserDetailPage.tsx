@@ -12,6 +12,7 @@ import { NovelThumbnail } from "@/features/novels/components/NovelThumbnail";
 import { Can } from "@/features/auth/components/Can";
 import UserUpdateButton from "../components/form/UserUpdateButton";
 import { UserChangeRoleButton } from "../components/form/UserChangeRoleButton";
+import { UserDeleteButton } from "../components/form/UserDeleteButton";
 
 export const UserDetailPage = () => {
   const route = getRouteApi("/users_/$username/");
@@ -26,13 +27,13 @@ const UserDetail = ({ user }: { user: UserDetailDTO }) => {
     <Page>
       <Page.Body type="center">
         {/* PROFILE IMAGE */}
-        <div className="min-w-40 p-2 flex flex-col gap-4">
+        <div className="min-w-40 p-2 flex flex-col gap-2">
           <img
             src={user.imageUrl ?? NO_IMAGE_URL}
             className="h-40 w-40 object-cover rounded-full border-2 border-blue-500"
           />
-          <div className="block text-center relative">
-            <h3 className="status">{user.role}</h3>
+          <div className="relative">
+            <h3 className="status text-center">{user.role}</h3>
             <Can
               resource="users"
               action="update"
@@ -40,11 +41,12 @@ const UserDetail = ({ user }: { user: UserDetailDTO }) => {
                 data: user,
               }}
             >
-              <div className="absolute -top-2 -right-2">
-                <UserChangeRoleButton user={user} />
-              </div>
+              <UserChangeRoleButton user={user} />
             </Can>
           </div>
+          <Can resource="users" action="delete" ctx={{ data: user }}>
+            <UserDeleteButton user={user} />
+          </Can>
         </div>
 
         {/* USER DETAILS */}
@@ -89,11 +91,6 @@ const UserDetail = ({ user }: { user: UserDetailDTO }) => {
               <div className="absolute w-8 h-8">
                 <UserUpdateButton user={user} />
               </div>
-            </div>
-          </Can>
-          <Can resource="users" action="delete" ctx={{ data: user }}>
-            <div className="absolute -top-1.25 left-0">
-              <div className="absolute w-8 h-8"></div>
             </div>
           </Can>
         </div>

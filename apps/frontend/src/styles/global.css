@@ -149,6 +149,9 @@
     @apply fixed top-0 bottom-0 left-0 right-0 bg-black/60;
   }
 
+  .modal-cancel-button {
+    @apply size-full flex-center py-2 px-4 rounded-xl border border-black hover:bg-black hover:text-white dark:border-white dark:hover:bg-white dark:hover:text-black;
+  }
   .search {
     @apply flex h-full w-full rounded-xl px-3 py-2 text-black dark:text-white border-1 bg-inherit border-border dark:border-secondary-black placeholder:text-xs placeholder:text-muted-foreground;
   }
@@ -250,7 +253,7 @@
   }
 
   .status {
-    @apply bg-[#E1F0DA] dark:bg-[#212d1c] text-[#99BC85] text-[10px] font-bold px-2 py-1 rounded uppercase;
+    @apply bg-[#E1F0DA] dark:bg-[#212d1c] text-novelGreen text-[10px] font-bold px-2 py-1 rounded uppercase;
   }
 
   .form-button {

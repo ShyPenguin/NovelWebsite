@@ -44,7 +44,7 @@ export const NovelDeleteButton = ({
           </Modal.Body>
           <Modal.Footer>
             <button
-              className="size-full flex-center py-2 px-4 rounded-xl border border-white hover:bg-white hover:text-black"
+              className="modal-cancel-button"
               onClick={() => {
                 setOpenModal(false);
               }}
