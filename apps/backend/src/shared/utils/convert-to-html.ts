@@ -1,12 +1,14 @@
 import { Paragraph, RGBType, TextSegment } from "./google-doc.ts";
+import { lineElement } from "./line-element.ts";
 
-const blueBorderStyle =
-  "position: absolute; top: -0.125rem; right: -0.125rem; bottom: -0.125rem; left: -0.125rem; border-radius: 0.5rem; filter: blur(0.25rem); background-color: #1e3a8a; opacity: 0.75;";
+const absoluteFullBackGround =
+  "position: absolute; top: -0.125rem; right: -0.125rem; bottom: -0.125rem; ";
+const blueBorderStyle = `${absoluteFullBackGround} border-radius: 0.5rem; filter: blur(0.25rem); background-color: #1e3a8a; opacity: 0.75;`;
 const blueContent =
   "position: relative; max-width: 600px; width: 100%; background-color: #000; padding: 2rem; border: 3px solid #3b82f6; border-radius: 0.5rem; display: flex; flex-direction: column; justify-content: center;";
 
 const textShadowCyan =
-  "text-shadow: 0 0 10px rgba(187, 230, 253, 1), 0 0 20px rgba(187, 230, 253, 1), 0 0 30px rgba(96, 165, 250, 1), 0 0 40px rgba(96, 165, 250, 1)";
+  "text-shadow: 0 0 10px rgba(187, 230, 253, 1), 0 0 20px rgba(187, 230, 253, 1), 0 0 30px rgba(96, 165, 250, 1), 0 0 40px rgba(96, 165, 250, 1); ";
 
 const getBackGroundColor = (color: RGBType): string => {
   const { r, g, b } = color;
@@ -36,7 +38,7 @@ export function convertToHTML(structuredContent: Paragraph[]): string {
           return `</div></div></div>`;
         }
 
-        let styles = "";
+        let styles = "overflow-wrap: anywhere; ";
         if (segment.styles.bold) styles += "font-weight: bold; ";
         if (segment.styles.italic) styles += "font-style: italic; ";
         if (segment.styles.underline) styles += "text-decoration: underline; ";
@@ -63,6 +65,9 @@ export function convertToHTML(structuredContent: Paragraph[]): string {
           attributes = ` href="${segment.styles.link}"`;
         }
 
+        if (segment.text.includes("<line/>")) {
+          return lineElement(styles);
+        }
         const styleAttr = styles ? ` style="${styles.trim()}"` : "";
 
         if (segment.text === "\n") {

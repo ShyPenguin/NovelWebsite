@@ -51,8 +51,9 @@ export const MutateChapterNavbar = () => {
             type={"button"}
             isPending={isPending}
             isPendingLabel="Previewing"
-            label="Preview Doc's body"
+            label="Preview Document"
             handleButton={handleButtonClick}
+            className="truncate wrap-anywhere"
           />
           <Link
             className="reading-setting-card reading-setting-card-hover rounded-xl w-12"

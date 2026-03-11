@@ -138,7 +138,7 @@
     }
   }
   .document-preview {
-    @apply flex flex-col w-full lg:w-[750px] px-4;
+    @apply flex flex-col w-full lg:w-187 px-4;
   }
 
   .skeleton-color {

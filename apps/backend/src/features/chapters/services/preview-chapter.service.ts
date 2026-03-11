@@ -5,7 +5,7 @@ import {
   CustomizedNotFoundError,
   ValidationError,
 } from "@/shared/errors/index.ts";
-import { convertToHTML } from "@/shared/utils/covert-to-html.ts";
+import { convertToHTML } from "@/shared/utils/convert-to-html.ts";
 import {
   extractGoogleDocId,
   Paragraph,

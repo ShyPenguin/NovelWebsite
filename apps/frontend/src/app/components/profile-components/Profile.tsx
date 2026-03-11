@@ -25,7 +25,7 @@ export const Profile = () => {
   return (
     <>
       <button
-        className="flex size-full justify-center items-center gap-x-2 border border-border dark:border-secondary-black rounded-4xl"
+        className="flex justify-center items-center gap-x-2 border border-border dark:border-secondary-black rounded-4xl"
         onClick={() => setIsVisible((prev) => !prev)}
         ref={buttonRef}
       >
@@ -41,12 +41,14 @@ export const Profile = () => {
         />
 
         <div className="size-full flex items-center">
-          <Chevron
-            isOpen={isVisible}
-            initialRotation="rotate-0"
-            isOpenRotation="rotate-180"
-            className="w-4 h-4 dark:text-secondary text-secondary-black"
-          />
+          <div className="pr-2">
+            <Chevron
+              isOpen={isVisible}
+              initialRotation="rotate-0"
+              isOpenRotation="rotate-180"
+              className="w-4 h-4 dark:text-secondary text-secondary-black"
+            />
+          </div>
         </div>
       </button>
 

@@ -19,10 +19,10 @@ export const ChapterPageContent = ({
           lineHeight: `${state.lineSpacing}`,
           textAlign: `${state.textAlignment == 0 ? "left" : state.textAlignment == 1 ? "center" : "justify"}`,
         }}
-        className="leading-relaxed px-10 lg:px-80"
+        className="leading-relaxed w-full px-10 lg:px-80"
       >
         <div className="mb-5">
-          <p className="font-semibold">{chapter.title}</p>
+          <p className="font-semibold text-left">{chapter.title}</p>
           <div
             className="flex justify-between text-muted-foreground dark:text-dark-muted-foreground pb-1"
             style={{ fontSize: `${state.fontSize - 4}px` }}
@@ -32,7 +32,9 @@ export const ChapterPageContent = ({
           </div>
           <HorizontalLine />
         </div>
-        <DocumentToHTML htmlContent={chapter.contentHtml} />
+        <div className="flex size-full justify-center">
+          <DocumentToHTML htmlContent={chapter.contentHtml} />
+        </div>
       </div>
     </section>
   );

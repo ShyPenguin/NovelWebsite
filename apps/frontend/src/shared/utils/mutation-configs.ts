@@ -35,7 +35,6 @@ export const mutationConfig = <T, R extends Resource, QueryKeyParam>({
       },
       queryKeyParam: QueryKeyParam,
     ) => {
-      console.log(queryKeyParam);
       // Update single resource cache
       queryClient.setQueryData(getQueryKey(queryKeyParam), (oldData: T) => {
         return { ...oldData, ...data };

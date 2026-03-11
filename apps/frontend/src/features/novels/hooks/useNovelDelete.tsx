@@ -27,7 +27,12 @@ export const useNovelDelete = ({ id }: { id: NovelDetailDTO["id"] }) => {
           ...baseHandlers,
           ...options,
           onSuccess: (data, vars, onResult, ctx) => {
-            baseHandlers.onSuccess?.({ data, id: data.id });
+            baseHandlers.onSuccess?.(
+              { data },
+              {
+                id: data.id,
+              },
+            );
             options?.onSuccess?.(data, vars, onResult, ctx);
           },
           onError(error, vars, onResult, ctx) {

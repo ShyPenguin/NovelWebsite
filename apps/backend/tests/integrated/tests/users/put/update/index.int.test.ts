@@ -159,6 +159,7 @@ describe("PATCH /users/:id", () => {
     } = resourceToUpdate;
     expect(resultData).toMatchObject({
       ...inputData,
+      name: input.name,
       oAuthProviders: ["google"],
     } satisfies Omit<UserThumbnailDTO, "createdAt" | "updatedAt">);
   });
