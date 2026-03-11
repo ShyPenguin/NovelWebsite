@@ -1,33 +1,36 @@
 import { useForm, Controller } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import type { NovelDetailDTO } from "@repo/contracts/dto/novel";
-import { NovelCoverImageFormSchema } from "@/features/novels/novel.schema";
-import type { NovelCoverImageFormWithButton } from "@/features/novels/novel.type";
-import { useNovelCoverMutate } from "@/features/novels/hooks/useNovelCoverMutate";
+import type { UserDetailDTO } from "@repo/contracts/dto/user";
 import { NO_IMAGE_URL } from "@/shared/constants";
 import { useState } from "react";
 import { FormButton } from "@/shared/components/Form/FormButton";
 import { FormImageInput } from "@/shared/components/Form/FormImageInput";
+import { useUserUpdateImage } from "../../hooks/useUserUpdateImage";
+import { UserImageFormSchema, type UserImageForm } from "../../user.schema";
 
 type Prop = {
-  id: NovelDetailDTO["id"];
-  coverImageUrl?: NovelDetailDTO["coverImageUrl"];
+  id: UserDetailDTO["id"];
+  imageUrl?: UserDetailDTO["imageUrl"];
   onClose?: () => void;
 };
 
-export function NovelCoverForm({ id, coverImageUrl, onClose }: Prop) {
+type UserImageFormWithButton = UserImageForm & {
+  showButtons?: boolean;
+};
+
+export function UserImageForm({ id, imageUrl, onClose }: Prop) {
   const { control, handleSubmit, watch, setValue, resetField } =
-    useForm<NovelCoverImageFormWithButton>({
-      resolver: zodResolver(NovelCoverImageFormSchema),
+    useForm<UserImageFormWithButton>({
+      resolver: zodResolver(UserImageFormSchema),
     });
 
   // showButtons is for UI purposes but it's not part of the form
   // to be sent in the api
   const showButtons = watch("showButtons", false);
-  const { isPending, mutate } = useNovelCoverMutate({ novelId: id });
+  const { isPending, mutate } = useUserUpdateImage({ userId: id });
   const [inputKey, setInputKey] = useState(0);
   //Must put
-  const onSubmit = (values: NovelCoverImageFormWithButton) => {
+  const onSubmit = (values: UserImageFormWithButton) => {
     mutate({
       formData: values,
       options: {
@@ -41,10 +44,10 @@ export function NovelCoverForm({ id, coverImageUrl, onClose }: Prop) {
 
   return (
     <form onSubmit={handleSubmit(onSubmit)} className="max-w-50">
-      <div className="max-h-80 h-75 w-50">
+      <div className="h-45 w-45">
         <Controller
           control={control}
-          name="coverImage"
+          name="imageUrl"
           render={({ field, fieldState }) => (
             <FormImageInput
               key={inputKey}
@@ -53,11 +56,12 @@ export function NovelCoverForm({ id, coverImageUrl, onClose }: Prop) {
                 setValue("showButtons", true, { shouldValidate: false });
                 field.onChange(file);
               }}
-              shape={"square"}
-              width="w-50"
-              height="h-75"
-              defaultImageUrl={coverImageUrl ?? NO_IMAGE_URL}
+              shape="circle"
+              width="w-45"
+              height="h-45"
+              defaultImageUrl={imageUrl ?? NO_IMAGE_URL}
               errorMessage={fieldState.error?.message}
+              className="border-2 border-blue-500"
             />
           )}
         />
@@ -79,7 +83,7 @@ export function NovelCoverForm({ id, coverImageUrl, onClose }: Prop) {
               className="form-button"
               type="button"
               onClick={() => {
-                resetField("coverImage");
+                resetField("imageUrl");
                 setInputKey((prev) => prev + 1);
                 setValue("showButtons", false, { shouldValidate: false });
               }}

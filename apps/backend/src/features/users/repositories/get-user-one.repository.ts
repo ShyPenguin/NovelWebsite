@@ -58,6 +58,12 @@ export const getUserThumbnailByIdTx = getUserOneFactory({
   where: "id",
 });
 
+export const getUserDetailByIdTx = getUserOneFactory({
+  type: "detail",
+  schema: UserDetailSchema,
+  where: "id",
+});
+
 export const getUserDetailByUsernameTx = getUserOneFactory({
   type: "detail",
   schema: UserDetailSchema,

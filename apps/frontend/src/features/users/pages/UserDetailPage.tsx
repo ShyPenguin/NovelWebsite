@@ -13,6 +13,7 @@ import { Can } from "@/features/auth/components/Can";
 import UserUpdateButton from "../components/form/UserUpdateButton";
 import { UserChangeRoleButton } from "../components/form/UserChangeRoleButton";
 import { UserDeleteButton } from "../components/form/UserDeleteButton";
+import { UserImageForm } from "../components/form/UserImageForm";
 
 export const UserDetailPage = () => {
   const route = getRouteApi("/users_/$username/");
@@ -28,9 +29,9 @@ const UserDetail = ({ user }: { user: UserDetailDTO }) => {
       <Page.Body type="center">
         {/* PROFILE IMAGE */}
         <div className="min-w-40 p-2 flex flex-col gap-2">
-          <img
-            src={user.imageUrl ?? NO_IMAGE_URL}
-            className="h-40 w-40 object-cover rounded-full border-2 border-blue-500"
+          <UserImageForm
+            id={user.id}
+            imageUrl={user.imageUrl ?? NO_IMAGE_URL}
           />
           <div className="relative">
             <h3 className="status text-center">{user.role}</h3>

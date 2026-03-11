@@ -14,6 +14,7 @@ import { uploadImageToSupabase } from "@/infrastructure/supabase/repository/supa
 import { getNovelDetailByIdTx } from "../repositories/get-novel-one.ts";
 import { updateNovelTx } from "../repositories/update.repository.ts";
 import { requirePermission } from "@/shared/utils/require-permission.ts";
+import { NOVEL_URL_SUPABASE_PATH } from "@/shared/constants/index.ts";
 
 export const updateNovelCoverService = async ({
   id,
@@ -45,7 +46,10 @@ export const updateNovelCoverService = async ({
     },
   });
 
-  const { path, url } = await uploadImageToSupabase(file);
+  const { path, url } = await uploadImageToSupabase(
+    file,
+    NOVEL_URL_SUPABASE_PATH,
+  );
 
   try {
     await updateNovelTx({

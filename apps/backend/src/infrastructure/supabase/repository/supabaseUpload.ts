@@ -4,10 +4,11 @@ import { ValidationError } from "@/shared/errors/index.ts";
 
 export async function uploadImageToSupabase(
   file: Express.Multer.File,
+  bucketUrl: string,
 ): Promise<{ path: string; url: string }> {
   const fileExt = file.originalname.split(".").pop();
   const fileName = `${randomUUID()}.${fileExt}`;
-  const filePath = `novels/covers/${fileName}`;
+  const filePath = `${bucketUrl}/${fileName}`;
 
   const { error } = await supabase.storage
     .from(process.env.SUPABASE_PUBLIC_BUCKET!)

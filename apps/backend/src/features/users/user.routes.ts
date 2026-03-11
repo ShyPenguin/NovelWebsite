@@ -13,6 +13,8 @@ import { patchUserRoleController } from "./controllers/patch-user-role.controlle
 import { patchUserController } from "./controllers/patch-user.controller.ts";
 import { UserQuerySchema } from "./user.schema.ts";
 import { getUsersController } from "./controllers/get-users.controller.ts";
+import { upload } from "@/middlewares/upload.ts";
+import { patchUserImageController } from "./controllers/patch-user-image.controller.ts";
 
 const userRoutes = Router();
 
@@ -45,4 +47,13 @@ userRoutes.patch(
   validateMiddleware(UserFormSchema, "body"),
   asyncHandler(patchUserController),
 );
+
+userRoutes.patch(
+  "/:id/image",
+  asyncHandler(authMiddleware),
+  validateMiddleware(idSchema, "params"),
+  upload.single("image"),
+  asyncHandler(patchUserImageController),
+);
+
 export default userRoutes;

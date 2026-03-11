@@ -6,14 +6,22 @@ type ImageInputProps = {
   value?: File;
   onChange: (file?: File) => void;
   defaultImageUrl: string;
+  shape: "circle" | "square";
+  width: string;
+  height: string;
   errorMessage?: string;
+  className?: string;
 };
 
 export function FormImageInput({
   value,
   onChange,
+  shape,
+  width,
+  height,
   defaultImageUrl,
   errorMessage,
+  className,
 }: ImageInputProps) {
   const previewUrl = value ? URL.createObjectURL(value) : defaultImageUrl;
 
@@ -26,7 +34,9 @@ export function FormImageInput({
   }, [previewUrl]);
   return (
     <div className="flex flex-col items-center relative">
-      <div className="absolute -top-1.25 -left-1.25">
+      <div
+        className={`absolute ${shape == "square" ? "-top-1.25 -left-1.25" : "top-3 left-3"}`}
+      >
         <div className="relative">
           <label className="absolute w-8 h-8" htmlFor="image-input">
             <ButtonIcon>
@@ -48,8 +58,8 @@ export function FormImageInput({
       {previewUrl && (
         <img
           src={previewUrl}
-          alt="Cover preview"
-          className={`h-75 w-50 max-h-80 max-w-50 rounded-xl object-cover 
+          alt="Image preview"
+          className={`${width} ${height} object-cover ${shape == "square" ? "rounded-xl" : "rounded-full"} ${className}
             ${errorMessage && "border border-red-500"} card`}
         />
       )}

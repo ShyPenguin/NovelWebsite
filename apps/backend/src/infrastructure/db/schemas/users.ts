@@ -21,7 +21,8 @@ export const UserTable = pgTable("users", {
   name: varchar("name", { length: 30 }).notNull(),
   email: text().notNull().unique(),
   role: userRoleEnum().notNull().default("user"),
-  imageUrl: varchar("image_url", { length: 512 }),
+  imageUrl: text("image_url"),
+  imagePath: text("image_path"),
   createdAt: timestamp({ withTimezone: true }).notNull().defaultNow(),
   updatedAt: timestamp({ withTimezone: true })
     .notNull()

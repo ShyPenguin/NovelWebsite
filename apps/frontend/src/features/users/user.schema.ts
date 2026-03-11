@@ -1,4 +1,4 @@
-import { searchFieldExtend, pageField } from "@/shared/schema";
+import { searchFieldExtend, pageField, imageFileField } from "@/shared/schema";
 import { UserQueryContract } from "@repo/contracts/schemas/user";
 import z from "zod";
 
@@ -34,3 +34,9 @@ export type UserSearchInputPaginated = z.input<
   typeof UserSearchPaginatedSchema
 >;
 export type UserSearchPaginated = z.output<typeof UserSearchPaginatedSchema>;
+
+export const UserImageFormSchema = z.object({
+  imageUrl: imageFileField,
+});
+
+export type UserImageForm = z.infer<typeof UserImageFormSchema>;

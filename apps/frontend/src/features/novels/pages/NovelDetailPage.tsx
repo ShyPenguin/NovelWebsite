@@ -1,6 +1,6 @@
 import { useState } from "react";
 import type { NovelDetailDTO } from "@repo/contracts/dto/novel";
-import { EDIT } from "@/shared/constants";
+import { EDIT, NO_IMAGE_URL } from "@/shared/constants";
 import { Chevron } from "@/assets/icons/Chevron";
 import Pencil from "@/assets/icons/Pencil";
 import { NovelCoverForm } from "@/features/novels/components/form/NovelCoverForm";
@@ -17,7 +17,10 @@ export const NovelDetailPage = ({ novel }: { novel: NovelDetailDTO }) => {
     <Page>
       <Page.Body type="center">
         <div className="flex-center pb-4">
-          <NovelCoverForm id={novel.id} coverImageUrl={novel.coverImageUrl} />
+          <NovelCoverForm
+            id={novel.id}
+            coverImageUrl={novel.coverImageUrl ?? NO_IMAGE_URL}
+          />
         </div>
         <div className="w-full max-w-3xl relative card ">
           {isEdit ? (
@@ -62,3 +65,5 @@ export const NovelDetailPage = ({ novel }: { novel: NovelDetailDTO }) => {
     </Page>
   );
 };
+
+// h-75 w-50
