@@ -166,7 +166,7 @@ describe(" POST /novels/:id/chapters", () => {
     expect(parsedResult.data).toHaveProperty("contentHtml");
     expect(
       contentHtml.includes(
-        '<p><span style="color: rgb(255, 255, 255); color: #bae6fdff; font-weight: 700; text-shadow: 0 0 8px rgba(96, 165, 250, 0.5);">Player Status',
+        '<span style="overflow-wrap: anywhere; color: rgb(255, 255, 255); color: #bae6fdff; font-weight: 700; text-shadow: 0 0 8px rgba(96, 165, 250, 0.5);">Player Status',
       ),
     ).toBe(true);
   });

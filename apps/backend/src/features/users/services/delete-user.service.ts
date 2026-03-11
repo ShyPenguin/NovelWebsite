@@ -1,11 +1,11 @@
 import { UserTableSelect } from "@/infrastructure/db/schemas/index.ts";
-import { UserThumbnailDTO } from "@repo/contracts/dto/user";
+import { UserThumbnailEncodeDTO } from "@repo/contracts/dto/user";
 import { deleteResourceServiceFactory } from "@/shared/factories/service/delete-resource.service.ts";
 import { getUserThumbnailByIdTx } from "../repositories/get-user-one.repository.ts";
 import { deleteUserTx } from "../repositories/delete.repository.ts";
 
 export const deleteUserService = deleteResourceServiceFactory<
-  UserThumbnailDTO,
+  UserThumbnailEncodeDTO,
   "users",
   UserTableSelect
 >({

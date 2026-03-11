@@ -25,6 +25,7 @@ const UserThumbnailSchema = UserBaseSchema.pick({
   username: true,
   role: true,
   imageUrl: true,
+  imagePath: true,
   createdAt: true,
   updatedAt: true,
   oAuthProviders: true,
