@@ -33,7 +33,7 @@
     },
     "./auth/permissions/*": {
       "types": "./src/auth/permissions/*.ts",
-      "default": "./src/auth/permissions/*.js"
+      "default": "./dist/auth/permissions/*.js"
     }
   },
   "scripts": {

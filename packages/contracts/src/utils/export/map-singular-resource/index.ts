@@ -1,4 +1,4 @@
-import { Resource } from "@repo/contracts/auth/permissions/resource";
+import { Resource } from "../../../auth/permissions/resource";
 
 export const mapSingularResource = {
   authors: "author",

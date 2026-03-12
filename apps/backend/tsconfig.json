@@ -17,9 +17,5 @@
       "tests/*": ["./tests/*"]
     }
   },
-  "include": [
-    "src",
-    "tests",
-    "../../packages/contracts/src/utils/export/map-singular-resource/index.ts"
-  ]
+  "include": ["src", "tests"]
 }

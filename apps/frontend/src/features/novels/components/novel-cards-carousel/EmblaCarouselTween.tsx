@@ -5,7 +5,7 @@ import type {
   EmblaOptionsType,
 } from "embla-carousel";
 import { NovelCard } from "./NovelCard";
-import { useCallback, useEffect, useRef } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import type { NovelThumbnailDTO } from "@repo/contracts/dto/novel";
 
 type PropType = {
@@ -22,7 +22,10 @@ export function EmblaCarouselTween(props: PropType) {
   const { slides, options } = props;
   const [emblaRef, emblaApi] = useEmblaCarousel(options);
   const tweenFactor = useRef(0);
+  const [multiplier, setMultiplier] = useState(1);
+  const multipliedCards = Array(multiplier).fill(slides).flat();
 
+  console.log(multiplier);
   const setTweenFactor = useCallback((emblaApi: EmblaCarouselType) => {
     tweenFactor.current = TWEEN_FACTOR_BASE * emblaApi.scrollSnapList().length;
   }, []);
@@ -62,10 +65,10 @@ export function EmblaCarouselTween(props: PropType) {
           const tweenValue = 1 - absDiff;
 
           // Apply opacity
-          const opacity = numberWithinRange(tweenValue, 0.3, 1).toString();
+          const opacity = numberWithinRange(tweenValue, 0.45, 1).toString();
 
           // Apply saturation - center gets full saturation, others get reduced
-          const saturation = tweenValue > 0.9 ? 1 : 0;
+          const saturation = tweenValue > 0.6 ? 1 : 0;
 
           // Apply both effects to the slide
           const slideNode = emblaApi.slideNodes()[slideIndex];
@@ -73,7 +76,7 @@ export function EmblaCarouselTween(props: PropType) {
           slideNode.style.filter = `saturate(${saturation})`;
 
           // NEW: Add data-current attribute
-          const isCurrent = tweenValue > 0.9; // You can adjust this threshold
+          const isCurrent = tweenValue > 0.6; // You can adjust this threshold
           slideNode.setAttribute("data-current", isCurrent.toString());
         });
       });
@@ -87,18 +90,52 @@ export function EmblaCarouselTween(props: PropType) {
     setTweenFactor(emblaApi);
     tweenEffects(emblaApi);
 
+    const checkAndUpdateMultiplier = () => {
+      try {
+        const engine = emblaApi.internalEngine();
+        const notEnoughToLoop = !engine.slideLooper.canLoop();
+
+        // Only update if the multiplier actually needs to change
+        const newMultiplier = notEnoughToLoop ? 3 : 1;
+
+        if (newMultiplier !== multiplier) {
+          setMultiplier(newMultiplier);
+          // Wait for state update before reInit
+          setTimeout(() => {
+            emblaApi.reInit();
+          }, 0);
+        }
+      } catch (error) {
+        console.error("Error in multiplier check:", error);
+      }
+    };
+
+    // Debounced resize handler
+    let timeoutId: string | number | NodeJS.Timeout | undefined;
+    const handleResize = () => {
+      clearTimeout(timeoutId);
+      timeoutId = setTimeout(checkAndUpdateMultiplier, 150);
+    };
+
+    // Initial check
+    checkAndUpdateMultiplier();
+
     emblaApi
       .on("reInit", setTweenFactor)
       .on("reInit", tweenEffects)
       .on("scroll", tweenEffects)
       .on("slideFocus", tweenEffects);
+
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
   }, [emblaApi, tweenEffects]);
+
   return (
     <section className="embla">
       <div className="embla__viewport" ref={emblaRef}>
         <div className="embla__container">
-          {slides.map((card) => (
-            <div className="embla__slide group" key={card.id}>
+          {multipliedCards.map((card, index) => (
+            <div className="embla__slide group" key={index}>
               <NovelCard
                 key={card.id}
                 id={card.id}
