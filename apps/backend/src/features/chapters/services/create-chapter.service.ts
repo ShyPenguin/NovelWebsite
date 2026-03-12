@@ -69,7 +69,6 @@ export const createChapterService = async ({
     if (err.code === "23505" && err.constraint === "idx_unique_novel_chapter") {
       throw new ValidationError("Chapter's number is already taken");
     }
-    console.log(err);
     throw new BaseError(500, "Internal Server Error");
   }
 };

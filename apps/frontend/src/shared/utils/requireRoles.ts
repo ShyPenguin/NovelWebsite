@@ -17,14 +17,11 @@ export async function requireRoles({
   const auth = await queryClient.ensureQueryData(queryAuthOption());
 
   if (!auth) {
-    console.log("require Roles triggered auth");
     useAuthUIStore.getState().requireLogin();
     throw redirect({ to: location });
   }
 
   if (!roles.includes(auth.role)) {
-    console.log("require Roles triggered role");
-
     useAuthUIStore.getState().requireRoles(roles);
     throw redirect({ to: location });
   }

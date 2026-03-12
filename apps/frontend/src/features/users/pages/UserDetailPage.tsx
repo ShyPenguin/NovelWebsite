@@ -37,9 +37,10 @@ const UserDetail = ({ user }: { user: UserDetailDTO }) => {
             <h3 className="status text-center">{user.role}</h3>
             <Can
               resource="users"
-              action="update"
+              action="changeRole"
               ctx={{
                 data: user,
+                payload: { role: "staff" },
               }}
             >
               <UserChangeRoleButton user={user} />
