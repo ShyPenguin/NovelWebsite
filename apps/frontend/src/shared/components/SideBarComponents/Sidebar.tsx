@@ -9,6 +9,9 @@ import House from "@/assets/icons/House";
 import NovelIcon from "@/assets/icons/NovelIcon";
 import { DiscordLink } from "@/shared/constants";
 import { ThemeButton } from "@/app/components/ThemeButton";
+import UserIcon from "@/assets/icons/UserIcon";
+import { USER_SEARCH_DEFAULT } from "@/features/users/user.schema";
+import { Can } from "@/features/auth/components/Can";
 
 function Sidebar() {
   const { setSideBarOpen } = useSidebarOpen();
@@ -50,16 +53,18 @@ function Sidebar() {
               Authors
             </Link>
           </SideItem>
-
-          {/* <SideItem icon={UserIcon}>
-            <Link
-              to="/profile"
-              className="[&.active]:font-bold text-inherit text-end py-2 px-4"
-              onClick={() => setSideBarOpen(false)}
-            >
-              User
-            </Link>
-          </SideItem> */}
+          <Can feature="usersDirectory">
+            <SideItem icon={UserIcon}>
+              <Link
+                to="/users"
+                className="[&.active]:font-bold text-inherit text-end py-2 px-4"
+                onClick={() => setSideBarOpen(false)}
+                search={USER_SEARCH_DEFAULT}
+              >
+                User
+              </Link>
+            </SideItem>
+          </Can>
         </div>
         <div>
           <SideItem icon={Discord}>

@@ -37,12 +37,12 @@ export function Can<R extends Resource, A extends Action<R>>({
   action,
   ctx,
   children,
-  fallback = null,
+  fallback = undefined,
   feature,
 }: CanProps<R, A>) {
   const { data: user } = useAuth();
 
-  if (!user) return null;
+  if (!user) return <>{fallback ?? null}</>;
 
   let allowed = false;
 
@@ -57,7 +57,9 @@ export function Can<R extends Resource, A extends Action<R>>({
     });
   }
 
-  if (!allowed) return <>{fallback ?? null}</>;
+  if (!allowed) {
+    return <>{fallback ?? null}</>;
+  }
 
   return <>{children}</>;
 }

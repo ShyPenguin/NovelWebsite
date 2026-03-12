@@ -10,6 +10,7 @@ import { useScrollHide } from "@/shared/hooks/useScrollHide";
 import { motion } from "motion/react";
 import { useSidebarOpen } from "../stores/AppContext";
 import { USER_SEARCH_DEFAULT } from "@/features/users/user.schema";
+import { Can } from "@/features/auth/components/Can";
 
 function Navbar() {
   const { setSideBarOpen } = useSidebarOpen();
@@ -34,9 +35,11 @@ function Navbar() {
           <Link to="/novels" className="nav-link" search={NOVEL_SEARCH_DEFAULT}>
             Novels
           </Link>
-          <Link to="/users" className="nav-link" search={USER_SEARCH_DEFAULT}>
-            Users
-          </Link>
+          <Can feature="usersDirectory">
+            <Link to="/users" className="nav-link" search={USER_SEARCH_DEFAULT}>
+              Users
+            </Link>
+          </Can>
           <Link
             to="/authors"
             className="nav-link"

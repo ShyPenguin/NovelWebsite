@@ -29,10 +29,25 @@ const UserDetail = ({ user }: { user: UserDetailDTO }) => {
       <Page.Body type="center">
         {/* PROFILE IMAGE */}
         <div className="min-w-40 p-2 flex flex-col gap-2">
-          <UserImageForm
-            id={user.id}
-            imageUrl={user.imageUrl ?? NO_IMAGE_URL}
-          />
+          <Can
+            resource="users"
+            action="update"
+            ctx={{
+              data: user,
+            }}
+            fallback={
+              <img
+                src={user.imageUrl ?? NO_IMAGE_URL}
+                className="h-45 w-45 object-cover rounded-full border-2 border-blue-500"
+              />
+            }
+          >
+            <UserImageForm
+              id={user.id}
+              imageUrl={user.imageUrl ?? NO_IMAGE_URL}
+            />
+          </Can>
+
           <div className="relative">
             <h3 className="status text-center">{user.role}</h3>
             <Can
