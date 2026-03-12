@@ -1,14 +1,10 @@
 import { create } from "zustand";
-import type { UserRole } from "@repo/contracts/dto/auth";
 
 type AuthUIState = {
-  reason: "login" | "role" | null;
-  requiredRoles: UserRole[];
-
   showLoginModal: boolean;
-
+  errorMessage: string;
   requireLogin: () => void;
-  requireRoles: (role: UserRole[]) => void;
+  requirePermission: (message: string) => void;
   closeLoginModal: () => void;
   consume: () => void;
 };
@@ -17,16 +13,15 @@ export const useAuthUIStore = create<AuthUIState>((set) => ({
   reason: null,
   requiredRoles: [],
   showLoginModal: false,
+  errorMessage: "",
   requireLogin: () =>
     set({
-      reason: "login",
+      errorMessage: "",
       showLoginModal: true,
     }),
-
-  requireRoles: (roles) =>
+  requirePermission: (message) =>
     set({
-      reason: "role",
-      requiredRoles: roles,
+      errorMessage: message,
     }),
   closeLoginModal: () =>
     set({
@@ -34,7 +29,6 @@ export const useAuthUIStore = create<AuthUIState>((set) => ({
     }),
   consume: () =>
     set({
-      reason: null,
-      requiredRoles: [],
+      errorMessage: "",
     }),
 }));

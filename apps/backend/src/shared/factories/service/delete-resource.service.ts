@@ -6,8 +6,11 @@ import {
 } from "@/infrastructure/db/type.ts";
 import { NotFoundError } from "@/shared/errors/index.ts";
 import { requirePermission } from "@/shared/utils/require-permission.ts";
+import {
+  PermissionMap,
+  Resource,
+} from "@repo/contracts/auth/permissions/resource";
 import { UserSession } from "@repo/contracts/dto/auth";
-import { PermissionMap, Resource } from "@repo/contracts/auth/permissions";
 
 export const deleteResourceServiceFactory =
   <

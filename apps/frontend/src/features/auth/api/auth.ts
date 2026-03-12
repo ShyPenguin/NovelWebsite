@@ -1,8 +1,8 @@
 import { authURL } from ".";
 import { queryOptions } from "@tanstack/react-query";
-import { useAuth } from "../store/useAuth";
 import { INTERVAL_24_HRS } from "@/shared/constants";
 import type { AuthType } from "../auth.type";
+import { authQueryKey } from "../utils/auth.tanstack-keys";
 
 const fetchAuth = async (): Promise<AuthType | null> => {
   const res = await fetch(`${authURL}/me`, {
@@ -10,16 +10,15 @@ const fetchAuth = async (): Promise<AuthType | null> => {
   });
 
   if (!res.ok) {
-    useAuth.getState().clearUser();
     return null;
   }
-  const data = await res.json();
-  useAuth.getState().setUser(data);
-  return data;
+
+  return res.json();
 };
+
 export const queryAuthOption = () =>
   queryOptions<AuthType | null>({
-    queryKey: ["auth"],
+    queryKey: authQueryKey,
     queryFn: fetchAuth,
     staleTime: INTERVAL_24_HRS,
   });

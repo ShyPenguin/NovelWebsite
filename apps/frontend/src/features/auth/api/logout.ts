@@ -1,12 +1,11 @@
 import { queryClient } from "@/routes";
 import { authURL } from ".";
-import { useAuth } from "../store/useAuth";
+import { authQueryKey } from "../utils/auth.tanstack-keys";
 
 export const logout = async () => {
   await fetch(`${authURL}/logout`, {
     method: "POST",
     credentials: "include",
   });
-  useAuth.getState().clearUser();
-  queryClient.setQueryData(["auth"], null);
+  queryClient.setQueryData(authQueryKey, null);
 };

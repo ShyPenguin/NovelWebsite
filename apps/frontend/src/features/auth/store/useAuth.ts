@@ -1,14 +1,6 @@
-import type { AuthType } from "@/features/auth/auth.type";
-import { create } from "zustand";
+import { useQuery } from "@tanstack/react-query";
+import { queryAuthOption } from "../api/auth";
 
-type AuthState = {
-  user: AuthType | null;
-  setUser: (user: AuthType | null) => void;
-  clearUser: () => void;
+export const useAuth = () => {
+  return useQuery(queryAuthOption());
 };
-
-export const useAuth = create<AuthState>((set) => ({
-  user: null,
-  setUser: (user) => set({ user }),
-  clearUser: () => set({ user: null }),
-}));

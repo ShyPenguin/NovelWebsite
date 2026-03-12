@@ -31,9 +31,9 @@
       "types": "./src/fields/export/*/index.ts",
       "default": "./dist/fields/export/*/index.js"
     },
-    "./auth/*": {
-      "types": "./src/auth/*.ts",
-      "default": "./src/auth/*.js"
+    "./auth/permissions/*": {
+      "types": "./src/auth/permissions/*.ts",
+      "default": "./src/auth/permissions/*.js"
     }
   },
   "scripts": {

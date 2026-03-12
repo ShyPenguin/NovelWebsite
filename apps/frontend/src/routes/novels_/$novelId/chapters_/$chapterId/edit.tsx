@@ -3,6 +3,8 @@ import { ChapterEditPage } from "@/features/chapters/pages/ChapterEditPage";
 import { fetchChapterQueryOptions } from "@/features/chapters/api/fetchChapter";
 import { novelQueryOptions } from "@/features/novels/api/fetchNovel";
 import { LoadingSpinner } from "@/shared/components/LoadingSpinner";
+import { checkUserPermission } from "@/features/auth/utils/check-user-permission";
+import { NotFound } from "@/shared/components/NotFound";
 
 export const Route = createFileRoute(
   "/novels_/$novelId/chapters_/$chapterId/edit",
@@ -12,9 +14,26 @@ export const Route = createFileRoute(
     params: { chapterId, novelId },
   }) => {
     const chapter = await queryClient.ensureQueryData(
-      fetchChapterQueryOptions({ chapterId: chapterId }),
+      fetchChapterQueryOptions({ chapterId }),
     );
+
     const novel = await queryClient.ensureQueryData(novelQueryOptions(novelId));
+
+    const url = `/novels/${novelId}/chapters/${chapterId}`;
+
+    await checkUserPermission({
+      resource: "chapters",
+      action: "update",
+      ctx: {
+        data: {
+          id: chapter.id,
+          novelId: chapter.novelId,
+          translator: chapter.translator,
+        },
+      },
+      location: url,
+    });
+
     return { chapter, novel };
   },
   pendingComponent: () => (
@@ -23,7 +42,8 @@ export const Route = createFileRoute(
     </div>
   ),
   notFoundComponent: () => {
-    return <h4 className="test-inherit text-xxs">Chapter not found</h4>;
+    return <NotFound resource="chapters" />;
   },
+
   component: ChapterEditPage,
 });

@@ -2,8 +2,9 @@ import { createFileRoute } from "@tanstack/react-router";
 import { useQuery } from "@tanstack/react-query";
 import { novelQueryOptions } from "@/features/novels/api/fetchNovel";
 import { LoadingSpinner } from "@/shared/components/LoadingSpinner";
-import { requireRoles } from "@/shared/utils";
 import { NovelDetailPage } from "@/features/novels/pages/NovelDetailPage";
+import { checkUserPermission } from "@/features/auth/utils/check-user-permission";
+import { NotFound } from "@/shared/components/NotFound";
 
 export const Route = createFileRoute("/novels_/$novelId/")({
   loader: ({ context: { queryClient }, params: { novelId } }) => {
@@ -15,13 +16,12 @@ export const Route = createFileRoute("/novels_/$novelId/")({
     </div>
   ),
   notFoundComponent: () => {
-    return <h4 className="test-inherit text-xxs">Novel not found</h4>;
+    return <NotFound resource="novels" />;
   },
-  beforeLoad: async ({ context: { queryClient }, params: { novelId } }) => {
+  beforeLoad: async ({ params: { novelId } }) => {
     const url = `/novels/${novelId}/chapters`;
-    await requireRoles({
-      queryClient,
-      roles: ["staff", "admin"],
+    await checkUserPermission({
+      feature: "novelIndexPage",
       location: url,
     });
   },

@@ -1,7 +1,7 @@
 import { db } from "@/infrastructure/db/index.ts";
 import { DbExecTypes } from "@/infrastructure/db/type.ts";
 import { NotFoundError } from "@/shared/errors/index.ts";
-import { Resource } from "@repo/contracts/auth/permissions";
+import { Resource } from "@repo/contracts/auth/permissions/resource";
 
 export const getResourceServiceFactory =
   <Params, T>({

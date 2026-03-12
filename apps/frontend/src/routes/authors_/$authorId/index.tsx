@@ -1,6 +1,7 @@
 import { authorQueryOptions } from "@/features/authors/api/fetchAuthor";
 import { AuthorDetailPage } from "@/features/authors/pages/AuthorDetailPage";
 import { LoadingSpinner } from "@/shared/components/LoadingSpinner";
+import { NotFound } from "@/shared/components/NotFound";
 import { createFileRoute } from "@tanstack/react-router";
 
 export const Route = createFileRoute("/authors_/$authorId/")({
@@ -13,7 +14,7 @@ export const Route = createFileRoute("/authors_/$authorId/")({
     </div>
   ),
   notFoundComponent: () => {
-    return <h4 className="test-inherit text-xxs">Author not found</h4>;
+    return <NotFound resource="authors" />;
   },
   component: AuthorDetailPage,
 });

@@ -1,7 +1,7 @@
 import { capitalizeFirstLetter } from "@repo/contracts/utils/capitalizeFirstLetter";
-import type { Action, Resource } from "@repo/contracts/auth/permissions";
 import { aOrAn } from "../utils/a-or-an.ts";
-import { mapSingularResource } from "../utils/map-singular-resource.ts";
+import { Resource, Action } from "@repo/contracts/auth/permissions/resource";
+import { mapSingularResource } from "@repo/contracts/utils/map-singular-resource";
 
 export class BaseError extends Error {
   statusCode: number;

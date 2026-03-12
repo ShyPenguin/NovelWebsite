@@ -2,7 +2,7 @@ import { createFileRoute } from "@tanstack/react-router";
 import { ChapterCreatePage } from "@/features/chapters/pages/ChapterCreatePage";
 import { LoadingSpinner } from "@/shared/components/LoadingSpinner";
 import { novelQueryOptions } from "@/features/novels/api/fetchNovel";
-import { requireRoles } from "@/shared/utils";
+import { checkUserPermission } from "@/features/auth/utils/check-user-permission";
 
 export const Route = createFileRoute("/novels_/$novelId/chapters_/create")({
   loader: ({ context: { queryClient }, params: { novelId } }) => {
@@ -17,11 +17,12 @@ export const Route = createFileRoute("/novels_/$novelId/chapters_/create")({
     return <h4 className="test-inherit text-xxs">Novel not found</h4>;
   },
   component: ChapterCreatePage,
-  beforeLoad: async ({ context: { queryClient }, params: { novelId } }) => {
+  beforeLoad: async ({ params: { novelId } }) => {
     const url = `/novels/${novelId}/chapters`;
-    await requireRoles({
-      queryClient,
-      roles: ["staff", "admin"],
+    await checkUserPermission({
+      resource: "chapters",
+      action: "create",
+      ctx: {},
       location: url,
     });
   },

@@ -1,17 +1,36 @@
-import type {
-  PermissionMap,
-  Resource,
-  Action,
-} from "@repo/contracts/auth/permissions";
-import { useHasPermission } from "../hooks/useHasPermission";
+import {
+  type Resource,
+  type Action,
+  type PermissionMap,
+  hasPermission,
+} from "@repo/contracts/auth/permissions/resource";
+import {
+  type Feature,
+  hasFeature,
+} from "@repo/contracts/auth/permissions/feature";
+import { useAuth } from "../store/useAuth";
 
-type CanProps<R extends Resource, A extends Action<R>> = {
+type ResourceCanProps<R extends Resource, A extends Action<R>> = {
   resource: R;
   action: A;
   ctx: PermissionMap[R][A];
+  feature?: never;
   children: React.ReactNode;
   fallback?: React.ReactNode;
 };
+
+type FeatureCanProps = {
+  feature: Feature;
+  resource?: never;
+  action?: never;
+  ctx?: never;
+  children: React.ReactNode;
+  fallback?: React.ReactNode;
+};
+
+type CanProps<R extends Resource, A extends Action<R>> =
+  | ResourceCanProps<R, A>
+  | FeatureCanProps;
 
 export function Can<R extends Resource, A extends Action<R>>({
   resource,
@@ -19,11 +38,26 @@ export function Can<R extends Resource, A extends Action<R>>({
   ctx,
   children,
   fallback = null,
+  feature,
 }: CanProps<R, A>) {
-  const allowed = useHasPermission({ resource, action, ctx });
+  const { data: user } = useAuth();
 
-  if (allowed === null) return null; // loading
-  if (!allowed) return <>{fallback}</>;
+  if (!user) return null;
+
+  let allowed = false;
+
+  if (feature) {
+    allowed = hasFeature(user, feature);
+  } else {
+    allowed = hasPermission({
+      user,
+      resource: resource,
+      action: action,
+      ctx: ctx,
+    });
+  }
+
+  if (!allowed) return <>{fallback ?? null}</>;
 
   return <>{children}</>;
 }

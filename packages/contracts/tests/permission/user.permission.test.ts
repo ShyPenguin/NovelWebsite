@@ -1,8 +1,7 @@
 import { expect, describe, it } from "vitest";
 import { randomUUID } from "crypto";
 import { OAuthProviders, UserSession } from "../../src/dto/auth";
-import { hasPermission } from "../../src/auth/permissions";
-
+import { hasPermission } from "../../src/auth/permissions/resource";
 const sampleData = {
   email: "string",
   name: "string",

@@ -8,7 +8,7 @@ import useClickInsideOrOutside from "@/shared/hooks/useClickInsideOrOutside";
 import { useState, useRef, type Dispatch, type SetStateAction } from "react";
 
 export const Profile = () => {
-  const user = useAuth((s) => s.user);
+  const { data: user } = useAuth();
   const [isVisible, setIsVisible] = useState(false);
   const dropdownRef = useRef<HTMLDivElement>(null);
   const buttonRef = useRef<HTMLButtonElement>(null);

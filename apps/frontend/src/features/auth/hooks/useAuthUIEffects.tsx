@@ -3,17 +3,13 @@ import { toast } from "react-toastify";
 import { useAuthUIStore } from "../store/useAuthUIStore";
 
 export function useAuthUIEffects() {
-  const { reason, requiredRoles, consume } = useAuthUIStore();
+  const { errorMessage, consume } = useAuthUIStore();
 
   useEffect(() => {
-    if (!reason) return;
+    if (!errorMessage) return;
 
-    if (reason === "role") {
-      toast.error(
-        `You need one of the following roles: ${requiredRoles?.join(", ")}`,
-      );
-    }
+    toast.error(errorMessage);
 
     consume();
-  }, [reason, requiredRoles, consume]);
+  }, [errorMessage, consume]);
 }

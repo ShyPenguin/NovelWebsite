@@ -7,8 +7,11 @@ import {
 import { NotFoundError } from "@/shared/errors/index.ts";
 import { requirePermission } from "@/shared/utils/require-permission.ts";
 import { UserSession } from "@repo/contracts/dto/auth";
-import { PermissionMap, Resource } from "@repo/contracts/auth/permissions";
 import { deleteImageFromSupabase } from "@/infrastructure/supabase/repository/supabaseDelete.ts";
+import {
+  PermissionMap,
+  Resource,
+} from "@repo/contracts/auth/permissions/resource";
 
 type KeysWithStringValues<T> = {
   [K in keyof T]: T[K] extends string | undefined | null ? K : never;

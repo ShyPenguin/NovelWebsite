@@ -1,7 +1,8 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { novelQueryOptions } from "../../../../features/novels/api/fetchNovel";
-import { LoadingSpinner } from "../../../../shared/components/LoadingSpinner";
 import { NovelChaptersPage } from "@/features/novels/pages/NovelChaptersPage";
+import { novelQueryOptions } from "@/features/novels/api/fetchNovel";
+import { LoadingSpinner } from "@/shared/components/LoadingSpinner";
+import { NotFound } from "@/shared/components/NotFound";
 
 export const Route = createFileRoute("/novels_/$novelId/chapters")({
   loader: ({ context: { queryClient }, params: { novelId } }) => {
@@ -13,7 +14,7 @@ export const Route = createFileRoute("/novels_/$novelId/chapters")({
     </div>
   ),
   notFoundComponent: () => {
-    return <h4 className="test-inherit text-xxs">Novel not found</h4>;
+    return <NotFound resource="novels" />;
   },
   component: NovelChaptersPage,
 });

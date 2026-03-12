@@ -1,5 +1,8 @@
 import { CustomizedAuthorizationError } from "@/shared/errors/index.ts";
-import { PermissionMap, ROLE_RANK } from "@repo/contracts/auth/permissions";
+import {
+  PermissionMap,
+  ROLE_RANK,
+} from "@repo/contracts/auth/permissions/resource";
 import { UserRole } from "@repo/contracts/dto/auth";
 import { capitalizeFirstLetter } from "@repo/contracts/utils/capitalizeFirstLetter";
 

@@ -1,8 +1,8 @@
-import { UserRole, UserSession } from "../dto/auth";
-import { AuthorThumbnailDTO } from "../dto/author";
-import { ChapterAuthDTO } from "../dto/chapter";
-import { NovelAuthDTO } from "../dto/novel";
-import { UserThumbnailDTO } from "../dto/user";
+import { UserRole, UserSession } from "../../dto/auth";
+import { AuthorThumbnailDTO } from "../../dto/author";
+import { ChapterAuthDTO } from "../../dto/chapter";
+import { NovelAuthDTO } from "../../dto/novel";
+import { UserThumbnailDTO } from "../../dto/user";
 
 export type PermissionMap = {
   novels: {

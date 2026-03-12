@@ -1,13 +1,12 @@
 import { UserSession } from "@repo/contracts/dto/auth";
 import { AuthorizationError } from "../errors/index.ts";
+import { cantAssignRole } from "@/shared/utils/cannot-assign-role.ts";
 import {
   Action,
   hasPermission,
   PermissionMap,
   Resource,
-  ROLE_RANK,
-} from "@repo/contracts/auth/permissions";
-import { cantAssignRole } from "@/shared/utils/cannot-assign-role.ts";
+} from "@repo/contracts/auth/permissions/resource";
 
 export function requirePermission<R extends Resource, A extends Action<R>>({
   user,
