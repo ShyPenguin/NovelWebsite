@@ -1,15 +1,10 @@
-import { UserTableSelect } from "@/infrastructure/db/schemas/index.ts";
-import { UserThumbnailEncodeDTO } from "@repo/contracts/dto/user";
-import { deleteResourceServiceFactory } from "@/shared/factories/service/delete-resource.service.ts";
 import { getUserThumbnailByIdTx } from "../repositories/get-user-one.repository.ts";
 import { deleteUserTx } from "../repositories/delete.repository.ts";
+import { deleteResourceWithAssetsServiceFactory } from "@/shared/factories/service/delete-resource-with-assets.service.ts";
 
-export const deleteUserService = deleteResourceServiceFactory<
-  UserThumbnailEncodeDTO,
-  "users",
-  UserTableSelect
->({
+export const deleteUserService = deleteResourceWithAssetsServiceFactory({
   resource: "users",
+  resourceAsset: "imagePath",
   getResourceRepo: getUserThumbnailByIdTx,
   deleteResourceRepo: deleteUserTx,
 });
