@@ -6,8 +6,8 @@ import {
 } from "@/shared/errors/index.ts";
 import { UserDetailDTO, UserDetailEncodeDTO } from "@repo/contracts/dto/user";
 import { UserSession } from "@repo/contracts/dto/auth";
-import { deleteImageFromSupabase } from "@/infrastructure/supabase/repository/supabaseDelete.ts";
-import { uploadImageToSupabase } from "@/infrastructure/supabase/repository/supabaseUpload.ts";
+import { deleteImageFromStore } from "@/infrastructure/storage/repository/storageDelete.ts";
+import { uploadImageToStorage } from "@/infrastructure/storage/repository/storageUpload.ts";
 import { updateUserTx } from "../repositories/update.repository.ts";
 import { requirePermission } from "@/shared/utils/require-permission.ts";
 import { USER_URL_SUPABASE_PATH } from "@/shared/constants/index.ts";
@@ -47,7 +47,7 @@ export const updateUserImageService = async ({
     },
   });
 
-  const { path, url } = await uploadImageToSupabase(
+  const { path, url } = await uploadImageToStorage(
     file,
     USER_URL_SUPABASE_PATH,
   );
@@ -63,7 +63,7 @@ export const updateUserImageService = async ({
     });
 
     if (resourceUser.imagePath) {
-      await deleteImageFromSupabase(resourceUser.imagePath);
+      await deleteImageFromStore(resourceUser.imagePath);
     }
 
     return UserDetailSchema.encode({
@@ -73,7 +73,7 @@ export const updateUserImageService = async ({
       imageUrl: url,
     });
   } catch (err) {
-    await deleteImageFromSupabase(path);
+    await deleteImageFromStore(path);
     throw new BaseError(500, "Internal Server Error");
   }
 };

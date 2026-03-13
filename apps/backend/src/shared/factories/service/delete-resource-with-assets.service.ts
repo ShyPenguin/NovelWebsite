@@ -7,7 +7,7 @@ import {
 import { NotFoundError } from "@/shared/errors/index.ts";
 import { requirePermission } from "@/shared/utils/require-permission.ts";
 import { UserSession } from "@repo/contracts/dto/auth";
-import { deleteImageFromSupabase } from "@/infrastructure/supabase/repository/supabaseDelete.ts";
+import { deleteImageFromStore } from "@/infrastructure/storage/repository/storageDelete.ts";
 import {
   PermissionMap,
   Resource,
@@ -77,7 +77,7 @@ export const deleteResourceWithAssetsServiceFactory =
       });
 
       if (process.env.NODE_ENV !== "test" && result![resourceAsset]) {
-        await deleteImageFromSupabase(result![resourceAsset] as string);
+        await deleteImageFromStore(result![resourceAsset] as string);
       }
 
       return result!;

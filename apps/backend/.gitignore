@@ -4,3 +4,5 @@
 .env.test
 .env.dev
 /googleKeys
+/data
+/minio_data

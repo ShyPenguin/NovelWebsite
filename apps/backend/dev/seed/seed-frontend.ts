@@ -1,13 +1,15 @@
+import dotenv from "dotenv";
 import { db } from "@/infrastructure/db/index.ts";
 import { ChapterTableInsert } from "@/infrastructure/db/schemas/chapters.ts";
 import { NovelTableInsert } from "@/infrastructure/db/schemas/novels.ts";
 import { createAuthorTx } from "@/features/authors/repositories/create.repository.ts";
 import { createUserTx } from "@/features/users/repositories/create.repository.ts";
-import { createNovelWithChapters } from "./integrated/factory/novel-with-chapters/index.ts";
-import { userAdmin, userStaff, userStaff2 } from "./mockdata.ts";
-import data from "./mockdb.json" with { type: "json" };
+import data from "tests/mockdb.json" with { type: "json" };
 import { createCategoryTx } from "@/features/categories/repository/create.ts";
+import { createNovelWithChapters } from "tests/integrated/factory/novel-with-chapters/index.ts";
+import { userAdmin, userStaff, userStaff2 } from "tests/mockdata.ts";
 
+dotenv.config({ path: ".env.dev" });
 export const seed = async () => {
   console.log("seed");
 

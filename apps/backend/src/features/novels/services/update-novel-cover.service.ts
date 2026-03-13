@@ -9,8 +9,8 @@ import {
   NovelDetailEncodeDTO,
 } from "@repo/contracts/dto/novel";
 import { UserSession } from "@repo/contracts/dto/auth";
-import { deleteImageFromSupabase } from "@/infrastructure/supabase/repository/supabaseDelete.ts";
-import { uploadImageToSupabase } from "@/infrastructure/supabase/repository/supabaseUpload.ts";
+import { deleteImageFromStore } from "@/infrastructure/storage/repository/storageDelete.ts";
+import { uploadImageToStorage } from "@/infrastructure/storage/repository/storageUpload.ts";
 import { getNovelDetailByIdTx } from "../repositories/get-novel-one.ts";
 import { updateNovelTx } from "../repositories/update.repository.ts";
 import { requirePermission } from "@/shared/utils/require-permission.ts";
@@ -46,7 +46,7 @@ export const updateNovelCoverService = async ({
     },
   });
 
-  const { path, url } = await uploadImageToSupabase(
+  const { path, url } = await uploadImageToStorage(
     file,
     NOVEL_URL_SUPABASE_PATH,
   );
@@ -62,7 +62,7 @@ export const updateNovelCoverService = async ({
     });
 
     if (novel.coverImagePath) {
-      await deleteImageFromSupabase(novel.coverImagePath);
+      await deleteImageFromStore(novel.coverImagePath);
     }
 
     return {
@@ -71,7 +71,7 @@ export const updateNovelCoverService = async ({
       coverImageUrl: url,
     };
   } catch (err) {
-    await deleteImageFromSupabase(path);
+    await deleteImageFromStore(path);
     throw new BaseError(500, "Internal Server Error");
   }
 };

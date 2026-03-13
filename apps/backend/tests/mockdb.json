@@ -3,49 +3,49 @@
     {
       "title": "A Knight who Eternally Regresses",
       "description": "Though it may be a dream weathered, crumpled, fading, I held on without surrendering. Through each repeated day, running toward tomorrow’s light, I became a knight, resolute and bright.",
-      "coverImageUrl": "https://pberoczdewdtspygrofa.supabase.co/storage/v1/object/public/novelwebsite-images/novels/covers/Knight_Regressor.avif",
+      "coverImageUrl": "http://localhost:9000/novelwebsite-images/novels/covers/Knight_Regressor.avif",
       "coverImagePath": "novels/covers/Knight_Regressor.avif",
       "status": "DROPPED"
     },
     {
       "title": "I'm an Infinite Regressor, But I've Got Stories to Tell",
       "description": "[Infinite Regression Genre] In any fantasy novel, regression is a guaranteed cheat key! What if it’s the ability of [Infinite Regression]? There’d be no need to worry about any bad endings. After all, the protagonist would eventually reach a happy ending. “Cheat key, my foot.” I tried it myself just to find out otherwise. The myths of regressors’ success depicted in all those novels are actually fake… It was all just vile propaganda! “This run is doomed too.” This is not a story of success; it’s a tale on the aftermath of failures. Thus begins the heartfelt documentary of a man with 1183 runs of experience! Writer: Undertaker Editor: Oh Dok-seo",
-      "coverImageUrl": "https://pberoczdewdtspygrofa.supabase.co/storage/v1/object/public/novelwebsite-images/novels/covers/Infinite_Regressor.avif",
+      "coverImageUrl": "http://localhost:9000/novelwebsite-images/novels/covers/Infinite_Regressor.avif",
       "coverImagePath": "novels/covers/Infinite_Regressor.avif",
       "status": "ONGOING"
     },
     {
       "title": "A Regressor's Tale of Cultivation",
       "description": "On the way to a company workshop, we fell into a world of immortal cultivators while still in the car.Those with spiritual roots and unique abilities were all called to join cultivation sects, living prosperously.But I, having neither spiritual roots nor special abilities, lived as an ordinary mortal for 50 years, complying with fate until my death.That’s what I thought. Until I regressed.",
-      "coverImageUrl": "https://pberoczdewdtspygrofa.supabase.co/storage/v1/object/public/novelwebsite-images/novels/covers/Regressor_Cultvation.avif",
+      "coverImageUrl": "http://localhost:9000/novelwebsite-images/novels/covers/Regressor_Cultvation.avif",
       "coverImagePath": "novels/covers/Regressor_Cultvation.avif",
       "status": "HIATUS"
     },
     {
       "title": "SSS-Class Hunter who dies to live",
       "description": "I want an S-Rank skill too! I want it so badly, I would even die for it! [You have awakened an S-Rank skill.] [But it only works when you die.] Eh!? WHAT IS THE POINT OF GETTING ONE IF I DIE!?",
-      "coverImageUrl": "https://pberoczdewdtspygrofa.supabase.co/storage/v1/object/public/novelwebsite-images/novels/covers/SSS-CLASSHUNTER.avif",
+      "coverImageUrl": "http://localhost:9000/novelwebsite-images/novels/covers/SSS-CLASSHUNTER.avif",
       "coverImagePath": "novels/covers/SSS-CLASSHUNTER.avif",
       "status": "COMPLETED"
     },
     {
       "title": "Omniscient Reader's Viewpoint",
       "description": "[Only I know how this world ends.] The sprawling fantasy epic, a whopping 3,149 chapters long, titled Three Ways to Survive in a Ruined World has become reality. And just one person had ever finished reading it.",
-      "coverImageUrl": "https://pberoczdewdtspygrofa.supabase.co/storage/v1/object/public/novelwebsite-images/novels/covers/OmniscientReaderVIewpoint.avif",
+      "coverImageUrl": "http://localhost:9000/novelwebsite-images/novels/covers/OmniscientReaderVIewpoint.avif",
       "coverImagePath": "novels/covers/OmniscientReaderVIewpoint.avif",
       "status": "ONGOING"
     },
     {
       "title": "Regression is Too Much",
       "description": "Regression, the power to rewind your timeline. It is so absurdly overpowered that it hardly needs any explanation. Sure, an overpowered gift is wonderful… But if a single blow of wind is enough to trigger regression, is that not a bit excessive…?",
-      "coverImageUrl": "https://pberoczdewdtspygrofa.supabase.co/storage/v1/object/public/novelwebsite-images/novels/covers/RegressionIsTooMuch.avif",
+      "coverImageUrl": "http://localhost:9000/novelwebsite-images/novels/covers/RegressionIsTooMuch.avif",
       "coverImagePath": "novels/covers/RegressionIsTooMuch.avif",
       "status": "ONGOING"
     },
     {
       "title": "The Reincarnated Assassin is a Genius Swordsman",
       "description": "Raon’s entire life had been lived as a dog on a leash. Through a twist of fate, he obtained a new life. Wrath remained in the wreckage of his destroyed leash. Finally capable of standing on his own feet, he decided to live life by his own will. He would slay anyone standing in his way… Even if they were a god.",
-      "coverImageUrl": "https://pberoczdewdtspygrofa.supabase.co/storage/v1/object/public/novelwebsite-images/novels/covers/Reincarnated_Assassin_Is_A_Genius_Swordsman.avif",
+      "coverImageUrl": "http://localhost:9000/novelwebsite-images/novels/covers/Reincarnated_Assassin_Is_A_Genius_Swordsman.avif",
       "coverImagePath": "novels/covers/Reincarnated_Assassin_Is_A_Genius_Swordsman.avif",
       "status": "ONGOING"
     }
