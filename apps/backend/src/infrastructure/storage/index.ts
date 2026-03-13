@@ -5,8 +5,6 @@ import "dotenv/config";
 
 function createStorageProvider(): StorageProvider {
   const driver = process.env.STORAGE_DRIVER;
-  console.log(driver);
-  console.log(process.env.NODE_ENV);
   switch (driver) {
     case "minio":
       return createMinioStorage();
