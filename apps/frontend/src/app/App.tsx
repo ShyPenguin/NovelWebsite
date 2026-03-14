@@ -10,6 +10,8 @@ import { LoginModal } from "../features/auth/components/LoginModal";
 import Sidebar from "../shared/components/SideBarComponents/Sidebar";
 import Navbar from "./components/Navbar";
 import { Footer } from "./components/Footer";
+import { authQueryKey } from "@/features/auth/utils/auth.tanstack-keys";
+import { queryClient } from "@/routes";
 
 const MemoizedLoginModal = memo(LoginModal);
 const MemoizedNavbar = memo(Navbar);

@@ -2,7 +2,10 @@ import { VIEW, PREVIEW } from "@/shared/constants";
 import { queryClient } from "@/routes";
 import { toast } from "react-toastify";
 import { capitalizeFirstLetter } from "./capitalizeFirstLetter";
-import type { Action, Resource } from "@repo/contracts/auth/permissions";
+import type {
+  Resource,
+  Action,
+} from "@repo/contracts/auth/permissions/resource";
 
 export const mutationConfig = <T, R extends Resource, QueryKeyParam>({
   action,

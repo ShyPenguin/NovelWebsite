@@ -3,7 +3,6 @@ import { AppProvider } from "../app/stores/AppContext";
 import App from "../app/App";
 import type { QueryClient } from "@tanstack/react-query";
 import { NotFound } from "@/shared/components/NotFound";
-import { queryAuthOption } from "@/features/auth/api/auth";
 
 export const Route = createRootRouteWithContext<{
   queryClient: QueryClient;
@@ -11,9 +10,6 @@ export const Route = createRootRouteWithContext<{
   component: RootComponent,
   notFoundComponent: () => {
     return <NotFound root={true} />;
-  },
-  beforeLoad: async ({ context: { queryClient } }) => {
-    await queryClient.ensureQueryData(queryAuthOption());
   },
   errorComponent: ({ error }) => {
     return (

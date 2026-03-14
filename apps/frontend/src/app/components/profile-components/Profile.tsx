@@ -42,7 +42,7 @@ export const Profile = () => {
         />
 
         <div className="size-full flex items-center">
-          <div className="pr-2">
+          <div className="pr-4">
             <Chevron
               isOpen={isVisible}
               initialRotation="rotate-0"

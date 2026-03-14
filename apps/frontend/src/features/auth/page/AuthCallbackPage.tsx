@@ -7,7 +7,10 @@ import { authQueryKey } from "../utils/auth.tanstack-keys";
 export function AuthCallbackPage() {
   const navigate = useNavigate();
   useEffect(() => {
-    queryClient.invalidateQueries({ queryKey: authQueryKey });
+    const handle = async () => {
+      await queryClient.invalidateQueries({ queryKey: authQueryKey });
+    };
+    handle();
     navigate({ to: "/" });
   }, []);
 
