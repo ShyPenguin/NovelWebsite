@@ -6,8 +6,8 @@ import { FormButton } from "@/shared/components/Form/FormButton";
 import { USER_SEARCH_DEFAULT } from "../../user.schema";
 import { useUserDelete } from "../../hooks/useUserDelete";
 import { queryClient } from "@/routes";
-import type { AuthType } from "@/features/auth/auth.type";
 import { authQueryKey } from "@/features/auth/utils/auth.tanstack-keys";
+import type { AuthDTO } from "@repo/contracts/dto/auth";
 
 export const UserDeleteButton = ({ user }: { user: UserDetailDTO }) => {
   const [openModal, setOpenModal] = useState(false);
@@ -86,7 +86,7 @@ const ConfirmButton = ({
             to: "/users",
             search: USER_SEARCH_DEFAULT,
           });
-          const auth = queryClient.getQueryData<AuthType | null>(authQueryKey);
+          const auth = queryClient.getQueryData<AuthDTO | null>(authQueryKey);
           if (auth?.id == id) {
             queryClient.setQueryData(authQueryKey, null);
           }

@@ -1,9 +1,9 @@
 import { authURL } from "../auth.constant";
 import { queryOptions } from "@tanstack/react-query";
-import type { AuthType } from "../auth.type";
 import { authQueryKey } from "../utils/auth.tanstack-keys";
+import type { AuthDTO } from "@repo/contracts/dto/auth";
 
-const fetchAuth = async (): Promise<AuthType | null> => {
+const fetchAuth = async (): Promise<AuthDTO | null> => {
   const res = await fetch(`${authURL}/me`, {
     credentials: "include",
   });
@@ -16,7 +16,7 @@ const fetchAuth = async (): Promise<AuthType | null> => {
 };
 
 export const queryAuthOption = () =>
-  queryOptions<AuthType | null>({
+  queryOptions<AuthDTO | null>({
     queryKey: authQueryKey,
     queryFn: fetchAuth,
     staleTime: 5 * 60 * 1000, // 5 minutes

@@ -5,6 +5,10 @@ import { useForm, type SubmitHandler } from "react-hook-form";
 import { FormButton } from "@/shared/components/Form/FormButton";
 import { FormInput } from "@/shared/components/Form/FormInput";
 import { useUserUpdate } from "../../hooks/useUserUpdate";
+import { queryClient } from "@/routes";
+import { authQueryKey } from "@/features/auth/utils/auth.tanstack-keys";
+import { AuthDetailSchema } from "@repo/contracts/schemas/auth";
+import type { AuthDTO } from "@repo/contracts/dto/auth";
 
 export const UserForm = ({
   user,
@@ -29,7 +33,16 @@ export const UserForm = ({
     mutation.mutate({
       formData: data,
       options: {
-        onSuccess: () => onClose(),
+        onSuccess: (data) => {
+          onClose();
+          const auth = queryClient.getQueryData<AuthDTO | null>(authQueryKey);
+          if (auth?.id == user.id) {
+            queryClient.setQueryData(
+              authQueryKey,
+              AuthDetailSchema.parse(data),
+            );
+          }
+        },
       },
     });
   };

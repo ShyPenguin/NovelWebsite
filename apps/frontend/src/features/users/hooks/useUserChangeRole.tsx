@@ -32,7 +32,6 @@ export const useUserChangeRole = (user: UserDetailDTO) => {
           ...baseHandlers,
           ...options,
           onSuccess: (data, vars, onResult, ctx) => {
-            console.log(data);
             baseHandlers.onSuccess?.(
               {
                 data: {

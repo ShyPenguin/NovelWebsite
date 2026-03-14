@@ -7,6 +7,10 @@ import { FormButton } from "@/shared/components/Form/FormButton";
 import { FormImageInput } from "@/shared/components/Form/FormImageInput";
 import { useUserUpdateImage } from "../../hooks/useUserUpdateImage";
 import { UserImageFormSchema, type UserImageForm } from "../../user.schema";
+import { authQueryKey } from "@/features/auth/utils/auth.tanstack-keys";
+import { queryClient } from "@/routes";
+import type { AuthDTO } from "@repo/contracts/dto/auth";
+import { AuthDetailSchema } from "@repo/contracts/schemas/auth";
 
 type Prop = {
   id: UserDetailDTO["id"];
@@ -34,8 +38,15 @@ export function UserImageForm({ id, imageUrl, onClose }: Prop) {
     mutate({
       formData: values,
       options: {
-        onSuccess: async () => {
+        onSuccess: async (data) => {
           setValue("showButtons", false, { shouldValidate: false });
+          const auth = queryClient.getQueryData<AuthDTO | null>(authQueryKey);
+          if (auth?.id == id) {
+            queryClient.setQueryData(
+              authQueryKey,
+              AuthDetailSchema.parse(data),
+            );
+          }
           onClose && onClose();
         },
       },
