@@ -8,6 +8,7 @@ export const AuthDetailSchema = UserBaseSchema.pick({
   name: true,
   role: true,
   imageUrl: true,
+  username: true,
 });
 export const sessionSchema = z.object({
   id: z.string(),

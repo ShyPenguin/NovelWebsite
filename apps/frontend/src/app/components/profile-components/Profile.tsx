@@ -6,6 +6,7 @@ import { logout } from "@/features/auth/api/logout";
 import { useAuth } from "@/features/auth/store/useAuth";
 import { NO_IMAGE_URL } from "@/shared/constants";
 import useClickInsideOrOutside from "@/shared/hooks/useClickInsideOrOutside";
+import { Link } from "@tanstack/react-router";
 import { useState, useRef, type Dispatch, type SetStateAction } from "react";
 
 export const Profile = () => {
@@ -72,20 +73,25 @@ const Content = ({
 }: {
   setIsVisible: Dispatch<SetStateAction<boolean>>;
 }) => {
+  const { data: user } = useAuth();
   const handleLogout = async () => {
     await logout();
     setIsVisible(false);
   };
   return (
     <ul className="flex flex-col w-full h-full p-4 shadow-lg text-primary-black dark:text-white dark:bg-primary-black bg-white border border-border dark:border-secondary-black rounded-2xl">
-      <li className="flex items-center gap-2 border-b border-border dark:border-b-secondary-black px-2 py-4 cursor-pointer hover:bg-black/5 hover:dark:bg-white/5 rounded-md last:border-b-0">
-        <BookmarkIcon bookmarked={true} className={"fill-current h-4 w-4"} />
-        <p className="text-xs">Bookmarks</p>
-      </li>
-      <li className="flex items-center gap-2 border-b border-border dark:border-b-secondary-black px-2 py-4 cursor-pointer hover:bg-black/5 hover:dark:bg-white/5 rounded-md last:border-b-0">
-        <Gear className="h-4 w-4" />
-        <p className="text-xs">Settings</p>
-      </li>
+      <Link to={`/users/$username`} params={{ username: user!.username }}>
+        <li className="flex items-center gap-2 border-b border-border dark:border-b-secondary-black px-2 py-4 cursor-pointer hover:bg-black/5 hover:dark:bg-white/5 rounded-md last:border-b-0">
+          <BookmarkIcon bookmarked={true} className={"fill-current h-4 w-4"} />
+          <p className="text-xs">Bookmarks</p>
+        </li>
+      </Link>
+      <Link to={`/users/$username`} params={{ username: user!.username }}>
+        <li className="flex items-center gap-2 border-b border-border dark:border-b-secondary-black px-2 py-4 cursor-pointer hover:bg-black/5 hover:dark:bg-white/5 rounded-md last:border-b-0">
+          <Gear className="h-4 w-4" />
+          <p className="text-xs">Settings</p>
+        </li>
+      </Link>
       <li
         className="flex items-center gap-2 border-b border-border dark:border-b-secondary-black px-2 py-4 cursor-pointer hover:bg-black/5 hover:dark:bg-white/5 rounded-md last:border-b-0"
         onClick={handleLogout}

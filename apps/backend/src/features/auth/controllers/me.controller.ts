@@ -21,6 +21,7 @@ export const me = async (req: Request, res: Response): Promise<any> => {
       id: true,
       email: true,
       name: true,
+      username: true,
       role: true,
       imageUrl: true,
     },

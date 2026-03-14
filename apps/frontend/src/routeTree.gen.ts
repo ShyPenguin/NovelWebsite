@@ -9,7 +9,6 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
-import { Route as ProfileRouteImport } from './routes/profile'
 import { Route as UsersRouteRouteImport } from './routes/users/route'
 import { Route as NovelsRouteRouteImport } from './routes/novels/route'
 import { Route as AuthorsRouteRouteImport } from './routes/authors/route'
@@ -29,11 +28,6 @@ import { Route as NovelsNovelIdChaptersCreateRouteImport } from './routes/novels
 import { Route as NovelsNovelIdChaptersChapterIdIndexRouteImport } from './routes/novels_/$novelId/chapters_/$chapterId/index'
 import { Route as NovelsNovelIdChaptersChapterIdEditRouteImport } from './routes/novels_/$novelId/chapters_/$chapterId/edit'
 
-const ProfileRoute = ProfileRouteImport.update({
-  id: '/profile',
-  path: '/profile',
-  getParentRoute: () => rootRouteImport,
-} as any)
 const UsersRouteRoute = UsersRouteRouteImport.update({
   id: '/users',
   path: '/users',
@@ -135,7 +129,6 @@ export interface FileRoutesByFullPath {
   '/authors': typeof AuthorsRouteRouteWithChildren
   '/novels': typeof NovelsRouteRouteWithChildren
   '/users': typeof UsersRouteRouteWithChildren
-  '/profile': typeof ProfileRoute
   '/auth/callback': typeof AuthCallbackRoute
   '/authors/create': typeof AuthorsCreateRoute
   '/novels/create': typeof NovelsCreateRoute
@@ -153,7 +146,6 @@ export interface FileRoutesByFullPath {
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
-  '/profile': typeof ProfileRoute
   '/auth/callback': typeof AuthCallbackRoute
   '/authors/create': typeof AuthorsCreateRoute
   '/novels/create': typeof NovelsCreateRoute
@@ -174,7 +166,6 @@ export interface FileRoutesById {
   '/authors': typeof AuthorsRouteRouteWithChildren
   '/novels': typeof NovelsRouteRouteWithChildren
   '/users': typeof UsersRouteRouteWithChildren
-  '/profile': typeof ProfileRoute
   '/auth/callback': typeof AuthCallbackRoute
   '/authors_/create': typeof AuthorsCreateRoute
   '/novels_/create': typeof NovelsCreateRoute
@@ -197,7 +188,6 @@ export interface FileRouteTypes {
     | '/authors'
     | '/novels'
     | '/users'
-    | '/profile'
     | '/auth/callback'
     | '/authors/create'
     | '/novels/create'
@@ -215,7 +205,6 @@ export interface FileRouteTypes {
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
-    | '/profile'
     | '/auth/callback'
     | '/authors/create'
     | '/novels/create'
@@ -235,7 +224,6 @@ export interface FileRouteTypes {
     | '/authors'
     | '/novels'
     | '/users'
-    | '/profile'
     | '/auth/callback'
     | '/authors_/create'
     | '/novels_/create'
@@ -257,7 +245,6 @@ export interface RootRouteChildren {
   AuthorsRouteRoute: typeof AuthorsRouteRouteWithChildren
   NovelsRouteRoute: typeof NovelsRouteRouteWithChildren
   UsersRouteRoute: typeof UsersRouteRouteWithChildren
-  ProfileRoute: typeof ProfileRoute
   AuthCallbackRoute: typeof AuthCallbackRoute
   AuthorsCreateRoute: typeof AuthorsCreateRoute
   NovelsCreateRoute: typeof NovelsCreateRoute
@@ -272,13 +259,6 @@ export interface RootRouteChildren {
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
-    '/profile': {
-      id: '/profile'
-      path: '/profile'
-      fullPath: '/profile'
-      preLoaderRoute: typeof ProfileRouteImport
-      parentRoute: typeof rootRouteImport
-    }
     '/users': {
       id: '/users'
       path: '/users'
@@ -463,7 +443,6 @@ const rootRouteChildren: RootRouteChildren = {
   AuthorsRouteRoute: AuthorsRouteRouteWithChildren,
   NovelsRouteRoute: NovelsRouteRouteWithChildren,
   UsersRouteRoute: UsersRouteRouteWithChildren,
-  ProfileRoute: ProfileRoute,
   AuthCallbackRoute: AuthCallbackRoute,
   AuthorsCreateRoute: AuthorsCreateRoute,
   NovelsCreateRoute: NovelsCreateRoute,

@@ -42,7 +42,7 @@ export const useUserUpdateImage = ({
           ...baseHandlers,
           ...options,
           onSuccess: (data, vars, onResult, ctx) => {
-            baseHandlers.onSuccess?.({ data }, data.id);
+            baseHandlers.onSuccess?.({ data }, data.username);
             options?.onSuccess?.(data, vars, onResult, ctx);
           },
           onError(error, vars, onResult, ctx) {
