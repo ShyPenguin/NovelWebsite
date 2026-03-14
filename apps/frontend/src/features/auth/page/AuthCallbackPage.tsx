@@ -6,12 +6,14 @@ import { authQueryKey } from "../utils/auth.tanstack-keys";
 
 export function AuthCallbackPage() {
   const navigate = useNavigate();
-  console.log("At AuthCallBack Page");
   useEffect(() => {
     queryClient.invalidateQueries({ queryKey: authQueryKey });
-
     navigate({ to: "/" });
   }, []);
 
-  return <LoadingSpinner />;
+  return (
+    <div className="min-h-150 size-full flex flex-col items-center justify-center gap-4 text-center">
+      <LoadingSpinner />
+    </div>
+  );
 }
