@@ -23,7 +23,7 @@ const Modal = ({
       <div className="w-fit h-fit  flex-center flex-col gap-4 text-black dark:text-white text-center bg-white dark:bg-primary-black rounded-xl py-8 px-10 relative shadow-xs shadow-white">
         {children}
         <button
-          className="absolute top-4 right-4 cursor-pointer text-dark-muted-foreground hover:text-white"
+          className="absolute top-4 right-4 cursor-pointer text-dark-muted-foreground hover:text-black dark:hover:text-white"
           onClick={(e) => {
             e.stopPropagation();
             onClose();
