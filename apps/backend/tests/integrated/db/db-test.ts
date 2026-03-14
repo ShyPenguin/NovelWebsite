@@ -4,7 +4,10 @@ import { drizzle } from "drizzle-orm/node-postgres";
 import { DbPoolType } from "../../../src/infrastructure/db/type.ts";
 import * as schema from "../../../src/infrastructure/db/schemas/index.ts";
 import { Pool } from "pg";
-import { createRedisSessionStore, SessionStore } from "./redis-test.ts";
+import {
+  createRedisSessionStore,
+  SessionStore,
+} from "../../../src/infrastructure/cache/redis-local.ts";
 dotenv.config({ path: ".env.test" });
 
 let databaseName: string;

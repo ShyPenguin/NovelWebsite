@@ -35,7 +35,7 @@ export async function waitForDb({
         console.log("Testing Redis connection...");
         const redisClient = createClient({
           url: redisUrl,
-          database: workerId,
+          database: 0,
         });
         await redisClient.connect();
         await redisClient.ping(); // Test with a simple ping

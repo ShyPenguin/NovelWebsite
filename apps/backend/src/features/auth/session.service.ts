@@ -1,14 +1,14 @@
 import { sessionSchema } from "@repo/contracts/schemas/auth";
 import { randomBytes } from "crypto";
 import { UserSession } from "@repo/contracts/dto/auth";
-import { redisClient } from "@/infrastructure/redis/index.ts";
+import { redisClient } from "@/infrastructure/cache/index.ts";
 import {
   COOKIE_SESSION_KEY,
   SESSION_EXPIRATION_SECONDS,
 } from "@/shared/constants/index.ts";
 import { setCookie } from "@/shared/utils/cookies-function.ts";
 import { Cookies } from "@/shared/types/index.ts";
-import { SessionStore } from "tests/integrated/db/redis-test.ts";
+import { SessionStore } from "@/infrastructure/cache/redis-local.ts";
 
 export const createUserSession = async (
   user: UserSession,

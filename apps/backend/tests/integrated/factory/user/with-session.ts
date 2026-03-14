@@ -6,7 +6,7 @@ import { createUserTx } from "@/features/users/repositories/create.repository.ts
 import { sessionSchema } from "@repo/contracts/schemas/auth";
 import { randomBytes } from "crypto";
 import { testDb, redisDb } from "tests/integrated/db/db-test.ts";
-import { SessionStore } from "tests/integrated/db/redis-test.ts";
+import { SessionStore } from "@/infrastructure/cache/redis-local.ts";
 import { OAuthProviders } from "@repo/contracts/dto/auth";
 
 export const mockCreateUserWithSession = (provider: OAuthProviders) => {

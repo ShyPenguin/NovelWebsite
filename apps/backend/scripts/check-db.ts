@@ -7,4 +7,4 @@ const DATABASE_URL =
     : process.env.DATABASE_URL!;
 
 console.log("at check db databaseURL: ", DATABASE_URL);
-waitForDb({ databaseUrl: DATABASE_URL });
+waitForDb({ databaseUrl: DATABASE_URL, redisUrl: process.env.REDIS_URL });

@@ -11,7 +11,7 @@
     "db:migrate": "drizzle-kit migrate",
     "db:push": "drizzle-kit push",
     "dev:seed": "tsx dev/seed/seed-frontend.ts && tsx dev/seed/seed-storage.ts",
-    "docker:dev:up": "docker compose -f docker-compose.dev.yml up -d postgres minio",
+    "docker:dev:up": "docker compose -f docker-compose.dev.yml up -d",
     "docker:dev:down": "docker compose -f docker-compose.dev.yml down -v",
     "docker:dev:reset": "npm run docker:dev:down  && npm run docker:dev:up",
     "docker:dev:db:access": "docker exec -it novelwebsite_dev_psql psql -U dev -d novelwebsite_dev_db",
