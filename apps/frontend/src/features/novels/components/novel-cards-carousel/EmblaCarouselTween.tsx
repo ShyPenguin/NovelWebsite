@@ -25,7 +25,6 @@ export function EmblaCarouselTween(props: PropType) {
   const [multiplier, setMultiplier] = useState(1);
   const multipliedCards = Array(multiplier).fill(slides).flat();
 
-  console.log(multiplier);
   const setTweenFactor = useCallback((emblaApi: EmblaCarouselType) => {
     tweenFactor.current = TWEEN_FACTOR_BASE * emblaApi.scrollSnapList().length;
   }, []);

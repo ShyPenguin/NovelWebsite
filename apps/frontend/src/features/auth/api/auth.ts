@@ -1,6 +1,5 @@
-import { authURL } from ".";
+import { authURL } from "../auth.constant";
 import { queryOptions } from "@tanstack/react-query";
-import { INTERVAL_24_HRS } from "@/shared/constants";
 import type { AuthType } from "../auth.type";
 import { authQueryKey } from "../utils/auth.tanstack-keys";
 
@@ -20,5 +19,9 @@ export const queryAuthOption = () =>
   queryOptions<AuthType | null>({
     queryKey: authQueryKey,
     queryFn: fetchAuth,
-    staleTime: INTERVAL_24_HRS,
+    initialData: null,
+    staleTime: 5 * 60 * 1000, // 5 minutes
+    gcTime: 30 * 60 * 1000, // 30 minutes
+    refetchOnWindowFocus: true,
+    retry: false,
   });

@@ -19,6 +19,7 @@ import { Route as NovelsIndexRouteImport } from './routes/novels/index'
 import { Route as AuthorsIndexRouteImport } from './routes/authors/index'
 import { Route as NovelsCreateRouteImport } from './routes/novels_/create'
 import { Route as AuthorsCreateRouteImport } from './routes/authors_/create'
+import { Route as AuthCallbackRouteImport } from './routes/auth.callback'
 import { Route as UsersUsernameIndexRouteImport } from './routes/users_/$username/index'
 import { Route as NovelsNovelIdIndexRouteImport } from './routes/novels_/$novelId/index'
 import { Route as AuthorsAuthorIdIndexRouteImport } from './routes/authors_/$authorId/index'
@@ -78,6 +79,11 @@ const AuthorsCreateRoute = AuthorsCreateRouteImport.update({
   path: '/authors/create',
   getParentRoute: () => rootRouteImport,
 } as any)
+const AuthCallbackRoute = AuthCallbackRouteImport.update({
+  id: '/auth/callback',
+  path: '/auth/callback',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const UsersUsernameIndexRoute = UsersUsernameIndexRouteImport.update({
   id: '/users_/$username/',
   path: '/users/$username/',
@@ -130,6 +136,7 @@ export interface FileRoutesByFullPath {
   '/novels': typeof NovelsRouteRouteWithChildren
   '/users': typeof UsersRouteRouteWithChildren
   '/profile': typeof ProfileRoute
+  '/auth/callback': typeof AuthCallbackRoute
   '/authors/create': typeof AuthorsCreateRoute
   '/novels/create': typeof NovelsCreateRoute
   '/authors/': typeof AuthorsIndexRoute
@@ -147,6 +154,7 @@ export interface FileRoutesByFullPath {
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/profile': typeof ProfileRoute
+  '/auth/callback': typeof AuthCallbackRoute
   '/authors/create': typeof AuthorsCreateRoute
   '/novels/create': typeof NovelsCreateRoute
   '/authors': typeof AuthorsIndexRoute
@@ -167,6 +175,7 @@ export interface FileRoutesById {
   '/novels': typeof NovelsRouteRouteWithChildren
   '/users': typeof UsersRouteRouteWithChildren
   '/profile': typeof ProfileRoute
+  '/auth/callback': typeof AuthCallbackRoute
   '/authors_/create': typeof AuthorsCreateRoute
   '/novels_/create': typeof NovelsCreateRoute
   '/authors/': typeof AuthorsIndexRoute
@@ -189,6 +198,7 @@ export interface FileRouteTypes {
     | '/novels'
     | '/users'
     | '/profile'
+    | '/auth/callback'
     | '/authors/create'
     | '/novels/create'
     | '/authors/'
@@ -206,6 +216,7 @@ export interface FileRouteTypes {
   to:
     | '/'
     | '/profile'
+    | '/auth/callback'
     | '/authors/create'
     | '/novels/create'
     | '/authors'
@@ -225,6 +236,7 @@ export interface FileRouteTypes {
     | '/novels'
     | '/users'
     | '/profile'
+    | '/auth/callback'
     | '/authors_/create'
     | '/novels_/create'
     | '/authors/'
@@ -246,6 +258,7 @@ export interface RootRouteChildren {
   NovelsRouteRoute: typeof NovelsRouteRouteWithChildren
   UsersRouteRoute: typeof UsersRouteRouteWithChildren
   ProfileRoute: typeof ProfileRoute
+  AuthCallbackRoute: typeof AuthCallbackRoute
   AuthorsCreateRoute: typeof AuthorsCreateRoute
   NovelsCreateRoute: typeof NovelsCreateRoute
   NovelsNovelIdChaptersRouteRoute: typeof NovelsNovelIdChaptersRouteRouteWithChildren
@@ -327,6 +340,13 @@ declare module '@tanstack/react-router' {
       path: '/authors/create'
       fullPath: '/authors/create'
       preLoaderRoute: typeof AuthorsCreateRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/auth/callback': {
+      id: '/auth/callback'
+      path: '/auth/callback'
+      fullPath: '/auth/callback'
+      preLoaderRoute: typeof AuthCallbackRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/users_/$username/': {
@@ -444,6 +464,7 @@ const rootRouteChildren: RootRouteChildren = {
   NovelsRouteRoute: NovelsRouteRouteWithChildren,
   UsersRouteRoute: UsersRouteRouteWithChildren,
   ProfileRoute: ProfileRoute,
+  AuthCallbackRoute: AuthCallbackRoute,
   AuthorsCreateRoute: AuthorsCreateRoute,
   NovelsCreateRoute: NovelsCreateRoute,
   NovelsNovelIdChaptersRouteRoute: NovelsNovelIdChaptersRouteRouteWithChildren,

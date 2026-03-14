@@ -1,7 +1,5 @@
 import { redirect } from "@tanstack/react-router";
 import { useAuthUIStore } from "@/features/auth/store/useAuthUIStore";
-import type { AuthType } from "@/features/auth/auth.type";
-import { authQueryKey } from "@/features/auth/utils/auth.tanstack-keys";
 import { queryClient } from "@/routes";
 import {
   hasPermission,

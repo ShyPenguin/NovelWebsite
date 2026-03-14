@@ -4,6 +4,7 @@ import Gear from "@/assets/icons/Gear";
 import { LogoutIcon } from "@/assets/icons/LogoutIcon";
 import { logout } from "@/features/auth/api/logout";
 import { useAuth } from "@/features/auth/store/useAuth";
+import { NO_IMAGE_URL } from "@/shared/constants";
 import useClickInsideOrOutside from "@/shared/hooks/useClickInsideOrOutside";
 import { useState, useRef, type Dispatch, type SetStateAction } from "react";
 
@@ -30,7 +31,7 @@ export const Profile = () => {
         ref={buttonRef}
       >
         <img
-          src={user?.imageUrl}
+          src={user?.imageUrl ?? NO_IMAGE_URL}
           className="rounded-4xl w-8 h-8 border border-border"
           alt={`${user?.name}'s profile picture`}
         />

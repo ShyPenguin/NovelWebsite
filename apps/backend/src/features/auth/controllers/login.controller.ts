@@ -39,14 +39,12 @@ export const login = async (req: Request, res: Response): Promise<any> => {
     const user = await connectUserToAccount(oAuthUser, provider);
     await createUserSession(sessionSchema.parse(user), cookies);
 
-    const returnTo = cookies.get("oauthReturnTo")?.value ?? "/";
+    const returnTo = cookies.get("oauthReturnTo")?.value ?? "";
 
     // cleanup
     cookies.set("oauthReturnTo", "", { expires: 0 });
 
-    return res.redirect(
-      `${process.env.FRONTEND_URL}/${returnTo ? returnTo : ""}`,
-    );
+    return res.redirect(`${process.env.FRONTEND_URL}${returnTo}`);
   } catch (error) {
     res.redirect(
       `/sign-in?oauthError=${encodeURIComponent(

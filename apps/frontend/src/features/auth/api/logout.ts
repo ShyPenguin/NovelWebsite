@@ -1,5 +1,5 @@
 import { queryClient } from "@/routes";
-import { authURL } from ".";
+import { authURL } from "../auth.constant";
 import { authQueryKey } from "../utils/auth.tanstack-keys";
 
 export const logout = async () => {

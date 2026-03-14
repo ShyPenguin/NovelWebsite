@@ -2,7 +2,7 @@ import { useAppContext, useSidebarOpen } from "./stores/AppContext";
 import { Outlet } from "@tanstack/react-router";
 import { TanStackRouterDevtools } from "@tanstack/react-router-devtools";
 import { ToastContainer } from "react-toastify";
-import { memo } from "react";
+import { memo, useEffect } from "react";
 import { useQuery } from "@tanstack/react-query";
 import { queryAuthOption } from "../features/auth/api/auth";
 import { useAuthUIEffects } from "../features/auth/hooks/useAuthUIEffects";
@@ -32,6 +32,7 @@ function App() {
   useQuery(queryAuthOption());
 
   useAuthUIEffects();
+
   return (
     <div
       className={`${theme ? "" : "dark"} min-h-screen flex flex-col size-full bg-white text-black dark:text-white dark:bg-primary-black font-montserrat overflow-hidden`}

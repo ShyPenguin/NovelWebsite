@@ -10,7 +10,7 @@ const MemoizedSearchbar = memo(Searchbar);
 export const ProfileSearchbar = () => {
   const { data: user } = useAuth();
   const requireLogin = useAuthUIStore((state) => state.requireLogin);
-
+  console.log(user);
   return (
     <div className="flex size-full gap-4 relative">
       <div className="w-full lg:min-w-50">
