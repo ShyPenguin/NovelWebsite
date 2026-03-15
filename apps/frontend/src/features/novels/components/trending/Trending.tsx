@@ -68,36 +68,8 @@ export const Trending = () => {
       <Suspense fallback={<SkeletonTrendingList />}>
         <TrendingList option={option} />
       </Suspense>
-      {/* {option === 1 &&
-        sampleDataWeek &&
-        sampleDataWeek.length > 0 &&
-        sampleDataWeek.map((item, index) => {
-          return index == 0 ? (
-            <TrendingNumberOne imgURL={item.imgURL} title={item.title} />
-          ) : (
-            <TrendingItem
-              rank={index + 1}
-              title={item.title}
-              imgURL={item.imgURL}
-              totalChapters={item.totalChapters}
-            />
-          );
-        })}
-      {option === 2 &&
-        sampleDataDay &&
-        sampleDataDay.length > 0 &&
-        sampleDataDay.map((item, index) => {
-          return index == 0 ? (
-            <TrendingNumberOne imgURL={item.imgURL} title={item.title} />
-          ) : (
-            <TrendingItem
-              rank={index + 1}
-              title={item.title}
-              imgURL={item.imgURL}
-              totalChapters={item.totalChapters}
-            />
-          );
-        })} */}
+      {option === 1 && <h1>Not yet implemented</h1>}
+      {option === 2 && <h1>Not yet implemented</h1>}
     </div>
   );
 };

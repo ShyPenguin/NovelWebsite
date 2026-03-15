@@ -14,6 +14,7 @@ import UserUpdateButton from "../components/form/UserUpdateButton";
 import { UserChangeRoleButton } from "../components/form/UserChangeRoleButton";
 import { UserDeleteButton } from "../components/form/UserDeleteButton";
 import { UserImageForm } from "../components/form/UserImageForm";
+import { queryAuthOption } from "@/features/auth/api/auth";
 
 export const UserDetailPage = () => {
   const route = getRouteApi("/users_/$username/");
@@ -113,8 +114,9 @@ const UserDetail = ({ user }: { user: UserDetailDTO }) => {
         </div>
       </Page.Body>
       <Page.Footer type="center">
-        <div className="size-full">
+        <div className="flex flex-col gap-2 size-full">
           {user.role !== "user" && <Novels novels={user.novels} />}
+          <Bookmarks user={user} />
         </div>
       </Page.Footer>
     </Page>
@@ -123,8 +125,8 @@ const UserDetail = ({ user }: { user: UserDetailDTO }) => {
 
 const Novels = ({ novels }: { novels: NovelThumbnailDTO[] }) => {
   return (
-    <>
-      <h1 className="pb-2"> Translated Novels:</h1>
+    <div className="flex flex-col gap-2 size-full">
+      <h1> Translated Novels:</h1>
       <HorizontalLine className="mb-4" />
       <ul className="grid grid-cols-1 lg:grid-cols-2 gap-8">
         {novels.length > 0 ? (
@@ -137,6 +139,22 @@ const Novels = ({ novels }: { novels: NovelThumbnailDTO[] }) => {
           <p>No Novels</p>
         )}
       </ul>
-    </>
+    </div>
+  );
+};
+
+const Bookmarks = ({ user }: { user: UserDetailDTO }) => {
+  const { data: auth } = useQuery(queryAuthOption());
+
+  if (!auth || auth.id !== user.id) {
+    return <></>;
+  }
+
+  return (
+    <div className="flex flex-col gap-2 size-full">
+      <h1> Bookmarks:</h1>
+      <HorizontalLine className="mb-4" />
+      <p>Not yet implemented</p>
+    </div>
   );
 };

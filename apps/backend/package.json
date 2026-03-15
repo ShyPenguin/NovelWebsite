@@ -4,7 +4,7 @@
   "type": "module",
   "main": "index.js",
   "scripts": {
-    "dev": "npm run docker:dev:reset & wait-on tcp:5433 && tsx --env-file=.env.dev scripts/check-db.ts && npx dotenv-cli -e .env.dev -- npm run db:migrate && npx dotenv-cli -e .env.dev -- npm run dev:seed && tsx watch --env-file=.env.dev src/server.ts",
+    "dev": "npm run docker:dev:reset && node --env-file=.env.dev --import tsx scripts/dev.ts",
     "build": "npx tsc",
     "start": "node dist/server.js",
     "db:generate": "drizzle-kit generate",
