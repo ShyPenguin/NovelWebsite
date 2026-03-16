@@ -1,22 +1,22 @@
 import { Router } from "express";
 import { NovelFormSchema } from "@repo/contracts/schemas/novel";
 import { ChapterFormSchema } from "@repo/contracts/schemas/chapter";
-import { getChaptersController } from "@/features/chapters/controllers/get-chapters.controller.ts";
-import { postChapterController } from "@/features/chapters/controllers/post-chapter.controller.ts";
-import { previewChapterController } from "@/features/chapters/controllers/preview-chapter.controller.ts";
-import { deleteNovelController } from "@/features/novels/controllers/delete-novel.controller.ts";
-import { getNovelOneController } from "@/features/novels/controllers/get-novel-one.controller.ts";
-import { getNovelsController } from "@/features/novels/controllers/get-novels.controller.ts";
-import { patchNovelCoverController } from "@/features/novels/controllers/patch-novel-cover.controller.ts";
-import { postNovelController } from "@/features/novels/controllers/post-novel.controller.ts";
-import { putNovelController } from "@/features/novels/controllers/put-novel.controller.ts";
-import { authMiddleware } from "@/middlewares/auth-middleware.ts";
-import { upload } from "@/middlewares/upload.ts";
-import { validateMiddleware } from "@/middlewares/validate-middleware.ts";
-import { ChapterQuerySchema } from "@/features/chapters/chapter.schema.ts";
-import { NovelQuerySchema } from "@/features/novels/novel.schema.ts";
+import { getChaptersController } from "@/features/chapters/controllers/get-chapters.controller.js";
+import { postChapterController } from "@/features/chapters/controllers/post-chapter.controller.js";
+import { previewChapterController } from "@/features/chapters/controllers/preview-chapter.controller.js";
+import { deleteNovelController } from "@/features/novels/controllers/delete-novel.controller.js";
+import { getNovelOneController } from "@/features/novels/controllers/get-novel-one.controller.js";
+import { getNovelsController } from "@/features/novels/controllers/get-novels.controller.js";
+import { patchNovelCoverController } from "@/features/novels/controllers/patch-novel-cover.controller.js";
+import { postNovelController } from "@/features/novels/controllers/post-novel.controller.js";
+import { putNovelController } from "@/features/novels/controllers/put-novel.controller.js";
+import { authMiddleware } from "@/middlewares/auth-middleware.js";
+import { upload } from "@/middlewares/upload.js";
+import { validateMiddleware } from "@/middlewares/validate-middleware.js";
+import { ChapterQuerySchema } from "@/features/chapters/chapter.schema.js";
+import { NovelQuerySchema } from "@/features/novels/novel.schema.js";
 import { idSchema } from "@repo/contracts/schemas/id";
-import { asyncHandler } from "@/shared/utils/async-handler.ts";
+import { asyncHandler } from "@/shared/utils/async-handler.js";
 
 const novelRoutes = Router();
 

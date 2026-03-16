@@ -1,7 +1,7 @@
 import { z } from "zod";
 import { NumberSchemaBuilder } from "@repo/contracts/fields/builders";
 import { searchField } from "@repo/contracts/fields/general";
-import { pageField } from "@/shared/validations/fields.ts";
+import { pageField } from "@/shared/validations/fields.js";
 import { NovelQueryContract } from "@repo/contracts/schemas/novel";
 
 export type novelSchedule = {

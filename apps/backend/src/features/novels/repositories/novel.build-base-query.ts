@@ -2,11 +2,11 @@ import {
   AuthorTable,
   NovelTable,
   UserTable,
-} from "@/infrastructure/db/schemas/index.ts";
-import { DbExecTypes } from "@/infrastructure/db/type.ts";
+} from "@/infrastructure/db/schemas/index.js";
+import { DbExecTypes } from "@/infrastructure/db/type.js";
 import { NovelSelectDTO } from "@repo/contracts/dto/novel";
 import { sql, eq } from "drizzle-orm";
-import { novelSelectMap } from "./novel.selections.ts";
+import { novelSelectMap } from "./novel.selections.js";
 
 export const buildNovelsBaseQuery = <T extends NovelSelectDTO>({
   type,

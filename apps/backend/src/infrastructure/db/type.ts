@@ -4,7 +4,7 @@ import type {
   NodePgQueryResultHKT,
 } from "drizzle-orm/node-postgres";
 import { PgTransaction } from "drizzle-orm/pg-core";
-import type * as schema from "./schemas/index.ts";
+import type * as schema from "./schemas/index.js";
 import type { Client, Pool } from "pg";
 
 export type Transaction = PgTransaction<

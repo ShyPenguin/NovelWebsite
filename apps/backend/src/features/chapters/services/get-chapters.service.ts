@@ -8,19 +8,19 @@ import {
   ArrayChapterThumbnailSchema,
   PaginatedChapterThumbnailSchema,
 } from "@repo/contracts/schemas/chapter";
-import { DbExecTypes } from "@/infrastructure/db/type.ts";
-import { db } from "@/infrastructure/db/index.ts";
-import { NotFoundError } from "@/shared/errors/index.ts";
-import { getNovelAuthByIdTx } from "@/features/novels/repositories/get-novel-one.ts";
+import { DbExecTypes } from "@/infrastructure/db/type.js";
+import { db } from "@/infrastructure/db/index.js";
+import { NotFoundError } from "@/shared/errors/index.js";
+import { getNovelAuthByIdTx } from "@/features/novels/repositories/get-novel-one.js";
 import {
   GetListParams,
   GetFetchListReturn,
   GetServiceList,
-} from "@/shared/types/service.types.ts";
+} from "@/shared/types/service.types.js";
 import {
   getChaptersTx,
   getPaginatedChaptersTx,
-} from "../repositories/get-chapters.repository.ts";
+} from "../repositories/get-chapters.repository.js";
 
 type ChapterDTOMap = {
   [K in ChapterListDTO]: K extends "thumbnail" ? ChapterThumbnailDTO[] : never;

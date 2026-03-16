@@ -9,8 +9,8 @@ import {
   varchar,
   uniqueIndex,
 } from "drizzle-orm/pg-core";
-import { UserTable } from "./users.ts";
-import { NovelTable } from "./novels.ts";
+import { UserTable } from "./users.js";
+import { NovelTable } from "./novels.js";
 
 export const ReviewTable = pgTable(
   "reviews",
@@ -38,9 +38,9 @@ export const ReviewTable = pgTable(
     minMaxCheck: sql`CHECK (${table.rating}" >= 1 AND ${table.rating} <= 5)`,
     uniqueNovelReviewer: uniqueIndex("unique_novel_reviewer_idx").on(
       table.novelId,
-      table.reviewerId
+      table.reviewerId,
     ),
-  })
+  }),
 );
 
 export const reviewsRelations = relations(ReviewTable, ({ one }) => ({

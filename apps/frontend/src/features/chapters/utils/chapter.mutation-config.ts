@@ -4,7 +4,7 @@ import {
   getChapterOneQueryKey,
   getChaptersQueryKey,
 } from "@/features/chapters/utils/chapter.tanstack-keys";
-import type { Action } from "@repo/contracts/auth/permissions";
+import type { Action } from "@repo/contracts/auth/permissions/resource";
 
 export const chapterMutationConfig = (
   action: Exclude<Action<"chapters">, typeof VIEW | typeof PREVIEW> & string,

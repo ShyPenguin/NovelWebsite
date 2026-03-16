@@ -4,8 +4,8 @@ import {
   ChapterFormSchema,
   ChapterPreviewSchema,
 } from "@repo/contracts/schemas/chapter";
-import { previewChapterWithAuthService } from "@/features/chapters/services/preview-chapter-with-auth.service.ts";
-import { AuthRequest } from "@/shared/types/index.ts";
+import { previewChapterWithAuthService } from "@/features/chapters/services/preview-chapter-with-auth.service.js";
+import { AuthRequest } from "@/shared/types/index.js";
 
 export const previewChapterController = async (
   req: AuthRequest,

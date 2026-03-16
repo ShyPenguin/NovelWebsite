@@ -1,9 +1,9 @@
 import { z } from "zod";
 import crypto from "crypto";
 import "dotenv/config";
-import { RETURN_TO_COOKIE_KEY } from "@/shared/constants/index.ts";
-import { Cookies } from "@/shared/types/index.ts";
-import { createGoogleOAuthClient } from "./google.ts";
+import { RETURN_TO_COOKIE_KEY } from "@/shared/constants/index.js";
+import { Cookies } from "@/shared/types/index.js";
+import { createGoogleOAuthClient } from "./google.js";
 import { OAuthProviders } from "@repo/contracts/dto/auth";
 
 const STATE_COOKIE_KEY = "oAuthState";

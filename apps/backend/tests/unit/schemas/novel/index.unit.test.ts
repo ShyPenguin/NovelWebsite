@@ -1,7 +1,7 @@
 import {
   NovelQueryInput,
   NovelQuerySchema,
-} from "@/features/novels/novel.schema.ts";
+} from "@/features/novels/novel.schema.js";
 import { describe, it, expect } from "vitest";
 import z from "zod";
 

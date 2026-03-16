@@ -1,6 +1,6 @@
-import { createMinioStorage } from "./providers/minio.ts";
-import { createSupabaseStorage } from "./providers/supabase.ts";
-import { StorageProvider } from "./storage.type.ts";
+import { createMinioStorage } from "./providers/minio.js";
+import { createSupabaseStorage } from "./providers/supabase.js";
+import { StorageProvider } from "./storage.type.js";
 import "dotenv/config";
 
 function createStorageProvider(): StorageProvider {

@@ -1,9 +1,9 @@
 import { Request, Response } from "express";
 import { eq } from "drizzle-orm";
-import { db } from "@/infrastructure/db/index.ts";
-import { UserTable } from "@/infrastructure/db/schemas/users.ts";
-import { createCookieWrapper } from "@/shared/utils/cookies-function.ts";
-import { getUserFromSession } from "../session.service.ts";
+import { db } from "@/infrastructure/db/index.js";
+import { UserTable } from "@/infrastructure/db/schemas/users.js";
+import { createCookieWrapper } from "@/shared/utils/cookies-function.js";
+import { getUserFromSession } from "../session.service.js";
 
 export const me = async (req: Request, res: Response): Promise<any> => {
   const cookie = createCookieWrapper(req, res);

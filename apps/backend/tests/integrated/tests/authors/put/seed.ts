@@ -1,12 +1,12 @@
-import { createAuthorTx } from "@/features/authors/repositories/create.repository.ts";
-import { testDb, redisDb } from "tests/integrated/db/db-test.ts";
-import { mockCreateUserWithSessionGoogle } from "tests/integrated/factory/user/with-session.ts";
+import { createAuthorTx } from "@/features/authors/repositories/create.repository.js";
+import { testDb, redisDb } from "tests/integrated/db/db-test.js";
+import { mockCreateUserWithSessionGoogle } from "tests/integrated/factory/user/with-session.js";
 import {
   userStaff,
   userAdmin,
   readerFirst,
   userStaff2,
-} from "tests/mockdata.ts";
+} from "tests/mockdata.js";
 import data from "tests/mockdb.json" with { type: "json" };
 
 export const seedBeforeAll = async () => {

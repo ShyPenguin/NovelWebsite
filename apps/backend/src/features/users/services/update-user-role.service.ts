@@ -1,20 +1,20 @@
-import { db } from "@/infrastructure/db/index.ts";
-import { DbClientType, DbPoolType } from "@/infrastructure/db/type.ts";
+import { db } from "@/infrastructure/db/index.js";
+import { DbClientType, DbPoolType } from "@/infrastructure/db/type.js";
 import {
   AuthorizationError,
   BaseError,
   CustomizedAuthorizationError,
   NotFoundError,
-} from "@/shared/errors/index.ts";
-import { requirePermission } from "@/shared/utils/require-permission.ts";
+} from "@/shared/errors/index.js";
+import { requirePermission } from "@/shared/utils/require-permission.js";
 import { UserSession } from "@repo/contracts/dto/auth";
 import {
   UserChangeRoleDTO,
   UserDetailDTO,
   UserThumbnailEncodeDTO,
 } from "@repo/contracts/dto/user";
-import { getUserThumbnailByIdTx } from "../repositories/get-user-one.repository.ts";
-import { updateUserTx } from "../repositories/update.repository.ts";
+import { getUserThumbnailByIdTx } from "../repositories/get-user-one.repository.js";
+import { updateUserTx } from "../repositories/update.repository.js";
 import { UserThumbnailSchema } from "@repo/contracts/schemas/user";
 
 export const updateUserRoleService = async (

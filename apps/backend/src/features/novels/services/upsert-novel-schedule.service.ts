@@ -1,8 +1,8 @@
 import {
   NovelScheduleTable,
   Week,
-} from "@/infrastructure/db/schemas/novelSchedule.ts";
-import { DbExecTypes } from "@/infrastructure/db/type.ts";
+} from "@/infrastructure/db/schemas/novelSchedule.js";
+import { DbExecTypes } from "@/infrastructure/db/type.js";
 import { eq } from "drizzle-orm";
 
 export const upsertNovelScheduleTx = async (

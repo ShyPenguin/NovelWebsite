@@ -1,5 +1,5 @@
-import { ValidationError } from "@/shared/errors/index.ts";
-import { StorageProvider } from "../storage.type.ts";
+import { ValidationError } from "@/shared/errors/index.js";
+import { StorageProvider } from "../storage.type.js";
 import { createClient, type SupabaseClient } from "@supabase/supabase-js";
 
 export class SupabaseStorageProvider implements StorageProvider {

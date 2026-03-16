@@ -3,16 +3,16 @@ import { eq } from "drizzle-orm";
 import {
   UserOAuthAccountTable,
   UserTable,
-} from "@/infrastructure/db/schemas/index.ts";
+} from "@/infrastructure/db/schemas/index.js";
 import {
   getOAuthClient,
   OAuthUser,
-} from "@/infrastructure/oauth-providers/base.ts";
-import { providerSchema } from "@/shared/types/index.ts";
-import { createCookieWrapper } from "@/shared/utils/cookies-function.ts";
-import { db } from "@/infrastructure/db/index.ts";
+} from "@/infrastructure/oauth-providers/base.js";
+import { providerSchema } from "@/shared/types/index.js";
+import { createCookieWrapper } from "@/shared/utils/cookies-function.js";
+import { db } from "@/infrastructure/db/index.js";
 import { sessionSchema } from "@repo/contracts/schemas/auth";
-import { createUserSession } from "../session.service.ts";
+import { createUserSession } from "../session.service.js";
 import { OAuthProviders } from "@repo/contracts/dto/auth";
 
 export const login = async (req: Request, res: Response): Promise<any> => {

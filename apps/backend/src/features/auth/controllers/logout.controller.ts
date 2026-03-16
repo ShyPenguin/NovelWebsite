@@ -1,6 +1,6 @@
-import { createCookieWrapper } from "@/shared/utils/cookies-function.ts";
+import { createCookieWrapper } from "@/shared/utils/cookies-function.js";
 import { Request, Response } from "express";
-import { removeUserFromSession } from "../session.service.ts";
+import { removeUserFromSession } from "../session.service.js";
 
 export const logout = async (req: Request, res: Response): Promise<any> => {
   try {

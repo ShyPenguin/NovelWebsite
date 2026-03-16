@@ -4,13 +4,13 @@ export const parseKeysToLabel = (key: string) => {
 
   let array: string[];
   if (fnMatch) {
-    const [, dir, col] = fnMatch;
+    const [, _dir, col] = fnMatch;
     array = col ? col.split("") : key.split("");
   } else {
     array = key.split("");
   }
   const fullText = array
-    .map((item, i, arr) => {
+    .map((item, i, _arr) => {
       // First character must be capital
       if (i === 0) {
         return item.toLocaleUpperCase();

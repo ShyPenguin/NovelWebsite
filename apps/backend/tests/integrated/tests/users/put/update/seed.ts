@@ -1,12 +1,12 @@
 import { UserFormDTO } from "@repo/contracts/dto/user";
-import { testDb, redisDb } from "tests/integrated/db/db-test.ts";
-import { mockCreateUserWithSessionGoogle } from "tests/integrated/factory/user/with-session.ts";
+import { testDb, redisDb } from "tests/integrated/db/db-test.js";
+import { mockCreateUserWithSessionGoogle } from "tests/integrated/factory/user/with-session.js";
 import {
   userStaff,
   userAdmin,
   userStaff2,
   userSupervisor,
-} from "tests/mockdata.ts";
+} from "tests/mockdata.js";
 
 // One Authentication Error
 // One Authorization Error Due to Managing User with Higher Role

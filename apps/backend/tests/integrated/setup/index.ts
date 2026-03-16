@@ -1,5 +1,5 @@
-import { startTestDb, stopTestDb } from "../db/db-test.ts";
-import { getAdminPool } from "../db/admin-test.ts";
+import { startTestDb, stopTestDb } from "../db/db-test.js";
+import { getAdminPool } from "../db/admin-test.js";
 
 const { DATABASE_ADMIN_URL } = process.env;
 if (!DATABASE_ADMIN_URL) {

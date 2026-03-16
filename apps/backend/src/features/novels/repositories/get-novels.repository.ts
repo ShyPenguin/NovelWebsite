@@ -4,17 +4,17 @@ import { NovelSelectDTO } from "@repo/contracts/dto/novel";
 import {
   buildNovelCountQuery,
   buildNovelsBaseQuery,
-} from "./novel.build-base-query.ts";
-import { PAGE_SIZE } from "@/shared/constants/index.ts";
-import { AuthorTable } from "@/infrastructure/db/schemas/authors.ts";
-import { CategoryTable } from "@/infrastructure/db/schemas/categories.ts";
-import { NovelTable } from "@/infrastructure/db/schemas/novels.ts";
-import { UserTable } from "@/infrastructure/db/schemas/users.ts";
-import { DbExecTypes } from "@/infrastructure/db/type.ts";
-import { applyWhere } from "@/shared/utils/apply-where.ts";
-import { paginate } from "@/shared/utils/paginate.ts";
-import { parseSortQuery } from "@/shared/utils/parse-sort-query.ts";
-import { NovelQueryOutput } from "@/features/novels/novel.schema.ts";
+} from "./novel.build-base-query.js";
+import { PAGE_SIZE } from "@/shared/constants/index.js";
+import { AuthorTable } from "@/infrastructure/db/schemas/authors.js";
+import { CategoryTable } from "@/infrastructure/db/schemas/categories.js";
+import { NovelTable } from "@/infrastructure/db/schemas/novels.js";
+import { UserTable } from "@/infrastructure/db/schemas/users.js";
+import { DbExecTypes } from "@/infrastructure/db/type.js";
+import { applyWhere } from "@/shared/utils/apply-where.js";
+import { paginate } from "@/shared/utils/paginate.js";
+import { parseSortQuery } from "@/shared/utils/parse-sort-query.js";
+import { NovelQueryOutput } from "@/features/novels/novel.schema.js";
 
 const sortableColumns = {
   title: NovelTable.title,

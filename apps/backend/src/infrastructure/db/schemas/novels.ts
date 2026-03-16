@@ -9,12 +9,12 @@ import {
   index,
   text,
 } from "drizzle-orm/pg-core";
-import { AuthorTable } from "./authors.ts";
-import { UserTable } from "./users.ts";
-import { ReviewTable } from "./reviews.ts";
-import { ChapterTable } from "./chapters.ts";
-import { NovelCategoryTable } from "./novelCategories.ts";
-import { NovelScheduleTable } from "./novelSchedule.ts";
+import { AuthorTable } from "./authors.js";
+import { UserTable } from "./users.js";
+import { ReviewTable } from "./reviews.js";
+import { ChapterTable } from "./chapters.js";
+import { NovelCategoryTable } from "./novelCategories.js";
+import { NovelScheduleTable } from "./novelSchedule.js";
 import {
   language,
   novelStatus,

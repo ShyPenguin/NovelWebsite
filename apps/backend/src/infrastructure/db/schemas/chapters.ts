@@ -10,8 +10,8 @@ import {
   index,
   uniqueIndex,
 } from "drizzle-orm/pg-core";
-import { NovelTable } from "./novels.ts";
-import { CommentTable } from "./comments.ts";
+import { NovelTable } from "./novels.js";
+import { CommentTable } from "./comments.js";
 import {
   chapterAccessTypes,
   chapterStatus,

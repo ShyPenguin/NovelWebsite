@@ -1,12 +1,12 @@
-import { NovelTableInsert } from "@/infrastructure/db/schemas/novels.ts";
-import { createAuthorTx } from "@/features/authors/repositories/create.repository.ts";
-import { createChapterTx } from "@/features/chapters/repositories/create.repository.ts";
-import { createNovelTx } from "@/features/novels/repositories/create.repository.ts";
-import { createUserTx } from "@/features/users/repositories/create.repository.ts";
+import { NovelTableInsert } from "@/infrastructure/db/schemas/novels.js";
+import { createAuthorTx } from "@/features/authors/repositories/create.repository.js";
+import { createChapterTx } from "@/features/chapters/repositories/create.repository.js";
+import { createNovelTx } from "@/features/novels/repositories/create.repository.js";
+import { createUserTx } from "@/features/users/repositories/create.repository.js";
 import { getFormattedDate } from "@repo/contracts/utils/getFormattedDate";
-import { SOURCE_DOC_URL } from "tests/constants/index.ts";
-import { testDb } from "tests/integrated/db/db-test.ts";
-import { userStaff } from "tests/mockdata.ts";
+import { SOURCE_DOC_URL } from "tests/constants/index.js";
+import { testDb } from "tests/integrated/db/db-test.js";
+import { userStaff } from "tests/mockdata.js";
 import data from "tests/mockdb.json" with { type: "json" };
 
 export const seedBeforeAll = async () => {

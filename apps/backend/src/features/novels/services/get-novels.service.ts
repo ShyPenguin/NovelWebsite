@@ -16,19 +16,19 @@ import {
   PaginatedNovelThumbnailSchema,
   PaginatedNovelTrendSchema,
 } from "@repo/contracts/schemas/novel";
-import { PAGE_SIZE } from "@/shared/constants/index.ts";
-import { db } from "@/infrastructure/db/index.ts";
-import { DbExecTypes } from "@/infrastructure/db/type.ts";
-import { NovelQueryOutput } from "@/features/novels/novel.schema.ts";
+import { PAGE_SIZE } from "@/shared/constants/index.js";
+import { db } from "@/infrastructure/db/index.js";
+import { DbExecTypes } from "@/infrastructure/db/type.js";
+import { NovelQueryOutput } from "@/features/novels/novel.schema.js";
 import {
   GetListParams,
   GetFetchListReturn,
   GetServiceList,
-} from "@/shared/types/service.types.ts";
+} from "@/shared/types/service.types.js";
 import {
   getNovelsRepo,
   getPaginatedNovelsRepo,
-} from "../repositories/get-novels.repository.ts";
+} from "../repositories/get-novels.repository.js";
 
 type NovelDTOMap = {
   detail: NovelDetailDTO[];

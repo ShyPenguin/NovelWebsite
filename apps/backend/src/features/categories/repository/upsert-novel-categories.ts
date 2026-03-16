@@ -1,5 +1,5 @@
-import { NovelCategoryTable } from "@/infrastructure/db/schemas/novelCategories.ts";
-import { DbExecTypes } from "@/infrastructure/db/type.ts";
+import { NovelCategoryTable } from "@/infrastructure/db/schemas/novelCategories.js";
+import { DbExecTypes } from "@/infrastructure/db/type.js";
 import { eq } from "drizzle-orm";
 
 export const upsertNovelCategoriesTx = async (

@@ -2,22 +2,22 @@ import {
   ChapterDetailEncodeDTO,
   ChapterFormParsedDTO,
 } from "@repo/contracts/dto/chapter";
-import { previewChapterService } from "./preview-chapter.service.ts";
-import { db } from "@/infrastructure/db/index.ts";
+import { previewChapterService } from "./preview-chapter.service.js";
+import { db } from "@/infrastructure/db/index.js";
 import {
   AuthorizationError,
   BaseError,
   NotFoundError,
   ValidationError,
-} from "@/shared/errors/index.ts";
-import { DbClientType, DbPoolType } from "@/infrastructure/db/type.ts";
+} from "@/shared/errors/index.js";
+import { DbClientType, DbPoolType } from "@/infrastructure/db/type.js";
 import { UserSession } from "@repo/contracts/dto/auth";
-import { requirePermission } from "@/shared/utils/require-permission.ts";
+import { requirePermission } from "@/shared/utils/require-permission.js";
 import {
   getChapterAuthByIdTx,
   getChapterDetailByIdTx,
-} from "../repositories/get-chapter-one.repository.ts";
-import { updateChapterTx } from "../repositories/update.repository.ts";
+} from "../repositories/get-chapter-one.repository.js";
+import { updateChapterTx } from "../repositories/update.repository.js";
 
 export const updateChapterService = async ({
   form,

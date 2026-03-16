@@ -5,12 +5,12 @@ import { ChapterSelectDTO } from "@repo/contracts/dto/chapter";
 import {
   buildChapterCountQuery,
   buildChaptersBaseQuery,
-} from "./chapter.build-base-query.ts";
-import { ChapterTable } from "@/infrastructure/db/schemas/chapters.ts";
-import { DbExecTypes } from "@/infrastructure/db/type.ts";
-import { applyWhere } from "@/shared/utils/apply-where.ts";
-import { paginate } from "@/shared/utils/paginate.ts";
-import { parseSortQuery } from "@/shared/utils/parse-sort-query.ts";
+} from "./chapter.build-base-query.js";
+import { ChapterTable } from "@/infrastructure/db/schemas/chapters.js";
+import { DbExecTypes } from "@/infrastructure/db/type.js";
+import { applyWhere } from "@/shared/utils/apply-where.js";
+import { paginate } from "@/shared/utils/paginate.js";
+import { parseSortQuery } from "@/shared/utils/parse-sort-query.js";
 
 const sortableColumns = {
   chapterNumber: ChapterTable.chapterNumber,

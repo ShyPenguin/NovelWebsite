@@ -3,7 +3,7 @@ import {
   PutObjectCommand,
   DeleteObjectCommand,
 } from "@aws-sdk/client-s3";
-import { StorageProvider } from "../storage.type.ts";
+import { StorageProvider } from "../storage.type.js";
 
 export class MinioStorageProvider implements StorageProvider {
   private bucket = process.env.PUBLIC_BUCKET!;

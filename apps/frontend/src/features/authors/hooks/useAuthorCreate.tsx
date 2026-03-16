@@ -31,13 +31,7 @@ export const useAuthorCreate = () => {
           // We know that when creating an author
           // It does not have novels assosciated with it
           onSuccess: (data, vars, onResult, ctx) => {
-            baseHandlers.onSuccess?.({
-              data: {
-                ...data,
-                novels: [],
-              },
-              id: data.id,
-            });
+            baseHandlers.onSuccess?.({ data }, { id: data.id });
             options?.onSuccess?.(data, vars, onResult, ctx);
           },
           onError(error, vars, onResult, ctx) {

@@ -25,8 +25,9 @@ export const fetchAuthors = <
   type: T;
   paginated: P;
   schema: ZodType;
-}) =>
-  async function (
+}) => {
+  void type;
+  return async function (
     params: FetchType<AuthorSearchType>,
   ): Promise<FetchAuthorsReturn<T>> {
     let url = `${urlApiRoute}`;
@@ -50,6 +51,7 @@ export const fetchAuthors = <
     }
     return parsedResult.data as FetchAuthorsReturn<T>;
   };
+};
 
 const fetchAuthorsThumbnail = fetchAuthors({
   type: "thumbnail",

@@ -1,10 +1,10 @@
 import request from "supertest";
-import { app } from "../../../../../src/app.ts";
+import { app } from "../../../../../src/app.js";
 import { beforeAll, expect, describe, it } from "vitest";
-import { COOKIE_SESSION_KEY } from "../../../../../src/shared/constants/index.ts";
+import { COOKIE_SESSION_KEY } from "../../../../../src/shared/constants/index.js";
 import { ApiResponseSchema } from "@repo/contracts/api";
 import { AuthorThumbnailSchema } from "@repo/contracts/schemas/author";
-import { seedBeforeAll } from "./seed.ts";
+import { seedBeforeAll } from "./seed.js";
 import { randomUUID } from "crypto";
 
 describe("PUT /authors/:id", () => {

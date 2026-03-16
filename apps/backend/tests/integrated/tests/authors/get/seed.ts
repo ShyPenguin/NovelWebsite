@@ -1,9 +1,9 @@
-import { createAuthorTx } from "@/features/authors/repositories/create.repository.ts";
-import { createNovelTx } from "@/features/novels/repositories/create.repository.ts";
-import { NovelTableInsert } from "@/infrastructure/db/schemas/novels.ts";
-import { redisDb, testDb } from "tests/integrated/db/db-test.ts";
-import { mockCreateUserWithSessionGoogle } from "tests/integrated/factory/user/with-session.ts";
-import { userStaff } from "tests/mockdata.ts";
+import { createAuthorTx } from "@/features/authors/repositories/create.repository.js";
+import { createNovelTx } from "@/features/novels/repositories/create.repository.js";
+import { NovelTableInsert } from "@/infrastructure/db/schemas/novels.js";
+import { redisDb, testDb } from "tests/integrated/db/db-test.js";
+import { mockCreateUserWithSessionGoogle } from "tests/integrated/factory/user/with-session.js";
+import { userStaff } from "tests/mockdata.js";
 import data from "tests/mockdb.json" with { type: "json" };
 
 export const seedBeforeAll = async () => {

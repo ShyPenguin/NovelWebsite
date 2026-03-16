@@ -2,7 +2,7 @@ import { z } from "zod";
 import { ChapterSearchQueryContract } from "@repo/contracts/schemas/chapter";
 import { NumberSchemaBuilder } from "@repo/contracts/fields/builders";
 import { searchField } from "@repo/contracts/fields/general";
-import { pageField } from "@/shared/validations/fields.ts";
+import { pageField } from "@/shared/validations/fields.js";
 
 // Schema overrides page, pageSize, sort, and search,
 // Schema shares access

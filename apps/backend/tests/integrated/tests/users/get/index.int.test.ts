@@ -1,15 +1,15 @@
 import { describe, it, expect, beforeAll } from "vitest";
-import { seedBeforeAll } from "./seed.ts";
+import { seedBeforeAll } from "./seed.js";
 import request from "supertest";
 import { ApiResponseSchema } from "@repo/contracts/api";
 import { randomUUID } from "crypto";
-import { app } from "@/app.ts";
+import { app } from "@/app.js";
 import {
   ArrayUserThumbnailSchema,
   PaginatedUserThumbnailSchema,
   UserDetailSchema,
 } from "@repo/contracts/schemas/user";
-import { UserQueryInput } from "@/features/users/user.schema.ts";
+import { UserQueryInput } from "@/features/users/user.schema.js";
 
 describe("Get /users", () => {
   let getters: Awaited<ReturnType<typeof seedBeforeAll>>;

@@ -1,6 +1,6 @@
 import { relations } from "drizzle-orm";
 import { pgTable, uuid, varchar } from "drizzle-orm/pg-core";
-import { NovelCategoryTable } from "./novelCategories.ts";
+import { NovelCategoryTable } from "./novelCategories.js";
 
 export const CategoryTable = pgTable("categories", {
   id: uuid().primaryKey().defaultRandom(),

@@ -1,5 +1,5 @@
 import { describe, it, expect, beforeAll } from "vitest";
-import { seedBeforeAll } from "./seed.ts";
+import { seedBeforeAll } from "./seed.js";
 import request from "supertest";
 import { ApiResponseSchema } from "@repo/contracts/api";
 import {
@@ -12,8 +12,8 @@ import {
   PaginatedNovelTrendSchema,
 } from "@repo/contracts/schemas/novel";
 import { randomUUID } from "crypto";
-import { app } from "@/app.ts";
-import { NovelQueryInput } from "@/features/novels/novel.schema.ts";
+import { app } from "@/app.js";
+import { NovelQueryInput } from "@/features/novels/novel.schema.js";
 
 describe("GET /novels", () => {
   let getters: Awaited<ReturnType<typeof seedBeforeAll>>;

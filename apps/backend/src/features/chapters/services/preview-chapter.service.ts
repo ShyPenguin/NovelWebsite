@@ -4,13 +4,13 @@ import {
   CustomizedAuthorizationError,
   CustomizedNotFoundError,
   ValidationError,
-} from "@/shared/errors/index.ts";
-import { convertToHTML } from "@/shared/utils/convert-to-html.ts";
+} from "@/shared/errors/index.js";
+import { convertToHTML } from "@/shared/utils/convert-to-html.js";
 import {
   extractGoogleDocId,
   Paragraph,
   extractDocumentStructure,
-} from "@/shared/utils/google-doc.ts";
+} from "@/shared/utils/google-doc.js";
 
 type Data = {
   title: string;

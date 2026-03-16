@@ -1,17 +1,17 @@
-import { DbExecTypes } from "@/infrastructure/db/type.ts";
-import { GetFetchReturn } from "@/shared/types/service.types.ts";
+import { DbExecTypes } from "@/infrastructure/db/type.js";
+import { GetFetchReturn } from "@/shared/types/service.types.js";
 import {
   AuthorThumbnailDTO,
   AuthorDetailDTO,
   AuthorSelectDTO,
 } from "@repo/contracts/dto/author";
 import { ZodType } from "zod";
-import { buildAuthorsBaseQuery } from "./author.build-base-query.ts";
+import { buildAuthorsBaseQuery } from "./author.build-base-query.js";
 import {
   AuthorDetailSchema,
   AuthorThumbnailSchema,
 } from "@repo/contracts/schemas/author";
-import { AuthorWhere, authorWhereMap } from "./author.where.ts";
+import { AuthorWhere, authorWhereMap } from "./author.where.js";
 
 // Map's keys must follow AuthorSelectDTO
 type AuthorDTOMap = {

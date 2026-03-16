@@ -10,7 +10,7 @@ import {
   CreateBucketCommand,
   PutBucketPolicyCommand,
 } from "@aws-sdk/client-s3";
-import { NOVEL_URL_SUPABASE_PATH } from "@/shared/constants/index.ts";
+import { NOVEL_URL_SUPABASE_PATH } from "@/shared/constants/index.js";
 
 dotenv.config({ path: ".env.dev" });
 

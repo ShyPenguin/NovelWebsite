@@ -1,4 +1,4 @@
-import { ValidationError } from "@/shared/errors/index.ts";
+import { ValidationError } from "@/shared/errors/index.js";
 import { NextFunction, Request, Response } from "express";
 import { z } from "zod";
 

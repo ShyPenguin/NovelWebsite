@@ -3,24 +3,24 @@ import {
   NovelDetailEncodeDTO,
   NovelFormDTO,
 } from "@repo/contracts/dto/novel";
-import { DbClientType, DbPoolType } from "@/infrastructure/db/type.ts";
+import { DbClientType, DbPoolType } from "@/infrastructure/db/type.js";
 import { UserSession } from "@repo/contracts/dto/auth";
-import { requirePermission } from "@/shared/utils/require-permission.ts";
-import { db } from "@/infrastructure/db/index.ts";
-import { upsertNovelCategoriesTx } from "@/features/categories/repository/upsert-novel-categories.ts";
-import { upsertNovelScheduleTx } from "@/features/novels/services/upsert-novel-schedule.service.ts";
+import { requirePermission } from "@/shared/utils/require-permission.js";
+import { db } from "@/infrastructure/db/index.js";
+import { upsertNovelCategoriesTx } from "@/features/categories/repository/upsert-novel-categories.js";
+import { upsertNovelScheduleTx } from "@/features/novels/services/upsert-novel-schedule.service.js";
 import {
   NotFoundError,
   ValidationError,
   AuthorizationError,
   BaseError,
-} from "@/shared/errors/index.ts";
+} from "@/shared/errors/index.js";
 import {
   getNovelAuthByIdTx,
   getNovelDetailByIdTx,
-} from "../repositories/get-novel-one.ts";
-import { updateNovelTx } from "../repositories/update.repository.ts";
-import { getCategoriesByIdsTx } from "@/features/categories/repository/get.ts";
+} from "../repositories/get-novel-one.js";
+import { updateNovelTx } from "../repositories/update.repository.js";
+import { getCategoriesByIdsTx } from "@/features/categories/repository/get.js";
 
 export const updateNovelService = async ({
   form,

@@ -1,5 +1,5 @@
-import { AuthorTable } from "@/infrastructure/db/schemas/authors.ts";
-import { NovelTable } from "@/infrastructure/db/schemas/novels.ts";
+import { AuthorTable } from "@/infrastructure/db/schemas/authors.js";
+import { NovelTable } from "@/infrastructure/db/schemas/novels.js";
 import type {
   AuthorThumbnailDTO,
   AuthorSelectDTO,

@@ -1,5 +1,4 @@
 {
-  "globalDependencies": [".env"],
   "tasks": {
     "build": {
       "dependsOn": ["^build"],
@@ -8,8 +7,12 @@
     "test": {},
     "dev": {
       "persistent": true,
+      "cache": false
+    },
+    "start": {
+      "dependsOn": ["build"],
       "cache": false,
-      "inputs": ["$TURBO_DEFAULT$", ".env*"]
+      "persistent": true
     }
   }
 }

@@ -1,5 +1,5 @@
 import { Request, Response } from "express";
-import { getNovelLatestChaptersService } from "../services/get-novel-latest-chapters.service.ts";
+import { getNovelLatestChaptersService } from "../services/get-novel-latest-chapters.service.js";
 
 export const getLatestChaptersController = async (
   req: Request,

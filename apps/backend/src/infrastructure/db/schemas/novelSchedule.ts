@@ -1,5 +1,5 @@
 import { pgEnum, pgTable, uuid, index, primaryKey } from "drizzle-orm/pg-core";
-import { NovelTable } from "./index.ts";
+import { NovelTable } from "./index.js";
 import { relations } from "drizzle-orm/relations";
 import { week } from "@repo/contracts/fields/novel";
 

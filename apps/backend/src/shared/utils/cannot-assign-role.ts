@@ -1,4 +1,4 @@
-import { CustomizedAuthorizationError } from "@/shared/errors/index.ts";
+import { CustomizedAuthorizationError } from "@/shared/errors/index.js";
 import {
   PermissionMap,
   ROLE_RANK,

@@ -1,9 +1,9 @@
-import { db } from "@/infrastructure/db/index.ts";
-import { DbExecTypes } from "@/infrastructure/db/type.ts";
+import { db } from "@/infrastructure/db/index.js";
+import { DbExecTypes } from "@/infrastructure/db/type.js";
 import {
   UserQueryOutput,
   UserQuerySchema,
-} from "@/features/users/user.schema.ts";
+} from "@/features/users/user.schema.js";
 import { UserListDTO, UserThumbnailEncodeDTO } from "@repo/contracts/dto/user";
 import { ZodType } from "zod";
 import {
@@ -14,11 +14,11 @@ import {
   GetFetchListReturn,
   GetListParams,
   GetServiceList,
-} from "@/shared/types/service.types.ts";
+} from "@/shared/types/service.types.js";
 import {
   getUsersTx,
   getPaginatedUsersTx,
-} from "../repositories/get-users.repository.ts";
+} from "../repositories/get-users.repository.js";
 import { DEFAULT_PAGE_SIZE } from "@repo/contracts/constants";
 
 type UserDTOMAP = {

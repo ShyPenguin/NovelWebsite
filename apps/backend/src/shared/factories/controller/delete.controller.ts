@@ -1,4 +1,4 @@
-import { AuthRequest } from "@/shared/types/index.ts";
+import { AuthRequest } from "@/shared/types/index.js";
 import { UserSession } from "@repo/contracts/dto/auth";
 import { Response } from "express";
 

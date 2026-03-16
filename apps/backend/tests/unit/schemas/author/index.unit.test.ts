@@ -1,7 +1,7 @@
 import {
   AuthorQueryInput,
   AuthorQuerySchema,
-} from "@/features/authors/author.schema.ts";
+} from "@/features/authors/author.schema.js";
 import { describe, it, expect } from "vitest";
 import z from "zod";
 

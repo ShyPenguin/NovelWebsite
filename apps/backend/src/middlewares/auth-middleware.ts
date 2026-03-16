@@ -1,8 +1,8 @@
 import { NextFunction, Response } from "express";
-import { AuthRequest } from "../shared/types/index.ts";
-import { createCookieWrapper } from "@/shared/utils/cookies-function.ts";
-import { AuthenticationError } from "@/shared/errors/index.ts";
-import { updateUserSessionExpiration } from "@/features/auth/session.service.ts";
+import { AuthRequest } from "../shared/types/index.js";
+import { createCookieWrapper } from "@/shared/utils/cookies-function.js";
+import { AuthenticationError } from "@/shared/errors/index.js";
+import { updateUserSessionExpiration } from "@/features/auth/session.service.js";
 
 export const authMiddleware = async (
   req: AuthRequest,

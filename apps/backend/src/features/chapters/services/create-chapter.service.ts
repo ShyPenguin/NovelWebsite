@@ -3,19 +3,19 @@ import {
   ChapterFormParsedDTO,
 } from "@repo/contracts/dto/chapter";
 import { NovelDetailDTO } from "@repo/contracts/dto/novel";
-import { previewChapterService } from "./preview-chapter.service.ts";
-import { ChapterTable } from "@/infrastructure/db/schemas/chapters.ts";
-import { db } from "@/infrastructure/db/index.ts";
+import { previewChapterService } from "./preview-chapter.service.js";
+import { ChapterTable } from "@/infrastructure/db/schemas/chapters.js";
+import { db } from "@/infrastructure/db/index.js";
 import {
   BaseError,
   NotFoundError,
   ValidationError,
-} from "@/shared/errors/index.ts";
-import { DbClientType, DbPoolType } from "@/infrastructure/db/type.ts";
-import { requirePermission } from "@/shared/utils/require-permission.ts";
+} from "@/shared/errors/index.js";
+import { DbClientType, DbPoolType } from "@/infrastructure/db/type.js";
+import { requirePermission } from "@/shared/utils/require-permission.js";
 import { UserSession } from "@repo/contracts/dto/auth";
-import { createChapterTx } from "../repositories/create.repository.ts";
-import { getChapterDetailByIdTx } from "../repositories/get-chapter-one.repository.ts";
+import { createChapterTx } from "../repositories/create.repository.js";
+import { getChapterDetailByIdTx } from "../repositories/get-chapter-one.repository.js";
 
 export const createChapterService = async ({
   form,

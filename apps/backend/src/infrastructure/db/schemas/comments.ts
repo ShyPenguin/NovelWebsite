@@ -6,8 +6,8 @@ import {
   primaryKey,
   AnyPgColumn,
 } from "drizzle-orm/pg-core";
-import { UserTable } from "./users.ts";
-import { ChapterTable } from "./chapters.ts";
+import { UserTable } from "./users.js";
+import { ChapterTable } from "./chapters.js";
 import { relations } from "drizzle-orm";
 
 export const CommentTable = pgTable("comments", {

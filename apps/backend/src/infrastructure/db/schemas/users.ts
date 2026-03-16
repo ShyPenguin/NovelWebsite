@@ -7,10 +7,10 @@ import {
   varchar,
   uuid,
 } from "drizzle-orm/pg-core";
-import { UserOAuthAccountTable } from "./oauthProviders.ts";
-import { NovelTable } from "./novels.ts";
-import { ReviewTable } from "./reviews.ts";
-import { CommentTable } from "./comments.ts";
+import { UserOAuthAccountTable } from "./oauthProviders.js";
+import { NovelTable } from "./novels.js";
+import { ReviewTable } from "./reviews.js";
+import { CommentTable } from "./comments.js";
 import { userRoles } from "@repo/contracts/fields/users";
 
 export const userRoleEnum = pgEnum("user_roles", userRoles);

@@ -7,7 +7,7 @@ import {
   timestamp,
   uuid,
 } from "drizzle-orm/pg-core";
-import { UserTable } from "./users.ts";
+import { UserTable } from "./users.js";
 import { oAuthProviders } from "@repo/contracts/fields/users";
 
 export const oAuthProviderEnum = pgEnum("oauth_provides", oAuthProviders);

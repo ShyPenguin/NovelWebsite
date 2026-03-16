@@ -1,20 +1,20 @@
 import { NovelFormDTO } from "@repo/contracts/dto/novel";
 import data from "tests/mockdb.json" with { type: "json" };
-import { AuthorTableSelect } from "@/infrastructure/db/schemas/authors.ts";
-import { NovelTableInsert } from "@/infrastructure/db/schemas/novels.ts";
-import { createAuthorTx } from "@/features/authors/repositories/create.repository.ts";
-import { upsertNovelCategoriesTx } from "@/features/categories/repository/upsert-novel-categories.ts";
-import { testDb, redisDb } from "tests/integrated/db/db-test.ts";
-import { mockCreateUserWithSessionGoogle } from "tests/integrated/factory/user/with-session.ts";
+import { AuthorTableSelect } from "@/infrastructure/db/schemas/authors.js";
+import { NovelTableInsert } from "@/infrastructure/db/schemas/novels.js";
+import { createAuthorTx } from "@/features/authors/repositories/create.repository.js";
+import { upsertNovelCategoriesTx } from "@/features/categories/repository/upsert-novel-categories.js";
+import { testDb, redisDb } from "tests/integrated/db/db-test.js";
+import { mockCreateUserWithSessionGoogle } from "tests/integrated/factory/user/with-session.js";
 import {
   userStaff,
   userAdmin,
   readerFirst,
   userStaff2,
-} from "tests/mockdata.ts";
-import { createNovelTx } from "@/features/novels/repositories/create.repository.ts";
-import { getNovelDetailByIdTx } from "@/features/novels/repositories/get-novel-one.ts";
-import { createCategoryTx } from "@/features/categories/repository/create.ts";
+} from "tests/mockdata.js";
+import { createNovelTx } from "@/features/novels/repositories/create.repository.js";
+import { getNovelDetailByIdTx } from "@/features/novels/repositories/get-novel-one.js";
+import { createCategoryTx } from "@/features/categories/repository/create.js";
 
 export const seedBeforeAll = async () => {
   const staff = await mockCreateUserWithSessionGoogle(

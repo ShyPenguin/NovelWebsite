@@ -1,6 +1,6 @@
-import { AuthRequest } from "@/shared/types/index.ts";
+import { AuthRequest } from "@/shared/types/index.js";
 import { Response } from "express";
-import { updateUserImageService } from "../services/update-user-image.service.ts";
+import { updateUserImageService } from "../services/update-user-image.service.js";
 
 export const patchUserImageController = async (
   req: AuthRequest,

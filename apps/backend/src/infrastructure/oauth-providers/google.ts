@@ -1,4 +1,4 @@
-import { OAuthClient, OAuthUser } from "./base.ts";
+import { OAuthClient, OAuthUser } from "./base.js";
 import { z } from "zod";
 import "dotenv/config";
 

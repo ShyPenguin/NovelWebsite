@@ -1,4 +1,4 @@
-import { pageField } from "@/shared/validations/fields.ts";
+import { pageField } from "@/shared/validations/fields.js";
 import { describe, it, expect } from "vitest";
 import { z } from "zod";
 

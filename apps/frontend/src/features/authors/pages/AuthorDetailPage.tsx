@@ -38,7 +38,7 @@ export const AuthorDetailPage = () => {
             </div>
           </div>
           <HorizontalLine />
-          <Novels name={author!.name} novels={author!.novels} />
+          <Novels name={author!.name} novels={author?.novels ?? []} />
         </div>
       </Page.Body>
     </Page>

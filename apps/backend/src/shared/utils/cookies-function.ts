@@ -1,9 +1,9 @@
-import { Cookies } from "@/shared/types/index.ts";
+import { Cookies } from "@/shared/types/index.js";
 import { Request, Response } from "express";
 import {
   COOKIE_SESSION_KEY,
   SESSION_EXPIRATION_SECONDS,
-} from "../constants/index.ts";
+} from "../constants/index.js";
 
 export function setCookie(sessionId: string, cookies: Pick<Cookies, "set">) {
   cookies.set(COOKIE_SESSION_KEY, sessionId, {

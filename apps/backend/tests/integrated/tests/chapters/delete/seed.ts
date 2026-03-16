@@ -1,16 +1,16 @@
-import { AuthorTableSelect } from "@/infrastructure/db/schemas/authors.ts";
-import { ChapterTableInsert } from "@/infrastructure/db/schemas/chapters.ts";
-import { NovelTableInsert } from "@/infrastructure/db/schemas/novels.ts";
-import { createAuthorTx } from "@/features/authors/repositories/create.repository.ts";
-import { testDb, redisDb } from "tests/integrated/db/db-test.ts";
-import { createNovelWithChapters } from "tests/integrated/factory/novel-with-chapters/index.ts";
-import { mockCreateUserWithSessionGoogle } from "tests/integrated/factory/user/with-session.ts";
+import { AuthorTableSelect } from "@/infrastructure/db/schemas/authors.js";
+import { ChapterTableInsert } from "@/infrastructure/db/schemas/chapters.js";
+import { NovelTableInsert } from "@/infrastructure/db/schemas/novels.js";
+import { createAuthorTx } from "@/features/authors/repositories/create.repository.js";
+import { testDb, redisDb } from "tests/integrated/db/db-test.js";
+import { createNovelWithChapters } from "tests/integrated/factory/novel-with-chapters/index.js";
+import { mockCreateUserWithSessionGoogle } from "tests/integrated/factory/user/with-session.js";
 import {
   userStaff,
   userAdmin,
   readerFirst,
   userStaff2,
-} from "tests/mockdata.ts";
+} from "tests/mockdata.js";
 import data from "tests/mockdb.json" with { type: "json" };
 
 export const seedBeforeAll = async () => {

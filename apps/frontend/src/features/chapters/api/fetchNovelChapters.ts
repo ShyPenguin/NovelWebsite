@@ -28,6 +28,7 @@ export const fetchNovelChapters = <
   type: T;
   schema: ZodType;
 }) => {
+  void type;
   return async ({
     params,
     novelId,

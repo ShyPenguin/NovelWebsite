@@ -2,9 +2,9 @@ import { beforeAll, expect, describe, it } from "vitest";
 import request from "supertest";
 import { ApiResponseSchema } from "@repo/contracts/api";
 import { randomUUID } from "crypto";
-import { app } from "@/app.ts";
-import { COOKIE_SESSION_KEY } from "@/shared/constants/index.ts";
-import { seedBeforeAll } from "./seed.ts";
+import { app } from "@/app.js";
+import { COOKIE_SESSION_KEY } from "@/shared/constants/index.js";
+import { seedBeforeAll } from "./seed.js";
 import {
   UserChangeRoleDTO,
   UserDetailDTO,

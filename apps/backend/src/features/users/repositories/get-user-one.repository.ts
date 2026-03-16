@@ -1,5 +1,5 @@
-import { DbExecTypes } from "@/infrastructure/db/type.ts";
-import { GetFetchReturn } from "@/shared/types/service.types.ts";
+import { DbExecTypes } from "@/infrastructure/db/type.js";
+import { GetFetchReturn } from "@/shared/types/service.types.js";
 import {
   UserSelectDTO,
   UserThumbnailEncodeDTO,
@@ -10,8 +10,8 @@ import {
   UserDetailSchema,
   UserThumbnailSchema,
 } from "@repo/contracts/schemas/user";
-import { buildUsersBaseQuery } from "./user.build-base-query.ts";
-import { UserWhere, userWhereMap } from "./user.where.ts";
+import { buildUsersBaseQuery } from "./user.build-base-query.js";
+import { UserWhere, userWhereMap } from "./user.where.js";
 
 // Map's keys must follow UserSelectDTO
 type UserDTOMap = {

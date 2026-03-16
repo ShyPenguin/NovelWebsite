@@ -1,12 +1,12 @@
-import { SESSION_EXPIRATION_SECONDS } from "@/shared/constants/index.ts";
-import { UserTable } from "@/infrastructure/db/schemas/users.ts";
-import { DbPoolType } from "@/infrastructure/db/type.ts";
-import { createUserOauthAccountTx } from "@/features/auth/repositories/create.repository.ts";
-import { createUserTx } from "@/features/users/repositories/create.repository.ts";
+import { SESSION_EXPIRATION_SECONDS } from "@/shared/constants/index.js";
+import { UserTable } from "@/infrastructure/db/schemas/users.js";
+import { DbPoolType } from "@/infrastructure/db/type.js";
+import { createUserOauthAccountTx } from "@/features/auth/repositories/create.repository.js";
+import { createUserTx } from "@/features/users/repositories/create.repository.js";
 import { sessionSchema } from "@repo/contracts/schemas/auth";
 import { randomBytes } from "crypto";
-import { testDb, redisDb } from "tests/integrated/db/db-test.ts";
-import { SessionStore } from "@/infrastructure/cache/redis-local.ts";
+import { testDb, redisDb } from "tests/integrated/db/db-test.js";
+import { SessionStore } from "@/infrastructure/cache/redis-local.js";
 import { OAuthProviders } from "@repo/contracts/dto/auth";
 
 export const mockCreateUserWithSession = (provider: OAuthProviders) => {

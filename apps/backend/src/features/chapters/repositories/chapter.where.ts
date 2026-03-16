@@ -1,5 +1,5 @@
-import { ChapterTable } from "@/infrastructure/db/schemas/chapters.ts";
-import { WhereResourceFactory } from "@/shared/factories/repository/where.repository.ts";
+import { ChapterTable } from "@/infrastructure/db/schemas/chapters.js";
+import { WhereResourceFactory } from "@/shared/factories/repository/where.repository.js";
 
 export const chapterWhereMap = {
   id: WhereResourceFactory({ tableId: ChapterTable.id }),

@@ -1,7 +1,7 @@
 import { PgColumn, PgTable } from "drizzle-orm/pg-core";
 import { InferInsertModel, InferSelectModel } from "drizzle-orm/table";
 import { eq } from "drizzle-orm";
-import { DbExecTypes } from "@/infrastructure/db/type.ts";
+import { DbExecTypes } from "@/infrastructure/db/type.js";
 
 export const UpdateResourceFactory = <T extends PgTable>({
   table,

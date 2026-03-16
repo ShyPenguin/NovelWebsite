@@ -4,7 +4,7 @@ import {
   getNovelOneQueryKey,
   getNovelsQueryKey,
 } from "@/features/novels/utils/novels.tanstack-keys";
-import type { Action } from "@repo/contracts/auth/permissions";
+import type { Action } from "@repo/contracts/auth/permissions/resource";
 
 export const novelMutationConfig = (
   action: Exclude<Action<"novels">, typeof VIEW | typeof PREVIEW>,

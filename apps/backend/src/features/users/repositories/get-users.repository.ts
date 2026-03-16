@@ -5,12 +5,12 @@ import { UserSelectDTO } from "@repo/contracts/dto/user";
 import {
   buildUserCountQuery,
   buildUsersBaseQuery,
-} from "./user.build-base-query.ts";
-import { UserTable } from "@/infrastructure/db/schemas/users.ts";
-import { DbExecTypes } from "@/infrastructure/db/type.ts";
-import { applyWhere } from "@/shared/utils/apply-where.ts";
-import { paginate } from "@/shared/utils/paginate.ts";
-import { parseSortQuery } from "@/shared/utils/parse-sort-query.ts";
+} from "./user.build-base-query.js";
+import { UserTable } from "@/infrastructure/db/schemas/users.js";
+import { DbExecTypes } from "@/infrastructure/db/type.js";
+import { applyWhere } from "@/shared/utils/apply-where.js";
+import { paginate } from "@/shared/utils/paginate.js";
+import { parseSortQuery } from "@/shared/utils/parse-sort-query.js";
 import { userSort, userSortWithDirection } from "@repo/contracts/fields/users";
 
 type UserSort = (typeof userSort)[number];

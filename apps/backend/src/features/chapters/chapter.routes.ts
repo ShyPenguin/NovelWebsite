@@ -1,12 +1,12 @@
 import { Router } from "express";
 import { ChapterFormSchema } from "@repo/contracts/schemas/chapter";
-import { getLatestChaptersController } from "@/features/chapters/controllers/get-latest-chapters.controller.ts";
-import { authMiddleware } from "@/middlewares/auth-middleware.ts";
-import { validateMiddleware } from "@/middlewares/validate-middleware.ts";
-import { asyncHandler } from "@/shared/utils/async-handler.ts";
-import { deleteChapterController } from "./controllers/delete-chapter.controller.ts";
-import { getChapterOneController } from "./controllers/get-chapter-one.controller.ts";
-import { putChapterController } from "./controllers/put-chapter.controller.ts";
+import { getLatestChaptersController } from "@/features/chapters/controllers/get-latest-chapters.controller.js";
+import { authMiddleware } from "@/middlewares/auth-middleware.js";
+import { validateMiddleware } from "@/middlewares/validate-middleware.js";
+import { asyncHandler } from "@/shared/utils/async-handler.js";
+import { deleteChapterController } from "./controllers/delete-chapter.controller.js";
+import { getChapterOneController } from "./controllers/get-chapter-one.controller.js";
+import { putChapterController } from "./controllers/put-chapter.controller.js";
 import { idSchema } from "@repo/contracts/schemas/id";
 
 const chapterRoutes = Router();

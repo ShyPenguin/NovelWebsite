@@ -1,6 +1,6 @@
-import { requirePermission } from "@/shared/utils/require-permission.ts";
+import { requirePermission } from "@/shared/utils/require-permission.js";
 import { UserSession } from "@repo/contracts/dto/auth";
-import { previewChapterService } from "./preview-chapter.service.ts";
+import { previewChapterService } from "./preview-chapter.service.js";
 
 export const previewChapterWithAuthService = async ({
   docUrl,

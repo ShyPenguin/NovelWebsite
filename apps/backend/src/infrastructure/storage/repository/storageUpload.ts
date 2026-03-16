@@ -1,5 +1,5 @@
 import { randomUUID } from "crypto";
-import { storage } from "../index.ts";
+import { storage } from "../index.js";
 
 export async function uploadImageToStorage(
   file: Express.Multer.File,

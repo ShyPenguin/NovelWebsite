@@ -1,13 +1,13 @@
 import dotenv from "dotenv";
 import { randomUUID } from "crypto";
 import { drizzle } from "drizzle-orm/node-postgres";
-import { DbPoolType } from "../../../src/infrastructure/db/type.ts";
-import * as schema from "../../../src/infrastructure/db/schemas/index.ts";
+import { DbPoolType } from "../../../src/infrastructure/db/type.js";
+import * as schema from "../../../src/infrastructure/db/schemas/index.js";
 import { Pool } from "pg";
 import {
   createRedisSessionStore,
   SessionStore,
-} from "../../../src/infrastructure/cache/redis-local.ts";
+} from "../../../src/infrastructure/cache/redis-local.js";
 dotenv.config({ path: ".env.test" });
 
 let databaseName: string;

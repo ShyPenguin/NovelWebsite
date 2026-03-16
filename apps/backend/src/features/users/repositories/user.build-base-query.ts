@@ -1,7 +1,7 @@
-import { DbExecTypes } from "@/infrastructure/db/type.ts";
+import { DbExecTypes } from "@/infrastructure/db/type.js";
 import { sql } from "drizzle-orm";
-import { userSelectMap } from "./user.selections.ts";
-import { UserTable } from "@/infrastructure/db/schemas/users.ts";
+import { userSelectMap } from "./user.selections.js";
+import { UserTable } from "@/infrastructure/db/schemas/users.js";
 import { UserSelectDTO } from "@repo/contracts/dto/user";
 
 export const buildUsersBaseQuery = ({

@@ -1,5 +1,5 @@
 import { z } from "zod";
-import { pageField } from "@/shared/validations/fields.ts";
+import { pageField } from "@/shared/validations/fields.js";
 import { NumberSchemaBuilder } from "@repo/contracts/fields/builders";
 import { searchField } from "@repo/contracts/fields/general";
 import { UserQueryContract } from "@repo/contracts/schemas/user";

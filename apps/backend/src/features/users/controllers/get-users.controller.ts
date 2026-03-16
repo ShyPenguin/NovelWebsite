@@ -1,7 +1,7 @@
 import { Response, Request } from "express";
 import { UserListDTO } from "@repo/contracts/dto/user";
-import { UserQuerySchema } from "@/features/users/user.schema.ts";
-import { GetUsersServices } from "../services/get-users.service.ts";
+import { UserQuerySchema } from "@/features/users/user.schema.js";
+import { GetUsersServices } from "../services/get-users.service.js";
 
 export const getUsersController = ({ type }: { type: UserListDTO }) => {
   return async (req: Request, res: Response): Promise<any> => {

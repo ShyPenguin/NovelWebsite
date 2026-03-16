@@ -1,7 +1,7 @@
 import dotenv from "dotenv";
 import { Client } from "pg";
 import { execSync } from "node:child_process";
-import { waitForDb } from "../scripts/wait-for-db.ts";
+import { waitForDb } from "../scripts/wait-for-db.js";
 dotenv.config({ path: ".env.test" });
 
 const { DATABASE_ADMIN_URL, DATABASE_TEMPLATE_URL, TEMPLATE_NAME } =

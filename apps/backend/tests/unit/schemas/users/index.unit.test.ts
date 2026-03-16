@@ -1,7 +1,7 @@
 import {
   UserQueryInput,
   UserQuerySchema,
-} from "@/features/users/user.schema.ts";
+} from "@/features/users/user.schema.js";
 import { describe, it, expect } from "vitest";
 import z from "zod";
 

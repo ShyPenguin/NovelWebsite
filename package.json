@@ -7,9 +7,11 @@
   "scripts": {
     "build": "turbo run build",
     "dev": "turbo run dev",
+    "start": "turbo run start",
     "backend:test": "turbo run test --filter=backend"
   },
   "devDependencies": {
+    "tsc-alias": "^1.8.16",
     "turbo": "^2.7.5",
     "typescript": "~5.8.3"
   },

@@ -1,5 +1,5 @@
-import { AuthorTable } from "@/infrastructure/db/schemas/authors.ts";
-import { UpdateResourceFactory } from "@/shared/factories/repository/update.repository.ts";
+import { AuthorTable } from "@/infrastructure/db/schemas/authors.js";
+import { UpdateResourceFactory } from "@/shared/factories/repository/update.repository.js";
 
 export const updateAuthorTx = UpdateResourceFactory({
   table: AuthorTable,

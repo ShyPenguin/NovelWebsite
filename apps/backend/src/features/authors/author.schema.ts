@@ -1,6 +1,6 @@
 import { z } from "zod";
 import { searchField } from "@repo/contracts/fields/general";
-import { pageField } from "@/shared/validations/fields.ts";
+import { pageField } from "@/shared/validations/fields.js";
 import { NumberSchemaBuilder } from "@repo/contracts/fields/builders";
 import { AuthorQueryContract } from "@repo/contracts/schemas/author";
 

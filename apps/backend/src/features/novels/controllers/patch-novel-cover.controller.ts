@@ -1,6 +1,6 @@
-import { AuthRequest } from "@/shared/types/index.ts";
+import { AuthRequest } from "@/shared/types/index.js";
 import { Response } from "express";
-import { updateNovelCoverService } from "../services/update-novel-cover.service.ts";
+import { updateNovelCoverService } from "../services/update-novel-cover.service.js";
 
 export const patchNovelCoverController = async (
   req: AuthRequest,

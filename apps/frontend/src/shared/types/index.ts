@@ -1,7 +1,6 @@
 import z from "zod";
-import { idField } from "./fields";
 import type { ACTIONS, CREATE, EDIT } from "@/shared/constants";
-export * from "../features/novels/novel.type";
+import { idFieldSchema } from "@repo/contracts/schemas/id";
 export * from "./fetchingTypes";
 export * from "./dropdownprops";
 
@@ -55,7 +54,7 @@ export const imageFileSchema = z
   });
 
 export const CategorySchema = z.object({
-  id: idField,
+  id: idFieldSchema,
   name: z.string(),
 });
 

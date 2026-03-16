@@ -1,8 +1,8 @@
-import { type Resource } from "../db/index.ts";
+import { Resource } from "@repo/contracts/auth/permissions/resource";
 
 export const aOrAn = ({ resource }: { resource: Resource }) => {
   const firstLetter = resource.charAt(0);
-  if (resource == "user") return "a";
+  if (resource == "users") return "a";
   return isVowel(firstLetter) ? "an" : "a";
 };
 

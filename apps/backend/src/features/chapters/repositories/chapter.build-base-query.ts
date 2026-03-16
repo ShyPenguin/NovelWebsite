@@ -2,9 +2,9 @@ import {
   ChapterTable,
   NovelTable,
   UserTable,
-} from "@/infrastructure/db/schemas/index.ts";
-import { DbExecTypes } from "@/infrastructure/db/type.ts";
-import { chapterSelectMap } from "@/features/chapters/repositories/chapter.selections.ts";
+} from "@/infrastructure/db/schemas/index.js";
+import { DbExecTypes } from "@/infrastructure/db/type.js";
+import { chapterSelectMap } from "@/features/chapters/repositories/chapter.selections.js";
 import { ChapterSelectDTO } from "@repo/contracts/dto/chapter";
 import { eq, sql } from "drizzle-orm";
 

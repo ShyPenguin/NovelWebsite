@@ -1,7 +1,7 @@
 import {
   ChapterQueryInput,
   ChapterQuerySchema,
-} from "@/features/chapters/chapter.schema.ts";
+} from "@/features/chapters/chapter.schema.js";
 import { describe, it, expect } from "vitest";
 
 import z from "zod";

@@ -2,12 +2,12 @@ import request from "supertest";
 import { beforeAll, expect, describe, it } from "vitest";
 import { ApiResponseSchema } from "@repo/contracts/api";
 import { AuthorThumbnailSchema } from "@repo/contracts/schemas/author";
-import { seedBeforeAll } from "./seed.ts";
+import { seedBeforeAll } from "./seed.js";
 import { randomUUID } from "crypto";
 import { idFieldSchema } from "@repo/contracts/schemas/id";
 import { NovelDetailSchema } from "@repo/contracts/schemas/novel";
-import { app } from "@/app.ts";
-import { COOKIE_SESSION_KEY } from "@/shared/constants/index.ts";
+import { app } from "@/app.js";
+import { COOKIE_SESSION_KEY } from "@/shared/constants/index.js";
 
 describe("DELETE /authors/:id", () => {
   let getters: Awaited<ReturnType<typeof seedBeforeAll>>;

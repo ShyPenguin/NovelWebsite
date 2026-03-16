@@ -1,9 +1,9 @@
-import { deleteControllerFactory } from "@/shared/factories/controller/delete.controller.ts";
-import { deleteUserService } from "../services/delete-user.service.ts";
-import { AuthRequest } from "@/shared/types/index.ts";
+import { deleteControllerFactory } from "@/shared/factories/controller/delete.controller.js";
+import { deleteUserService } from "../services/delete-user.service.js";
+import { AuthRequest } from "@/shared/types/index.js";
 import { Response } from "express";
-import { removeUserFromSession } from "@/features/auth/session.service.ts";
-import { createCookieWrapper } from "@/shared/utils/cookies-function.ts";
+import { removeUserFromSession } from "@/features/auth/session.service.js";
+import { createCookieWrapper } from "@/shared/utils/cookies-function.js";
 
 export const deleteUserController = async (req: AuthRequest, res: Response) => {
   const params = req.params;

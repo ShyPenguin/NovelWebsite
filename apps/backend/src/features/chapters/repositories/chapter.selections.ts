@@ -1,6 +1,6 @@
 import { getTableColumns } from "drizzle-orm/utils";
-import { getNextChapter, getPrevChapter } from "@/shared/utils/subqueries.ts";
-import { ChapterTable, UserTable } from "@/infrastructure/db/schemas/index.ts";
+import { getNextChapter, getPrevChapter } from "@/shared/utils/subqueries.js";
+import { ChapterTable, UserTable } from "@/infrastructure/db/schemas/index.js";
 import {
   ChapterDetailDTO,
   ChapterAuthDTO,

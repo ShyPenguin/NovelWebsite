@@ -1,14 +1,14 @@
-import { db } from "@/infrastructure/db/index.ts";
-import { DbClientType, DbPoolType } from "@/infrastructure/db/type.ts";
+import { db } from "@/infrastructure/db/index.js";
+import { DbClientType, DbPoolType } from "@/infrastructure/db/type.js";
 import {
   BaseError,
   NotFoundError,
   ValidationError,
-} from "@/shared/errors/index.ts";
-import { requirePermission } from "@/shared/utils/require-permission.ts";
+} from "@/shared/errors/index.js";
+import { requirePermission } from "@/shared/utils/require-permission.js";
 import { UserSession } from "@repo/contracts/dto/auth";
 import { AuthorThumbnailDTO, AuthorFormDTO } from "@repo/contracts/dto/author";
-import { updateAuthorTx } from "../repositories/update.repository.ts";
+import { updateAuthorTx } from "../repositories/update.repository.js";
 
 export const updateAuthorService = async ({
   form,

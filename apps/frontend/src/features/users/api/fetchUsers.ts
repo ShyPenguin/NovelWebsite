@@ -4,10 +4,7 @@ import { ApiResponseSchema } from "@repo/contracts/api";
 import type { ZodType } from "zod";
 import type { UserSearchPaginated, UserSearchType } from "../user.schema";
 import type { UserResponseMap, FetchUsersReturn } from "../user.type";
-import {
-  ArrayUserThumbnailSchema,
-  PaginatedUserThumbnailSchema,
-} from "@repo/contracts/schemas/user";
+import { PaginatedUserThumbnailSchema } from "@repo/contracts/schemas/user";
 import { keepPreviousData, queryOptions } from "@tanstack/react-query";
 import type { UserThumbnailDTO } from "@repo/contracts/dto/user";
 import { INTERVAL_24_HRS } from "@/shared/constants";
@@ -24,8 +21,10 @@ export const fetchUsers = <
   type: T;
   paginated: P;
   schema: ZodType<FetchUsersReturn<T>>;
-}) =>
-  async function (
+}) => {
+  void type;
+
+  return async function (
     params: FetchType<P extends true ? UserSearchPaginated : UserSearchType>,
   ): Promise<FetchUsersReturn<T>> {
     let url = `${userUrl}`;
@@ -59,12 +58,14 @@ export const fetchUsers = <
 
     return parsedResult.data;
   };
+};
 
-const fetchUserArray = fetchUsers({
-  type: "thumbnail",
-  paginated: false,
-  schema: ArrayUserThumbnailSchema,
-});
+// Might be used in the future
+// const fetchUserArray = fetchUsers({
+//   type: "thumbnail",
+//   paginated: false,
+//   schema: ArrayUserThumbnailSchema,
+// });
 
 const fetchUserPaginated = fetchUsers({
   type: "paginated.thumbnail",

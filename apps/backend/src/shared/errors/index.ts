@@ -1,5 +1,5 @@
 import { capitalizeFirstLetter } from "@repo/contracts/utils/capitalizeFirstLetter";
-import { aOrAn } from "../utils/a-or-an.ts";
+import { aOrAn } from "../utils/a-or-an.js";
 import type {
   Resource,
   Action,

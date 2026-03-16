@@ -1,10 +1,10 @@
-import { ChapterTableInsert } from "@/infrastructure/db/schemas/chapters.ts";
-import { NovelTableInsert } from "@/infrastructure/db/schemas/novels.ts";
-import { UserTableInsert } from "@/infrastructure/db/schemas/users.ts";
-import { DbExecTypes } from "@/infrastructure/db/type.ts";
-import { createUserTx } from "@/features/users/repositories/create.repository.ts";
-import { createNovelWithChapters } from "../novel-with-chapters/index.ts";
-import { Week } from "@/infrastructure/db/schemas/novelSchedule.ts";
+import { ChapterTableInsert } from "@/infrastructure/db/schemas/chapters.js";
+import { NovelTableInsert } from "@/infrastructure/db/schemas/novels.js";
+import { UserTableInsert } from "@/infrastructure/db/schemas/users.js";
+import { DbExecTypes } from "@/infrastructure/db/type.js";
+import { createUserTx } from "@/features/users/repositories/create.repository.js";
+import { createNovelWithChapters } from "../novel-with-chapters/index.js";
+import { Week } from "@/infrastructure/db/schemas/novelSchedule.js";
 
 export const createUserWithNovelChapters = async ({
   tx,

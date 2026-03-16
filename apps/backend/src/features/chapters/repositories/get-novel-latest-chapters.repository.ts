@@ -1,12 +1,12 @@
 import { desc, eq, sql } from "drizzle-orm";
 import { chapterAccessTypes } from "@repo/contracts/fields/chapters";
-import { ChapterTable } from "@/infrastructure/db/schemas/chapters.ts";
-import { NovelTable } from "@/infrastructure/db/schemas/novels.ts";
+import { ChapterTable } from "@/infrastructure/db/schemas/chapters.js";
+import { NovelTable } from "@/infrastructure/db/schemas/novels.js";
 import {
   Transaction,
   DbPoolType,
   DbClientType,
-} from "@/infrastructure/db/type.ts";
+} from "@/infrastructure/db/type.js";
 
 const novelLatestChapterSelect = {
   novel: {

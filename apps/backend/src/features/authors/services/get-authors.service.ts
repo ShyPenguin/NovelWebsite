@@ -1,13 +1,13 @@
-import { db } from "@/infrastructure/db/index.ts";
-import { DbExecTypes } from "@/infrastructure/db/type.ts";
-import { AuthorQueryOutput } from "@/features/authors/author.schema.ts";
+import { db } from "@/infrastructure/db/index.js";
+import { DbExecTypes } from "@/infrastructure/db/type.js";
+import { AuthorQueryOutput } from "@/features/authors/author.schema.js";
 import {
   AuthorThumbnailDTO,
   AuthorListDTO,
   AuthorDetailDTO,
 } from "@repo/contracts/dto/author";
 import { ZodType } from "zod";
-import { PAGE_SIZE_AUTHOR } from "@/shared/constants/index.ts";
+import { PAGE_SIZE_AUTHOR } from "@/shared/constants/index.js";
 import {
   ArrayAuthorDetailSchema,
   ArrayAuthorThumbnailSchema,
@@ -18,11 +18,11 @@ import {
   GetFetchListReturn,
   GetListParams,
   GetServiceList,
-} from "@/shared/types/service.types.ts";
+} from "@/shared/types/service.types.js";
 import {
   getAuthorsTx,
   getPaginatedAuthorsTx,
-} from "../repositories/get-authors.repository.ts";
+} from "../repositories/get-authors.repository.js";
 
 type AuthorDTOMAP = {
   detail: AuthorDetailDTO[];

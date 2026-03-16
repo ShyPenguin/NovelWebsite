@@ -1,9 +1,9 @@
-import { NovelTable } from "@/infrastructure/db/schemas/novels.ts";
-import { UserOAuthAccountTable } from "@/infrastructure/db/schemas/oauthProviders.ts";
+import { NovelTable } from "@/infrastructure/db/schemas/novels.js";
+import { UserOAuthAccountTable } from "@/infrastructure/db/schemas/oauthProviders.js";
 import {
   getUserColumns,
   UserTable,
-} from "@/infrastructure/db/schemas/users.ts";
+} from "@/infrastructure/db/schemas/users.js";
 import { OAuthProviders } from "@repo/contracts/dto/auth";
 import {
   UserDetailDTO,

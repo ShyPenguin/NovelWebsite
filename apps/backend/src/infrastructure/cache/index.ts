@@ -1,6 +1,6 @@
 import "dotenv/config";
 import { Redis } from "@upstash/redis";
-import { createRedisSessionStore } from "@/infrastructure/cache/redis-local.ts";
+import { createRedisSessionStore } from "@/infrastructure/cache/redis-local.js";
 
 export const redisClient =
   process.env.NODE_ENV == "staging"

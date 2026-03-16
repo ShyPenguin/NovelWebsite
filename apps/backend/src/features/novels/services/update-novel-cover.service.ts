@@ -1,20 +1,20 @@
-import { db } from "@/infrastructure/db/index.ts";
+import { db } from "@/infrastructure/db/index.js";
 import {
   BaseError,
   NotFoundError,
   ValidationError,
-} from "@/shared/errors/index.ts";
+} from "@/shared/errors/index.js";
 import {
   NovelDetailDTO,
   NovelDetailEncodeDTO,
 } from "@repo/contracts/dto/novel";
 import { UserSession } from "@repo/contracts/dto/auth";
-import { deleteImageFromStore } from "@/infrastructure/storage/repository/storageDelete.ts";
-import { uploadImageToStorage } from "@/infrastructure/storage/repository/storageUpload.ts";
-import { getNovelDetailByIdTx } from "../repositories/get-novel-one.ts";
-import { updateNovelTx } from "../repositories/update.repository.ts";
-import { requirePermission } from "@/shared/utils/require-permission.ts";
-import { NOVEL_URL_SUPABASE_PATH } from "@/shared/constants/index.ts";
+import { deleteImageFromStore } from "@/infrastructure/storage/repository/storageDelete.js";
+import { uploadImageToStorage } from "@/infrastructure/storage/repository/storageUpload.js";
+import { getNovelDetailByIdTx } from "../repositories/get-novel-one.js";
+import { updateNovelTx } from "../repositories/update.repository.js";
+import { requirePermission } from "@/shared/utils/require-permission.js";
+import { NOVEL_URL_SUPABASE_PATH } from "@/shared/constants/index.js";
 
 export const updateNovelCoverService = async ({
   id,

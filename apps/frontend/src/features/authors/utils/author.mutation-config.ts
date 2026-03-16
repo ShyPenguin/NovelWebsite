@@ -4,7 +4,7 @@ import {
   getAuthorOneQueryKey,
   getAuthorsQueryKey,
 } from "./authors.tanstack-keys";
-import type { Action } from "@repo/contracts/auth/permissions";
+import type { Action } from "@repo/contracts/auth/permissions/resource";
 
 export const authorMutationConfig = (
   action: Exclude<Action<"authors">, typeof VIEW | typeof PREVIEW>,

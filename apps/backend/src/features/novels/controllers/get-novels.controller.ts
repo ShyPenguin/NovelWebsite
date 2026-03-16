@@ -1,7 +1,7 @@
 import { Response, Request } from "express";
 import { NovelListDTO } from "@repo/contracts/dto/novel";
-import { NovelQuerySchema } from "@/features/novels/novel.schema.ts";
-import { GetNovelsServices } from "../services/get-novels.service.ts";
+import { NovelQuerySchema } from "@/features/novels/novel.schema.js";
+import { GetNovelsServices } from "../services/get-novels.service.js";
 
 export const getNovelsController = ({ type }: { type: NovelListDTO }) => {
   return async (req: Request, res: Response): Promise<any> => {

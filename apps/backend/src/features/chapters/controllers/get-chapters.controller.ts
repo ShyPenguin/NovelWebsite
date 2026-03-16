@@ -1,5 +1,5 @@
 import { Response, Request } from "express";
-import { GetNovelChaptersServices } from "../services/get-chapters.service.ts";
+import { GetNovelChaptersServices } from "../services/get-chapters.service.js";
 import { ChapterListDTO } from "@repo/contracts/dto/chapter";
 
 export const getChaptersController = ({ type }: { type: ChapterListDTO }) => {

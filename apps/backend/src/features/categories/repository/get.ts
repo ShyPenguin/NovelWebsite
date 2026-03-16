@@ -1,5 +1,5 @@
-import { CategoryTable } from "@/infrastructure/db/schemas/categories.ts";
-import { Transaction } from "@/infrastructure/db/type.ts";
+import { CategoryTable } from "@/infrastructure/db/schemas/categories.js";
+import { Transaction } from "@/infrastructure/db/type.js";
 import { inArray } from "drizzle-orm";
 
 export const getCategoriesByIdsTx = async (

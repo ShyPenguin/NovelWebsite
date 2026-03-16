@@ -1,6 +1,6 @@
 import { AuthorListDTO } from "@repo/contracts/dto/author";
 import { Response, Request } from "express";
-import { GetAuthorsServices } from "../services/get-authors.service.ts";
+import { GetAuthorsServices } from "../services/get-authors.service.js";
 
 export const getAuthorsController = ({ type }: { type: AuthorListDTO }) => {
   return async (req: Request, res: Response): Promise<any> => {

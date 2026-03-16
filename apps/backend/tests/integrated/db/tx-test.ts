@@ -3,7 +3,7 @@ import { sql } from "drizzle-orm";
 import {
   DbClientType,
   DbPoolType,
-} from "../../../src/infrastructure/db/type.ts";
+} from "../../../src/infrastructure/db/type.js";
 
 let tx: DbClientType | DbPoolType | null;
 

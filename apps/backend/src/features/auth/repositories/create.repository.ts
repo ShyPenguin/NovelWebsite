@@ -1,5 +1,5 @@
-import { UserOAuthAccountTable } from "@/infrastructure/db/schemas/oauthProviders.ts";
-import { CreateResourceFactory } from "@/shared/factories/repository/create.repository.ts";
+import { UserOAuthAccountTable } from "@/infrastructure/db/schemas/oauthProviders.js";
+import { CreateResourceFactory } from "@/shared/factories/repository/create.repository.js";
 
 export const createUserOauthAccountTx = CreateResourceFactory<
   typeof UserOAuthAccountTable

@@ -1,7 +1,8 @@
 import { BackendApiLink } from "@/shared/constants";
 import { ApiResponseSchema } from "@repo/contracts/api";
-import type { Resource } from "@repo/contracts/auth/permissions";
+import type { Resource } from "@repo/contracts/auth/permissions/resource";
 import { idFieldSchema } from "@repo/contracts/schemas/id";
+
 export const deleteResourceFactory =
   ({ resource }: { resource: Resource }) =>
   async ({ id }: { id: string }): Promise<{ id: string }> => {

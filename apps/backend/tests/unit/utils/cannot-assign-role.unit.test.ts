@@ -1,5 +1,5 @@
-import { CustomizedAuthorizationError } from "@/shared/errors/index.ts";
-import { cantAssignRole } from "@/shared/utils/cannot-assign-role.ts";
+import { CustomizedAuthorizationError } from "@/shared/errors/index.js";
+import { cantAssignRole } from "@/shared/utils/cannot-assign-role.js";
 import { PermissionMap } from "@repo/contracts/auth/permissions/resource";
 import {
   OAuthProviders,

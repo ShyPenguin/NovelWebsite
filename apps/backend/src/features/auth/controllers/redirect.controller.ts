@@ -1,7 +1,7 @@
 import { Request, Response } from "express";
-import { getOAuthClient } from "@/infrastructure/oauth-providers/base.ts";
-import { createCookieWrapper } from "@/shared/utils/cookies-function.ts";
-import { providerSchema } from "@/shared/types/index.ts";
+import { getOAuthClient } from "@/infrastructure/oauth-providers/base.js";
+import { createCookieWrapper } from "@/shared/utils/cookies-function.js";
+import { providerSchema } from "@/shared/types/index.js";
 
 export const redirectOAuthURL = async (
   req: Request,

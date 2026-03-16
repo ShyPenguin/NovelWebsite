@@ -1,17 +1,17 @@
-import { DbExecTypes } from "@/infrastructure/db/type.ts";
-import { AuthorQueryOutput } from "@/features/authors/author.schema.ts";
+import { DbExecTypes } from "@/infrastructure/db/type.js";
+import { AuthorQueryOutput } from "@/features/authors/author.schema.js";
 import { AuthorSelectDTO } from "@repo/contracts/dto/author";
 import {
   AuthorBaseQuery,
   buildAuthorCountQuery,
   buildAuthorsBaseQuery,
-} from "./author.build-base-query.ts";
+} from "./author.build-base-query.js";
 import { ilike, SQL } from "drizzle-orm";
-import { AuthorTable } from "@/infrastructure/db/schemas/authors.ts";
-import { applyWhere } from "@/shared/utils/apply-where.ts";
+import { AuthorTable } from "@/infrastructure/db/schemas/authors.js";
+import { applyWhere } from "@/shared/utils/apply-where.js";
 import { Paginated } from "@repo/contracts/dto/paginated";
-import { paginate } from "@/shared/utils/paginate.ts";
-import { PAGE_SIZE_AUTHOR } from "@/shared/constants/index.ts";
+import { paginate } from "@/shared/utils/paginate.js";
+import { PAGE_SIZE_AUTHOR } from "@/shared/constants/index.js";
 
 export const getAuthorsTx = async ({
   tx,

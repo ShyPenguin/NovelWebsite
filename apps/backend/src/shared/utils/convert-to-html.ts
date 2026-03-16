@@ -1,5 +1,5 @@
-import { Paragraph, RGBType, TextSegment } from "./google-doc.ts";
-import { lineElement } from "./line-element.ts";
+import { Paragraph, RGBType, TextSegment } from "./google-doc.js";
+import { lineElement } from "./line-element.js";
 
 const absoluteFullBackGround =
   "position: absolute; top: -0.125rem; right: -0.125rem; bottom: -0.125rem; ";

@@ -1,13 +1,13 @@
 import dotenv from "dotenv";
-import { db } from "@/infrastructure/db/index.ts";
-import { ChapterTableInsert } from "@/infrastructure/db/schemas/chapters.ts";
-import { NovelTableInsert } from "@/infrastructure/db/schemas/novels.ts";
-import { createAuthorTx } from "@/features/authors/repositories/create.repository.ts";
-import { createUserTx } from "@/features/users/repositories/create.repository.ts";
+import { db } from "@/infrastructure/db/index.js";
+import { ChapterTableInsert } from "@/infrastructure/db/schemas/chapters.js";
+import { NovelTableInsert } from "@/infrastructure/db/schemas/novels.js";
+import { createAuthorTx } from "@/features/authors/repositories/create.repository.js";
+import { createUserTx } from "@/features/users/repositories/create.repository.js";
 import data from "tests/mockdb.json" with { type: "json" };
-import { createCategoryTx } from "@/features/categories/repository/create.ts";
-import { createNovelWithChapters } from "tests/integrated/factory/novel-with-chapters/index.ts";
-import { userAdmin, userStaff, userStaff2 } from "tests/mockdata.ts";
+import { createCategoryTx } from "@/features/categories/repository/create.js";
+import { createNovelWithChapters } from "tests/integrated/factory/novel-with-chapters/index.js";
+import { userAdmin, userStaff, userStaff2 } from "tests/mockdata.js";
 
 dotenv.config({ path: ".env.dev" });
 export const seed = async () => {

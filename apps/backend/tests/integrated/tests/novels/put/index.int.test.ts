@@ -5,9 +5,9 @@ import { NovelDetailSchema } from "@repo/contracts/schemas/novel";
 import { randomUUID } from "crypto";
 import { NovelFormDTO } from "@repo/contracts/dto/novel";
 import { getFormattedDate } from "@repo/contracts/utils/getFormattedDate";
-import { app } from "@/app.ts";
-import { COOKIE_SESSION_KEY } from "@/shared/constants/index.ts";
-import { seedBeforeAll } from "./seed.ts";
+import { app } from "@/app.js";
+import { COOKIE_SESSION_KEY } from "@/shared/constants/index.js";
+import { seedBeforeAll } from "./seed.js";
 
 describe("PUT /novels/:id", () => {
   let getters: Awaited<ReturnType<typeof seedBeforeAll>>;

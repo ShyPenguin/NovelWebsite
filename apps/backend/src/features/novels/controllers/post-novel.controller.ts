@@ -1,5 +1,5 @@
-import { postControllerFactory } from "@/shared/factories/controller/post.controller.ts";
-import { createNovelService } from "../services/create-novel.service.ts";
+import { postControllerFactory } from "@/shared/factories/controller/post.controller.js";
+import { createNovelService } from "../services/create-novel.service.js";
 
 export const postNovelController = postControllerFactory({
   service: createNovelService,

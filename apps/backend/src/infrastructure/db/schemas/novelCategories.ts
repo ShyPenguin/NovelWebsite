@@ -1,6 +1,6 @@
 import { index, pgTable, primaryKey, uuid } from "drizzle-orm/pg-core";
-import { CategoryTable } from "./categories.ts";
-import { NovelTable } from "./novels.ts";
+import { CategoryTable } from "./categories.js";
+import { NovelTable } from "./novels.js";
 import { relations } from "drizzle-orm";
 
 export const NovelCategoryTable = pgTable(

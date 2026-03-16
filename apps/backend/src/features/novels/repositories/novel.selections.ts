@@ -6,17 +6,17 @@ import {
   NovelThumbnailDTO,
   NovelTrendDTO,
 } from "@repo/contracts/dto/novel";
-import { AuthorTable } from "@/infrastructure/db/schemas/authors.ts";
-import { ChapterTable } from "@/infrastructure/db/schemas/chapters.ts";
+import { AuthorTable } from "@/infrastructure/db/schemas/authors.js";
+import { ChapterTable } from "@/infrastructure/db/schemas/chapters.js";
 import {
   NovelTable,
   getNovelColumns,
   UserTable,
-} from "@/infrastructure/db/schemas/index.ts";
+} from "@/infrastructure/db/schemas/index.js";
 import {
   getNovelCategories,
   getNovelSchedule,
-} from "@/shared/utils/subqueries.ts";
+} from "@/shared/utils/subqueries.js";
 
 export const getTotalChapter = sql<number>`
   (

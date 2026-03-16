@@ -1,6 +1,6 @@
-import { testDb, redisDb } from "tests/integrated/db/db-test.ts";
-import { mockCreateUserWithSessionGoogle } from "tests/integrated/factory/user/with-session.ts";
-import { userAdmin, userSupervisor, userSupervisor2 } from "tests/mockdata.ts";
+import { testDb, redisDb } from "tests/integrated/db/db-test.js";
+import { mockCreateUserWithSessionGoogle } from "tests/integrated/factory/user/with-session.js";
+import { userAdmin, userSupervisor, userSupervisor2 } from "tests/mockdata.js";
 
 export const seedBeforeAll = async () => {
   const supervisorToDelete = await mockCreateUserWithSessionGoogle(

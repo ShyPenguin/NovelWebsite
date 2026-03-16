@@ -1,13 +1,13 @@
-import { db } from "@/infrastructure/db/index.ts";
+import { db } from "@/infrastructure/db/index.js";
 import {
   DbClientType,
   DbExecTypes,
   DbPoolType,
-} from "@/infrastructure/db/type.ts";
-import { NotFoundError } from "@/shared/errors/index.ts";
-import { requirePermission } from "@/shared/utils/require-permission.ts";
+} from "@/infrastructure/db/type.js";
+import { NotFoundError } from "@/shared/errors/index.js";
+import { requirePermission } from "@/shared/utils/require-permission.js";
 import { UserSession } from "@repo/contracts/dto/auth";
-import { deleteImageFromStore } from "@/infrastructure/storage/repository/storageDelete.ts";
+import { deleteImageFromStore } from "@/infrastructure/storage/repository/storageDelete.js";
 import {
   PermissionMap,
   Resource,

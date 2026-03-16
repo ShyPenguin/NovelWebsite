@@ -1,8 +1,8 @@
 import { Router } from "express";
-import { redirectOAuthURL } from "./controllers/redirect.controller.ts";
-import { login } from "./controllers/login.controller.ts";
-import { logout } from "./controllers/logout.controller.ts";
-import { me } from "./controllers/me.controller.ts";
+import { redirectOAuthURL } from "./controllers/redirect.controller.js";
+import { login } from "./controllers/login.controller.js";
+import { logout } from "./controllers/logout.controller.js";
+import { me } from "./controllers/me.controller.js";
 
 const oauthRoutes = Router();
 

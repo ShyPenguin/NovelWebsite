@@ -2,6 +2,7 @@
   "name": "@repo/contracts",
   "private": true,
   "version": "0.0.0",
+  "type": "module",
   "exports": {
     "./api": {
       "types": "./src/api/index.ts",
@@ -37,7 +38,7 @@
     }
   },
   "scripts": {
-    "build": "tsc -p tsconfig.build.json",
+    "build": "tsc -p tsconfig.build.json && tsc-alias -p tsconfig.build.json",
     "dev": "tsc -p tsconfig.build.json --watch --preserveWatchOutput",
     "test": "vitest run"
   },
@@ -46,6 +47,7 @@
   },
   "devDependencies": {
     "@repo/typescript-config": "*",
+    "tsc-alias": "^1.8.16",
     "vitest": "^4.0.18"
   },
   "typesVersions": {

@@ -1,17 +1,17 @@
-import { db } from "@/infrastructure/db/index.ts";
+import { db } from "@/infrastructure/db/index.js";
 import {
   BaseError,
   NotFoundError,
   ValidationError,
-} from "@/shared/errors/index.ts";
+} from "@/shared/errors/index.js";
 import { UserDetailDTO, UserDetailEncodeDTO } from "@repo/contracts/dto/user";
 import { UserSession } from "@repo/contracts/dto/auth";
-import { deleteImageFromStore } from "@/infrastructure/storage/repository/storageDelete.ts";
-import { uploadImageToStorage } from "@/infrastructure/storage/repository/storageUpload.ts";
-import { updateUserTx } from "../repositories/update.repository.ts";
-import { requirePermission } from "@/shared/utils/require-permission.ts";
-import { USER_URL_SUPABASE_PATH } from "@/shared/constants/index.ts";
-import { getUserDetailByIdTx } from "../repositories/get-user-one.repository.ts";
+import { deleteImageFromStore } from "@/infrastructure/storage/repository/storageDelete.js";
+import { uploadImageToStorage } from "@/infrastructure/storage/repository/storageUpload.js";
+import { updateUserTx } from "../repositories/update.repository.js";
+import { requirePermission } from "@/shared/utils/require-permission.js";
+import { USER_URL_SUPABASE_PATH } from "@/shared/constants/index.js";
+import { getUserDetailByIdTx } from "../repositories/get-user-one.repository.js";
 import {
   UserDetailSchema,
   UserThumbnailSchema,

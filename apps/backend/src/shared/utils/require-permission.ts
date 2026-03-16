@@ -1,6 +1,6 @@
 import { UserSession } from "@repo/contracts/dto/auth";
-import { AuthorizationError } from "../errors/index.ts";
-import { cantAssignRole } from "@/shared/utils/cannot-assign-role.ts";
+import { AuthorizationError } from "../errors/index.js";
+import { cantAssignRole } from "@/shared/utils/cannot-assign-role.js";
 import {
   Action,
   hasPermission,

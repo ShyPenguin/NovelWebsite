@@ -1,6 +1,6 @@
-import { db } from "@/infrastructure/db/index.ts";
-import { DbExecTypes } from "@/infrastructure/db/type.ts";
-import { NotFoundError } from "@/shared/errors/index.ts";
+import { db } from "@/infrastructure/db/index.js";
+import { DbExecTypes } from "@/infrastructure/db/type.js";
+import { NotFoundError } from "@/shared/errors/index.js";
 import { Resource } from "@repo/contracts/auth/permissions/resource";
 
 export const getResourceServiceFactory =
