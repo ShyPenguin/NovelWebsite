@@ -15,7 +15,7 @@ import { NOVEL_URL_SUPABASE_PATH } from "@/shared/constants/index.js";
 dotenv.config({ path: ".env.dev" });
 
 const client = new S3Client({
-  region: "us-east-1",
+  region: "ap-southeast-1",
   endpoint: process.env.MINIO_ENDPOINT,
   credentials: {
     accessKeyId: process.env.MINIO_ACCESS_KEY!,

@@ -2,17 +2,15 @@ import { UserTable } from "@/infrastructure/db/schemas/users.js";
 
 export const userAdmin: typeof UserTable.$inferInsert = {
   username: "jawadsnovelwebsite",
-  email: "jawadomato@gmail.com",
+  email: "domatojawad@gmail.com",
   name: "Jawad NovelWebsite",
   role: "admin",
-  imageUrl:
-    "https://lh3.googleusercontent.com/a/ACg8ocKekgiNNov617v7OdUT3bPPoOjKSUoMmxNW2McwjXInc1lIGA=s96-c",
 };
 
 export const userSupervisor: typeof UserTable.$inferInsert = {
-  username: "domatojawad",
-  email: "domatojawad@gmail.com",
-  name: "Domato Jawad",
+  username: "woot",
+  email: "chicken312002@gmail.com",
+  name: "Woot",
   role: "supervisor",
 };
 

@@ -1,22 +1,23 @@
 import { Client } from "pg";
 import { createClient } from "redis";
-
+import { ListBucketsCommand, S3Client } from "@aws-sdk/client-s3";
 const sleep = (ms: number) => new Promise((r) => setTimeout(r, ms));
 
 export async function waitForDb({
   databaseUrl,
   redisUrl,
-  workerId,
+  minioUrl,
 }: {
   databaseUrl: string;
   redisUrl?: string;
-  workerId?: number;
+  minioUrl?: string;
 }) {
   const total = 60;
 
   // Track readiness separately
   let postgresReady = false;
   let redisReady = redisUrl ? false : true; // If no redisUrl needed, consider it ready
+  let minioIsReady = minioUrl ? false : true;
 
   for (let i = 1; i <= total; i++) {
     try {
@@ -44,8 +45,27 @@ export async function waitForDb({
         console.log("✅ Redis is ready");
       }
 
-      // Only exit when both are ready (or Redis not needed)
-      if (postgresReady && redisReady) {
+      if (minioUrl && !minioIsReady) {
+        console.log("Testing MinIO connection...");
+        const command = new ListBucketsCommand({});
+        const minioClient = new S3Client({
+          region: "ap-southeast-1",
+          endpoint: process.env.MINIO_ENDPOINT,
+          credentials: {
+            accessKeyId: process.env.MINIO_ACCESS_KEY!,
+            secretAccessKey: process.env.MINIO_SECRET_KEY!,
+          },
+          forcePathStyle: true,
+        });
+        await minioClient.send(command);
+
+        // Try to list buckets - this will verify credentials and connectivity
+
+        minioIsReady = true;
+        console.log("✅ MinIO is ready");
+      }
+      // Only exit when databases are ready (or Redis/Minio  not needed)
+      if (postgresReady && redisReady && minioIsReady) {
         console.log("✅ Both databases are ready");
         return;
       }

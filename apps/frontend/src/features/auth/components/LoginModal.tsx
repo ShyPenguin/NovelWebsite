@@ -27,7 +27,7 @@ export const LoginModal = () => {
 
               <button
                 className="w-37.5 flex-center py-3 bg-bluerple rounded-xl gap-2 text-white hover:bg-bluerple/90 cursor-pointer"
-                onClick={() => redirectLogin("google")}
+                onClick={() => redirectLogin("discord")}
               >
                 <Discord className="w-5 h-5" />
                 <p className="text-md font-semibold">Discord</p>

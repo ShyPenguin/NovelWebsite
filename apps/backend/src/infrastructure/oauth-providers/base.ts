@@ -5,6 +5,7 @@ import { RETURN_TO_COOKIE_KEY } from "@/shared/constants/index.js";
 import { Cookies } from "@/shared/types/index.js";
 import { createGoogleOAuthClient } from "./google.js";
 import { OAuthProviders } from "@repo/contracts/dto/auth";
+import { createDiscordOAuthClient } from "./discord.js";
 
 const STATE_COOKIE_KEY = "oAuthState";
 const CODE_VERIFIER_COOKIE_KEY = "oAuthCodeVerifier";
@@ -117,6 +118,12 @@ export class OAuthClient<T> {
     })
       .then((res) => res.json())
       .then((rawData) => {
+        if (this.provider == "discord") {
+          rawData = {
+            ...rawData,
+            avatar: `https://cdn.discordapp.com/avatars/${rawData.id}/${rawData.avatar}.png`,
+          };
+        }
         const { data, success, error } =
           this.userInfo.schema.safeParse(rawData);
         if (!success) throw new InvalidUserError(error);
@@ -159,8 +166,7 @@ export class OAuthClient<T> {
 export function getOAuthClient(provider: OAuthProviders) {
   switch (provider) {
     case "discord":
-      return;
-    // return createDiscordOAuthClient();\
+      return createDiscordOAuthClient();
     case "google":
       return createGoogleOAuthClient();
     default:

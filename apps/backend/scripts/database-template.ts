@@ -14,7 +14,6 @@ const main = async () => {
   await waitForDb({
     databaseUrl: DATABASE_ADMIN_URL,
     redisUrl: process.env.REDIS_URL,
-    workerId: Number(process.env.VITEST_WORKER_ID ?? 0),
   });
   const admin = new Client({
     connectionString: DATABASE_ADMIN_URL,
