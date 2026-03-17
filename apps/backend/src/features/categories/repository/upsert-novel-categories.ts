@@ -1,4 +1,4 @@
-import { NovelCategoryTable } from "@/infrastructure/db/schemas/novelCategories.js";
+import { NovelCategoryTable } from "@/infrastructure/db/schemas/novel-categories.js";
 import { DbExecTypes } from "@/infrastructure/db/type.js";
 import { eq } from "drizzle-orm";
 

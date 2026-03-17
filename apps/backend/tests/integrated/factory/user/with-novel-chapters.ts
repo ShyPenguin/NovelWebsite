@@ -4,7 +4,7 @@ import { UserTableInsert } from "@/infrastructure/db/schemas/users.js";
 import { DbExecTypes } from "@/infrastructure/db/type.js";
 import { createUserTx } from "@/features/users/repositories/create.repository.js";
 import { createNovelWithChapters } from "../novel-with-chapters/index.js";
-import { Week } from "@/infrastructure/db/schemas/novelSchedule.js";
+import { Week } from "@/infrastructure/db/schemas/novel-schedule.js";
 
 export const createUserWithNovelChapters = async ({
   tx,

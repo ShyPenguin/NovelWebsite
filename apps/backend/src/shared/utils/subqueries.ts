@@ -1,12 +1,12 @@
 import { sql } from "drizzle-orm";
 import { CategoryTable } from "@/infrastructure/db/schemas/categories.js";
 import { ChapterTable } from "@/infrastructure/db/schemas/chapters.js";
-import { NovelCategoryTable } from "@/infrastructure/db/schemas/novelCategories.js";
+import { NovelCategoryTable } from "@/infrastructure/db/schemas/novel-categories.js";
 import { NovelTable } from "@/infrastructure/db/schemas/novels.js";
 import {
   Week,
   NovelScheduleTable,
-} from "@/infrastructure/db/schemas/novelSchedule.js";
+} from "@/infrastructure/db/schemas/novel-schedule.js";
 
 export const getNovelCategories = sql<{ id: string; name: string }[]>`
 (

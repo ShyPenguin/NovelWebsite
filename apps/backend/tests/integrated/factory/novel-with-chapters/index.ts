@@ -1,6 +1,6 @@
 import { ChapterTableInsert } from "@/infrastructure/db/schemas/chapters.js";
 import { NovelTableInsert } from "@/infrastructure/db/schemas/novels.js";
-import { Week } from "@/infrastructure/db/schemas/novelSchedule.js";
+import { Week } from "@/infrastructure/db/schemas/novel-schedule.js";
 import { DbExecTypes } from "@/infrastructure/db/type.js";
 import { createChapterTx } from "@/features/chapters/repositories/create.repository.js";
 import { createNovelTx } from "@/features/novels/repositories/create.repository.js";

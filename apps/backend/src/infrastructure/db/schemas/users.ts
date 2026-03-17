@@ -7,7 +7,7 @@ import {
   varchar,
   uuid,
 } from "drizzle-orm/pg-core";
-import { UserOAuthAccountTable } from "./oauthProviders.js";
+import { UserOAuthAccountTable } from "./oauth-providers.js";
 import { NovelTable } from "./novels.js";
 import { ReviewTable } from "./reviews.js";
 import { CommentTable } from "./comments.js";

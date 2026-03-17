@@ -13,8 +13,8 @@ import { AuthorTable } from "./authors.js";
 import { UserTable } from "./users.js";
 import { ReviewTable } from "./reviews.js";
 import { ChapterTable } from "./chapters.js";
-import { NovelCategoryTable } from "./novelCategories.js";
-import { NovelScheduleTable } from "./novelSchedule.js";
+import { NovelCategoryTable } from "./novel-categories.js";
+import { NovelScheduleTable } from "./novel-schedule.js";
 import {
   language,
   novelStatus,

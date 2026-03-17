@@ -1,5 +1,5 @@
 import { NovelTable } from "@/infrastructure/db/schemas/novels.js";
-import { UserOAuthAccountTable } from "@/infrastructure/db/schemas/oauthProviders.js";
+import { UserOAuthAccountTable } from "@/infrastructure/db/schemas/oauth-providers.js";
 import {
   getUserColumns,
   UserTable,
