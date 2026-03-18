@@ -1,7 +1,7 @@
+import { AuthorBaseSchema } from "@/base/author.base.js";
+import { NovelBaseSchema } from "@/base/novel.base.js";
 import { z } from "zod";
-import { GetFactory } from "../read-factory";
-import { NovelBaseSchema } from "../../base/novel.base";
-import { AuthorBaseSchema } from "../../base/author.base";
+import { GetFactory } from "../read-factory.js";
 
 //READ
 const AuthorThumbnailSchema = AuthorBaseSchema.pick({

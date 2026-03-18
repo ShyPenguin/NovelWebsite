@@ -1,9 +1,7 @@
-import { expect, describe, it } from "vitest";
-import { z } from "zod";
 import {
   novelSortField,
   novelSortWithDirectionField,
-} from "../../src/factories/novel";
+} from "@/factories/novel/index.js";
 import {
   novelTypeField,
   languageField,
@@ -12,7 +10,9 @@ import {
   novelStatusQueryField,
   createStringNumberToNumber,
   bookmarksField,
-} from "../../src/fields/novel.fields";
+} from "@/fields/novel.fields.js";
+import { expect, describe, it } from "vitest";
+import { z } from "zod";
 
 describe("Novel fields", () => {
   describe("novelTypeField", () => {

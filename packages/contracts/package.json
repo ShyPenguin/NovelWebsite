@@ -5,41 +5,41 @@
   "type": "module",
   "exports": {
     "./api": {
-      "types": "./src/api/index.ts",
+      "types": "./dist/api/index.d.ts",
       "default": "./dist/api/index.js"
     },
     "./dto": {
-      "types": "./src/dto/index.ts",
+      "types": "./dist/dto/index.d.ts",
       "default": "./dist/dto/index.js"
     },
     "./dto/*": {
-      "types": "./src/dto/*.ts",
+      "types": "./dist/dto/*.ts",
       "default": "./dist/dto/*.js"
     },
     "./schemas/*": {
-      "types": "./src/schemas/*/schema.ts",
+      "types": "./dist/schemas/*/schema.d.ts",
       "default": "./dist/schemas/*/schema.js"
     },
     "./utils/*": {
-      "types": "./src/utils/export/*/index.ts",
+      "types": "./dist/utils/export/*/index.d.ts",
       "default": "./dist/utils/export/*/index.js"
     },
     "./constants": {
-      "types": "./src/constants/export/index.ts",
+      "types": "./dist/constants/export/index.d.ts",
       "default": "./dist/constants/export/index.js"
     },
     "./fields/*": {
-      "types": "./src/fields/export/*/index.ts",
+      "types": "./dist/fields/export/*/index.d.ts",
       "default": "./dist/fields/export/*/index.js"
     },
     "./auth/permissions/*": {
-      "types": "./src/auth/permissions/*.ts",
+      "types": "./dist/auth/permissions/*.d.ts",
       "default": "./dist/auth/permissions/*.js"
     }
   },
   "scripts": {
     "build": "tsc -p tsconfig.build.json && tsc-alias -p tsconfig.build.json",
-    "dev": "tsc -p tsconfig.build.json --watch --preserveWatchOutput",
+    "dev": "tsc -p tsconfig.build.json && (concurrently \"tsc -p tsconfig.build.json -w\" \"tsc-alias -p tsconfig.build.json -w\")",
     "test": "vitest run"
   },
   "dependencies": {
@@ -47,6 +47,7 @@
   },
   "devDependencies": {
     "@repo/typescript-config": "*",
+    "concurrently": "^9.2.1",
     "tsc-alias": "^1.8.16",
     "vitest": "^4.0.18"
   },

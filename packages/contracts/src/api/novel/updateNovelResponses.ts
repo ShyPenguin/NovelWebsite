@@ -1,6 +1,6 @@
+import { updateDefaultResponse } from "@/factories/response.js";
+import { NovelDetailSchema } from "@/schemas/novel/schema.js";
 import { z } from "zod";
-import { NovelDetailSchema } from "../../schemas/novel/schema";
-import { updateDefaultResponse } from "../../factories/response";
 
 export const UpdateNovelResponsesSchema =
   updateDefaultResponse(NovelDetailSchema);

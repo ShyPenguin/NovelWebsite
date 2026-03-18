@@ -1,6 +1,6 @@
+import { createDefaultResponse } from "@/factories/response.js";
+import { NovelDetailSchema } from "@/schemas/novel/schema.js";
 import { z } from "zod";
-import { NovelDetailSchema } from "../../schemas/novel/schema";
-import { createDefaultResponse } from "../../factories/response";
 
 export const CreateNovelResponsesSchema =
   createDefaultResponse(NovelDetailSchema);

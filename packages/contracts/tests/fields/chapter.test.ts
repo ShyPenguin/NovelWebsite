@@ -1,10 +1,10 @@
-import { expect, describe, it } from "vitest";
-import { z } from "zod";
 import {
+  chapterStatusField,
   chapterAccessField,
   chapterNumberField,
-  chapterStatusField,
-} from "../../src/fields/chapter.fields";
+} from "@/fields/chapter.fields.js";
+import { expect, describe, it } from "vitest";
+import { z } from "zod";
 
 describe("Chapter fields", () => {
   describe("chapterStatusField", () => {

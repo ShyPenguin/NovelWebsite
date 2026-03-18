@@ -1,5 +1,5 @@
+import { createEnumError } from "@/utils/createEnumError.js";
 import { z } from "zod";
-import { createEnumError } from "../utils/createEnumError";
 
 export const week = ["SUN", "MON", "TUE", "WED", "THU", "FRI", "SAT"] as const;
 export const novelTypes = ["original", "translated"] as const;

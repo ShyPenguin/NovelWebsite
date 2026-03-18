@@ -1,11 +1,11 @@
-import { z } from "zod";
-import { chapterAccessField } from "../../fields/chapter.fields";
 import {
-  ChapterAuthFactory,
   ChapterDetailFactory,
-  chapterSortWithDirectionField,
   ChapterThumbnailFactory,
-} from "../../factories/chapter";
+  ChapterAuthFactory,
+  chapterSortWithDirectionField,
+} from "@/factories/chapter/index.js";
+import { chapterAccessField } from "@/fields/chapter.fields.js";
+import { z } from "zod";
 
 // READ
 export const ChapterDetailSchema = ChapterDetailFactory.getSchema();

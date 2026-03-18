@@ -1,5 +1,5 @@
 import z from "zod";
-import { OAuthClient, OAuthUser } from "./base";
+import { OAuthClient, OAuthUser } from "./base.js";
 
 export function createDiscordOAuthClient() {
   return new OAuthClient({

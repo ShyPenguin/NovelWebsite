@@ -1,18 +1,18 @@
-import { z } from "zod";
-import { weekDayField, novelStatusQueryField } from "../../fields/novel.fields";
 import {
-  NovelAuthFactory,
   NovelDetailFactory,
-  novelSortWithDirectionField,
   NovelThumbnailFactory,
   NovelTrendFactory,
-} from "../../factories/novel";
-import { getFormattedDate } from "../../utils/export/getFormattedDate";
+  NovelAuthFactory,
+  novelSortWithDirectionField,
+} from "@/factories/novel/index.js";
 import {
   titleField,
   descriptionField,
   createDateField,
-} from "../../fields/general";
+} from "@/fields/general.js";
+import { weekDayField, novelStatusQueryField } from "@/fields/novel.fields.js";
+import { getFormattedDate } from "@/utils/export/getFormattedDate/index.js";
+import { z } from "zod";
 
 // READ
 export const NovelDetailSchema = NovelDetailFactory.getSchema();

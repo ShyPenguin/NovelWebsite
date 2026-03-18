@@ -1,6 +1,7 @@
+import { ChapterSearchQueryContractDTO } from "@/dto/chapter.js";
+import { ChapterSearchQueryContract } from "@/schemas/chapter/schema.js";
 import { expect, describe, it } from "vitest";
-import { ChapterSearchQueryContractDTO } from "../../../src/dto/chapter";
-import { ChapterSearchQueryContract } from "../../../src/schemas/chapter/schema";
+
 import { z } from "zod";
 const query = {
   sort: "asc(chapterNumber)",

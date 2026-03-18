@@ -1,5 +1,5 @@
+import { CategoryDetailFactory } from "@/factories/category/index.js";
 import { z } from "zod";
-import { CategoryDetailFactory } from "../../factories/category";
 
 //READ
 export const CategoryDetailSchema = CategoryDetailFactory.getSchema();

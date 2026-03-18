@@ -1,12 +1,12 @@
-import { z } from "zod";
 import {
   ChapterDetailSchema,
-  ChapterFormSchema,
-  ChapterAuthSchema,
-  ChapterPreviewSchema,
-  ChapterSearchQueryContract,
   ChapterThumbnailSchema,
-} from "../schemas/chapter/schema";
+  ChapterAuthSchema,
+  ChapterSearchQueryContract,
+  ChapterFormSchema,
+  ChapterPreviewSchema,
+} from "@/schemas/chapter/schema.js";
+import { z } from "zod";
 
 //TYPES OF DATA TO READ
 export type ChapterSelectDTO = "detail" | "thumbnail" | "auth";

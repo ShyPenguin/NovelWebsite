@@ -1,6 +1,6 @@
+import { deleteDefaultResponse } from "@/factories/response.js";
+import { ChapterDetailSchema } from "@/schemas/chapter/schema.js";
 import { z } from "zod";
-import { ChapterDetailSchema } from "../../schemas/chapter/schema";
-import { deleteDefaultResponse } from "../../factories/response";
 
 export const DeleteChapterResponsesSchema =
   deleteDefaultResponse(ChapterDetailSchema);

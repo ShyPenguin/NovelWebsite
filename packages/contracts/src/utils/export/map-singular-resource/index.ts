@@ -1,4 +1,4 @@
-import type { Resource } from "../../../auth/permissions/resource";
+import type { Resource } from "@/auth/permissions/resource.js";
 
 export const mapSingularResource = {
   authors: "author",

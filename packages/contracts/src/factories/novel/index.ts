@@ -1,13 +1,13 @@
-import { z } from "zod";
-import { GetFactory } from "../read-factory";
+import { AuthorBaseSchema } from "@/base/author.base.js";
+import { CategoryBaseSchema } from "@/base/category.base.js";
+import { NovelBaseSchema } from "@/base/novel.base.js";
 import {
   createSortWithDirection,
   createSortWithDirectionField,
-} from "../../utils/createSortWithDirection";
-import { TranslatorSchema } from "../translator";
-import { NovelBaseSchema } from "../../base/novel.base";
-import { AuthorBaseSchema } from "../../base/author.base";
-import { CategoryBaseSchema } from "../../base/category.base";
+} from "@/utils/createSortWithDirection.js";
+import { z } from "zod";
+import { GetFactory } from "../read-factory.js";
+import { TranslatorSchema } from "../translator/index.js";
 
 const NovelThumbnailSchema = NovelBaseSchema.pick({
   id: true,

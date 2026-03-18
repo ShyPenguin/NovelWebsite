@@ -1,12 +1,12 @@
-import { z } from "zod";
 import {
   NovelDetailSchema,
-  NovelFormSchema,
-  NovelAuthSchema,
-  NovelQueryContract,
   NovelThumbnailSchema,
   NovelTrendSchema,
-} from "../schemas/novel/schema";
+  NovelAuthSchema,
+  NovelQueryContract,
+  NovelFormSchema,
+} from "@/schemas/novel/schema.js";
+import { z } from "zod";
 
 //TYPES OF DATA TO READ
 export type NovelSelectDTO = "detail" | "thumbnail" | "trend" | "auth";

@@ -1,17 +1,13 @@
 // Build
 {
-  "extends": "@repo/typescript-config/base.json",
+  "extends": "./tsconfig.json",
   "compilerOptions": {
     "noEmit": false,
     "outDir": "dist",
-    "rootDir": "src",
-    "module": "esnext",
-    "moduleResolution": "bundler",
-    "declaration": true,
-    "declarationMap": true
+    "rootDir": "src"
   },
   "include": ["src"],
-  "exclude": ["node_modules", "dist"],
+  "exclude": ["node_modules", "dist", "tests"],
   "tsc-alias": {
     "verbose": false,
     "resolveFullPaths": true

@@ -1,8 +1,8 @@
+import { StringSchemaBuilder } from "@/fields/builders/StringSchema.js";
+import { createIdField, emailField, urlField } from "@/fields/general.js";
+import { userRolesField, oAuthProvidersField } from "@/fields/user.fields.js";
+import { createIsoStringToDateField } from "@/schemas/date/schema.js";
 import { z } from "zod";
-import { StringSchemaBuilder } from "../fields/builders/StringSchema";
-import { createIdField, emailField, urlField } from "../fields/general";
-import { oAuthProvidersField, userRolesField } from "../fields/user.fields";
-import { createIsoStringToDateField } from "../schemas/date/schema";
 
 export const UserBaseSchema = z.object({
   id: createIdField("User"),

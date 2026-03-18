@@ -1,5 +1,6 @@
-export { userRoles, oAuthProviders, userRolesQuery } from "../../user.fields";
 export {
-  userSort,
-  userSortWithDirection,
-} from "../../../factories/users/index";
+  userRoles,
+  oAuthProviders,
+  userRolesQuery,
+} from "@/fields/user.fields.js";
+export { userSort, userSortWithDirection } from "@/factories/users/index.js";

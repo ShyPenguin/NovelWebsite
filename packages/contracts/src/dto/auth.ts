@@ -1,6 +1,6 @@
+import type { userRoles, oAuthProviders } from "@/fields/user.fields.js";
+import type { AuthDetailSchema, sessionSchema } from "@/schemas/auth/schema.js";
 import { z } from "zod";
-import { AuthDetailSchema, sessionSchema } from "../schemas/auth/schema";
-import { oAuthProviders, userRoles } from "../fields/user.fields";
 
 export type AuthDTO = z.infer<typeof AuthDetailSchema>;
 export type UserRole = (typeof userRoles)[number];

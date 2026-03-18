@@ -1,9 +1,9 @@
-import { z } from "zod";
 import {
-  AuthorDetailSchema,
-  AuthorFormSchema,
   AuthorThumbnailSchema,
-} from "../schemas/author/schema";
+  AuthorFormSchema,
+  AuthorDetailSchema,
+} from "@/schemas/author/schema.js";
+import { z } from "zod";
 
 export type AuthorSelectDTO = "detail" | "thumbnail";
 export type AuthorListDTO = Extract<AuthorSelectDTO, "detail" | "thumbnail">;

@@ -2,7 +2,7 @@ import {
   NovelDetailFactory,
   NovelThumbnailFactory,
   NovelTrendFactory,
-} from "../../factories/novel";
+} from "@/factories/novel/index.js";
 
 export const GetNovelDetailResponsesSchema = NovelDetailFactory.getResponses({
   type: "one",

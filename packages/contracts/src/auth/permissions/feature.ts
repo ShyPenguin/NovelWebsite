@@ -1,4 +1,4 @@
-import type { UserRole, UserSession } from "../../dto/auth";
+import { UserRole, UserSession } from "@/dto/auth.js";
 
 export type Feature = "usersDirectory" | "novelIndexPage";
 type FeaturePermissions = {

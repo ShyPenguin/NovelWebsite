@@ -2,11 +2,12 @@ import { UserTable } from "@/infrastructure/db/schemas/users.js";
 
 export const userAdmin: typeof UserTable.$inferInsert = {
   username: "jawadsnovelwebsite",
-  email: "domatojawad@gmail.com",
+  email: "jawadomato@gmail.com",
   name: "Jawad NovelWebsite",
   role: "admin",
+  imageUrl:
+    "https://cdn.discordapp.com/avatars/723500834901721116/8da14caf20e91ec1913218557419ef9a.png",
 };
-
 export const userSupervisor: typeof UserTable.$inferInsert = {
   username: "woot",
   email: "chicken312002@gmail.com",

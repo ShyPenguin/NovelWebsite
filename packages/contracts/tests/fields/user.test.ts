@@ -1,11 +1,12 @@
-import { expect, describe, it } from "vitest";
-import { z } from "zod";
+import { userSortWithDirectionField } from "@/factories/users/index.js";
 import {
-  oAuthProvidersField,
   userRolesField,
   userRolesQueryField,
-} from "../../src/fields/user.fields";
-import { userSortWithDirectionField } from "../../src/factories/users/index";
+  oAuthProvidersField,
+} from "@/fields/user.fields.js";
+import { expect, describe, it } from "vitest";
+import { z } from "zod";
+
 // Only Original fields
 describe("User fields", () => {
   describe("userRolesField", () => {

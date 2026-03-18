@@ -1,20 +1,20 @@
 import {
-  novelTypeField,
-  languageField,
-  novelStatusField,
-  weekDayField,
-  createStringNumberToNumber,
-} from "../fields/novel.fields";
-import {
   createIdField,
   titleField,
   descriptionField,
   urlField,
-} from "../fields/general";
+} from "@/fields/general.js";
 import {
-  createIsoStringToDateField,
+  createStringNumberToNumber,
+  novelTypeField,
+  languageField,
+  novelStatusField,
+  weekDayField,
+} from "@/fields/novel.fields.js";
+import {
   isoStringToDate,
-} from "../schemas/date/schema";
+  createIsoStringToDateField,
+} from "@/schemas/date/schema.js";
 import { z } from "zod";
 
 export const NovelBaseSchema = z.object({

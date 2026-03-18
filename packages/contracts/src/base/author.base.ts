@@ -1,6 +1,6 @@
+import { StringSchemaBuilder } from "@/fields/builders/StringSchema.js";
+import { idField } from "@/fields/general.js";
 import { z } from "zod";
-import { StringSchemaBuilder } from "../fields/builders/StringSchema";
-import { idField } from "../fields/general";
 
 export const AuthorBaseSchema = z.object({
   id: idField,

@@ -1,12 +1,12 @@
-import { ChapterBaseSchema } from "../../base/chapter.base";
-import { NovelBaseSchema } from "../../base/novel.base";
+import { ChapterBaseSchema } from "@/base/chapter.base.js";
+import { NovelBaseSchema } from "@/base/novel.base.js";
 import {
   createSortWithDirection,
   createSortWithDirectionField,
-} from "../../utils/createSortWithDirection";
-import { GetFactory } from "../read-factory";
-import { TranslatorSchema } from "../translator";
+} from "@/utils/createSortWithDirection.js";
 import { z } from "zod";
+import { GetFactory } from "../read-factory.js";
+import { TranslatorSchema } from "../translator/index.js";
 
 const ChapterAuthSchema = ChapterBaseSchema.pick({
   id: true,

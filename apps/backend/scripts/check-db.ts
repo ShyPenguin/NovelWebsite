@@ -1,4 +1,4 @@
-import { waitForDb } from "./wait-for-db";
+import { waitForDb } from "./wait-for-db.js";
 import "dotenv/config";
 
 const DATABASE_URL =

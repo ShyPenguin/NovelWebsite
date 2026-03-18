@@ -1,5 +1,5 @@
 import { z } from "zod";
-import { StringSchemaBuilder } from "./builders/StringSchema";
+import { StringSchemaBuilder } from "./builders/StringSchema.js";
 
 export const idField = z.uuid({
   error: (iss) =>

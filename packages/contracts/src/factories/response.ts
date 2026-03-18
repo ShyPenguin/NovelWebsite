@@ -1,6 +1,6 @@
 import { z } from "zod";
-import { ApiErrorSchema } from "./error";
-import { StatusMap } from "./status";
+import { ApiErrorSchema } from "./error.js";
+import { StatusMap } from "./status.js";
 
 export const ApiResponse = <T extends z.ZodType>(data: T) =>
   z.discriminatedUnion("ok", [ApiSuccess(data), ApiError]);

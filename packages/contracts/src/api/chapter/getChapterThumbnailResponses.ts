@@ -1,6 +1,6 @@
+import { getDefaultResponses } from "@/factories/response.js";
+import { PaginatedChapterThumbnailSchema } from "@/schemas/chapter/schema.js";
 import { z } from "zod";
-import { PaginatedChapterThumbnailSchema } from "../../schemas/chapter/schema";
-import { getDefaultResponses } from "../../factories/response";
 
 export const GetPaginatedChapterThumbnailResponsesSchema = getDefaultResponses(
   PaginatedChapterThumbnailSchema,

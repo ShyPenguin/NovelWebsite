@@ -1,7 +1,7 @@
+import type { UserFormDTO } from "@/dto/user.js";
+import { UserFormSchema } from "@/schemas/user/schema.js";
 import { expect, describe, it } from "vitest";
 import { z } from "zod";
-import { UserFormDTO } from "../../../src/dto/user";
-import { UserFormSchema } from "../../../src/schemas/user/schema";
 
 const form: UserFormDTO = {
   name: "Jawad",

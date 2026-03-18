@@ -1,8 +1,8 @@
-import type { UserRole, UserSession } from "../../dto/auth";
-import type { AuthorThumbnailDTO } from "../../dto/author";
-import type { ChapterAuthDTO } from "../../dto/chapter";
-import type { NovelAuthDTO } from "../../dto/novel";
-import type { UserThumbnailDTO } from "../../dto/user";
+import type { UserRole, UserSession } from "@/dto/auth.js";
+import type { AuthorThumbnailDTO } from "@/dto/author.js";
+import type { ChapterAuthDTO } from "@/dto/chapter.js";
+import type { NovelAuthDTO } from "@/dto/novel.js";
+import type { UserThumbnailDTO } from "@/dto/user.js";
 
 export type PermissionMap = {
   novels: {

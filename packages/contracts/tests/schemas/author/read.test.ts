@@ -1,7 +1,7 @@
 import { expect, describe, it } from "vitest";
 import { randomUUID } from "crypto";
-import type { AuthorDetailDTO } from "../../../src/dto/author";
-import { AuthorDetailSchema } from "../../../src/schemas/author/schema";
+import type { AuthorDetailDTO } from "@/dto/author.js";
+import { AuthorDetailSchema } from "@/schemas/author/schema.js";
 
 const id = randomUUID();
 const input: AuthorDetailDTO = {

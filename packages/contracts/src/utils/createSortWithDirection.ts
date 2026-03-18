@@ -1,5 +1,5 @@
 import { z } from "zod";
-import { createEnumError } from "./createEnumError";
+import { createEnumError } from "./createEnumError.js";
 
 type SortWithDirection<T extends readonly string[]> =
   | `asc(${T[number]})`

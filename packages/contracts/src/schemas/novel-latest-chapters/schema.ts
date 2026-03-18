@@ -1,6 +1,6 @@
-import { ChapterDetailSchema } from "../chapter/schema";
-import { NovelDetailSchema } from "../novel/schema";
 import { z } from "zod";
+import { ChapterDetailSchema } from "../chapter/schema.js";
+import { NovelDetailSchema } from "../novel/schema.js";
 
 export const NovelLatestChaptersSchema = z.object({
   novel: z.object({

@@ -4,4 +4,4 @@ export {
   chapterStatusField,
   chapterAccessField,
   chapterNumberField,
-} from "../../chapter.fields";
+} from "@/fields/chapter.fields.js";

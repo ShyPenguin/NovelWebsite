@@ -1,6 +1,6 @@
+import { createIdField } from "@/fields/general.js";
+import { AuthDetailSchema } from "@/schemas/auth/schema.js";
 import { z } from "zod";
-import { AuthDetailSchema } from "../../schemas/auth/schema";
-import { createIdField } from "../../fields/general";
 
 export const TranslatorSchema = z.object({
   id: createIdField("Translator"),

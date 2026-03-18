@@ -38,7 +38,7 @@ const main = async () => {
   console.log("📦 Running Drizzle migrations");
 
   execSync(
-    `dotenv -v DATABASE_URL=${DATABASE_TEMPLATE_URL} npm run db:migrate`,
+    `dotenv -v DATABASE_URL=${DATABASE_TEMPLATE_URL} npm run dev:db:migrate`,
     {
       stdio: "inherit",
     },

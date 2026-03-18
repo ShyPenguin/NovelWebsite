@@ -1,9 +1,9 @@
 import { expect, describe, it } from "vitest";
-import { NovelFormSchema } from "../../../src/schemas/novel/schema";
-import { NovelFormDTO } from "../../../src/dto/novel";
 import { randomUUID } from "crypto";
 import { z } from "zod";
-import { getFormattedDate } from "../../../src/utils/export/getFormattedDate";
+import { NovelFormDTO } from "@/dto/novel.js";
+import { NovelFormSchema } from "@/schemas/novel/schema.js";
+import { getFormattedDate } from "@/utils/export/getFormattedDate/index.js";
 
 const novel: NovelFormDTO = {
   title: "The Reincarnated Assassin is a Genius Swordsman",

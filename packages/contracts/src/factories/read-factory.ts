@@ -1,6 +1,6 @@
 import { z } from "zod";
-import { createPaginatedSchema } from "./paginated";
-import { getDefaultResponses } from "./response";
+import { createPaginatedSchema } from "./paginated.js";
+import { getDefaultResponses } from "./response.js";
 
 export class GetFactory<T extends z.ZodType> {
   private readonly schema: T;

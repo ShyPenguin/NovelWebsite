@@ -1,10 +1,10 @@
-import { z } from "zod";
 import {
   UserDetailSchema,
+  UserThumbnailSchema,
   UserFormSchema,
   UserRoleChangeSchema,
-  UserThumbnailSchema,
-} from "../schemas/user/schema";
+} from "@/schemas/user/schema.js";
+import { z } from "zod";
 
 //TYPES OF DATA TO READ
 export type UserSelectDTO = "detail" | "thumbnail";

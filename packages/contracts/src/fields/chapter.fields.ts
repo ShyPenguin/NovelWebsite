@@ -1,6 +1,6 @@
+import { createEnumError } from "@/utils/createEnumError.js";
 import { z } from "zod";
-import { createStringNumberToNumber } from "./novel.fields";
-import { createEnumError } from "../utils/createEnumError";
+import { createStringNumberToNumber } from "./novel.fields.js";
 
 export const chapterStatus = ["draft", "review", "published"] as const;
 export const chapterAccessTypes = ["free", "paid"] as const;

@@ -1,10 +1,10 @@
 import {
   UserDetailFactory,
-  userSortWithDirectionField,
   UserThumbnailFactory,
-} from "../../factories/users";
+  userSortWithDirectionField,
+} from "@/factories/users/index.js";
+import { userRolesQueryField } from "@/fields/user.fields.js";
 import { z } from "zod";
-import { userRolesQueryField } from "../../fields/user.fields";
 
 // READ
 export const UserDetailSchema = UserDetailFactory.getSchema();

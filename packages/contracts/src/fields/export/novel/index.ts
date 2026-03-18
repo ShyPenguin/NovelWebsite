@@ -2,7 +2,7 @@ export {
   novelSortField,
   novelSortWithDirection,
   novelSortWithDirectionField,
-} from "../../../factories/novel";
+} from "@/factories/novel/index.js";
 
 export {
   novelTypes,
@@ -12,4 +12,4 @@ export {
   novelStatusQuery,
   novelStatusQueryField,
   week,
-} from "../../novel.fields";
+} from "@/fields/novel.fields.js";

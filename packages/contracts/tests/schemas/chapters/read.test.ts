@@ -1,12 +1,9 @@
 import { expect, describe, it } from "vitest";
 import { z } from "zod";
-import {
-  ChapterDetailDTO,
-  ChapterDetailEncodeDTO,
-} from "../../../src/dto/chapter";
 import { randomUUID } from "crypto";
-import { ChapterDetailSchema } from "../../../src/schemas/chapter/schema";
-import { getFormattedDate } from "../../../src/utils/export/getFormattedDate";
+import { ChapterDetailEncodeDTO, ChapterDetailDTO } from "@/dto/chapter.js";
+import { ChapterDetailSchema } from "@/schemas/chapter/schema.js";
+import { getFormattedDate } from "@/utils/export/getFormattedDate/index.js";
 
 const date = new Date(getFormattedDate(new Date()));
 const translatorId = randomUUID();

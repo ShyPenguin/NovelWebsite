@@ -1,5 +1,8 @@
+import {
+  AuthorDetailFactory,
+  AuthorFactory,
+} from "@/factories/author/index.js";
 import { z } from "zod";
-import { AuthorDetailFactory, AuthorFactory } from "../../factories/author";
 
 //READ
 export const AuthorDetailSchema = AuthorDetailFactory.getSchema();

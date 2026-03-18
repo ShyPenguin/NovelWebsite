@@ -1,8 +1,8 @@
+import type { ChapterFormDTO } from "@/dto/chapter.js";
+import { ChapterFormSchema } from "@/schemas/chapter/schema.js";
+import { getFormattedDate } from "@/utils/export/getFormattedDate/index.js";
 import { expect, describe, it } from "vitest";
-import { ChapterFormDTO } from "../../../src/dto/chapter";
-import { ChapterFormSchema } from "../../../src/schemas/chapter/schema";
 import { z } from "zod";
-import { getFormattedDate } from "../../../src/utils/export/getFormattedDate";
 
 const date = new Date(getFormattedDate(new Date()));
 const form = {

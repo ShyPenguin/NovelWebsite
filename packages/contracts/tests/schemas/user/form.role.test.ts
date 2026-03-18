@@ -1,7 +1,7 @@
+import { UserChangeRoleDTO } from "@/dto/user.js";
+import { UserRoleChangeSchema } from "@/schemas/user/schema.js";
 import { expect, describe, it } from "vitest";
 import { z } from "zod";
-import { UserChangeRoleDTO } from "../../../src/dto/user";
-import { UserRoleChangeSchema } from "../../../src/schemas/user/schema";
 
 const form: UserChangeRoleDTO = {
   role: "admin",

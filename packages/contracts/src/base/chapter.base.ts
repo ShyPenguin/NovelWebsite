@@ -1,19 +1,19 @@
-import { z } from "zod";
 import {
   chapterNumberField,
   chapterAccessField,
   chapterStatusField,
-} from "../fields/chapter.fields";
+} from "@/fields/chapter.fields.js";
 import {
-  createIdField,
-  createUrlField,
   idField,
   titleField,
-} from "../fields/general";
+  createUrlField,
+  createIdField,
+} from "@/fields/general.js";
 import {
   createYyyyMmDdStringToDate,
   createIsoStringToDateField,
-} from "../schemas/date/schema";
+} from "@/schemas/date/schema.js";
+import { z } from "zod";
 
 export const ChapterBaseSchema = z.object({
   id: idField,

@@ -1,4 +1,3 @@
-import dotenv from "dotenv";
 import fs from "fs";
 import path from "path";
 import mime from "mime-types";
@@ -12,8 +11,6 @@ import {
 } from "@aws-sdk/client-s3";
 import { NOVEL_URL_SUPABASE_PATH } from "@/shared/constants/index.js";
 
-dotenv.config({ path: ".env.dev" });
-
 const client = new S3Client({
   region: "ap-southeast-1",
   endpoint: process.env.MINIO_ENDPOINT,
@@ -25,7 +22,7 @@ const client = new S3Client({
 });
 
 const bucket = process.env.PUBLIC_BUCKET!;
-const seedDir = path.join(process.cwd(), "dev/seed/seed-images");
+const seedDir = path.join(process.cwd(), "seed/seed-images");
 const policy = {
   Version: "2012-10-17",
   Statement: [

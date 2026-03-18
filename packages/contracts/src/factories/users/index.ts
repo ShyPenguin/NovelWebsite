@@ -1,11 +1,11 @@
-import { z } from "zod";
-import { UserBaseSchema } from "../../base/user.base";
-import { NovelBaseSchema } from "../../base/novel.base";
-import { GetFactory } from "../read-factory";
+import { NovelBaseSchema } from "@/base/novel.base.js";
+import { UserBaseSchema } from "@/base/user.base.js";
 import {
   createSortWithDirection,
   createSortWithDirectionField,
-} from "../../utils/createSortWithDirection";
+} from "@/utils/createSortWithDirection.js";
+import { z } from "zod";
+import { GetFactory } from "../read-factory.js";
 
 const UserDetailSchema = UserBaseSchema.extend({
   novels: z.array(

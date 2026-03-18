@@ -1,5 +1,5 @@
+import { createEnumError } from "@/utils/createEnumError.js";
 import { z } from "zod";
-import { createEnumError } from "../utils/createEnumError";
 
 // WRITE NOVEL STATUS
 export const userRoles = ["user", "staff", "supervisor", "admin"] as const;
