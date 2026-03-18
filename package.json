@@ -8,7 +8,9 @@
     "build": "turbo run build",
     "dev": "turbo run dev",
     "start": "turbo run start",
-    "backend:test": "turbo run test --filter=backend"
+    "test": "turbo run test",
+    "start:local": "turbo run start:local",
+    "docker:down": "turbo run docker:down --filter=backend"
   },
   "devDependencies": {
     "tsc-alias": "^1.8.16",

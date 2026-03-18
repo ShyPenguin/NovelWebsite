@@ -4,7 +4,7 @@ import Clock from "@/assets/icons/Clock";
 import FaBook from "@/assets/icons/FaBook";
 import { Paid } from "@/shared/components/Paid";
 import { formatTimeAgo } from "@/shared/utils";
-import type { NovelLatestChapterDTO } from "@repo/contracts/dto/novelLatestChapter";
+import type { NovelLatestChapterDTO } from "@repo/contracts/dto/novel-latest-chapters";
 
 export const LatestCard = ({
   paid,

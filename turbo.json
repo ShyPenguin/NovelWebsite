@@ -16,6 +16,12 @@
       "dependsOn": ["build"],
       "cache": false,
       "persistent": true
-    }
+    },
+    "start:local": {
+      "dependsOn": ["build"],
+      "cache": false,
+      "persistent": true
+    },
+    "docker:down": {}
   }
 }

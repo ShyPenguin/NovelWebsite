@@ -1,5 +1,4 @@
 import { useMutation } from "@tanstack/react-query";
-import { BackendApiLink } from "../../../shared/constants";
 import type { ChapterInsertData } from "../chapter.type";
 import { ApiResponseSchema } from "@repo/contracts/api";
 import {
@@ -12,6 +11,7 @@ import type {
   ChapterDetailDTO,
   ChapterPreviewDTO,
 } from "@repo/contracts/dto/chapter";
+import { BackendApiLink } from "@/shared/constants";
 
 type Map = {
   create: ChapterDetailDTO;

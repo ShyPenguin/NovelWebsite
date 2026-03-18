@@ -1,5 +1,4 @@
 import { useMutation } from "@tanstack/react-query";
-import { BackendApiLink } from "../../../shared/constants";
 import type { ChapterUpdateData } from "../chapter.type";
 import type {
   ChapterDetailDTO,
@@ -10,6 +9,7 @@ import {
   ChapterDetailSchema,
   ChapterFormSchema,
 } from "@repo/contracts/schemas/chapter";
+import { BackendApiLink } from "@/shared/constants";
 
 export const putChapter = async ({
   formData,

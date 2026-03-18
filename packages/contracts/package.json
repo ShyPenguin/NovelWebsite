@@ -13,7 +13,7 @@
       "default": "./dist/dto/index.js"
     },
     "./dto/*": {
-      "types": "./dist/dto/*.ts",
+      "types": "./dist/dto/*.d.ts",
       "default": "./dist/dto/*.js"
     },
     "./schemas/*": {

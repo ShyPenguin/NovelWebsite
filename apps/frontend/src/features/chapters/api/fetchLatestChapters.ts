@@ -1,7 +1,7 @@
-import { BackendApiLink } from "../../../shared/constants";
 import { queryOptions } from "@tanstack/react-query";
-import { type NovelLatestChapterDTO } from "@repo/contracts/dto/novelLatestChapter";
+import { type NovelLatestChapterDTO } from "@repo/contracts/dto/novel-latest-chapters";
 import { ApiResponseSchema, GetNovelLatestChapters } from "@repo/contracts/api";
+import { BackendApiLink } from "@/shared/constants";
 
 const urlRoute = "chapters/allLatestChapters";
 
