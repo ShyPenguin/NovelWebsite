@@ -7,7 +7,7 @@
     "dev": "npm run docker:reset && node --env-file=.env.dev --import tsx scripts/dev.js",
     "clean": "rimraf dist",
     "build": "npm run clean && tsc -p tsconfig.build.json && tsc-alias -p tsconfig.build.json",
-    "start": "node --env-file=.env.dev --import dist/server.js",
+    "start": "node dist/server.js",
     "start:local": "npm run docker:reset && node --env-file=.env.dev --import tsx scripts/dev.js && node dist/server.js",
     "db:push": "drizzle-kit push",
     "stage:db:generate": "tsx ../../node_modules/drizzle-kit/bin.cjs generate --config=drizzle.config.stage.ts",
