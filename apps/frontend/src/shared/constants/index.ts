@@ -1,7 +1,8 @@
 import NO_IMAGE from "../../assets/images/no_image.jpg";
+
 export const DiscordLink = "https://discord.gg/dnuqX97E";
-export const ApiLink = "http://localhost:3001";
-export const BackendApiLink = "http://localhost:3000";
+
+export const BackendApiLink = import.meta.env.VITE_BACKEND_API_URL;
 export const CHAPTER_PAGE_SIZE = 30;
 
 export const MIN_FONT_SIZE = 12;

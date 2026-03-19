@@ -10,6 +10,7 @@
     "start": "turbo run start",
     "test": "turbo run test",
     "start:local": "turbo run start:local",
+    "start:backend": "node apps/backend/dist/server.js",
     "docker:down": "turbo run docker:down --filter=backend"
   },
   "devDependencies": {
