@@ -50,6 +50,9 @@ function Navbar() {
           <div className="py-1">
             <ThemeButton className="icon-button pt-4 pl-2" />
           </div>
+
+          {/* Add Discord Link if you have a link in the future */}
+          {/* 
           <a
             href={DiscordLink}
             target="_blank"
@@ -57,6 +60,7 @@ function Navbar() {
           >
             <Discord className="w-5 h-5" />
           </a>
+          */}
         </div>
 
         {/* MOBILE */}

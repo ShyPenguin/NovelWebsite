@@ -66,6 +66,8 @@ function Sidebar() {
             </SideItem>
           </Can>
         </div>
+        {/* Add Discord Link if you have a link in the future */}
+        {/* 
         <div>
           <SideItem icon={Discord}>
             <a
@@ -76,7 +78,7 @@ function Sidebar() {
               Discord
             </a>
           </SideItem>
-        </div>
+        </div> */}
       </div>
       <div className="flex size-full" onClick={() => setSideBarOpen(false)} />
     </div>

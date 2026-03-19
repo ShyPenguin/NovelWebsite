@@ -185,7 +185,7 @@
   }
 
   .logo-img {
-    @apply w-12 h-6;
+    @apply w-12 h-6 object-cover;
   }
 
   .dual-tab {

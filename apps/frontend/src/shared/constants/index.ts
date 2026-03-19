@@ -1,4 +1,5 @@
 import NO_IMAGE from "../../assets/images/no_image.jpg";
+import LOGO_IMAGE from "@/assets/images/little_monster-removebg-preview.png";
 
 export const DiscordLink = "https://discord.gg/dnuqX97E";
 
@@ -22,9 +23,7 @@ export const INTERVAL_12_HRS = 12 * 60 * 60 * 1000;
 export const INTERVAL_6_HRS = 6 * 60 * 60 * 1000;
 export const INTERVAL_1_HR = 1 * 60 * 60 * 1000;
 
-export const LOGO_URL =
-  "https://pberoczdewdtspygrofa.supabase.co/storage/v1/object/public/novelwebsite-images/logo/wetried_only.png";
-
+export const LOGO_URL = LOGO_IMAGE;
 export const NO_IMAGE_URL = NO_IMAGE;
 export const THUMBNAILS = "thumbnails";
 export const TRENDS = "trends";
