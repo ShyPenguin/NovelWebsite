@@ -9,11 +9,16 @@ import { queryClient, router } from "./routes";
 const rootElement = document.getElementById("root")!;
 if (!rootElement.innerHTML) {
   const root = ReactDOM.createRoot(rootElement);
+  const AppTree = (
+    <QueryClientProvider client={queryClient}>
+      <RouterProvider router={router} />
+    </QueryClientProvider>
+  );
   root.render(
-    <StrictMode>
-      <QueryClientProvider client={queryClient}>
-        <RouterProvider router={router} />
-      </QueryClientProvider>
-    </StrictMode>
+    import.meta.env.MODE == "dev" ? (
+      <StrictMode>{AppTree}</StrictMode>
+    ) : (
+      AppTree
+    ),
   );
 }

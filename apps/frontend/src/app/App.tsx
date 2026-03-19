@@ -43,9 +43,10 @@ function App() {
         <Outlet />
       </div>
       <MemoizedFooter />
+
       <ToastContainer />
       <MemoizedLoginModal />
-      <TanStackRouterDevtools />
+      {import.meta.env.MODE == "dev" && <TanStackRouterDevtools />}
     </div>
   );
 }
