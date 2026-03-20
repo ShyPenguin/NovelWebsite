@@ -1,11 +1,10 @@
 import { Link } from "@tanstack/react-router";
 import { AUTHOR_SEARCH_DEFAULT } from "@/features/authors/author.schema";
-import Discord from "@/assets/icons/Discord";
 import HamburgerMenu from "@/assets/icons/HamburgerMenu";
 import { ProfileSearchbar } from "@/app/components/profile-components/ProfileSearchbar";
 import { ThemeButton } from "@/app/components/ThemeButton";
 import { NOVEL_SEARCH_DEFAULT } from "@/features/novels/novel.schema";
-import { LOGO_URL, DiscordLink } from "@/shared/constants";
+import { LOGO_URL } from "@/shared/constants";
 import { useScrollHide } from "@/shared/hooks/useScrollHide";
 import { motion } from "motion/react";
 import { useSidebarOpen } from "../stores/AppContext";

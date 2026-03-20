@@ -2,7 +2,7 @@ import express from "express";
 import dotenv from "dotenv";
 import cors from "cors";
 import cookieParser from "cookie-parser";
-// import { errorLogging } from "./middlewares/errorLog.js";
+import { errorLogging } from "./middlewares/error-log.js";
 import { errorResponse } from "./middlewares/error-response.js";
 import authorRoutes from "./features/authors/author.routes.js";
 import chapterRoutes from "./features/chapters/chapter.routes.js";
@@ -33,5 +33,6 @@ app.get("/", (req, res) => {
 });
 
 app.use(errorResponse);
-// app.use(errorLogging);
+
+process.env.NODE_ENV !== "test" && app.use(errorLogging);
 export { app };

@@ -3,6 +3,9 @@
 .env
 .env.test
 .env.dev
+.env.stage
+.env.*
+!.env.example
 /googleKeys
 /data
 /minio_data
