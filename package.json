@@ -10,6 +10,8 @@
     "start": "turbo run start",
     "test": "turbo run test",
     "start:local": "turbo run start:local",
+    "build:frontend":"turbo run build -F=@repo/contracts -F=frontend",
+    "build:backend":"turbo run build -F=@repo/contracts -F=backend",
     "start:backend": "node apps/backend/dist/server.js",
     "clean:local": "turbo run clean:local",
     "docker:down": "turbo run docker:down --filter=backend"
