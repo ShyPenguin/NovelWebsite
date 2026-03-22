@@ -42,7 +42,7 @@ export const login = async (req: Request, res: Response): Promise<any> => {
     const returnTo = cookies.get("oauthReturnTo")?.value ?? "";
 
     // cleanup
-    cookies.set("oauthReturnTo", "", { expires: 0 });
+    cookies.set("oauthReturnTo", "", { maxAge: 0 });
 
     return res.redirect(`${process.env.FRONTEND_URL}${returnTo}`);
   } catch (error) {
