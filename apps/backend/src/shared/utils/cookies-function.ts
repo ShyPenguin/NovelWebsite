@@ -11,7 +11,7 @@ export function setCookie(sessionId: string, cookies: Pick<Cookies, "set">) {
   cookies.set(COOKIE_SESSION_KEY, sessionId, {
     secure: true,
     httpOnly: true,
-    sameSite: isProd ? "lax" : "none",
+    sameSite: isProd ? "none" : "lax",
     expires: Date.now() + SESSION_EXPIRATION_SECONDS * 1000,
     path: "/",
   });
@@ -20,7 +20,7 @@ export function setCookie(sessionId: string, cookies: Pick<Cookies, "set">) {
 export const defaultCookieOptions = {
   httpOnly: true,
   secure: true,
-  sameSite: isProd ? "lax" : "none",
+  sameSite: isProd ? "none" : "lax",
   path: "/",
 } satisfies CookieOptions;
 

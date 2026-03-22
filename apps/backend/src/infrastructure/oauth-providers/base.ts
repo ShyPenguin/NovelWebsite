@@ -1,7 +1,10 @@
 import { z } from "zod";
 import crypto from "crypto";
 import "dotenv/config";
-import { RETURN_TO_COOKIE_KEY } from "@/shared/constants/index.js";
+import {
+  RETURN_TO_COOKIE_KEY,
+  SESSION_EXPIRATION_SECONDS,
+} from "@/shared/constants/index.js";
 import { Cookies } from "@/shared/types/index.js";
 import { createGoogleOAuthClient } from "./google.js";
 import { OAuthProviders } from "@repo/contracts/dto/auth";
@@ -10,8 +13,6 @@ import { defaultCookieOptions } from "@/shared/utils/cookies-function.js";
 
 const STATE_COOKIE_KEY = "oAuthState";
 const CODE_VERIFIER_COOKIE_KEY = "oAuthCodeVerifier";
-// Ten minutes in seconds
-const COOKIE_EXPIRATION_SECONDS = 60 * 10;
 
 export type OAuthUser = {
   id: string;
@@ -80,7 +81,7 @@ export class OAuthClient<T> {
     if (returnTo) {
       cookies.set(RETURN_TO_COOKIE_KEY, returnTo, {
         ...defaultCookieOptions,
-        expires: Date.now() + COOKIE_EXPIRATION_SECONDS * 1000,
+        expires: Date.now() + SESSION_EXPIRATION_SECONDS * 1000,
       });
     }
 
@@ -203,7 +204,7 @@ function createState(cookies: Pick<Cookies, "set">) {
   const state = crypto.randomBytes(64).toString("hex").normalize();
   cookies.set(STATE_COOKIE_KEY, state, {
     ...defaultCookieOptions,
-    expires: Date.now() + COOKIE_EXPIRATION_SECONDS * 1000,
+    expires: Date.now() + SESSION_EXPIRATION_SECONDS * 1000,
   });
   return state;
 }
@@ -212,7 +213,7 @@ function createCodeVerifier(cookies: Pick<Cookies, "set">) {
   const codeVerifier = crypto.randomBytes(64).toString("hex").normalize();
   cookies.set(CODE_VERIFIER_COOKIE_KEY, codeVerifier, {
     ...defaultCookieOptions,
-    expires: Date.now() + COOKIE_EXPIRATION_SECONDS * 1000,
+    expires: Date.now() + SESSION_EXPIRATION_SECONDS * 1000,
   });
   return codeVerifier;
 }
