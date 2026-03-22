@@ -44,7 +44,7 @@ export const login = async (req: Request, res: Response): Promise<any> => {
     // cleanup
     cookies.set("oauthReturnTo", "", { maxAge: 0 });
 
-    return res.redirect(`${process.env.FRONTEND_URL}${returnTo}`);
+    return res.redirect(301, `${process.env.FRONTEND_URL}${returnTo}`);
   } catch (error) {
     res.redirect(
       `/sign-in?oauthError=${encodeURIComponent(

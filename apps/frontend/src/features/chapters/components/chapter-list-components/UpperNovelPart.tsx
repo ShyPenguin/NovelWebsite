@@ -16,7 +16,7 @@ export const UpperNovelPart = ({ novelId }: { novelId: string }) => {
               className="object-cover object-center h-37.5 w-full"
             />
           </div>
-          <div className="flex flex-col p-4 border-b-1 gap-1 border-b-black/10 dark:border-b-white/10 ">
+          <div className="flex flex-col p-4 border-b gap-1 border-b-black/10 dark:border-b-white/10 ">
             <h1 className="font-bold">{novel.title}</h1>
             <p className="text-muted-foreground dark:text-dark-muted-foreground text-[14px]">
               {novel.totalChapters} Chapters
