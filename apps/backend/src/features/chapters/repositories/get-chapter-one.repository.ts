@@ -1,6 +1,4 @@
-import { eq } from "drizzle-orm";
 import {
-  ChapterDetailDTO,
   ChapterDetailEncodeDTO,
   ChapterAuthDTO,
   ChapterSelectDTO,

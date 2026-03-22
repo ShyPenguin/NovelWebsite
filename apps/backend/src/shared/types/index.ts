@@ -31,8 +31,9 @@ export const providerSchema = z.object({
 type CookieOptions = {
   secure?: boolean;
   httpOnly?: boolean;
-  sameSite?: "strict" | "lax";
+  sameSite?: "strict" | "lax" | "none";
   expires?: number;
+  path?: string
 };
 
 export type Cookies = {

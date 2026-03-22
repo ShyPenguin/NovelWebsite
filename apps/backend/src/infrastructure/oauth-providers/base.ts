@@ -6,6 +6,7 @@ import { Cookies } from "@/shared/types/index.js";
 import { createGoogleOAuthClient } from "./google.js";
 import { OAuthProviders } from "@repo/contracts/dto/auth";
 import { createDiscordOAuthClient } from "./discord.js";
+import { defaultCookieOptions } from "@/shared/utils/cookies-function.js";
 
 const STATE_COOKIE_KEY = "oAuthState";
 const CODE_VERIFIER_COOKIE_KEY = "oAuthCodeVerifier";
@@ -78,9 +79,7 @@ export class OAuthClient<T> {
 
     if (returnTo) {
       cookies.set(RETURN_TO_COOKIE_KEY, returnTo, {
-        secure: process.env.NODE_ENV === "production",
-        httpOnly: true,
-        sameSite: "lax",
+        ...defaultCookieOptions,
         expires: Date.now() + COOKIE_EXPIRATION_SECONDS * 1000,
       });
     }
@@ -203,9 +202,7 @@ class InvalidCodeVerifierError extends Error {
 function createState(cookies: Pick<Cookies, "set">) {
   const state = crypto.randomBytes(64).toString("hex").normalize();
   cookies.set(STATE_COOKIE_KEY, state, {
-    secure: process.env.NODE_ENV == "production",
-    httpOnly: true,
-    sameSite: "lax",
+    ...defaultCookieOptions,
     expires: Date.now() + COOKIE_EXPIRATION_SECONDS * 1000,
   });
   return state;
@@ -214,9 +211,7 @@ function createState(cookies: Pick<Cookies, "set">) {
 function createCodeVerifier(cookies: Pick<Cookies, "set">) {
   const codeVerifier = crypto.randomBytes(64).toString("hex").normalize();
   cookies.set(CODE_VERIFIER_COOKIE_KEY, codeVerifier, {
-    secure: process.env.NODE_ENV == "production",
-    httpOnly: true,
-    sameSite: "lax",
+    ...defaultCookieOptions,
     expires: Date.now() + COOKIE_EXPIRATION_SECONDS * 1000,
   });
   return codeVerifier;
