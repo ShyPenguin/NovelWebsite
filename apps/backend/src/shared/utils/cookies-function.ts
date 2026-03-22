@@ -1,9 +1,6 @@
 import { Cookies } from "@/shared/types/index.js";
 import { CookieOptions, Request, Response } from "express";
-import {
-  COOKIE_SESSION_KEY,
-  SESSION_EXPIRATION_SECONDS,
-} from "../constants/index.js";
+import { COOKIE_EXPIRATION, COOKIE_SESSION_KEY } from "../constants/index.js";
 
 const isProd = process.env.NODE_ENV !== "development";
 
@@ -12,7 +9,7 @@ export function setCookie(sessionId: string, cookies: Pick<Cookies, "set">) {
     secure: true,
     httpOnly: true,
     sameSite: isProd ? "none" : "lax",
-    maxAge: SESSION_EXPIRATION_SECONDS * 1000,
+    maxAge: COOKIE_EXPIRATION,
     path: "/",
     partitioned: true,
   });
@@ -33,9 +30,7 @@ export function createCookieWrapper(req: Request, res: Response): Cookies {
       return value ? { name: key, value } : undefined;
     },
     set: (key, value, options) => {
-      const maxAge = options.maxAge
-        ? SESSION_EXPIRATION_SECONDS * 1000
-        : undefined;
+      const maxAge = options.maxAge ? COOKIE_EXPIRATION : undefined;
       res.cookie(key, value, {
         ...defaultCookieOptions,
         ...options,

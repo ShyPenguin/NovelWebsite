@@ -4,7 +4,7 @@ import { UserSession } from "@repo/contracts/dto/auth";
 import { redisClient } from "@/infrastructure/cache/index.js";
 import {
   COOKIE_SESSION_KEY,
-  SESSION_EXPIRATION_SECONDS,
+  REDIS_EXPIRATION,
 } from "@/shared/constants/index.js";
 import { setCookie } from "@/shared/utils/cookies-function.js";
 import { Cookies } from "@/shared/types/index.js";
@@ -17,7 +17,7 @@ export const createUserSession = async (
 ) => {
   const sessionId = randomBytes(512).toString("hex").normalize();
   await redis.set(`session:${sessionId}`, sessionSchema.parse(user), {
-    ex: SESSION_EXPIRATION_SECONDS,
+    ex: REDIS_EXPIRATION,
   });
 
   setCookie(sessionId, cookies);
@@ -58,7 +58,7 @@ export const updateUserSessionData = async (
   if (sessionId == null) return null;
 
   await redis.set(`session:${sessionId}`, sessionSchema.parse(user), {
-    ex: SESSION_EXPIRATION_SECONDS,
+    ex: REDIS_EXPIRATION,
   });
 };
 
@@ -73,7 +73,7 @@ export const updateUserSessionExpiration = async (
   if (!user) return null;
 
   await redis.set(`session:${sessionId}`, user, {
-    ex: SESSION_EXPIRATION_SECONDS,
+    ex: REDIS_EXPIRATION,
   });
   setCookie(sessionId, cookies);
 

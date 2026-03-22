@@ -1,4 +1,4 @@
-import { SESSION_EXPIRATION_SECONDS } from "@/shared/constants/index.js";
+import { REDIS_EXPIRATION } from "@/shared/constants/index.js";
 import { UserTable } from "@/infrastructure/db/schemas/users.js";
 import { DbPoolType } from "@/infrastructure/db/type.js";
 import { createUserOauthAccountTx } from "@/features/auth/repositories/create.repository.js";
@@ -35,7 +35,7 @@ export const mockCreateUserWithSession = (provider: OAuthProviders) => {
 
     const sessionId = randomBytes(512).toString("hex").normalize();
     await redisClient.set(`session:${sessionId}`, sessionSchema.parse(user), {
-      ex: SESSION_EXPIRATION_SECONDS,
+      ex: REDIS_EXPIRATION,
     });
 
     return {

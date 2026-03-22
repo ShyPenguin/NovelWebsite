@@ -2,8 +2,8 @@ import { z } from "zod";
 import crypto from "crypto";
 import "dotenv/config";
 import {
+  COOKIE_EXPIRATION,
   RETURN_TO_COOKIE_KEY,
-  SESSION_EXPIRATION_SECONDS,
 } from "@/shared/constants/index.js";
 import { Cookies } from "@/shared/types/index.js";
 import { createGoogleOAuthClient } from "./google.js";
@@ -81,7 +81,7 @@ export class OAuthClient<T> {
     if (returnTo) {
       cookies.set(RETURN_TO_COOKIE_KEY, returnTo, {
         ...defaultCookieOptions,
-        maxAge: SESSION_EXPIRATION_SECONDS * 1000,
+        maxAge: COOKIE_EXPIRATION,
       });
     }
 
@@ -204,7 +204,7 @@ function createState(cookies: Pick<Cookies, "set">) {
   const state = crypto.randomBytes(64).toString("hex").normalize();
   cookies.set(STATE_COOKIE_KEY, state, {
     ...defaultCookieOptions,
-    maxAge: SESSION_EXPIRATION_SECONDS * 1000,
+    maxAge: COOKIE_EXPIRATION,
   });
   return state;
 }
@@ -213,7 +213,7 @@ function createCodeVerifier(cookies: Pick<Cookies, "set">) {
   const codeVerifier = crypto.randomBytes(64).toString("hex").normalize();
   cookies.set(CODE_VERIFIER_COOKIE_KEY, codeVerifier, {
     ...defaultCookieOptions,
-    maxAge: SESSION_EXPIRATION_SECONDS * 1000,
+    maxAge: COOKIE_EXPIRATION,
   });
   return codeVerifier;
 }
