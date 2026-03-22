@@ -1,6 +1,6 @@
 import { UserRole } from "@repo/contracts/dto/auth";
 import { oAuthProviders } from "@repo/contracts/fields/users";
-import { Request } from "express";
+import { CookieOptions, Request } from "express";
 import { z } from "zod";
 
 export const serviceErrorToHttpMap = {
@@ -27,14 +27,6 @@ export interface AuthRequest extends Request {
 export const providerSchema = z.object({
   provider: z.enum(oAuthProviders),
 });
-
-type CookieOptions = {
-  secure?: boolean;
-  httpOnly?: boolean;
-  sameSite?: "strict" | "lax" | "none";
-  expires?: number;
-  path?: string
-};
 
 export type Cookies = {
   set: (key: string, value: string, options: CookieOptions) => void;

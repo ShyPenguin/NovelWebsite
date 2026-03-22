@@ -81,7 +81,7 @@ export class OAuthClient<T> {
     if (returnTo) {
       cookies.set(RETURN_TO_COOKIE_KEY, returnTo, {
         ...defaultCookieOptions,
-        expires: Date.now() + SESSION_EXPIRATION_SECONDS * 1000,
+        maxAge: SESSION_EXPIRATION_SECONDS * 1000,
       });
     }
 
@@ -204,7 +204,7 @@ function createState(cookies: Pick<Cookies, "set">) {
   const state = crypto.randomBytes(64).toString("hex").normalize();
   cookies.set(STATE_COOKIE_KEY, state, {
     ...defaultCookieOptions,
-    expires: Date.now() + SESSION_EXPIRATION_SECONDS * 1000,
+    maxAge: SESSION_EXPIRATION_SECONDS * 1000,
   });
   return state;
 }
@@ -213,7 +213,7 @@ function createCodeVerifier(cookies: Pick<Cookies, "set">) {
   const codeVerifier = crypto.randomBytes(64).toString("hex").normalize();
   cookies.set(CODE_VERIFIER_COOKIE_KEY, codeVerifier, {
     ...defaultCookieOptions,
-    expires: Date.now() + SESSION_EXPIRATION_SECONDS * 1000,
+    maxAge: SESSION_EXPIRATION_SECONDS * 1000,
   });
   return codeVerifier;
 }

@@ -12,7 +12,9 @@ export const fetchAuthor = async ({
 }: {
   id: string;
 }): Promise<AuthorDetailDTO> => {
-  const response = await fetch(`${urlApiRoute}/${id}`);
+  const response = await fetch(`${urlApiRoute}/${id}`, {
+    credentials: "include",
+  });
 
   if (response.status === 404 || response.status === 400) {
     throw notFound();

@@ -12,7 +12,9 @@ export const fetchUser = async ({
 }: {
   username: UserDetailDTO["username"];
 }): Promise<UserDetailDTO> => {
-  const response = await fetch(`${userUrl}/${username}`);
+  const response = await fetch(`${userUrl}/${username}`, {
+    credentials: "include",
+  });
 
   if (response.status === 404 || response.status === 400) {
     throw notFound();

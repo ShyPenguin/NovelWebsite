@@ -12,7 +12,9 @@ export const fetchChapter = async ({
 }: {
   chapterId: ChapterDetailDTO["id"];
 }): Promise<ChapterDetailDTO> => {
-  const response = await fetch(`${BackendApiLink}/${urlRoute}/${chapterId}`);
+  const response = await fetch(`${BackendApiLink}/${urlRoute}/${chapterId}`, {
+    credentials: "include",
+  });
 
   if (response.status === 404 || response.status === 400) {
     throw notFound();

@@ -10,7 +10,9 @@ export type LatestChaptersResult = {
   paid: NovelLatestChapterDTO[];
 };
 export const fetchLatestChapters = async (): Promise<LatestChaptersResult> => {
-  const response = await fetch(`${BackendApiLink}/${urlRoute}`);
+  const response = await fetch(`${BackendApiLink}/${urlRoute}`, {
+    credentials: "include",
+  });
   const result = await response.json();
   const parsedResult = ApiResponseSchema(GetNovelLatestChapters).parse(result);
 

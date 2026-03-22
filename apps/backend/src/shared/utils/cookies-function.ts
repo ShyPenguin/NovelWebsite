@@ -12,7 +12,7 @@ export function setCookie(sessionId: string, cookies: Pick<Cookies, "set">) {
     secure: true,
     httpOnly: true,
     sameSite: isProd ? "none" : "lax",
-    expires: Date.now() + SESSION_EXPIRATION_SECONDS * 1000,
+    maxAge: SESSION_EXPIRATION_SECONDS * 1000,
     path: "/",
   });
 }

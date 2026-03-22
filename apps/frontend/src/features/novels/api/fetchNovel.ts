@@ -11,7 +11,9 @@ export const fetchNovel = async ({
 }: {
   id: string;
 }): Promise<NovelDetailDTO> => {
-  const response = await fetch(`${novelUrl}/${id}`);
+  const response = await fetch(`${novelUrl}/${id}`, {
+    credentials: "include",
+  });
 
   if (response.status === 404 || response.status === 400) {
     throw notFound();
