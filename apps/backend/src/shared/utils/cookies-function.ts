@@ -14,6 +14,7 @@ export function setCookie(sessionId: string, cookies: Pick<Cookies, "set">) {
     sameSite: isProd ? "none" : "lax",
     maxAge: SESSION_EXPIRATION_SECONDS * 1000,
     path: "/",
+    partitioned: true,
   });
 }
 
@@ -22,6 +23,7 @@ export const defaultCookieOptions = {
   secure: true,
   sameSite: isProd ? "none" : "lax",
   path: "/",
+  partitioned: true,
 } satisfies CookieOptions;
 
 export function createCookieWrapper(req: Request, res: Response): Cookies {

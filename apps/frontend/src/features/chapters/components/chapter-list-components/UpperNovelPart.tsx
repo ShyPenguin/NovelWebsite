@@ -1,6 +1,6 @@
 import { useSuspenseQuery } from "@tanstack/react-query";
-import { novelQueryOptions } from "../../../novels/api/fetchNovel";
 import { NO_IMAGE_URL } from "@/shared/constants";
+import { novelQueryOptions } from "@/features/novels/api/fetchNovel";
 
 export const UpperNovelPart = ({ novelId }: { novelId: string }) => {
   const { data: novel, isSuccess } = useSuspenseQuery(

@@ -1,4 +1,3 @@
-import { deleteControllerFactory } from "@/shared/factories/controller/delete.controller.js";
 import { deleteUserService } from "../services/delete-user.service.js";
 import { AuthRequest } from "@/shared/types/index.js";
 import { Response } from "express";
