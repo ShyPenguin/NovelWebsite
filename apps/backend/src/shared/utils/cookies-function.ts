@@ -31,11 +31,13 @@ export function createCookieWrapper(req: Request, res: Response): Cookies {
       return value ? { name: key, value } : undefined;
     },
     set: (key, value, options) => {
-      const expires = options.expires ? new Date(options.expires) : undefined;
+      const maxAge = options.maxAge
+        ? SESSION_EXPIRATION_SECONDS * 1000
+        : undefined;
       res.cookie(key, value, {
         ...defaultCookieOptions,
         ...options,
-        expires,
+        maxAge,
       });
     },
     delete: (key) => {
