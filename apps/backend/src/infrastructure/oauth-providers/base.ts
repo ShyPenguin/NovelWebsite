@@ -11,8 +11,8 @@ import { OAuthProviders } from "@repo/contracts/dto/auth";
 import { createDiscordOAuthClient } from "./discord.js";
 import { defaultCookieOptions } from "@/shared/utils/cookies-function.js";
 
-const STATE_COOKIE_KEY = "__Host-oAuthState";
-const CODE_VERIFIER_COOKIE_KEY = "__Host-oAuthCodeVerifier";
+const STATE_COOKIE_KEY = "oAuthState";
+const CODE_VERIFIER_COOKIE_KEY = "oAuthCodeVerifier";
 
 export type OAuthUser = {
   id: string;
