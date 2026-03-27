@@ -66,13 +66,14 @@ export async function waitForDb({
       }
       // Only exit when databases are ready (or Redis/Minio  not needed)
       if (postgresReady && redisReady && minioIsReady) {
-        console.log("✅ Both databases are ready");
+        console.log("✅ All databases are ready");
         return;
       }
     } catch (err) {
       console.log(`⏳ Waiting for databases... (${i}/${total})`);
       console.log(`PostgreSQL: ${postgresReady ? "✅" : "❌"}`);
       console.log(`Redis: ${redisReady ? "✅" : "❌"}`);
+      console.log(`Minio: ${minioIsReady ? "✅" : "❌"}`);
 
       // if (err instanceof Error) {
       //   console.log(`Error: ${err.message}`);
@@ -84,7 +85,7 @@ export async function waitForDb({
 
   console.error("❌ Databases not ready after 60s");
   console.log(
-    `Final status - PostgreSQL: ${postgresReady ? "✅" : "❌"}, Redis: ${redisReady ? "✅" : "❌"}`,
+    `Final status - PostgreSQL: ${postgresReady ? "✅" : "❌"}, Redis: ${redisReady ? "✅" : "❌"}, Minio: ${minioIsReady ? "✅" : "❌"}`,
   );
   return;
 }

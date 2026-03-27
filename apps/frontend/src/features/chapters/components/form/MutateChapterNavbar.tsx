@@ -43,7 +43,7 @@ export const MutateChapterNavbar = () => {
   return (
     <PageNavbar>
       <div className="py-2 flex w-full h-full justify-between z-50">
-        <div className="grow">
+        <div className="flex-1">
           <OpenNovelButton />
         </div>
         <div className="flex items-center justify-center gap-4">
@@ -64,8 +64,8 @@ export const MutateChapterNavbar = () => {
             <House className="w-4.25" />
           </Link>
         </div>
-        <div className="grow justify-items-end">
-          <div>
+        <div className="flex-1 flex justify-end">
+          <div className="max-w-[200px]">
             <MutateChapterButton />
           </div>
         </div>

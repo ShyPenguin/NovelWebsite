@@ -7,6 +7,8 @@ const DATABASE_URL =
     : process.env.DATABASE_URL!;
 
 console.log("at check db databaseURL: ", DATABASE_URL);
+console.log("at check redis databaseURL: ", process.env.REDIS_URL);
+console.log("at check minio databaseURL: ", process.env.MINIO_ENDPOINT);
 waitForDb({
   databaseUrl: DATABASE_URL,
   redisUrl: process.env.REDIS_URL,

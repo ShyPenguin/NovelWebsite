@@ -1,0 +1,11 @@
+{
+    "name": "infra-nginx",
+    "version": "0.0.0",
+    "private": true,
+    "license": "MIT",
+    "scripts": {
+        "dev:nginx": "npm run docker:up",
+        "docker:up": "docker compose -f docker-compose.dev.nginx.yml up",
+        "docker:down": "docker compose -f docker-compose.dev.nginx.yml down"
+    }
+}

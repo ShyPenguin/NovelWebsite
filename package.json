@@ -10,11 +10,14 @@
     "start": "turbo run start",
     "test": "turbo run test",
     "start:local": "turbo run start:local",
-    "build:frontend":"turbo run build -F=@repo/contracts -F=frontend",
-    "build:backend":"turbo run build -F=@repo/contracts -F=backend",
+    "build:frontend": "turbo run build -F=@repo/contracts -F=frontend",
+    "build:backend": "turbo run build -F=@repo/contracts -F=backend",
     "start:backend": "node apps/backend/dist/server.js",
     "clean:local": "turbo run clean:local",
-    "docker:down": "turbo run docker:down --filter=backend"
+    "docker:down": "turbo run docker:down --filter=backend",
+    "nginx:up": "docker compose -f docker-compose.dev.nginx.yml up -d",
+    "nginx:up-build": "docker compose -f docker-compose.dev.nginx.yml up --build -d",
+    "nginx:down": "docker compose -f docker-compose.dev.nginx.yml down -v"
   },
   "devDependencies": {
     "tsc-alias": "^1.8.16",
