@@ -16,4 +16,4 @@ FROM base AS builder
 FROM base AS dev
 WORKDIR /app
 
-CMD ["npx", "turbo", "run", "dev", "--filter=frontend"]
+CMD ["npx", "turbo", "run", "docker:with-nginx:run", "--filter=frontend"]
