@@ -23,7 +23,9 @@
       "persistent": true
     },
     "clean:local": {},
-    "docker:down": {},
+    "docker:down": {
+      "cache": false
+    },
     "docker:with-nginx:run": { "persistent": true, "cache": false }
   }
 }

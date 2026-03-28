@@ -25,7 +25,7 @@ export class MinioStorageProvider implements StorageProvider {
 
     return {
       path,
-      url: `${process.env.MINIO_PUBLIC_URL}/${this.bucket}/${path}`,
+      url: `${process.env.STORAGE_PUBLIC_DOMAIN}/${this.bucket}/${path}`,
     };
   }
 

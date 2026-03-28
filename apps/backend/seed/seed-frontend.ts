@@ -55,7 +55,10 @@ export const seed = async () => {
     data.novels.slice(0, 3).map((novel) => {
       return createNovelWithChapters({
         tx: db,
-        novel: novel as NovelTableInsert,
+        novel: {
+          ...novel,
+          coverImageUrl: `${process.env.STORAGE_PUBLIC_DOMAIN}/${process.env.PUBLIC_BUCKET}/${novel.coverImagePath}`,
+        } as NovelTableInsert,
         authorId: author2.id,
         translatorId: staff.id,
         schedule: ["SUN", "WED", "THU"],
@@ -83,7 +86,10 @@ export const seed = async () => {
     data.novels.slice(4).map((novel) => {
       return createNovelWithChapters({
         tx: db,
-        novel: novel as NovelTableInsert,
+        novel: {
+          ...novel,
+          coverImageUrl: `${process.env.STORAGE_PUBLIC_DOMAIN}/${process.env.PUBLIC_BUCKET}/${novel.coverImagePath}`,
+        } as NovelTableInsert,
         authorId: author.id,
         translatorId: staff2.id,
         schedule: ["FRI", "MON", "WED"],
@@ -109,7 +115,10 @@ export const seed = async () => {
 
   const novelsCreatedByAdmin = await createNovelWithChapters({
     tx: db,
-    novel: data.novels[3] as NovelTableInsert,
+    novel: {
+      ...data.novels[3],
+      coverImageUrl: `${process.env.STORAGE_PUBLIC_DOMAIN}/${process.env.PUBLIC_BUCKET}/${data.novels[3].coverImagePath}`,
+    } as NovelTableInsert,
     authorId: author.id,
     translatorId: admin.id,
     schedule: ["FRI", "SAT", "SUN"],
