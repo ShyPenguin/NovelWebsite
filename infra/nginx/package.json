@@ -4,6 +4,11 @@
   "private": true,
   "license": "MIT",
   "scripts": {
-    "dev:nginx": "npm run docker:up"
+    "docker:build": "docker build -t my-image-name .",
+    "docker:run": "docker run -p 8080:80 -d --name my-container my-image-name",
+    "docker:stop": "docker stop my-container",
+    "docker:remove": "docker rm my-container",
+    "docker:clean": "npm run docker:stop && npm run docker:remove",
+    "docker:deploy": "npm run docker:build && npm run docker:clean || true && npm run docker:run"
   }
 }
