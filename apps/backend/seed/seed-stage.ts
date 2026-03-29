@@ -58,7 +58,10 @@ export const seed = async () => {
     stageNovels.map((novel) => {
       return createNovelWithChapters({
         tx: db,
-        novel: novel as NovelTableInsert,
+        novel: {
+          ...novel,
+          coverImageUrl: `${process.env.STORAGE_PUBLIC_DOMAIN}/${process.env.PUBLIC_BUCKET}/${novel.coverImagePath}`,
+        } as NovelTableInsert,
         authorId: Math.floor(Math.random() * 2) == 1 ? author2.id : author.id,
         translatorId: admin.id,
         schedule: ["SUN", "WED", "THU"],
