@@ -1,2 +1,2 @@
-<h1> "NovelWebsite": A web app for reading novels </h1> 
+# "NovelWebsite": A web app for reading novels
 Monorepo for my novelwebsite
