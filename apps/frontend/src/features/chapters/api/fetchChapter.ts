@@ -40,4 +40,5 @@ export const fetchChapterQueryOptions = ({
     queryKey: getChapterOneQueryKey({ id: chapterId }),
     queryFn: () => fetchChapter({ chapterId }),
     staleTime: INTERVAL_12_HRS,
+    retry: import.meta.env.MODE == "dev",
   });

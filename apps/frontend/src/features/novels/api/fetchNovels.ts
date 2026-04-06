@@ -99,6 +99,7 @@ export const novelListThumbnailsQuery = () =>
     queryKey: ["novels", "thumbnail"],
     queryFn: () => fetchNovelListThumbnails({ withQuery: false }),
     staleTime: INTERVAL_24_HRS,
+    retry: import.meta.env.MODE == "dev",
   });
 
 export const novelListTrendsQuery = () =>
@@ -106,6 +107,7 @@ export const novelListTrendsQuery = () =>
     queryKey: ["novels", "trend"],
     queryFn: () => fetchNovelListTrends({ withQuery: false }),
     staleTime: INTERVAL_24_HRS,
+    retry: import.meta.env.MODE == "dev",
   });
 
 export const novelsDetail = () =>
@@ -113,6 +115,7 @@ export const novelsDetail = () =>
     queryKey: ["novels"],
     queryFn: () => fetchNovelList({ withQuery: false }),
     staleTime: INTERVAL_24_HRS,
+    retry: import.meta.env.MODE == "dev",
   });
 
 export const novelsListQuery = ({ sort, status, search }: NovelSearchType) =>
@@ -125,6 +128,7 @@ export const novelsListQuery = ({ sort, status, search }: NovelSearchType) =>
       }),
     staleTime: INTERVAL_24_HRS,
     placeholderData: keepPreviousData,
+    retry: import.meta.env.MODE == "dev",
   });
 export const novelsPaginatedQuery = ({
   page,
@@ -141,4 +145,5 @@ export const novelsPaginatedQuery = ({
       }),
     staleTime: INTERVAL_24_HRS,
     placeholderData: keepPreviousData,
+    retry: import.meta.env.MODE == "dev",
   });

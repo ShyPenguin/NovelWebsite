@@ -33,4 +33,5 @@ export const novelQueryOptions = (id: NovelDetailDTO["id"]) =>
   queryOptions<NovelDetailDTO>({
     queryKey: getNovelOneQueryKey({ id }),
     queryFn: () => fetchNovel({ id: id }),
+    retry: import.meta.env.MODE == "dev",
   });

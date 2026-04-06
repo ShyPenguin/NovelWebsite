@@ -36,4 +36,5 @@ export const fetchUserQueryOptions = (username: UserDetailDTO["username"]) =>
     queryKey: getUserOneQueryKey(username),
     queryFn: () => fetchUser({ username }),
     staleTime: INTERVAL_12_HRS,
+    retry: import.meta.env.MODE == "dev",
   });

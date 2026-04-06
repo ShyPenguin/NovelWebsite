@@ -96,6 +96,7 @@ export const novelChaptersPaginatedQueryOptions = ({
         novelId: novelId,
       }),
     staleTime: 6 * 60 * 60 * 1000, // Consider chapter list fresh for 6 hour
+    retry: import.meta.env.MODE == "dev",
   });
 
 export const novelChaptersQueryOptions = ({ novelId }: { novelId: string }) =>
@@ -104,4 +105,5 @@ export const novelChaptersQueryOptions = ({ novelId }: { novelId: string }) =>
     queryFn: () =>
       fetchNovelChaptersThumbnail({ params: { withQuery: false }, novelId }),
     staleTime: 6 * 60 * 60 * 1000, // Consider chapter list fresh for 6 hour
+    retry: import.meta.env.MODE == "dev",
   });

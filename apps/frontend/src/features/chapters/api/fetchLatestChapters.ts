@@ -27,4 +27,5 @@ export const latestChaptersOptions = () =>
   queryOptions<LatestChaptersResult>({
     queryKey: ["latestChapters"],
     queryFn: () => fetchLatestChapters(),
+    retry: import.meta.env.MODE == "dev",
   });

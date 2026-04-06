@@ -90,4 +90,5 @@ export const usersPaginatedQueryOption = ({
       }),
     staleTime: INTERVAL_24_HRS,
     placeholderData: keepPreviousData,
+    retry: import.meta.env.MODE == "dev",
   });

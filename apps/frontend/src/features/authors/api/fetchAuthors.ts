@@ -72,6 +72,7 @@ export const authorsQueryOption = () =>
     queryKey: ["authors"],
     queryFn: () => fetchAuthorsThumbnail({ withQuery: false }),
     staleTime: 6 * 60 * 60 * 1000, // 6 hour
+    retry: import.meta.env.MODE == "dev",
   });
 
 export const authorsPaginatedQueryOption = ({
@@ -86,6 +87,7 @@ export const authorsPaginatedQueryOption = ({
         data: { search, page },
       }),
     staleTime: 6 * 60 * 60 * 1000, // 6 hour
+    retry: import.meta.env.MODE == "dev",
   });
 export const authorsInfiniteQueryOption = ({
   search,
@@ -107,4 +109,5 @@ export const authorsInfiniteQueryOption = ({
       const totalPages = lastPage.totalPage || 0;
       return currentPage < totalPages ? currentPage + 1 : undefined;
     },
+    retry: import.meta.env.MODE == "dev",
   });

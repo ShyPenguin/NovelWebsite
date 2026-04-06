@@ -35,4 +35,5 @@ export const authorQueryOptions = (id: AuthorDetailDTO["id"]) =>
     queryKey: getAuthorOneQueryKey({ id }),
     queryFn: () => fetchAuthor({ id: id }),
     staleTime: INTERVAL_24_HRS,
+    retry: false,
   });
