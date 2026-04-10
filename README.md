@@ -59,11 +59,14 @@ You can try the application here:
 
 ### 1. ⚡ Scaling Test Performance with Parallel Execution
 
-**Challenge**
+**Context**
 
-Initial test execution was fully sequential, which made the test suite slow and inefficient as the project grew.
+As the application grew, the test suite became increasingly slow due to fully sequential execution.
+To improve performance, I introduced parallel testing—but this exposed deeper issues.
 
-Introducing parallel testing improved speed, but created new issues:
+**Problem**
+Running tests in parallel caused:
+
 - Shared state between tests
 - Data leakage across test suites
 - Inconsistent and unreliable test results
@@ -91,9 +94,11 @@ To further optimize performance:
 
 ### 2. 🍪 Handling Authentication Across Domains
 
-**Challenge**
+**Context**
 
 During deployment, the frontend and backend were hosted on different domains.
+
+**Problem**
 
 This caused session cookies to be treated as **third-party cookies**, leading to:
 - Authentication failures
@@ -113,7 +118,51 @@ Instead of relying on a custom domain, I introduced an **Nginx reverse proxy**:
 - No need for additional cost (custom domains)
 - Production-like deployment architecture using reverse proxying
 
-This setup mirrors a production-like environment and ensures scalability and separation of concerns.
+### 3. 📄 Designing a Scalable Content Authoring System
+
+**Context**
+
+A core feature of the platform is allowing staff to create and manage chapters.
+
+**Problem**
+
+The initial idea was to integrate a rich text editor into the frontend, but this introduced several challenges:
+
+- Increased bundle size and frontend complexity
+- Handling formatting consistenc
+- Lack of built-in versioning and collaboration
+- Higher long-term maintenance cost
+
+**Solution**
+
+I shifted the responsibility of content creation to **Google Docs**, leveraging it as an external authoring tool.
+
+This required solving two key problems:
+
+**1. Accessing Document Content**
+
+- Used a **Google Service Account** to securely fetch documents
+- Integrated with Google APIs to retrieve structured document data
+
+**2. Transforming Content into Renderable Format**
+
+- Built a custom parser to convert Google Docs content into HTML
+- Standardized formatting on the backend
+- Added support for **custom inline tags** (e.g. `<bor>..</bor>`)
+
+These tags allow extending formatting behaviour without modifying the editor itself
+
+Example:
+
+- `<bor>` wraps content in a styled border container
+- `</bor>` closes the structure
+
+**Result**
+
+- Eliminated the need for a heavy frontend editor
+- Leveraged a familiar, collaborative writing tool
+- Enabled flexible and extensible content formatting
+- Maintained consistent rendering across all chapters
 
 ## Usage
 
@@ -171,11 +220,10 @@ Users with elevated roles (e.g., Staff) can manage content within the platform:
 
 The chapter creation process integrates external content (Google Docs) into the platform:
 
-1. Write the chapter using Google Docs
-2. Paste the document link into the chapter creation form
-3. Click **Preview** to fetch and render the content
-4. Review the formatted chapter inside the application
-5. Submit the form to create the chapter
+1. Write content in Google Docs
+2. Paste link into the app
+3. Preview formatted content
+4. Create Chapter
 
 Behind the scenes:
 - The backend fetches and parses the Google Docs content into structured HTML
@@ -218,13 +266,13 @@ Authorization is enforced both:
 ## Tech Stack
 
 ### Frontend
-- **React (Vite)** – Fast, modern frontend tooling for building a responsive UI
-- **TypeScript** – Ensures type safety and maintainability across the application
-- **Tailwind CSS** – Utility-first styling for rapid and consistent UI development
+- **React (Vite)**
+- **TypeScript**
+- **Tailwind CSS**
 
 ### Backend
-- **Node.js + Express** – REST API server handling business logic and request routing
-- **TypeScript** – Shared type safety between frontend and backend
+- **Node.js + Express**
+- **TypeScript**
 
 ### Database
 - **PostgreSQL** – Relational database for structured data (users, novels, chapters)
@@ -280,8 +328,10 @@ The application follows a **full-stack client-server architecture** with a clear
 
 - The **frontend** communicates with the backend via REST APIs.
 - The **backend** handles authentication, authorization, and business logic.
+- The **packages** conta
 - The **database** stores structured data such as users, novels, and chapters.
 - **Nginx** acts as a reverse proxy, routing requests to the appropriate services especially for stage environment.
+- A shared packages layer serves as the single source of truth for API contracts, validation schemas, and shared types, ensuring consistency between frontend and backend.
 
 ### Authentication Flow
 
