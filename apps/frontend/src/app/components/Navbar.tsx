@@ -22,7 +22,7 @@ function Navbar() {
       }}
       animate={hidden ? "hidden" : "visible"}
       transition={{ duration: 0.35, ease: "easeInOut" }}
-      className="fixed top-0 right-0 left-0 z-100 navbar"
+      className="fixed top-0 right-0 left-0 z-80 navbar"
     >
       <div className="flex container p-4 gap-2 items-center justify-between text-inherit bg-inherit dark:text-inherit dark:bg-inherit">
         {/* DESKTOP */}

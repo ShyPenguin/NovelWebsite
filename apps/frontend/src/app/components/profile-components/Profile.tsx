@@ -4,15 +4,28 @@ import Gear from "@/assets/icons/Gear";
 import { LogoutIcon } from "@/assets/icons/LogoutIcon";
 import { logout } from "@/features/auth/api/logout";
 import { useAuth } from "@/features/auth/store/useAuth";
+import { DropdownPortal } from "@/shared/components/DropdownPortal";
 import { NO_IMAGE_URL } from "@/shared/constants";
 import useClickInsideOrOutside from "@/shared/hooks/useClickInsideOrOutside";
 import { Link } from "@tanstack/react-router";
-import { useState, useRef, type Dispatch, type SetStateAction } from "react";
+import {
+  useState,
+  useRef,
+  type Dispatch,
+  type SetStateAction,
+  useLayoutEffect,
+  type RefObject,
+  forwardRef,
+} from "react";
 
-export const Profile = () => {
+export const Profile = <T extends HTMLDivElement | null>({
+  triggerRef,
+}: {
+  triggerRef: RefObject<T>;
+}) => {
   const { data: user } = useAuth();
   const [isVisible, setIsVisible] = useState(false);
-  const dropdownRef = useRef<HTMLDivElement>(null);
+  const dropdownRef = useRef<HTMLUListElement>(null);
   const buttonRef = useRef<HTMLButtonElement>(null);
 
   useClickInsideOrOutside(
@@ -23,6 +36,13 @@ export const Profile = () => {
     },
     buttonRef,
   );
+
+  useLayoutEffect(() => {
+    const handleScroll = () => {
+      setIsVisible(false);
+    };
+    document.addEventListener("scroll", handleScroll);
+  }, []);
 
   return (
     <>
@@ -54,32 +74,27 @@ export const Profile = () => {
         </div>
       </button>
 
-      <div
-        ref={dropdownRef}
-        className={`absolute top-10 left-0 w-full h-fit transition-all duration-200 ease-in-out ${
-          isVisible
-            ? "opacity-100 translate-y-0"
-            : "opacity-0 -translate-y-2 pointer-events-none"
-        }`}
-      >
-        <Content setIsVisible={setIsVisible} />
-      </div>
+      <DropdownPortal open={isVisible} triggerRef={triggerRef} offsetTop={5}>
+        <Content setIsVisible={setIsVisible} ref={dropdownRef} />
+      </DropdownPortal>
     </>
   );
 };
 
-const Content = ({
-  setIsVisible,
-}: {
-  setIsVisible: Dispatch<SetStateAction<boolean>>;
-}) => {
+const Content = forwardRef<
+  HTMLUListElement,
+  { setIsVisible: Dispatch<SetStateAction<boolean>> }
+>(({ setIsVisible }, ref) => {
   const { data: user } = useAuth();
   const handleLogout = async () => {
     await logout();
     setIsVisible(false);
   };
   return (
-    <ul className="flex flex-col w-full h-full p-4 shadow-lg text-primary-black dark:text-white dark:bg-primary-black bg-white border border-border dark:border-secondary-black rounded-2xl">
+    <ul
+      ref={ref}
+      className="flex flex-col w-full h-full p-4 shadow-lg text-primary-black dark:text-white dark:bg-primary-black bg-white border border-border dark:border-secondary-black rounded-2xl"
+    >
       <Link to={`/users/$username`} params={{ username: user!.username }}>
         <li className="flex items-center gap-2 border-b border-border dark:border-b-secondary-black px-2 py-4 cursor-pointer hover:bg-black/5 hover:dark:bg-white/5 rounded-md last:border-b-0">
           <BookmarkIcon bookmarked={true} className={"fill-current h-4 w-4"} />
@@ -101,4 +116,4 @@ const Content = ({
       </li>
     </ul>
   );
-};
+});

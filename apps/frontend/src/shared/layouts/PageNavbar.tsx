@@ -14,7 +14,7 @@ export const PageNavbar = ({ children }: { children: ReactNode }) => {
       initial={{ y: "100%" }}
       animate={hidden ? "hidden" : "visible"}
       transition={{ duration: 0.45, ease: "easeInOut" }}
-      className="fixed top-0 navbar w-full z-100 px-4"
+      className="fixed top-0 navbar w-full z-90 px-4"
     >
       {children}
     </motion.nav>

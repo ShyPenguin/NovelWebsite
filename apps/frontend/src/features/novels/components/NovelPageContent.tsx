@@ -28,13 +28,15 @@ const Content = () => {
   );
   return (
     <ul className="grid grid-cols-1 lg:grid-cols-2 gap-8">
-      {isSuccess &&
-        novels.length > 0 &&
+      {isSuccess && novels.length > 0 ? (
         novels.map((novel) => (
           <li key={novel.id}>
             <NovelCard novel={novel} />
           </li>
-        ))}
+        ))
+      ) : (
+        <h1>No Results</h1>
+      )}
     </ul>
   );
 };

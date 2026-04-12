@@ -37,7 +37,7 @@ const Content = () => {
           );
         })
       ) : (
-        <div>Empty Data</div>
+        <h1>No Results</h1>
       )}
     </ul>
   );

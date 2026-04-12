@@ -25,8 +25,7 @@ const Content = () => {
 
   return (
     <ul className="grid grid-cols-2 lg:grid-cols-4 gap-4 list-disc pl-8">
-      {isSuccess &&
-        authors.items.length > 0 &&
+      {isSuccess && authors.items.length > 0 ? (
         authors.items.map((author) => (
           <li key={author.id}>
             <Link
@@ -37,7 +36,10 @@ const Content = () => {
               {author.name}
             </Link>
           </li>
-        ))}
+        ))
+      ) : (
+        <h1>No Results</h1>
+      )}
     </ul>
   );
 };

@@ -1,11 +1,19 @@
 import { MagnifyingGlass } from "../../assets/icons/Index";
 import { useDebouncedCallback } from "use-debounce";
-import { forwardRef, Suspense, useRef, useState } from "react";
+import {
+  forwardRef,
+  Suspense,
+  useLayoutEffect,
+  useRef,
+  useState,
+  type RefObject,
+} from "react";
 import { novelsListQuery } from "../../features/novels/api/fetchNovels";
 import { useSuspenseQuery } from "@tanstack/react-query";
 import { Link } from "@tanstack/react-router";
 import useClickInsideOrOutside from "../hooks/useClickInsideOrOutside";
 import { NO_IMAGE_URL } from "@/shared/constants";
+import { DropdownPortal } from "./DropdownPortal";
 
 interface ContentProps {
   search: string;
@@ -19,11 +27,10 @@ const Content = forwardRef<HTMLUListElement, ContentProps>(
 
     return (
       <ul
-        className="flex flex-col w-full max-h-78.75 overflow-y-auto p-5 gap-2 shadow-lg"
+        className="dark:text-white flex flex-col w-full max-h-78.75 overflow-y-auto p-5 gap-2 shadow-lg"
         ref={ref}
       >
-        {isSuccess &&
-          novels.length > 0 &&
+        {isSuccess && novels.length > 0 ? (
           novels.map((novel) => (
             <li key={novel.id}>
               <Link
@@ -46,13 +53,20 @@ const Content = forwardRef<HTMLUListElement, ContentProps>(
                 </div>
               </Link>
             </li>
-          ))}
+          ))
+        ) : (
+          <div className="flex-center">No Results</div>
+        )}
       </ul>
     );
   },
 );
 
-export default function Searchbar() {
+export const Searchbar = <T extends HTMLDivElement | null>({
+  triggerRef,
+}: {
+  triggerRef: RefObject<T>;
+}) => {
   const [search, setSearch] = useState<string>("");
   const [isVisible, setIsVisible] = useState(false);
   const handleSearch = useDebouncedCallback((query) => {
@@ -79,8 +93,15 @@ export default function Searchbar() {
     setIsVisible(true);
   });
 
+  useLayoutEffect(() => {
+    const handleScroll = () => {
+      setIsVisible(false);
+    };
+    document.addEventListener("scroll", handleScroll);
+  }, []);
+
   return (
-    <div className="flex w-full px-4 py-2 justify-start items-center gap-2  border-border border dark:border-secondary-black rounded-xl text-xs">
+    <div className="z-100 flex w-full px-4 py-2 justify-start items-center gap-2  border-border border dark:border-secondary-black rounded-xl text-xs">
       <MagnifyingGlass className="w-4 h-4 center text-primary-black dark:text-primary-gray" />
       <input
         ref={inputRef}
@@ -88,20 +109,24 @@ export default function Searchbar() {
         placeholder="Search a series..."
         onChange={(e) => handleSearch(e.target.value)}
       />
-      {isVisible && search && (
-        <div className="absolute w-full top-10 left-0 dark:bg-primary-black bg-white shadow-md rounded-md">
-          <Suspense fallback={<Skeleton />}>
-            <Content
-              search={search}
-              clearSearch={handleClear}
-              ref={dropdownRef}
-            />
-          </Suspense>
-        </div>
-      )}
+
+      <DropdownPortal
+        open={isVisible && !!search}
+        triggerRef={triggerRef}
+        className="dark:bg-primary-black bg-white shadow-md rounded-md"
+        offsetTop={5}
+      >
+        <Suspense fallback={<Skeleton />}>
+          <Content
+            search={search}
+            clearSearch={handleClear}
+            ref={dropdownRef}
+          />
+        </Suspense>
+      </DropdownPortal>
     </div>
   );
-}
+};
 
 const Skeleton = () => {
   return (
