@@ -9,6 +9,7 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
+import { Route as RateLimitRouteImport } from './routes/rate-limit'
 import { Route as UsersRouteRouteImport } from './routes/users/route'
 import { Route as NovelsRouteRouteImport } from './routes/novels/route'
 import { Route as AuthorsRouteRouteImport } from './routes/authors/route'
@@ -28,6 +29,11 @@ import { Route as NovelsNovelIdChaptersCreateRouteImport } from './routes/novels
 import { Route as NovelsNovelIdChaptersChapterIdIndexRouteImport } from './routes/novels_/$novelId/chapters_/$chapterId/index'
 import { Route as NovelsNovelIdChaptersChapterIdEditRouteImport } from './routes/novels_/$novelId/chapters_/$chapterId/edit'
 
+const RateLimitRoute = RateLimitRouteImport.update({
+  id: '/rate-limit',
+  path: '/rate-limit',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const UsersRouteRoute = UsersRouteRouteImport.update({
   id: '/users',
   path: '/users',
@@ -129,6 +135,7 @@ export interface FileRoutesByFullPath {
   '/authors': typeof AuthorsRouteRouteWithChildren
   '/novels': typeof NovelsRouteRouteWithChildren
   '/users': typeof UsersRouteRouteWithChildren
+  '/rate-limit': typeof RateLimitRoute
   '/auth/callback': typeof AuthCallbackRoute
   '/authors/create': typeof AuthorsCreateRoute
   '/novels/create': typeof NovelsCreateRoute
@@ -146,6 +153,7 @@ export interface FileRoutesByFullPath {
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/rate-limit': typeof RateLimitRoute
   '/auth/callback': typeof AuthCallbackRoute
   '/authors/create': typeof AuthorsCreateRoute
   '/novels/create': typeof NovelsCreateRoute
@@ -166,6 +174,7 @@ export interface FileRoutesById {
   '/authors': typeof AuthorsRouteRouteWithChildren
   '/novels': typeof NovelsRouteRouteWithChildren
   '/users': typeof UsersRouteRouteWithChildren
+  '/rate-limit': typeof RateLimitRoute
   '/auth/callback': typeof AuthCallbackRoute
   '/authors_/create': typeof AuthorsCreateRoute
   '/novels_/create': typeof NovelsCreateRoute
@@ -188,6 +197,7 @@ export interface FileRouteTypes {
     | '/authors'
     | '/novels'
     | '/users'
+    | '/rate-limit'
     | '/auth/callback'
     | '/authors/create'
     | '/novels/create'
@@ -205,6 +215,7 @@ export interface FileRouteTypes {
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
+    | '/rate-limit'
     | '/auth/callback'
     | '/authors/create'
     | '/novels/create'
@@ -224,6 +235,7 @@ export interface FileRouteTypes {
     | '/authors'
     | '/novels'
     | '/users'
+    | '/rate-limit'
     | '/auth/callback'
     | '/authors_/create'
     | '/novels_/create'
@@ -245,6 +257,7 @@ export interface RootRouteChildren {
   AuthorsRouteRoute: typeof AuthorsRouteRouteWithChildren
   NovelsRouteRoute: typeof NovelsRouteRouteWithChildren
   UsersRouteRoute: typeof UsersRouteRouteWithChildren
+  RateLimitRoute: typeof RateLimitRoute
   AuthCallbackRoute: typeof AuthCallbackRoute
   AuthorsCreateRoute: typeof AuthorsCreateRoute
   NovelsCreateRoute: typeof NovelsCreateRoute
@@ -259,6 +272,13 @@ export interface RootRouteChildren {
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
+    '/rate-limit': {
+      id: '/rate-limit'
+      path: '/rate-limit'
+      fullPath: '/rate-limit'
+      preLoaderRoute: typeof RateLimitRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/users': {
       id: '/users'
       path: '/users'
@@ -443,6 +463,7 @@ const rootRouteChildren: RootRouteChildren = {
   AuthorsRouteRoute: AuthorsRouteRouteWithChildren,
   NovelsRouteRoute: NovelsRouteRouteWithChildren,
   UsersRouteRoute: UsersRouteRouteWithChildren,
+  RateLimitRoute: RateLimitRoute,
   AuthCallbackRoute: AuthCallbackRoute,
   AuthorsCreateRoute: AuthorsCreateRoute,
   NovelsCreateRoute: NovelsCreateRoute,

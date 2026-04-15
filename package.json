@@ -9,6 +9,7 @@
     "dev": "turbo run dev",
     "start": "turbo run start",
     "test": "turbo run test",
+    "test-one": "turbo run test --concurrency=1",
     "start:local": "turbo run start:local",
     "build:frontend": "turbo run build -F=@repo/contracts -F=frontend",
     "build:backend": "turbo run build -F=@repo/contracts -F=backend",

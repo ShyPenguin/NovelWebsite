@@ -3,6 +3,7 @@ import { AppProvider } from "../app/stores/AppContext";
 import App from "../app/App";
 import type { QueryClient } from "@tanstack/react-query";
 import { NotFound } from "@/shared/components/NotFound";
+import { Error } from "@/shared/components/Error";
 
 export const Route = createRootRouteWithContext<{
   queryClient: QueryClient;
@@ -12,12 +13,7 @@ export const Route = createRootRouteWithContext<{
     return <NotFound root={true} />;
   },
   errorComponent: ({ error }) => {
-    return (
-      <div className="min-h-screen flex flex-col items-center justify-center">
-        <h1 className="text-3xl font-bold">Something went wrong</h1>
-        <p className="text-muted-foreground">{error.message}</p>
-      </div>
-    );
+    return <Error error={error} />;
   },
 });
 

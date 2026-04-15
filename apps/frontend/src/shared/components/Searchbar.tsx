@@ -101,7 +101,7 @@ export const Searchbar = <T extends HTMLDivElement | null>({
   }, []);
 
   return (
-    <div className="z-100 flex w-full px-4 py-2 justify-start items-center gap-2  border-border border dark:border-secondary-black rounded-xl text-xs">
+    <div className="flex w-full px-4 py-2 justify-start items-center gap-2  border-border border dark:border-secondary-black rounded-xl text-xs">
       <MagnifyingGlass className="w-4 h-4 center text-primary-black dark:text-primary-gray" />
       <input
         ref={inputRef}
