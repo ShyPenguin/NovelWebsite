@@ -28,7 +28,8 @@ app.get("/", (req, res) => {
   res.send("Hello, Novel Translation Backend Website!").status(200);
 });
 
+process.env.NODE_ENV !== "test" && app.use(errorLogging);
+
 app.use(errorResponse);
 
-process.env.NODE_ENV !== "test" && app.use(errorLogging);
 export { app };
