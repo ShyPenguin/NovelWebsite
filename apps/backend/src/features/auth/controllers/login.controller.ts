@@ -19,6 +19,9 @@ export const login = async (req: Request, res: Response): Promise<any> => {
   const { provider } = providerSchema.parse(req.params);
   const { code, state } = req.query;
   if (typeof code !== "string" || typeof state !== "string") {
+    console.log("no code or state");
+    console.log(`code: ${code}`);
+    console.log(`state: ${state}`);
     res.redirect(
       `/sign-in?oauthError=${encodeURIComponent(
         "Failed to connect. Please try again.",
@@ -46,6 +49,7 @@ export const login = async (req: Request, res: Response): Promise<any> => {
 
     return res.redirect(301, `${process.env.FRONTEND_URL}${returnTo}`);
   } catch (error) {
+    console.log(error);
     res.redirect(
       `/sign-in?oauthError=${encodeURIComponent(
         "Failed to connect. Please try again.",
