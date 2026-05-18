@@ -3,7 +3,6 @@ import {
   uuid,
   varchar,
   timestamp,
-  primaryKey,
   AnyPgColumn,
 } from "drizzle-orm/pg-core";
 import { UserTable } from "./users.js";
