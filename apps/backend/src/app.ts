@@ -12,8 +12,19 @@ import userRoutes from "./features/users/user.routes.js";
 dotenv.config();
 
 const app = express();
+const env = process.env.NODE_ENV;
 
-app.set("trust proxy", true);
+if (env !== "stage" && env !== "prod") {
+  console.log("at the if branch");
+  app.use(
+    cors({
+      origin: process.env.FRONTEND_URL,
+      credentials: true,
+    }),
+  );
+} else {
+  app.set("trust proxy", true);
+}
 
 app.use(cookieParser());
 app.use(express.json());
