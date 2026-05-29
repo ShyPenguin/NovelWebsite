@@ -13,7 +13,18 @@ dotenv.config();
 
 const app = express();
 
-app.set("trust proxy", true);
+const node_env = process.env.NODE_ENV;
+
+if (node_env == "development") {
+  app.use(
+    cors({
+      origin: process.env.FRONTEND_URL,
+      credentials: true,
+    }),
+  );
+} else {
+  app.set("trust proxy", true);
+}
 
 app.use(cookieParser());
 app.use(express.json());
