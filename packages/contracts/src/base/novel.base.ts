@@ -3,6 +3,7 @@ import {
   titleField,
   descriptionField,
   urlField,
+  slugField,
 } from "@/fields/general.js";
 import {
   createStringNumberToNumber,
@@ -20,6 +21,7 @@ import { z } from "zod";
 export const NovelBaseSchema = z.object({
   id: createIdField("Novel"),
   title: titleField,
+  slug: slugField,
   description: descriptionField,
   coverImageUrl: urlField.nullish(),
   coverImagePath: z.string().nullish(),

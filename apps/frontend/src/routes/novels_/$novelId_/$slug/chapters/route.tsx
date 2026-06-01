@@ -4,7 +4,7 @@ import { novelQueryOptions } from "@/features/novels/api/fetchNovel";
 import { LoadingSpinner } from "@/shared/components/LoadingSpinner";
 import { NotFound } from "@/shared/components/NotFound";
 
-export const Route = createFileRoute("/novels_/$novelId/chapters")({
+export const Route = createFileRoute("/novels_/$novelId_/$slug/chapters")({
   loader: ({ context: { queryClient }, params: { novelId } }) => {
     return queryClient.ensureQueryData(novelQueryOptions(novelId));
   },

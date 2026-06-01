@@ -3,7 +3,7 @@ import ChapterListPaginated from "@/features/chapters/components/ChapterListPagi
 import SkeletonChapterList from "@/features/chapters/components/SkeletonChapterList";
 import { createFileRoute } from "@tanstack/react-router";
 
-export const Route = createFileRoute("/novels_/$novelId/chapters/")({
+export const Route = createFileRoute("/novels_/$novelId_/$slug/chapters/")({
   pendingComponent: () => <SkeletonChapterList />,
   component: ChapterListPaginated,
   validateSearch: (search) => ChapterSearchSchema.parse(search),

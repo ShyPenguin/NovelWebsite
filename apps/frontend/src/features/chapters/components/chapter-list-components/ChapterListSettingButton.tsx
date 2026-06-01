@@ -1,4 +1,4 @@
-import ListIcon from "../../../../assets/icons/ListIcon";
+import ListIcon from "@/assets/icons/ListIcon";
 import { useNavbarReadingContext } from "../../stores/ChapterMutateUI/NavbarReadingStore/NavbarReadingContext";
 
 const ChapterListSettingButton = () => {

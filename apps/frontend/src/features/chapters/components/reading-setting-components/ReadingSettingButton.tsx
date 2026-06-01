@@ -1,4 +1,4 @@
-import { Gear } from "../../../../assets/icons/Index";
+import Gear from "@/assets/icons/Gear";
 import { useNavbarReadingContext } from "../../stores/ChapterMutateUI/NavbarReadingStore/NavbarReadingContext";
 
 const ReadingSettingButton = () => {

@@ -4,7 +4,7 @@ import { fetchChapterQueryOptions } from "@/features/chapters/api/fetchChapter";
 import { ChapterPage } from "@/features/chapters/pages/ChapterPage";
 import { NotFound } from "@/shared/components/NotFound";
 
-export const Route = createFileRoute("/novels_/$novelId/chapters_/$chapterId/")(
+export const Route = createFileRoute("/novels_/$novelId_/$slug/chapters_/$chapterId/")(
   {
     loader: ({ context: { queryClient }, params: { chapterId } }) => {
       return queryClient.ensureQueryData(

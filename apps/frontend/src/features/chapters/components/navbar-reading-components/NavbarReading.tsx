@@ -7,6 +7,11 @@ import { fetchChapterQueryOptions } from "../../api/fetchChapter";
 import { CHAPTER_SEARCH_DEFAULT } from "../../chapter.schema";
 import { Chevron } from "@/assets/icons/Chevron";
 import House from "@/assets/icons/House";
+import {
+  chaptersIdRoute,
+  chaptersIdRoute_,
+  chaptersRoute,
+} from "@/shared/constants";
 
 const NavbarReading = () => {
   return (
@@ -17,8 +22,8 @@ const NavbarReading = () => {
 };
 
 const Content = () => {
-  const { novelId, chapterId } = useParams({
-    from: "/novels_/$novelId/chapters_/$chapterId/",
+  const { novelId, slug, chapterId } = useParams({
+    from: `${chaptersIdRoute_}/`,
   });
 
   const {
@@ -35,10 +40,11 @@ const Content = () => {
       <>
         {chapterIsSuccess && id ? (
           <Link
-            to="/novels/$novelId/chapters/$chapterId"
+            to={chaptersIdRoute}
             params={{
               novelId: novelId,
               chapterId: id,
+              slug: slug,
             }}
             className="reading-setting-card reading-setting-card-hover rounded-xl w-12"
           >
@@ -50,9 +56,10 @@ const Content = () => {
           </Link>
         ) : (
           <Link
-            to="/novels/$novelId/chapters"
+            to={chaptersRoute}
             params={{
               novelId: novelId,
+              slug: slug,
             }}
             search={CHAPTER_SEARCH_DEFAULT}
             className="reading-setting-card reading-setting-card-hover rounded-xl w-12"
@@ -78,8 +85,8 @@ const Content = () => {
       <div className="flex items-center justify-center">
         <Link
           className="reading-setting-card reading-setting-card-hover rounded-xl w-12"
-          to="/novels/$novelId/chapters"
-          params={{ novelId: novelId }}
+          to={chaptersRoute}
+          params={{ novelId: novelId, slug: slug }}
           search={CHAPTER_SEARCH_DEFAULT}
         >
           <House className="w-4.25" />

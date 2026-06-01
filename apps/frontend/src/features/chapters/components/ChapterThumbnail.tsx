@@ -5,6 +5,7 @@ import Pencil from "@/assets/icons/Pencil";
 import { Can } from "@/features/auth/components/Can";
 import { formatTimeAgo } from "@/shared/utils";
 import { ChapterDeleteButton } from "./form/ChapterDeleteButton";
+import { chaptersIdEditRoute, chaptersIdRoute } from "@/shared/constants";
 
 export const ChapterThumbnail = ({
   id,
@@ -12,12 +13,14 @@ export const ChapterThumbnail = ({
   chapterNumber,
   updatedAt,
   novelId,
+  slug,
   translator,
 }: Pick<
   ChapterThumbnailDTO,
   "id" | "title" | "chapterNumber" | "updatedAt" | "translator"
 > & {
   novelId: NovelDetailDTO["id"];
+  slug: NovelDetailDTO["slug"];
 }) => {
   const navigate = useNavigate();
   return (
@@ -25,8 +28,8 @@ export const ChapterThumbnail = ({
       className="flex justify-between items-center bg-secondary dark:bg-secondary-black p-4 card cursor-pointer"
       onClick={() =>
         navigate({
-          to: "/novels/$novelId/chapters/$chapterId",
-          params: { novelId, chapterId: id },
+          to: chaptersIdRoute,
+          params: { novelId, slug, chapterId: id },
         })
       }
     >
@@ -53,8 +56,8 @@ export const ChapterThumbnail = ({
           }}
         >
           <Link
-            to="/novels/$novelId/chapters/$chapterId/edit"
-            params={{ novelId: novelId, chapterId: id }}
+            to={chaptersIdEditRoute}
+            params={{ novelId: novelId, slug, chapterId: id }}
             className="dark:text-white bg:text-secondary-black hover:text-novelGreen cursor-pointer rounded-full p-2 bg-primary-black/5 dark:bg-primary-black/15"
           >
             <Pencil className="w-5 h-5" />

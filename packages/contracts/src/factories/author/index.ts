@@ -13,6 +13,7 @@ const AuthorDetailSchema = AuthorThumbnailSchema.extend({
   novels: z.array(
     NovelBaseSchema.pick({
       id: true,
+      slug: true,
       title: true,
       coverImageUrl: true,
       description: true,

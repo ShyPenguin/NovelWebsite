@@ -8,12 +8,15 @@ import { authorQueryOptions } from "../api/fetchAuthor";
 import { AuthorDeleteButton } from "../components/form/AuthorDeleteButton";
 import AuthorUpdateButton from "../components/form/AuthorUpdateButton";
 import { NovelThumbnail } from "@/features/novels/components/NovelThumbnail";
+import { authorsIdRoute_ } from "@/shared/constants";
 
 export const AuthorDetailPage = () => {
-  const route = getRouteApi("/authors_/$authorId/");
+  const route = getRouteApi(`${authorsIdRoute_}/`);
   const { authorId } = route.useParams();
 
   const { data: author } = useQuery(authorQueryOptions(authorId));
+
+  console.log(author);
   return (
     <Page>
       <Page.Body type="center">

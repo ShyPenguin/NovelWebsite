@@ -35,6 +35,11 @@ export const titleField = new StringSchemaBuilder("Title")
   .max(255)
   .build();
 
+export const slugField = new StringSchemaBuilder("Slug")
+  .min(1)
+  .max(255)
+  .build();
+
 export const descriptionField = new StringSchemaBuilder("Description")
   .min(1)
   .max(1000)

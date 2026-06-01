@@ -7,11 +7,11 @@ import { checkUserPermission } from "@/features/auth/utils/check-user-permission
 import { NotFound } from "@/shared/components/NotFound";
 
 export const Route = createFileRoute(
-  "/novels_/$novelId/chapters_/$chapterId/edit",
+  "/novels_/$novelId_/$slug/chapters_/$chapterId/edit",
 )({
   loader: async ({
     context: { queryClient },
-    params: { chapterId, novelId },
+    params: { chapterId, novelId, slug },
   }) => {
     const chapter = await queryClient.ensureQueryData(
       fetchChapterQueryOptions({ chapterId }),
@@ -19,7 +19,7 @@ export const Route = createFileRoute(
 
     const novel = await queryClient.ensureQueryData(novelQueryOptions(novelId));
 
-    const url = `/novels/${novelId}/chapters/${chapterId}`;
+    const url = `/novels/${novelId}/${slug}/chapters/${chapterId}`;
 
     await checkUserPermission({
       resource: "chapters",

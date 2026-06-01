@@ -32,6 +32,7 @@ export const NovelTable = pgTable(
   {
     id: uuid().primaryKey().defaultRandom(),
     title: varchar({ length: 255 }).notNull().unique(),
+    slug: varchar({ length: 255 }).notNull().unique(),
     authorId: uuid().references(() => AuthorTable.id, { onDelete: "set null" }),
     translatorId: uuid().references(() => UserTable.id, {
       onDelete: "set null",

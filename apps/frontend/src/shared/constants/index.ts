@@ -36,3 +36,19 @@ export const EDIT = "edit";
 export const VIEW = "view";
 export const NO_AUTHOR = "No Author";
 export const ACTIONS = [DELETE, CREATE, UPDATE, PREVIEW, VIEW] as const;
+
+const novelRoute = "/novels";
+export const novelIdRoute_ = `${novelRoute}_/$novelId_/$slug`;
+export const novelIdRoute = `${novelRoute}/$novelId/$slug`;
+export const chaptersRoute_ = `${novelIdRoute_}/chapters`;
+export const chaptersRoute = `${novelIdRoute}/chapters`;
+export const chaptersCreateRoute_ = `${chaptersRoute_}_/create`;
+export const chaptersCreateRoute = `${chaptersRoute}/create`;
+export const chaptersIdRoute_ = `${chaptersRoute_}_/$chapterId`;
+export const chaptersIdRoute = `${chaptersRoute}/$chapterId`;
+export const chaptersIdEditRoute_ = `${chaptersIdRoute_}/edit`;
+export const chaptersIdEditRoute = `${chaptersIdRoute}/edit`;
+
+const authorsRoute = "/authors";
+export const authorsIdRoute_ = `${authorsRoute}_/$authorId`;
+export const authorsIdRoute = `${authorsRoute}/$authorId`;

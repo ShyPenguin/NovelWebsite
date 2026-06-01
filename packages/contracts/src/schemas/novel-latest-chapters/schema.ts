@@ -6,6 +6,7 @@ export const NovelLatestChaptersSchema = z.object({
   novel: z.object({
     id: NovelDetailSchema.shape["id"],
     title: NovelDetailSchema.shape["title"],
+    slug: NovelDetailSchema.shape["slug"],
     coverImageUrl: NovelDetailSchema.shape["coverImageUrl"],
   }),
   id: ChapterDetailSchema.shape["id"],
