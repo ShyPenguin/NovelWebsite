@@ -46,6 +46,7 @@ export const novelSelectMap = {
   thumbnail: {
     id: NovelTable.id,
     title: NovelTable.title,
+    slug: NovelTable.slug,
     description: NovelTable.description,
     coverImageUrl: NovelTable.coverImageUrl,
     translator: {
@@ -56,6 +57,7 @@ export const novelSelectMap = {
   trend: {
     id: NovelTable.id,
     title: NovelTable.title,
+    slug: NovelTable.slug,
     coverImageUrl: NovelTable.coverImageUrl,
     totalChapters: getTotalChapter,
   } satisfies Record<keyof NovelTrendDTO, unknown>,

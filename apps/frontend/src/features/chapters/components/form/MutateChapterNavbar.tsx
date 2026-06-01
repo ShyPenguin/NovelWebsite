@@ -4,7 +4,12 @@ import { useChapterCreate } from "@/features/chapters/hooks/useChapterCreate";
 import { FormButton } from "@/shared/components/Form/FormButton";
 import { Chevron } from "@/assets/icons/Chevron";
 import House from "@/assets/icons/House";
-import { CREATE } from "@/shared/constants";
+import {
+  chaptersCreateRoute_,
+  chaptersIdEditRoute_,
+  chaptersIdRoute,
+  CREATE,
+} from "@/shared/constants";
 import { PageNavbar } from "@/shared/layouts/PageNavbar";
 import { useChapterMutateUIType } from "@/features/chapters/stores/ChapterMutateUI/ChapterMutateUIProviders";
 import { useMutatePreviewChapter } from "@/features/chapters/stores/ChapterMutateUI/MutatePreviewChapterContext";
@@ -14,12 +19,9 @@ import { CHAPTER_SEARCH_DEFAULT } from "../../chapter.schema";
 export const MutateChapterNavbar = () => {
   const { isPending, mutate, variables } = useMutatePreviewChapter();
   const { chapter, type } = useChapterMutateUIType();
-  const url =
-    type == CREATE
-      ? "/novels_/$novelId/chapters_/create"
-      : "/novels_/$novelId/chapters_/$chapterId/edit";
+  const url = type == CREATE ? chaptersCreateRoute_ : chaptersIdEditRoute_;
 
-  const { novelId } = useParams({
+  const { novelId, slug } = useParams({
     from: url,
   });
 
@@ -57,8 +59,8 @@ export const MutateChapterNavbar = () => {
           />
           <Link
             className="reading-setting-card reading-setting-card-hover rounded-xl w-12"
-            to="/novels/$novelId/chapters"
-            params={{ novelId: novelId }}
+            to="/novels/$novelId/$slug/chapters"
+            params={{ novelId: novelId, slug: slug }}
             search={CHAPTER_SEARCH_DEFAULT}
           >
             <House className="w-4.25" />
@@ -99,6 +101,11 @@ const MutateChapterButton = () => {
   const isUpdate = !!chapter;
   const navigate = useNavigate();
 
+  const url = !chapter ? chaptersCreateRoute_ : chaptersIdEditRoute_;
+
+  const { slug } = useParams({
+    from: url,
+  });
   const handleButtonClick = () => {
     if (isUpdate) {
       if (!updateMutation || !chapter) return;
@@ -120,10 +127,11 @@ const MutateChapterButton = () => {
         options: {
           onSuccess: (data) => {
             navigate({
-              to: "/novels/$novelId/chapters/$chapterId",
+              to: chaptersIdRoute,
               params: {
                 chapterId: data.id,
                 novelId: data.novelId,
+                slug: slug,
               },
             });
           },
@@ -141,10 +149,11 @@ const MutateChapterButton = () => {
       options: {
         onSuccess: (data) => {
           navigate({
-            to: "/novels/$novelId/chapters/$chapterId",
+            to: chaptersIdRoute,
             params: {
               chapterId: data.id,
               novelId: data.novelId,
+              slug: slug,
             },
           });
         },

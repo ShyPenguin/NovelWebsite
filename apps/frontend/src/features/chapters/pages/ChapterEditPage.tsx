@@ -3,9 +3,10 @@ import { ChapterEditLayout } from "../layouts/chapter-edit-page/ChapterEditLayou
 import { novelQueryOptions } from "@/features/novels/api/fetchNovel";
 import { useQuery } from "@tanstack/react-query";
 import { fetchChapterQueryOptions } from "../api/fetchChapter";
+import { chaptersIdEditRoute_ } from "@/shared/constants";
 
 export const ChapterEditPage = () => {
-  const route = getRouteApi("/novels_/$novelId/chapters_/$chapterId/edit");
+  const route = getRouteApi(chaptersIdEditRoute_);
   const { novelId, chapterId } = route.useParams();
   const { data: novel } = useQuery(novelQueryOptions(novelId));
   const { data: chapter } = useQuery(

@@ -1,5 +1,5 @@
 import Pencil from "@/assets/icons/Pencil";
-import { NO_IMAGE_URL } from "@/shared/constants";
+import { chaptersRoute, NO_IMAGE_URL, novelIdRoute } from "@/shared/constants";
 import { Can } from "@/features/auth/components/Can";
 import { CHAPTER_SEARCH_DEFAULT } from "@/features/chapters/chapter.schema";
 import ButtonIcon from "@/shared/components/ButtonIcon";
@@ -47,9 +47,10 @@ const NovelCard = ({ novel }: { novel: NovelDetailDTO }) => {
   return (
     <Link
       className="flex w-full gap-4 relative"
-      to="/novels/$novelId/chapters"
+      to={chaptersRoute}
       params={{
         novelId: novel.id,
+        slug: novel.slug,
       }}
       search={CHAPTER_SEARCH_DEFAULT}
     >
@@ -83,8 +84,8 @@ const NovelCard = ({ novel }: { novel: NovelDetailDTO }) => {
                   className="absolute w-8 h-8"
                   onClick={() => {
                     navigate({
-                      to: "/novels/$novelId",
-                      params: { novelId: novel.id },
+                      to: novelIdRoute,
+                      params: { novelId: novel.id, slug: novel.slug },
                     });
                   }}
                 >

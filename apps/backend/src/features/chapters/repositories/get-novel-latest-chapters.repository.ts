@@ -11,6 +11,7 @@ import {
 const novelLatestChapterSelect = {
   novel: {
     id: sql`${NovelTable.id}`.as("novel_id"),
+    slug: sql`${NovelTable.slug}`.as("novel_slug"),
     title: sql`${NovelTable.title}`.as("novel_title"),
     coverImageUrl: sql`${NovelTable.coverImageUrl}`.as("novel_cover_image_url"),
   },
@@ -50,6 +51,7 @@ export const getAllLatestChaptersTx = async ({
       .select({
         novel: {
           id: freeSubquery.novel.id,
+          slug: freeSubquery.novel.slug,
           title: freeSubquery.novel.title,
           coverImageUrl: freeSubquery.novel.coverImageUrl,
         },
@@ -70,6 +72,7 @@ export const getAllLatestChaptersTx = async ({
       .select({
         novel: {
           id: paidSubquery.novel.id,
+          slug: paidSubquery.novel.slug,
           title: paidSubquery.novel.title,
           coverImageUrl: paidSubquery.novel.coverImageUrl,
         },

@@ -2,11 +2,12 @@ import { Link } from "@tanstack/react-router";
 import { useSuspenseQuery } from "@tanstack/react-query";
 import { useLayoutEffect, useRef } from "react";
 import type { ChapterThumbnailDTO } from "@repo/contracts/dto/chapter";
-import { NO_IMAGE_URL } from "@/shared/constants";
+import { chaptersIdRoute, NO_IMAGE_URL } from "@/shared/constants";
 import LockIcon from "@/assets/icons/LockIcon";
 import { novelQueryOptions } from "@/features/novels/api/fetchNovel";
 import { novelChaptersQueryOptions } from "../../api/fetchNovelChapters";
 import { useNavbarReadingContext } from "../../stores/ChapterMutateUI/NavbarReadingStore/NavbarReadingContext";
+import type { NovelDetailDTO } from "@repo/contracts/dto/novel";
 
 type Thumbnail = {
   coverImageUrl: string;
@@ -23,13 +24,15 @@ const ChapterThumbnail = ({
   coverImageUrl,
   active,
   novelId,
-}: Omit<ChapterThumbnailDTO, "createdAt" | "status"> & Thumbnail) => {
+  slug,
+}: Omit<ChapterThumbnailDTO, "createdAt" | "status"> &
+  Thumbnail & { slug: NovelDetailDTO["slug"] }) => {
   const { dispatch } = useNavbarReadingContext();
 
   return (
     <Link
-      to="/novels/$novelId/chapters/$chapterId"
-      params={{ novelId: novelId, chapterId: id }}
+      to={chaptersIdRoute}
+      params={{ novelId: novelId, chapterId: id, slug }}
       onClick={() => dispatch({ type: "closeListChaptersOpen" })}
     >
       <li
@@ -63,9 +66,11 @@ const ChapterThumbnail = ({
 
 export const ChapterList = ({
   novelId,
+  slug,
   activeId,
 }: {
   novelId: string;
+  slug: string;
   activeId: string;
 }) => {
   const { data: chapters, isSuccess } = useSuspenseQuery(
@@ -99,6 +104,7 @@ export const ChapterList = ({
               <ChapterThumbnail
                 id={chapter.id}
                 novelId={novelId}
+                slug={slug}
                 title={chapter.title}
                 chapterNumber={chapter.chapterNumber}
                 access={chapter.access}

@@ -1,4 +1,4 @@
-import { CREATE } from "@/shared/constants";
+import { authorsIdRoute, CREATE } from "@/shared/constants";
 import Page from "@/shared/components/Page";
 import { useNavigate } from "@tanstack/react-router";
 import { AuthorForm } from "../components/form/AuthorForm";
@@ -13,7 +13,7 @@ export const AuthorCreatePage = () => {
           type={CREATE}
           onClose={(id) => {
             navigate({
-              to: "/authors/$authorId",
+              to: authorsIdRoute,
               params: { authorId: id },
             });
           }}

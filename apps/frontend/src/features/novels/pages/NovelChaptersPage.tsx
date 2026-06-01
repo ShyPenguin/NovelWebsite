@@ -3,14 +3,18 @@ import { novelQueryOptions } from "../api/fetchNovel";
 import { getRouteApi, Link, Outlet } from "@tanstack/react-router";
 import BookmarkIcon from "@/assets/icons/BookmarkIcon";
 import { Schedule } from "@/shared/components/Schedule/Schedule";
-import { NO_AUTHOR } from "@/shared/constants";
+import {
+  chaptersCreateRoute,
+  chaptersRoute_,
+  NO_AUTHOR,
+} from "@/shared/constants";
 import { NovelImage } from "@/features/novels/components/NovelImage";
 import HorizontalLine from "@/shared/components/HorizontalLine";
 import type { NovelDetailDTO } from "@repo/contracts/dto/novel";
 import { NovelChaptersPageContent } from "../components/NovelChaptersPageContent";
 import { Can } from "@/features/auth/components/Can";
 
-const route = getRouteApi("/novels_/$novelId/chapters");
+const route = getRouteApi(chaptersRoute_);
 
 export const NovelChaptersPage = () => {
   const { novelId } = route.useParams();
@@ -61,6 +65,7 @@ const Content = ({ novel }: { novel: NovelDetailDTO }) => {
             <NovelImage
               coverImageUrl={novel.coverImageUrl}
               id={novel.id}
+              slug={novel.slug}
               translator={novel.translator}
             />
           </div>
@@ -76,8 +81,8 @@ const Content = ({ novel }: { novel: NovelDetailDTO }) => {
           <div className="flex w-full max-w-103.25 lg:max-w-full ">
             <Can resource="chapters" action="create" ctx={{}}>
               <Link
-                to="/novels/$novelId/chapters/create"
-                params={{ novelId: novel.id }}
+                to={chaptersCreateRoute}
+                params={{ novelId: novel.id, slug: novel.slug }}
                 className="full-button bg-secondary dark:bg-secondary-black dark:text-white"
               >
                 Create Chapter

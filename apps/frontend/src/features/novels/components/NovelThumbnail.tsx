@@ -1,5 +1,5 @@
 import { CHAPTER_SEARCH_DEFAULT } from "@/features/chapters/chapter.schema";
-import { NO_IMAGE_URL } from "@/shared/constants";
+import { chaptersRoute, NO_IMAGE_URL } from "@/shared/constants";
 import type { NovelThumbnailDTO } from "@repo/contracts/dto/novel";
 import { Link } from "@tanstack/react-router";
 
@@ -7,8 +7,8 @@ export const NovelThumbnail = ({ novel }: { novel: NovelThumbnailDTO }) => {
   return (
     <Link
       className="flex w-full gap-4 relative"
-      to="/novels/$novelId/chapters"
-      params={{ novelId: novel.id }}
+      to={chaptersRoute}
+      params={{ novelId: novel.id, slug: novel.slug }}
       search={CHAPTER_SEARCH_DEFAULT}
     >
       <img

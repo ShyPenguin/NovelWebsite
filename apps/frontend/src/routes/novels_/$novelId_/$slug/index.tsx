@@ -1,10 +1,12 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { ChapterCreatePage } from "@/features/chapters/pages/ChapterCreatePage";
-import { LoadingSpinner } from "@/shared/components/LoadingSpinner";
+import { useQuery } from "@tanstack/react-query";
 import { novelQueryOptions } from "@/features/novels/api/fetchNovel";
+import { LoadingSpinner } from "@/shared/components/LoadingSpinner";
+import { NovelDetailPage } from "@/features/novels/pages/NovelDetailPage";
 import { checkUserPermission } from "@/features/auth/utils/check-user-permission";
+import { NotFound } from "@/shared/components/NotFound";
 
-export const Route = createFileRoute("/novels_/$novelId/chapters_/create")({
+export const Route = createFileRoute("/novels_/$novelId_/$slug/")({
   loader: ({ context: { queryClient }, params: { novelId } }) => {
     return queryClient.ensureQueryData(novelQueryOptions(novelId));
   },
@@ -14,16 +16,22 @@ export const Route = createFileRoute("/novels_/$novelId/chapters_/create")({
     </div>
   ),
   notFoundComponent: () => {
-    return <h4 className="test-inherit text-xxs">Novel not found</h4>;
+    return <NotFound resource="novels" />;
   },
-  component: ChapterCreatePage,
   beforeLoad: async ({ params: { novelId } }) => {
     const url = `/novels/${novelId}/chapters`;
     await checkUserPermission({
-      resource: "chapters",
-      action: "create",
-      ctx: {},
+      feature: "novelIndexPage",
       location: url,
     });
   },
+
+  component: RouteComponent,
 });
+
+function RouteComponent() {
+  const { novelId } = Route.useParams();
+
+  const { data: novel } = useQuery(novelQueryOptions(novelId));
+  return <NovelDetailPage novel={novel!} />;
+}

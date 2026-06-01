@@ -12,6 +12,7 @@ import { TranslatorSchema } from "../translator/index.js";
 const NovelThumbnailSchema = NovelBaseSchema.pick({
   id: true,
   title: true,
+  slug: true,
   coverImageUrl: true,
   description: true,
 }).extend({
@@ -21,6 +22,7 @@ const NovelThumbnailSchema = NovelBaseSchema.pick({
 const NovelTrendSchema = NovelBaseSchema.pick({
   id: true,
   title: true,
+  slug: true,
   coverImageUrl: true,
   totalChapters: true,
 });
@@ -33,6 +35,7 @@ const NovelAuthSchema = NovelThumbnailSchema.pick({
 const NovelDetailSchema = NovelBaseSchema.pick({
   id: true,
   title: true,
+  slug: true,
   coverImageUrl: true,
   coverImagePath: true,
   description: true,

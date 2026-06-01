@@ -1,8 +1,9 @@
 import { getRouteApi } from "@tanstack/react-router";
 import { useState } from "react";
-import { useDebouncedSearch } from "../../../shared/hooks/useDebouncedSearch";
-import { DownArrow } from "../../../assets/icons/Index";
 import type { ChapterSearchType } from "../chapter.schema";
+import { chaptersRoute_ } from "@/shared/constants";
+import DownArrow from "@/assets/icons/DownArrow";
+import { useDebouncedSearch } from "@/shared/hooks/useDebouncedSearch";
 
 const ArrowButtons = ({ navigate }: { navigate: any }) => {
   const [desc, setDesc] = useState(true);
@@ -40,7 +41,7 @@ const ArrowButtons = ({ navigate }: { navigate: any }) => {
   );
 };
 const ChapterSearchBar = () => {
-  const route = getRouteApi("/novels_/$novelId/chapters/");
+  const route = getRouteApi(`${chaptersRoute_}/`);
   const navigate = route.useNavigate();
   const { search } = route.useSearch();
 

@@ -1,20 +1,23 @@
+import { chaptersRoute } from "@/shared/constants";
 import { Link } from "@tanstack/react-router";
 
 type TrendingNumberOneProps = {
   id: string;
+  slug: string;
   imgURL: string;
   title: string;
 };
 
 export const TrendingNumberOne = ({
   id,
+  slug,
   imgURL,
   title,
 }: TrendingNumberOneProps) => {
   return (
     <Link
-      to="/novels/$novelId/chapters"
-      params={{ novelId: id }}
+      to={chaptersRoute}
+      params={{ novelId: id, slug }}
       search={{ page: 1, sort: "desc", search: "" }}
     >
       <div className="flex flex-col w-full card">
