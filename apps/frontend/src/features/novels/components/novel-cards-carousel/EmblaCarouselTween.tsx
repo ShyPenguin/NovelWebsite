@@ -138,6 +138,7 @@ export function EmblaCarouselTween(props: PropType) {
               <NovelCard
                 key={card.id}
                 id={card.id}
+                slug={card.slug}
                 title={card.title}
                 description={card.description}
                 coverImageUrl={card.coverImageUrl}

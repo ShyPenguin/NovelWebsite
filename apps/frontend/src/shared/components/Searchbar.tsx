@@ -12,7 +12,7 @@ import { novelsListQuery } from "../../features/novels/api/fetchNovels";
 import { useSuspenseQuery } from "@tanstack/react-query";
 import { Link } from "@tanstack/react-router";
 import useClickInsideOrOutside from "../hooks/useClickInsideOrOutside";
-import { NO_IMAGE_URL } from "@/shared/constants";
+import { chaptersRoute, NO_IMAGE_URL } from "@/shared/constants";
 import { DropdownPortal } from "./DropdownPortal";
 
 interface ContentProps {
@@ -35,8 +35,8 @@ const Content = forwardRef<HTMLUListElement, ContentProps>(
             <li key={novel.id}>
               <Link
                 className="flex gap-2"
-                to="/novels/$novelId/chapters"
-                params={{ novelId: novel.id }}
+                to={chaptersRoute}
+                params={{ novelId: novel.id, slug: novel.slug }}
                 search={{ page: 1, sort: "desc", search: "" }}
                 onClick={() => clearSearch()}
                 resetScroll={false}
