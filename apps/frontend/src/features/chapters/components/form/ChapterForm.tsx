@@ -12,7 +12,11 @@ import {
 } from "@repo/contracts/fields/chapters";
 import { getFormattedDate } from "@/shared/utils/getFormattedDate";
 import { addDays } from "@/shared/utils/addDays";
-import { CREATE } from "@/shared/constants";
+import {
+  chaptersCreateRoute_,
+  chaptersIdEditRoute_,
+  CREATE,
+} from "@/shared/constants";
 import DropdownSelect from "@/shared/components/DropdownButtons/DropdownSelect";
 import { FormButton } from "@/shared/components/Form/FormButton";
 import { FormInput } from "@/shared/components/Form/FormInput";
@@ -32,10 +36,7 @@ const chapterAccessOption = chapterAccessTypes.map((t) => ({
 export const ChapterForm = ({ totalChapter }: { totalChapter: number }) => {
   const { type, chapter } = useChapterMutateUIType();
 
-  const url =
-    type == CREATE
-      ? "/novels_/$novelId/chapters_/create"
-      : "/novels_/$novelId/chapters_/$chapterId/edit";
+  const url = type == CREATE ? chaptersCreateRoute_ : chaptersIdEditRoute_;
 
   const { novelId } = useParams({
     from: url,

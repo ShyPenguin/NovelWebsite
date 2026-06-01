@@ -33,7 +33,7 @@ type MutateNovelFormProp = {
     }
   | {
       type: typeof CREATE;
-      onClose: (id: string) => void;
+      onClose: (id: string, slug: string) => void;
       novel?: null;
     }
 );
@@ -99,7 +99,7 @@ export const NovelForm = ({
       formData: data,
       options: {
         onSuccess: (data) => {
-          onClose(CREATE && data.id);
+          onClose(CREATE && data.id, data.slug);
         },
       },
     });

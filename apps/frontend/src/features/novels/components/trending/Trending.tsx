@@ -18,6 +18,7 @@ const TrendingList = ({ option }: { option: number }) => {
           return index == 0 ? (
             <TrendingNumberOne
               id={item.id}
+              slug={item.slug}
               imgURL={item.coverImageUrl ?? NO_IMAGE_URL}
               title={item.title}
               key={index}
@@ -25,6 +26,7 @@ const TrendingList = ({ option }: { option: number }) => {
           ) : (
             <TrendingItem
               id={item.id}
+              slug={item.slug}
               rank={index + 1}
               title={item.title}
               coverImageUrl={item.coverImageUrl}

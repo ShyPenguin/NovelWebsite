@@ -1,18 +1,19 @@
 import { Link } from "@tanstack/react-router";
-import { NO_IMAGE_URL } from "@/shared/constants";
+import { chaptersRoute, NO_IMAGE_URL } from "@/shared/constants";
 import { CHAPTER_SEARCH_DEFAULT } from "@/features/chapters/chapter.schema";
 import type { NovelThumbnailDTO } from "@repo/contracts/dto/novel";
 
 export const NovelCard = ({
   id,
+  slug,
   title,
   description,
   coverImageUrl,
 }: NovelThumbnailDTO) => {
   return (
     <Link
-      to="/novels/$novelId/chapters"
-      params={{ novelId: id }}
+      to={chaptersRoute}
+      params={{ novelId: id, slug }}
       search={CHAPTER_SEARCH_DEFAULT}
     >
       <div className="relative flex h-62.5 w-62.5 ml-4 items-center justify-center rounded-2xl shadow lg:w-70 lg:h-70">

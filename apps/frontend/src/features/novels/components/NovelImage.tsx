@@ -1,16 +1,18 @@
 import { Link } from "@tanstack/react-router";
 import type { NovelDetailDTO } from "@repo/contracts/dto/novel";
-import { NO_IMAGE_URL } from "@/shared/constants";
+import { NO_IMAGE_URL, novelIdRoute } from "@/shared/constants";
 import Pencil from "@/assets/icons/Pencil";
 import { Can } from "@/features/auth/components/Can";
 
 export const NovelImage = ({
   coverImageUrl,
   id,
+  slug,
   translator,
 }: {
   coverImageUrl: NovelDetailDTO["coverImageUrl"];
   id: NovelDetailDTO["id"];
+  slug: NovelDetailDTO["slug"];
   translator: NovelDetailDTO["translator"];
 }) => {
   return (
@@ -22,8 +24,8 @@ export const NovelImage = ({
       <Can resource="novels" action="update" ctx={{ data: { id, translator } }}>
         <div className="absolute top-0 right-0">
           <Link
-            to="/novels/$novelId"
-            params={{ novelId: id }}
+            to={novelIdRoute}
+            params={{ novelId: id, slug }}
             className="text-black dark:text-white hover:text-green-500 cursor-pointer 
             bg-white rounded-full dark:bg-primary-black flex p-2"
           >

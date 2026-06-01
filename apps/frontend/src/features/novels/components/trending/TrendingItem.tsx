@@ -1,19 +1,20 @@
 import { Link } from "@tanstack/react-router";
-import { NO_IMAGE_URL } from "@/shared/constants";
+import { chaptersRoute, NO_IMAGE_URL } from "@/shared/constants";
 import type { NovelTrendDTO } from "@repo/contracts/dto/novel";
 import OpenPaper from "@/assets/icons/OpenPaper";
 
 export const TrendingItem = ({
   id,
   rank,
+  slug,
   title,
   coverImageUrl,
   totalChapters,
 }: NovelTrendDTO & { rank: number }) => {
   return (
     <Link
-      to="/novels/$novelId/chapters"
-      params={{ novelId: id }}
+      to={chaptersRoute}
+      params={{ novelId: id, slug }}
       search={{ page: 1, sort: "desc", search: "" }}
     >
       <div className="card flex p-2 gap-4 size-full">

@@ -6,12 +6,13 @@ import { getRouteApi } from "@tanstack/react-router";
 import { Chevron } from "@/assets/icons/Chevron";
 import HorizontalLine from "@/shared/components/HorizontalLine";
 import Pagination from "@/shared/components/Pagination/Pagination";
+import { chaptersRoute_ } from "@/shared/constants";
 
-const routeApi = getRouteApi("/novels_/$novelId/chapters/");
+const routeApi = getRouteApi(`${chaptersRoute_}/`);
 
 const Content = () => {
   const { page, sort, search } = routeApi.useSearch();
-  const { novelId } = routeApi.useParams();
+  const { novelId, slug } = routeApi.useParams();
 
   const { isSuccess, data } = useSuspenseQuery(
     novelChaptersPaginatedQueryOptions({
@@ -30,6 +31,7 @@ const Content = () => {
               key={chapter.id}
               id={chapter.id}
               novelId={novelId}
+              slug={slug}
               title={chapter.title}
               chapterNumber={chapter.chapterNumber}
               updatedAt={chapter.updatedAt}
@@ -62,7 +64,7 @@ const ChapterListPagination = () => {
       <Pagination
         currentPage={page}
         totalPage={(isSuccess && data.totalPage) || 1}
-        route="/novels_/$novelId/chapters/"
+        route="/novels_/$novelId_/$slug/chapters/"
       />
     </div>
   );

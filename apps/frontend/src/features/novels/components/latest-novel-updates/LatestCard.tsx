@@ -1,5 +1,9 @@
 import { Link } from "@tanstack/react-router";
-import { NO_IMAGE_URL } from "@/shared/constants";
+import {
+  chaptersIdRoute,
+  chaptersRoute,
+  NO_IMAGE_URL,
+} from "@/shared/constants";
 import Clock from "@/assets/icons/Clock";
 import FaBook from "@/assets/icons/FaBook";
 import { Paid } from "@/shared/components/Paid";
@@ -21,8 +25,8 @@ export const LatestCard = ({
     <div className="flex flex-col gap-2">
       {/* IMAGE */}
       <Link
-        to="/novels/$novelId/chapters"
-        params={{ novelId: novel.id }}
+        to={chaptersRoute}
+        params={{ novelId: novel.id, slug: novel.slug }}
         search={{ page: 1, sort: "desc", search: "" }}
         draggable={false}
         className="flex flex-col relative gap-2"
@@ -38,8 +42,8 @@ export const LatestCard = ({
 
       {/* Details */}
       <Link
-        to="/novels/$novelId/chapters/$chapterId"
-        params={{ novelId: novel.id, chapterId: id }}
+        to={chaptersIdRoute}
+        params={{ novelId: novel.id, slug: novel.slug, chapterId: id }}
       >
         <div className="flex flex-col gap-[2px] space-y-0 items-start">
           <h5 className="font-semibold text-black dark:text-white m-0 p-0 leading-4">

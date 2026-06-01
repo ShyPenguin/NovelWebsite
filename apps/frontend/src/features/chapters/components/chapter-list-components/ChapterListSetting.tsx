@@ -4,11 +4,12 @@ import { Suspense } from "react";
 import { UpperNovelPart } from "./UpperNovelPart";
 import { ChapterList } from "./ChapterList";
 import { useParams } from "@tanstack/react-router";
+import { chaptersIdRoute_ } from "@/shared/constants";
 
 export const ChapterListSetting = ({ id }: { id: string }) => {
   const { dispatch } = useNavbarReadingContext();
-  const { novelId } = useParams({
-    from: "/novels_/$novelId/chapters_/$chapterId/",
+  const { novelId, slug } = useParams({
+    from: `${chaptersIdRoute_}/`,
   });
   return (
     <SidebarAnimated
@@ -19,7 +20,7 @@ export const ChapterListSetting = ({ id }: { id: string }) => {
           <UpperNovelPart novelId={novelId} />
         </Suspense>
         <Suspense fallback={<SkeletonChapterList />}>
-          <ChapterList novelId={novelId} activeId={id} />
+          <ChapterList novelId={novelId} slug={slug} activeId={id} />
         </Suspense>
       </div>
     </SidebarAnimated>
