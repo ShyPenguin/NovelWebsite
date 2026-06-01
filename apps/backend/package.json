@@ -14,6 +14,8 @@
     "stage:db:generate": "tsx ../../node_modules/drizzle-kit/bin.cjs generate --config=drizzle.config.stage.ts",
     "stage:db:migrate": "drizzle-kit migrate --config=drizzle.config.stage.ts",
     "stage:db:seed": "tsx --env-file=.env.stage seed/seed-stage.ts",
+    "stage:db:flush": "tsx --env-file=.env.stage seed/flush-stage.ts",
+    "stage:db:restart": "tsx --env-file=.env.stage seed/restart-stage.ts",
     "dev:db:migrate": "drizzle-kit migrate --config=drizzle.config.dev.ts",
     "dev:db:generate": "tsx ../../node_modules/drizzle-kit/bin.cjs generate --config=drizzle.config.dev.ts",
     "dev:db:seed": "tsx seed/seed-frontend.js && tsx seed/seed-storage.js",

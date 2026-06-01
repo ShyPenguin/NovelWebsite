@@ -44,6 +44,7 @@ CREATE TABLE "comments" (
 CREATE TABLE "novels" (
 	"id" uuid PRIMARY KEY DEFAULT gen_random_uuid() NOT NULL,
 	"title" varchar(255) NOT NULL,
+	"slug" varchar(255) NOT NULL,
 	"authorId" uuid,
 	"translatorId" uuid,
 	"status" "novelStatus" DEFAULT 'ONGOING' NOT NULL,
@@ -56,7 +57,8 @@ CREATE TABLE "novels" (
 	"cover_image_path" text,
 	"createdAt" timestamp with time zone DEFAULT now() NOT NULL,
 	"updatedAt" timestamp with time zone DEFAULT now() NOT NULL,
-	CONSTRAINT "novels_title_unique" UNIQUE("title")
+	CONSTRAINT "novels_title_unique" UNIQUE("title"),
+	CONSTRAINT "novels_slug_unique" UNIQUE("slug")
 );
 --> statement-breakpoint
 CREATE TABLE "novelCategories" (

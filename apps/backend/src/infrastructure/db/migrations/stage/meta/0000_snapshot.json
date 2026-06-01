@@ -1,5 +1,5 @@
 {
-  "id": "f6af7b77-ce0d-48b0-a535-422f8c054c98",
+  "id": "f1e6e63f-0291-4815-baf3-bf760fa1d5ee",
   "prevId": "00000000-0000-0000-0000-000000000000",
   "version": "7",
   "dialect": "postgresql",
@@ -338,6 +338,12 @@
           "primaryKey": false,
           "notNull": true
         },
+        "slug": {
+          "name": "slug",
+          "type": "varchar(255)",
+          "primaryKey": false,
+          "notNull": true
+        },
         "authorId": {
           "name": "authorId",
           "type": "uuid",
@@ -488,6 +494,13 @@
           "nullsNotDistinct": false,
           "columns": [
             "title"
+          ]
+        },
+        "novels_slug_unique": {
+          "name": "novels_slug_unique",
+          "nullsNotDistinct": false,
+          "columns": [
+            "slug"
           ]
         }
       },
