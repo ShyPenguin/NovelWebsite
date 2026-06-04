@@ -3,7 +3,7 @@ import { ChapterDetailEncodeDTO } from "@repo/contracts/dto/chapter";
 import { getChapterOneByNumberService } from "../services/get-chapter-one-by-number.service.js";
 
 export const getChapterOneByNumberController = getOneControllerFactory<
-  { id: string; number: number },
+  { id: string; chapterNumber: number },
   ChapterDetailEncodeDTO
 >({
   service: getChapterOneByNumberService,

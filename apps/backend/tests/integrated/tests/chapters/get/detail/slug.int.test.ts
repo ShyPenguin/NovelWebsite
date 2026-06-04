@@ -16,10 +16,10 @@ describe("Get chapters/:id", () => {
   });
 
   it("Not found", async () => {
-    const notRealNumber = randomUUID();
+    const doesNotExist = 900;
     const novel = getters.getNovel();
     const res = await testApp
-      .get(`/novels/${novel.id}/chapters/chapter-${notRealNumber}`)
+      .get(`/novels/${novel.id}/chapters/chapter-${doesNotExist}`)
       .expect(404);
 
     const parsedResult = ApiResponseSchema(ChapterDetailSchema).parse(res.body);
@@ -27,7 +27,7 @@ describe("Get chapters/:id", () => {
       ok: false,
       error: {
         type: "NotFoundError",
-        path: `/novels/${novel.id}/chapters/chapter-${notRealNumber}`,
+        path: `/novels/${novel.id}/chapters/chapter-${doesNotExist}`,
         statusCode: 404,
         message: "Chapter not found",
       },

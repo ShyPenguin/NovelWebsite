@@ -6,14 +6,14 @@ import { and, eq } from "drizzle-orm";
 
 const whereNumber = ({
   id,
-  number,
+  chapterNumber,
 }: {
   id: ChapterTableSelect["novelId"];
-  number: ChapterTableSelect["chapterNumber"];
+  chapterNumber: ChapterTableSelect["chapterNumber"];
 }) => {
   return and(
     eq(ChapterTable.novelId, id),
-    eq(ChapterTable.chapterNumber, number),
+    eq(ChapterTable.chapterNumber, chapterNumber),
   );
 };
 export const chapterWhereMap = {
