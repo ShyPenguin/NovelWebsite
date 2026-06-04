@@ -1,8 +1,8 @@
 import { NovelTable } from "@/infrastructure/db/schemas/novels.js";
-import { WhereResourceFactory } from "@/shared/factories/repository/where.repository.js";
+import { eq } from "drizzle-orm";
 
 export const novelWhereMap = {
-  id: WhereResourceFactory({ tableId: NovelTable.id }),
+  id: ({ id }: { id: string }) => eq(NovelTable.id, id),
 };
 
-export type NovelWhere = keyof typeof novelWhereMap;
+export type NovelWhere = typeof novelWhereMap;

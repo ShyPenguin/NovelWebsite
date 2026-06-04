@@ -1,12 +1,12 @@
 import { Request, Response } from "express";
 
 export const getOneControllerFactory =
-  <Params extends Record<string, string>, T>({
+  <Parameters, T>({
     service,
   }: {
-    service: (params: Params) => Promise<T>;
+    service: (params: Parameters) => Promise<T>;
   }) =>
-  async (req: Request<Params>, res: Response) => {
+  async (req: Request<Parameters>, res: Response) => {
     const result = await service(req.params);
 
     return res.status(200).json({

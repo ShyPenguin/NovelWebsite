@@ -11,7 +11,7 @@ import {
 import { DbExecTypes } from "@/infrastructure/db/type.js";
 import { db } from "@/infrastructure/db/index.js";
 import { NotFoundError } from "@/shared/errors/index.js";
-import { getNovelAuthByIdTx } from "@/features/novels/repositories/get-novel-one.js";
+import { getNovelAuthByIdTx } from "@/features/novels/repositories/get-novel-one.repository.js";
 import {
   GetListParams,
   GetFetchListReturn,

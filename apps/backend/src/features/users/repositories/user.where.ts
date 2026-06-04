@@ -1,9 +1,10 @@
 import { UserTable } from "@/infrastructure/db/schemas/users.js";
-import { WhereResourceFactory } from "@/shared/factories/repository/where.repository.js";
+import { eq } from "drizzle-orm";
 
 export const userWhereMap = {
-  id: WhereResourceFactory({ tableId: UserTable.id }),
-  username: WhereResourceFactory({ tableId: UserTable.username }),
+  id: ({ id }: { id: string }) => eq(UserTable.id, id),
+  username: ({ username }: { username: string }) =>
+    eq(UserTable.username, username),
 };
 
-export type UserWhere = keyof typeof userWhereMap;
+export type UserWhere = typeof userWhereMap;

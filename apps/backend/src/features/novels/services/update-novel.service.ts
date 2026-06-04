@@ -18,7 +18,7 @@ import {
 import {
   getNovelAuthByIdTx,
   getNovelDetailByIdTx,
-} from "../repositories/get-novel-one.js";
+} from "../repositories/get-novel-one.repository.js";
 import { updateNovelTx } from "../repositories/update.repository.js";
 import { getCategoriesByIdsTx } from "@/features/categories/repository/get.js";
 

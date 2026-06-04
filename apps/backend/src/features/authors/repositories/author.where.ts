@@ -1,9 +1,9 @@
 import { AuthorTable } from "@/infrastructure/db/schemas/authors.js";
-import { WhereResourceFactory } from "@/shared/factories/repository/where.repository.js";
+import { eq } from "drizzle-orm";
 
 export const authorWhereMap = {
-  id: WhereResourceFactory({ tableId: AuthorTable.id }),
-  name: WhereResourceFactory({ tableId: AuthorTable.name }),
+  id: ({ id }: { id: string }) => eq(AuthorTable.id, id),
+  name: ({ name }: { name: string }) => eq(AuthorTable.name, name),
 };
 
-export type AuthorWhere = keyof typeof authorWhereMap;
+export type AuthorWhere = typeof authorWhereMap;

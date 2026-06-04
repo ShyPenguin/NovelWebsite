@@ -24,7 +24,7 @@
     "docker:reset": "npm run docker:down  && npm run docker:up",
     "docker:db:access": "docker exec -it novelwebsite_dev_psql psql -U dev -d novelwebsite_dev_db",
     "docker:logs": "docker compose -f docker-compose.dev.yml logs -f postgres",
-    "docker:clean": "npm run docker:down && docker volume prune -f && npm run dev",
+    "docker:clean": "npm run docker:down && docker volume prune -f",
     "test": "npm run test:unit && npm run test:int",
     "test:int": "npm run docker:test:down && npm run docker:test:up && wait-on tcp:5435 && tsx scripts/database-template.js && vitest run --project integration && npm run docker:test:down",
     "test:unit": "vitest run --project unit",

@@ -9,13 +9,13 @@ import chapterRoutes from "./features/chapters/chapter.routes.js";
 import novelRoutes from "./features/novels/novel.routes.js";
 import oauthRoutes from "./features/auth/auth.routes.js";
 import userRoutes from "./features/users/user.routes.js";
+import chapterNestedRoutes from "./features/chapters/chapter.nested.route.js";
 dotenv.config();
 
 const app = express();
 const env = process.env.NODE_ENV;
 
 if (env !== "stage" && env !== "prod") {
-  console.log("at the if branch");
   app.use(
     cors({
       origin: process.env.FRONTEND_URL,
@@ -32,8 +32,9 @@ app.use(express.urlencoded({ extended: true }));
 
 app.use("/oauth", oauthRoutes);
 app.use("/novels", novelRoutes);
-app.use("/authors", authorRoutes);
+app.use("/novels", chapterNestedRoutes);
 app.use("/chapters", chapterRoutes);
+app.use("/authors", authorRoutes);
 app.use("/users", userRoutes);
 app.get("/", (req, res) => {
   res.send("Hello, Novel Translation Backend Website!").status(200);

@@ -21,22 +21,18 @@ type NovelDTOMap = {
   auth: NovelAuthDTO;
 };
 
-type NovelWhereParams<W extends NovelWhere> = {
-  [K in W]: Parameters<(typeof novelWhereMap)[K]>[0];
-};
-
 export const getNovelByIdFactory =
-  <T extends keyof NovelDTOMap, Where extends NovelWhere>({
+  <T extends keyof NovelDTOMap, W extends keyof NovelWhere>({
     type,
     schema,
     where,
   }: {
     type: T;
     schema: ZodType;
-    where: Where;
+    where: W;
   }) =>
   async (
-    params: NovelWhereParams<Where>,
+    params: Parameters<NovelWhere[W]>[0],
     tx: DbExecTypes,
   ): Promise<GetFetchReturn<NovelDTOMap, T> | null> => {
     const baseQuery = buildNovelsBaseQuery({
@@ -44,9 +40,11 @@ export const getNovelByIdFactory =
       tx,
     });
 
-    const value = params[where];
+    const fn = novelWhereMap[where] as (
+      arg: Parameters<NovelWhere[W]>[0],
+    ) => any;
 
-    const result = await baseQuery.where(novelWhereMap[where](value));
+    const result = await baseQuery.where(fn(params));
     if (!result[0]) return null;
     return schema.encode(result[0]) as GetFetchReturn<NovelDTOMap, T>;
   };

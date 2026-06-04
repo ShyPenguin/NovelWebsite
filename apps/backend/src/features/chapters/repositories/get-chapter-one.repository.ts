@@ -13,7 +13,7 @@ import { ZodType } from "zod";
 import { buildChaptersBaseQuery } from "./chapter.build-base-query.js";
 import { GetFetchReturn } from "@/shared/types/service.types.js";
 import { DbExecTypes } from "@/infrastructure/db/type.js";
-import { ChapterWhere, chapterWhereMap } from "./chapter.where.js";
+import { chapterWhereMap, ChapterWhereMapType } from "./chapter.where.js";
 
 type ChapterDTOMap = {
   thumbnail: ChapterThumbnailDTO;
@@ -21,13 +21,9 @@ type ChapterDTOMap = {
   auth: ChapterAuthDTO;
 };
 
-type ChapterWhereParams<W extends ChapterWhere> = {
-  [K in W]: Parameters<(typeof chapterWhereMap)[K]>[0];
-};
-
 export const getChapterByIdFactory = <
   T extends ChapterSelectDTO,
-  Where extends ChapterWhere,
+  W extends keyof ChapterWhereMapType,
 >({
   type,
   schema,
@@ -35,19 +31,22 @@ export const getChapterByIdFactory = <
 }: {
   type: T;
   schema: ZodType;
-  where: Where;
+  where: W;
 }) => {
   return async (
-    params: ChapterWhereParams<Where>,
+    params: Parameters<ChapterWhereMapType[W]>[0],
     tx: DbExecTypes,
   ): Promise<GetFetchReturn<ChapterDTOMap, T> | null> => {
     const baseQuery = buildChaptersBaseQuery({
       type,
       tx,
     });
-    const value = params[where];
 
-    const result = await baseQuery.where(chapterWhereMap[where](value));
+    const fn = chapterWhereMap[where] as (
+      arg: Parameters<ChapterWhereMapType[W]>[0],
+    ) => any;
+
+    const result = await baseQuery.where(fn(params));
     if (!result[0]) return null;
     return schema.encode(result[0]) as GetFetchReturn<ChapterDTOMap, T>;
   };
@@ -57,6 +56,12 @@ export const getChapterDetailByIdTx = getChapterByIdFactory({
   type: "detail",
   schema: ChapterDetailSchema,
   where: "id",
+});
+
+export const getChapterDetailByNumberTx = getChapterByIdFactory({
+  type: "detail",
+  schema: ChapterDetailSchema,
+  where: "number",
 });
 
 export const getChapterAuthByIdTx = getChapterByIdFactory({

@@ -7,7 +7,7 @@ import { upsertNovelCategoriesTx } from "@/features/categories/repository/upsert
 import { upsertNovelScheduleTx } from "@/features/novels/services/upsert-novel-schedule.service.js";
 import { ValidationError, BaseError } from "@/shared/errors/index.js";
 import { createNovelTx } from "../repositories/create.repository.js";
-import { getNovelDetailByIdTx } from "../repositories/get-novel-one.js";
+import { getNovelDetailByIdTx } from "../repositories/get-novel-one.repository.js";
 import { getCategoriesByIdsTx } from "@/features/categories/repository/get.js";
 
 export const createNovelService = async ({

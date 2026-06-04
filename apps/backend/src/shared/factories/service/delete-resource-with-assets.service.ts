@@ -22,6 +22,7 @@ export const deleteResourceWithAssetsServiceFactory =
     TData extends PermissionMap[Resource]["delete"]["data"],
     TResource extends Resource,
     U extends { id: string },
+    GetParams,
   >({
     resource,
     resourceAsset,
@@ -31,11 +32,7 @@ export const deleteResourceWithAssetsServiceFactory =
     resource: TResource;
     resourceAsset: KeysWithStringValues<U>;
     getResourceRepo: (
-      {
-        id,
-      }: {
-        id: string;
-      },
+      getParams: GetParams,
       tx: DbExecTypes,
     ) => Promise<TData | null>;
     deleteResourceRepo: ({
@@ -46,17 +43,13 @@ export const deleteResourceWithAssetsServiceFactory =
       id: string;
     }) => Promise<U | null>;
   }) =>
-  async ({
-    tx = db,
-    id,
-    user,
-  }: {
-    tx?: DbClientType | DbPoolType;
-    id: string;
-    user: UserSession;
-  }): Promise<U> => {
+  async (
+    getParams: GetParams,
+    user: UserSession,
+    tx: DbExecTypes = db,
+  ): Promise<U> => {
     const result = await tx.transaction(async (trx) => {
-      const resourceDetailed = await getResourceRepo({ id }, trx);
+      const resourceDetailed = await getResourceRepo(getParams, trx);
 
       if (!resourceDetailed) {
         throw new NotFoundError(resource);

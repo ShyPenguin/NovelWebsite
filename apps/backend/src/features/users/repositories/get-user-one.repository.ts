@@ -19,11 +19,7 @@ type UserDTOMap = {
   detail: UserDetailEncodeDTO;
 };
 
-type UserWhereParams<W extends UserWhere> = {
-  [K in W]: Parameters<(typeof userWhereMap)[K]>[0];
-};
-
-const getUserOneFactory = <T extends UserSelectDTO, W extends UserWhere>({
+const getUserOneFactory = <T extends UserSelectDTO, W extends keyof UserWhere>({
   type,
   schema,
   where,
@@ -33,7 +29,7 @@ const getUserOneFactory = <T extends UserSelectDTO, W extends UserWhere>({
   where: W;
 }) => {
   return async (
-    params: UserWhereParams<W>,
+    params: Parameters<UserWhere[W]>[0],
     tx: DbExecTypes,
   ): Promise<GetFetchReturn<UserDTOMap, T> | null> => {
     const baseQuery = buildUsersBaseQuery({
@@ -41,10 +37,9 @@ const getUserOneFactory = <T extends UserSelectDTO, W extends UserWhere>({
       tx,
     });
 
-    // extract the correct value dynamically
-    const value = params[where];
+    const fn = userWhereMap[where] as (arg: Parameters<UserWhere[W]>[0]) => any;
 
-    const result = await baseQuery.where(userWhereMap[where](value));
+    const result = await baseQuery.where(fn(params));
 
     if (!result[0]) return null;
 

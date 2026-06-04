@@ -6,10 +6,10 @@ import { createCookieWrapper } from "@/shared/utils/cookies-function.js";
 
 export const deleteUserController = async (req: AuthRequest, res: Response) => {
   const params = req.params;
-  const result = await deleteUserService({
-    id: Array.isArray(params.id) ? params.id[0] : params.id,
-    user: req.user,
-  });
+  const result = await deleteUserService(
+    { id: Array.isArray(params.id) ? params.id[0] : params.id },
+    req.user,
+  );
 
   // Log them out if the user deletes itself
   if (req.user.id == result.id) {

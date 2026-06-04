@@ -13,7 +13,7 @@ import {
   userStaff2,
 } from "tests/mockdata.js";
 import { createNovelTx } from "@/features/novels/repositories/create.repository.js";
-import { getNovelDetailByIdTx } from "@/features/novels/repositories/get-novel-one.js";
+import { getNovelDetailByIdTx } from "@/features/novels/repositories/get-novel-one.repository.js";
 import { createCategoryTx } from "@/features/categories/repository/create.js";
 
 export const seedBeforeAll = async () => {
