@@ -10,6 +10,7 @@ const input: AuthorDetailDTO = {
   novels: [
     {
       id: randomUUID(),
+      slug: "omniscient",
       title: "Omniscient",
       coverImageUrl:
         "https://pberoczdewdtspygrofa.supabase.co/storage/v1/object/public/novelwebsite-images/novels/covers/Infinite_Regressor.avif",
@@ -18,6 +19,7 @@ const input: AuthorDetailDTO = {
     {
       id: randomUUID(),
       title: "Regressor",
+      slug: "regressor",
       coverImageUrl:
         "https://pberoczdewdtspygrofa.supabase.co/storage/v1/object/public/novelwebsite-images/novels/covers/Infinite_Regressor.avif",
       description: "eqweqwe",
@@ -25,6 +27,7 @@ const input: AuthorDetailDTO = {
     {
       id: randomUUID(),
       title: "Lacoste",
+      slug: "lacoste",
       coverImageUrl:
         "https://pberoczdewdtspygrofa.supabase.co/storage/v1/object/public/novelwebsite-images/novels/covers/Infinite_Regressor.avif",
       description: "eqweqwe",

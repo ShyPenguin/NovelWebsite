@@ -22,7 +22,7 @@ const NavbarReading = () => {
 };
 
 const Content = () => {
-  const { novelId, slug, chapterId } = useParams({
+  const { novelId, slug, chapterNumber } = useParams({
     from: `${chaptersIdRoute_}/`,
   });
 
@@ -30,7 +30,7 @@ const Content = () => {
     data: chapter,
     isLoading: chapterIsLoading,
     isSuccess: chapterIsSuccess,
-  } = useQuery(fetchChapterQueryOptions({ chapterId }));
+  } = useQuery(fetchChapterQueryOptions({ chapterId: chapterNumber }));
 
   const ArrowButton = ({ direction }: { direction: "left" | "right" }) => {
     const id =
@@ -43,7 +43,7 @@ const Content = () => {
             to={chaptersIdRoute}
             params={{
               novelId: novelId,
-              chapterId: id,
+              chapterNumber: id,
               slug: slug,
             }}
             className="reading-setting-card reading-setting-card-hover rounded-xl w-12"

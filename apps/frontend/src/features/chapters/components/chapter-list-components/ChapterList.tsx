@@ -32,7 +32,7 @@ const ChapterThumbnail = ({
   return (
     <Link
       to={chaptersIdRoute}
-      params={{ novelId: novelId, chapterId: id, slug }}
+      params={{ novelId: novelId, chapterNumber: id, slug }}
       onClick={() => dispatch({ type: "closeListChaptersOpen" })}
     >
       <li

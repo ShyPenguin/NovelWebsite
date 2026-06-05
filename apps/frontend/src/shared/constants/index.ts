@@ -44,8 +44,8 @@ export const chaptersRoute_ = `${novelIdRoute_}/chapters`;
 export const chaptersRoute = `${novelIdRoute}/chapters`;
 export const chaptersCreateRoute_ = `${chaptersRoute_}_/create`;
 export const chaptersCreateRoute = `${chaptersRoute}/create`;
-export const chaptersIdRoute_ = `${chaptersRoute_}_/$chapterId`;
-export const chaptersIdRoute = `${chaptersRoute}/$chapterId`;
+export const chaptersIdRoute_ = `${chaptersRoute_}_/$chapterNumber`;
+export const chaptersIdRoute = `${chaptersRoute}/$chapterNumber`;
 export const chaptersIdEditRoute_ = `${chaptersIdRoute_}/edit`;
 export const chaptersIdEditRoute = `${chaptersIdRoute}/edit`;
 

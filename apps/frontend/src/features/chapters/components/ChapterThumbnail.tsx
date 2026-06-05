@@ -29,7 +29,7 @@ export const ChapterThumbnail = ({
       onClick={() =>
         navigate({
           to: chaptersIdRoute,
-          params: { novelId, slug, chapterId: id },
+          params: { novelId, slug, chapterNumber: id },
         })
       }
     >
@@ -57,7 +57,7 @@ export const ChapterThumbnail = ({
         >
           <Link
             to={chaptersIdEditRoute}
-            params={{ novelId: novelId, slug, chapterId: id }}
+            params={{ novelId: novelId, slug, chapterNumber: id }}
             className="dark:text-white bg:text-secondary-black hover:text-novelGreen cursor-pointer rounded-full p-2 bg-primary-black/5 dark:bg-primary-black/15"
           >
             <Pencil className="w-5 h-5" />
