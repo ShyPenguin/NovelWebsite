@@ -6,15 +6,19 @@ import { BackendApiLink, INTERVAL_12_HRS } from "@/shared/constants";
 import { notFound } from "@tanstack/react-router";
 import { getChapterOneQueryKey } from "../utils/chapter.tanstack-keys";
 
-const urlRoute = "chapters";
 export const fetchChapter = async ({
-  chapterId,
+  novelId,
+  chapterNumber,
 }: {
-  chapterId: ChapterDetailDTO["id"];
+  novelId: ChapterDetailDTO["novelId"];
+  chapterNumber: ChapterDetailDTO["chapterNumber"];
 }): Promise<ChapterDetailDTO> => {
-  const response = await fetch(`${BackendApiLink}/${urlRoute}/${chapterId}`, {
-    credentials: "include",
-  });
+  const response = await fetch(
+    `${BackendApiLink}/novels/${novelId}/chapters/${chapterNumber}`,
+    {
+      credentials: "include",
+    },
+  );
 
   if (response.status === 404 || response.status === 400) {
     throw notFound();

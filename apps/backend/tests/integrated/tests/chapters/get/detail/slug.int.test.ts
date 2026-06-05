@@ -19,7 +19,7 @@ describe("Get chapters/:id", () => {
     const doesNotExist = 900;
     const novel = getters.getNovel();
     const res = await testApp
-      .get(`/novels/${novel.id}/chapters/chapter-${doesNotExist}`)
+      .get(`/novels/${novel.id}/chapters/${doesNotExist}`)
       .expect(404);
 
     const parsedResult = ApiResponseSchema(ChapterDetailSchema).parse(res.body);
@@ -27,7 +27,7 @@ describe("Get chapters/:id", () => {
       ok: false,
       error: {
         type: "NotFoundError",
-        path: `/novels/${novel.id}/chapters/chapter-${doesNotExist}`,
+        path: `/novels/${novel.id}/chapters/${doesNotExist}`,
         statusCode: 404,
         message: "Chapter not found",
       },
@@ -41,7 +41,7 @@ describe("Get chapters/:id", () => {
     const nextChapter = getters.getChapterSecond().id;
 
     const res = await testApp
-      .get(`/novels/${novel.id}/chapters/chapter-${chapter.chapterNumber}`)
+      .get(`/novels/${novel.id}/chapters/${chapter.chapterNumber}`)
       .expect(200);
 
     const parsedResult = ApiResponseSchema(ChapterDetailSchema).parse(res.body);
@@ -63,7 +63,7 @@ describe("Get chapters/:id", () => {
     const nextChapter = getters.getChapterThird().id;
 
     const res = await testApp
-      .get(`/novels/${novel.id}/chapters/chapter-${chapter.chapterNumber}`)
+      .get(`/novels/${novel.id}/chapters/${chapter.chapterNumber}`)
       .expect(200);
 
     const parsedResult = ApiResponseSchema(ChapterDetailSchema).parse(res.body);
@@ -78,10 +78,13 @@ describe("Get chapters/:id", () => {
   });
   it("Success on Third chapter", async () => {
     const chapter = getters.getChapterThird();
+    const novel = getters.getNovel();
     const prevChapter = getters.getChapterSecond().id;
     const nextChapter = null;
 
-    const res = await testApp.get(`/chapters/${chapter.id}`).expect(200);
+    const res = await testApp
+      .get(`/novels/${novel.id}/chapters/${chapter.chapterNumber}`)
+      .expect(200);
 
     const parsedResult = ApiResponseSchema(ChapterDetailSchema).parse(res.body);
     expect(parsedResult.ok).toBe(true);

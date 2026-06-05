@@ -37,7 +37,7 @@ chapterNestedRoutes.get(
 );
 
 chapterNestedRoutes.get(
-  "/:id/chapters/chapter-:chapterNumber",
+  "/:id/chapters/:chapterNumber",
   asyncHandler(getChapterOneByNumberController),
 );
 export default chapterNestedRoutes;
