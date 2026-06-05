@@ -14,7 +14,7 @@ export const Route = createFileRoute(
     params: { chapterNumber, novelId, slug },
   }) => {
     const chapter = await queryClient.ensureQueryData(
-      fetchChapterQueryOptions({ chapterId: chapterNumber }),
+      fetchChapterQueryOptions({ novelId, chapterNumber }),
     );
 
     const novel = await queryClient.ensureQueryData(novelQueryOptions(novelId));

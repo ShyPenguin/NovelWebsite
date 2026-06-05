@@ -16,7 +16,6 @@ export const AuthorDetailPage = () => {
 
   const { data: author } = useQuery(authorQueryOptions(authorId));
 
-  console.log(author);
   return (
     <Page>
       <Page.Body type="center">

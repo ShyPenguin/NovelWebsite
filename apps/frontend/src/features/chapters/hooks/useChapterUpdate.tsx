@@ -36,7 +36,8 @@ export const useChapterUpdate = (chapter: ChapterDetailDTO) => {
                 parentId: data.novelId,
               },
               {
-                id: data.id,
+                novelId: data.novelId,
+                chapterNumber: data.chapterNumber,
               },
             );
             options?.onSuccess?.(data, vars, onResult, ctx);

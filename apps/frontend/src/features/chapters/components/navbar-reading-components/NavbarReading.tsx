@@ -30,12 +30,15 @@ const Content = () => {
     data: chapter,
     isLoading: chapterIsLoading,
     isSuccess: chapterIsSuccess,
-  } = useQuery(fetchChapterQueryOptions({ chapterId: chapterNumber }));
+  } = useQuery(fetchChapterQueryOptions({ novelId, chapterNumber }));
 
   const ArrowButton = ({ direction }: { direction: "left" | "right" }) => {
     const id =
       direction == "left" ? chapter?.prevChapter : chapter?.nextChapter;
-
+    const chapterNumber =
+      direction == "left"
+        ? Number(chapter?.chapterNumber) - 1
+        : Number(chapter?.chapterNumber) + 1;
     return (
       <>
         {chapterIsSuccess && id ? (
@@ -43,7 +46,7 @@ const Content = () => {
             to={chaptersIdRoute}
             params={{
               novelId: novelId,
-              chapterNumber: id,
+              chapterNumber: String(chapterNumber),
               slug: slug,
             }}
             className="reading-setting-card reading-setting-card-hover rounded-xl w-12"

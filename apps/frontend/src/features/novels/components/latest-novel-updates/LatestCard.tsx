@@ -43,7 +43,11 @@ export const LatestCard = ({
       {/* Details */}
       <Link
         to={chaptersIdRoute}
-        params={{ novelId: novel.id, slug: novel.slug, chapterNumber: id }}
+        params={{
+          novelId: novel.id,
+          slug: novel.slug,
+          chapterNumber: String(chapterNumber),
+        }}
       >
         <div className="flex flex-col gap-[2px] space-y-0 items-start">
           <h5 className="font-semibold text-black dark:text-white m-0 p-0 leading-4">

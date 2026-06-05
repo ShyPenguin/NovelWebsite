@@ -7,9 +7,9 @@ import { chaptersIdRoute_ } from "@/shared/constants";
 
 export const ChapterPage = () => {
   const route = getRouteApi(`${chaptersIdRoute_}/`);
-  const { chapterNumber } = route.useParams();
+  const { novelId, chapterNumber } = route.useParams();
   const { data: chapter } = useQuery(
-    fetchChapterQueryOptions({ chapterId: chapterNumber }),
+    fetchChapterQueryOptions({ novelId, chapterNumber }),
   );
   return (
     <NavbarReadingContextProvider>

@@ -48,6 +48,7 @@ export const ChapterDeleteButton = (chapter: ChapterDeleteButtonProp) => {
             <ConfirmButton
               id={chapter.id}
               novelId={chapter.novelId}
+              chapterNumber={chapter.chapterNumber}
               closeModal={() => setOpenModal(false)}
             />
           </Modal.Footer>
@@ -60,13 +61,19 @@ export const ChapterDeleteButton = (chapter: ChapterDeleteButtonProp) => {
 const ConfirmButton = ({
   id,
   novelId,
+  chapterNumber,
   closeModal,
 }: {
   id: ChapterDetailDTO["id"];
   novelId: ChapterDetailDTO["novelId"];
+  chapterNumber: ChapterDetailDTO["chapterNumber"];
   closeModal: () => void;
 }) => {
-  const { mutate, isPending } = useChapterDelete({ id, novelId });
+  const { mutate, isPending } = useChapterDelete({
+    id,
+    novelId,
+    chapterNumber,
+  });
 
   const handleButtonClick = () => {
     mutate({

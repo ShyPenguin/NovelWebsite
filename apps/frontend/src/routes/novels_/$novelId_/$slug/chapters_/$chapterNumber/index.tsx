@@ -7,9 +7,12 @@ import { NotFound } from "@/shared/components/NotFound";
 export const Route = createFileRoute(
   "/novels_/$novelId_/$slug/chapters_/$chapterNumber/",
 )({
-  loader: ({ context: { queryClient }, params: { chapterNumber } }) => {
+  loader: ({
+    context: { queryClient },
+    params: { novelId, chapterNumber },
+  }) => {
     return queryClient.ensureQueryData(
-      fetchChapterQueryOptions({ chapterId: chapterNumber }),
+      fetchChapterQueryOptions({ novelId, chapterNumber }),
     );
   },
   pendingComponent: () => (

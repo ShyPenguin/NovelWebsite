@@ -10,7 +10,7 @@ export const ChapterEditPage = () => {
   const { novelId, chapterNumber } = route.useParams();
   const { data: novel } = useQuery(novelQueryOptions(novelId));
   const { data: chapter } = useQuery(
-    fetchChapterQueryOptions({ chapterId: chapterNumber }),
+    fetchChapterQueryOptions({ novelId, chapterNumber }),
   );
 
   return <ChapterEditLayout novel={novel!} chapter={chapter!} />;

@@ -36,13 +36,15 @@ export const fetchChapter = async ({
 };
 
 export const fetchChapterQueryOptions = ({
-  chapterId,
+  novelId,
+  chapterNumber,
 }: {
-  chapterId: ChapterDetailDTO["id"];
+  novelId: ChapterDetailDTO["novelId"];
+  chapterNumber: ChapterDetailDTO["chapterNumber"];
 }) =>
   queryOptions<ChapterDetailDTO>({
-    queryKey: getChapterOneQueryKey({ id: chapterId }),
-    queryFn: () => fetchChapter({ chapterId }),
+    queryKey: getChapterOneQueryKey({ novelId, chapterNumber }),
+    queryFn: () => fetchChapter({ chapterNumber, novelId }),
     staleTime: INTERVAL_12_HRS,
     retry: import.meta.env.MODE == "dev",
   });

@@ -6,9 +6,11 @@ import type { MutateOptions } from "@tanstack/react-query";
 export const useChapterDelete = ({
   id,
   novelId,
+  chapterNumber,
 }: {
   id: ChapterDetailDTO["id"];
   novelId: ChapterDetailDTO["novelId"];
+  chapterNumber: ChapterDetailDTO["chapterNumber"];
 }) => {
   const mutation = deleteChapterMutate(id);
   const baseHandlers = chapterMutationConfig("delete");
@@ -35,7 +37,7 @@ export const useChapterDelete = ({
           onSuccess: (data, vars, onResult, ctx) => {
             baseHandlers.onSuccess?.(
               { data, parentId: novelId },
-              { id: data.id },
+              { novelId, chapterNumber },
             );
             options?.onSuccess?.(data, vars, onResult, ctx);
           },
