@@ -129,7 +129,7 @@ const MutateChapterButton = () => {
             navigate({
               to: chaptersIdRoute,
               params: {
-                chapterId: data.id,
+                chapterNumber: data.id,
                 novelId: data.novelId,
                 slug: slug,
               },
@@ -151,7 +151,7 @@ const MutateChapterButton = () => {
           navigate({
             to: chaptersIdRoute,
             params: {
-              chapterId: data.id,
+              chapterNumber: data.id,
               novelId: data.novelId,
               slug: slug,
             },

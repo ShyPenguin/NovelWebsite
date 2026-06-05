@@ -7,10 +7,10 @@ import { chaptersIdEditRoute_ } from "@/shared/constants";
 
 export const ChapterEditPage = () => {
   const route = getRouteApi(chaptersIdEditRoute_);
-  const { novelId, chapterId } = route.useParams();
+  const { novelId, chapterNumber } = route.useParams();
   const { data: novel } = useQuery(novelQueryOptions(novelId));
   const { data: chapter } = useQuery(
-    fetchChapterQueryOptions({ chapterId: chapterId }),
+    fetchChapterQueryOptions({ chapterId: chapterNumber }),
   );
 
   return <ChapterEditLayout novel={novel!} chapter={chapter!} />;
