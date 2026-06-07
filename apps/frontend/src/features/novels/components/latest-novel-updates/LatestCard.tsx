@@ -12,7 +12,6 @@ import type { NovelLatestChapterDTO } from "@repo/contracts/dto/novel-latest-cha
 
 export const LatestCard = ({
   paid,
-  id,
   novel,
   chapterNumber,
   title,

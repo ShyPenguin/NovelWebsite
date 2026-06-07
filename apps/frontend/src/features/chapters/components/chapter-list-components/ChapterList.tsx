@@ -17,7 +17,6 @@ type Thumbnail = {
 };
 
 const ChapterThumbnail = ({
-  id,
   title,
   chapterNumber,
   status,
