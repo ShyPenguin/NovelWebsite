@@ -9,6 +9,7 @@ import {
   dateField,
   createDateField,
   createUrlField,
+  slugField,
 } from "@/fields/general.js";
 import {
   yyyyMmDdStringToDate,
@@ -55,6 +56,49 @@ describe("Fields", () => {
     });
 
     it("title success", () => {
+      const { success } = titleField.safeParse("Omniscient");
+
+      expect(success).toBe(true);
+    });
+  });
+
+  describe("slugField", () => {
+    it("fails when slug is more than 255 letters", () => {
+      const data = "a".repeat(256);
+      const { success, error } = slugField.safeParse(data);
+
+      expect(success).toBe(false);
+      const flattened = z.flattenError(error!);
+      expect(flattened.formErrors[0]).toBe("255 Letters maximum for slug");
+    });
+
+    it("fails when slug is only whitespace", () => {
+      const data = "     ";
+      const { success, error } = slugField.safeParse(data);
+
+      expect(success).toBe(false);
+      const flattened = z.flattenError(error!);
+      expect(flattened.formErrors[0]).toBe("1 Letter minimum for slug");
+    });
+
+    it("fails when slug is not a string", () => {
+      const data = 123;
+      const { success, error } = slugField.safeParse(data);
+
+      expect(success).toBe(false);
+      const flattened = z.flattenError(error!);
+      expect(flattened.formErrors[0]).toBe("Slug must be a string");
+    });
+
+    it("fails when slug is undefined", () => {
+      const { success, error } = slugField.safeParse(undefined);
+
+      expect(success).toBe(false);
+      const flattened = z.flattenError(error!);
+      expect(flattened.formErrors[0]).toBe("Slug is required");
+    });
+
+    it("slug success", () => {
       const { success } = titleField.safeParse("Omniscient");
 
       expect(success).toBe(true);

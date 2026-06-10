@@ -20,5 +20,5 @@ export const deleteResourceFactory =
       throw new Error(parsedResult.error.message);
     }
 
-    return { id: parsedResult.data };
+    return { id };
   };

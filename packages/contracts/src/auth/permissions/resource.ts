@@ -1,5 +1,6 @@
 import type { UserRole, UserSession } from "@/dto/auth.js";
 import type { AuthorThumbnailDTO } from "@/dto/author.js";
+import { BookmarkAuthDTO } from "@/dto/bookmark.js";
 import type { ChapterAuthDTO } from "@/dto/chapter.js";
 import type { NovelAuthDTO } from "@/dto/novel.js";
 import type { UserThumbnailDTO } from "@/dto/user.js";
@@ -34,6 +35,11 @@ export type PermissionMap = {
     delete: { data: NovelAuthDTO };
   };
 
+  bookmarks: {
+    view: { data: BookmarkAuthDTO };
+    create: { data: BookmarkAuthDTO };
+    delete: { data: BookmarkAuthDTO };
+  };
   users: {
     view: { data?: never };
     create: { data?: never };
@@ -96,15 +102,22 @@ const ROLES: RolesWithPermissions = {
       update: true,
       delete: true,
     },
+    bookmarks: {
+      view: ({ user, data }) => {
+        return user.id == data.userId;
+      },
+      create: ({ user, data }) => {
+        return user.id == data.userId;
+      },
+      delete: ({ user, data }) => {
+        return user.id == data.userId;
+      },
+    },
     users: {
       view: true,
       create: true,
       update: ({ user, data }) => {
-        return data.role == "admin"
-          ? user.id !== data.id
-            ? false
-            : true
-          : true;
+        return data.role == "admin" ? user.id == data.id : true;
       },
       delete: ({ user, data }) => {
         return user.role !== data.role;
@@ -139,6 +152,17 @@ const ROLES: RolesWithPermissions = {
       create: true,
       update: true,
       delete: true,
+    },
+    bookmarks: {
+      view: ({ user, data }) => {
+        return user.id == data.userId;
+      },
+      create: ({ user, data }) => {
+        return user.id == data.userId;
+      },
+      delete: ({ user, data }) => {
+        return user.id == data.userId;
+      },
     },
     users: {
       view: true,
@@ -188,6 +212,17 @@ const ROLES: RolesWithPermissions = {
       update: ({ user, data }) => data.translator?.id == user.id,
       delete: ({ user, data }) => data.translator?.id == user.id,
     },
+    bookmarks: {
+      view: ({ user, data }) => {
+        return user.id == data.userId;
+      },
+      create: ({ user, data }) => {
+        return user.id == data.userId;
+      },
+      delete: ({ user, data }) => {
+        return user.id == data.userId;
+      },
+    },
     users: {
       view: true,
       update: ({ user, data }) => user.id == data.id,
@@ -206,6 +241,17 @@ const ROLES: RolesWithPermissions = {
     },
     authors: {
       view: true,
+    },
+    bookmarks: {
+      view: ({ user, data }) => {
+        return user.id == data.userId;
+      },
+      create: ({ user, data }) => {
+        return user.id == data.userId;
+      },
+      delete: ({ user, data }) => {
+        return user.id == data.userId;
+      },
     },
     users: {
       view: true,
