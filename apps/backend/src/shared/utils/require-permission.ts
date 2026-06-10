@@ -8,7 +8,15 @@ import {
   Resource,
 } from "@repo/contracts/auth/permissions/resource";
 
-export function requirePermission<R extends Resource, A extends Action<R>>({
+type PermissionContextFor<
+  R extends Resource,
+  A extends keyof PermissionMap[R],
+> = PermissionMap[R][A];
+
+export function requirePermission<
+  R extends Resource,
+  A extends keyof PermissionMap[R],
+>({
   user,
   resource,
   action,
@@ -17,7 +25,7 @@ export function requirePermission<R extends Resource, A extends Action<R>>({
   user: UserSession;
   resource: R;
   action: A;
-  ctx: PermissionMap[R][A];
+  ctx: PermissionContextFor<R, A>;
 }) {
   if (!hasPermission({ user, resource, action, ctx })) {
     if (resource == "users" && action == "changeRole") {

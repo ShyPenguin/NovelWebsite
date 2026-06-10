@@ -1,69 +1,81 @@
 import { db } from "@/infrastructure/db/index.js";
-import {
-  DbClientType,
-  DbExecTypes,
-  DbPoolType,
-} from "@/infrastructure/db/type.js";
+import { DbExecTypes } from "@/infrastructure/db/type.js";
 import { NotFoundError } from "@/shared/errors/index.js";
 import { requirePermission } from "@/shared/utils/require-permission.js";
-import {
+
+import type { UserSession } from "@repo/contracts/dto/auth";
+import type { NovelAuthDTO } from "@repo/contracts/dto/novel";
+import type { ChapterAuthDTO } from "@repo/contracts/dto/chapter";
+import type { BookmarkAuthDTO } from "@repo/contracts/dto/bookmark";
+import type { UserThumbnailDTO } from "@repo/contracts/dto/user";
+import type { AuthorThumbnailDTO } from "@repo/contracts/dto/author";
+
+import type {
   PermissionMap,
   Resource,
 } from "@repo/contracts/auth/permissions/resource";
-import { UserSession } from "@repo/contracts/dto/auth";
+
+type ResourceAuthDataMap = {
+  novels: NovelAuthDTO;
+  chapters: ChapterAuthDTO;
+  authors: { id: AuthorThumbnailDTO["id"] };
+  images: NovelAuthDTO;
+  bookmarks: BookmarkAuthDTO;
+  users: UserThumbnailDTO;
+};
+
+type DeleteData<R extends Resource> = ResourceAuthDataMap[R];
 
 export const deleteResourceServiceFactory =
-  <
-    TData extends PermissionMap[Resource]["delete"]["data"],
-    TResource extends Resource,
-    U extends { id: string },
-    GetParams,
-  >({
+  <TResource extends Resource, TResult, TGetParams>({
     resource,
     getResourceRepo,
     deleteResourceRepo,
   }: {
     resource: TResource;
+
     getResourceRepo: (
-      getParams: GetParams,
+      params: TGetParams,
       tx: DbExecTypes,
-    ) => Promise<TData | null>;
+    ) => Promise<DeleteData<TResource> | null>;
+
     deleteResourceRepo: ({
       tx,
-      id,
+      resource,
     }: {
       tx: DbExecTypes;
-      id: string;
-    }) => Promise<U | null>;
+      resource: DeleteData<TResource>;
+    }) => Promise<TResult | null>;
   }) =>
   async (
-    getParams: GetParams,
+    params: TGetParams,
     user: UserSession,
     tx: DbExecTypes = db,
-  ): Promise<U> => {
-    const result = await tx.transaction(async (trx) => {
-      const resourceDetailed = await getResourceRepo(getParams, trx);
+  ): Promise<TResult> => {
+    return tx.transaction(async (trx) => {
+      const resourceDetailed = await getResourceRepo(params, trx);
 
       if (!resourceDetailed) {
         throw new NotFoundError(resource);
       }
 
-      requirePermission({
+      requirePermission<TResource, "delete">({
         user,
         resource,
         action: "delete",
+
+        // TS still struggles with correlated unions here.
+        // This cast is much narrower than `as any`.
         ctx: {
           data: resourceDetailed,
-        },
+        } as PermissionMap[TResource]["delete"],
       });
 
-      const result = await deleteResourceRepo({
+      const deleted = await deleteResourceRepo({
         tx: trx,
-        id: resourceDetailed.id,
+        resource: resourceDetailed,
       });
 
-      return result!;
+      return deleted!;
     });
-
-    return result;
   };

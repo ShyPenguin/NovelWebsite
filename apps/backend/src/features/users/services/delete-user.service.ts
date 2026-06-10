@@ -5,6 +5,13 @@ import { deleteResourceWithAssetsServiceFactory } from "@/shared/factories/servi
 export const deleteUserService = deleteResourceWithAssetsServiceFactory({
   resource: "users",
   resourceAsset: "imagePath",
-  getResourceRepo: getUserThumbnailByIdTx,
-  deleteResourceRepo: deleteUserTx,
+  getResourceRepo: (params: { id: string }, tx) => {
+    return getUserThumbnailByIdTx(params, tx);
+  },
+  deleteResourceRepo: ({ tx, resource }) => {
+    return deleteUserTx({
+      tx,
+      id: resource.id,
+    });
+  },
 });

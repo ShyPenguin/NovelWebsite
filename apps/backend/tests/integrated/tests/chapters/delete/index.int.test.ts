@@ -121,36 +121,26 @@ describe("DELETE /chapters/:id", () => {
       });
     });
 
-    it("200 deleted successfully by its own translator", async () => {
+    it("204 deleted successfully by its own translator", async () => {
       const chapter = getters.getChapterByStaff();
       const staff = getters.getStaff();
 
-      const res = await testApp
+      await testApp
         .delete(`/chapters/${chapter.id}`)
         .set("Accept", "application/json")
         .set("Cookie", [`${COOKIE_SESSION_KEY}=${staff.sessionId}`])
-        .expect(200);
-
-      const parsedResult = ApiResponseSchema(idFieldSchema).parse(res.body);
-      expect(parsedResult.ok).toBe(true);
-      if (!parsedResult.ok) throw new Error("something went wrong");
-      expect(parsedResult.data).toBe(chapter.id);
+        .expect(204);
     });
 
-    it("200 deleted successfully by admin", async () => {
+    it("204 deleted successfully by admin", async () => {
       const chapter = getters.getChapterSecondByStaff();
       const admin = getters.getAdmin();
 
-      const res = await testApp
+      await testApp
         .delete(`/chapters/${chapter.id}`)
         .set("Accept", "application/json")
         .set("Cookie", [`${COOKIE_SESSION_KEY}=${admin.sessionId}`])
-        .expect(200);
-
-      const parsedResult = ApiResponseSchema(idFieldSchema).parse(res.body);
-      expect(parsedResult.ok).toBe(true);
-      if (!parsedResult.ok) throw new Error("something went wrong");
-      expect(parsedResult.data).toBe(chapter.id);
+        .expect(204);
     });
   });
 });

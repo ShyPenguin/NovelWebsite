@@ -12,6 +12,7 @@ import { NovelTable } from "./novels.js";
 import { ReviewTable } from "./reviews.js";
 import { CommentTable } from "./comments.js";
 import { userRoles } from "@repo/contracts/fields/users";
+import { BookmarksTable } from "./bookmarks.js";
 
 export const userRoleEnum = pgEnum("user_roles", userRoles);
 
@@ -35,6 +36,7 @@ export const userRelations = relations(UserTable, ({ many, one }) => ({
   novels: many(NovelTable),
   reviews: many(ReviewTable),
   comments: many(CommentTable),
+  bookmarks: many(BookmarksTable),
 }));
 
 export const getUserColumns = () => getTableColumns(UserTable);

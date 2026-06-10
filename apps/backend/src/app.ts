@@ -10,6 +10,8 @@ import novelRoutes from "./features/novels/novel.routes.js";
 import oauthRoutes from "./features/auth/auth.routes.js";
 import userRoutes from "./features/users/user.routes.js";
 import chapterNestedRoutes from "./features/chapters/chapter.nested.route.js";
+import bookmarkNestedRoute from "./features/bookmarks/bookmark.nested.routes.js";
+import bookmarkRoutes from "./features/bookmarks/bookmark.routes.js";
 dotenv.config();
 
 const app = express();
@@ -33,8 +35,10 @@ app.use(express.urlencoded({ extended: true }));
 app.use("/oauth", oauthRoutes);
 app.use("/novels", novelRoutes);
 app.use("/novels", chapterNestedRoutes);
+app.use("/novels", bookmarkNestedRoute);
 app.use("/chapters", chapterRoutes);
 app.use("/authors", authorRoutes);
+app.use("/bookmarks", bookmarkRoutes);
 app.use("/users", userRoutes);
 app.get("/", (req, res) => {
   res.send("Hello, Novel Translation Backend Website!").status(200);

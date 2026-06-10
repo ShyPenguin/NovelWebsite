@@ -16,8 +16,5 @@ export const deleteUserController = async (req: AuthRequest, res: Response) => {
     const cookie = createCookieWrapper(req, res);
     await removeUserFromSession(cookie);
   }
-  return res.status(200).json({
-    ok: true,
-    data: result.id,
-  });
+  return res.status(204).send();
 };

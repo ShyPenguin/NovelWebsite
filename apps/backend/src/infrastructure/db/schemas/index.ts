@@ -8,3 +8,4 @@ export * from "./reviews.js";
 export * from "./users.js";
 export * from "./oauth-providers.js";
 export * from "./novel-schedule.js";
+export * from "./bookmarks.js";

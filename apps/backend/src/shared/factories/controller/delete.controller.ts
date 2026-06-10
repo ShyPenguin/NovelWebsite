@@ -3,30 +3,14 @@ import { UserSession } from "@repo/contracts/dto/auth";
 import { Response } from "express";
 
 export const deleteControllerFactory =
-  <T extends { id: string }>({
+  <T, Params>({
     service,
   }: {
-    service: ({ id }: { id: string }, user: UserSession) => Promise<T>;
+    service: (params: Params, user: UserSession) => Promise<T>;
   }) =>
   async (req: AuthRequest, res: Response): Promise<any> => {
     const params = req.params;
-    const result = await service(
-      { id: Array.isArray(params.id) ? params.id[0] : params.id },
-      req.user,
-    );
+    await service(params as Params, req.user);
 
-    return res.status(200).json({
-      ok: true,
-      data: result.id,
-    });
+    return res.status(204).send();
   };
-
-// {
-//     tx = db,
-//     getParams,
-//     user,
-//   }: {
-//     tx?: DbClientType | DbPoolType;
-//     getParams: GetParams;
-//     user: UserSession;
-//   }

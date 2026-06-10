@@ -20,6 +20,7 @@ import {
   novelStatus,
   novelTypes,
 } from "@repo/contracts/fields/novel";
+import { BookmarksTable } from "./bookmarks.js";
 
 export const novelTypeEnum = pgEnum("novel_types", novelTypes);
 
@@ -74,6 +75,7 @@ export const novelRelation = relations(NovelTable, ({ one, many }) => ({
   chapters: many(ChapterTable),
   novelCategories: many(NovelCategoryTable),
   novelSchedules: many(NovelScheduleTable),
+  bookmarks: many(BookmarksTable),
 }));
 
 export const getNovelColumns = () => getTableColumns(NovelTable);

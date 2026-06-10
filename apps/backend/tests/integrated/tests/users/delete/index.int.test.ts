@@ -96,19 +96,14 @@ describe("DELETE /users/:id", () => {
     });
   });
 
-  it("200, supervisor deleted successfully by admin", async () => {
+  it("204, supervisor deleted successfully by admin", async () => {
     const resourceToDelete = getters.getSupervisorToDelete().user;
     const user = getters.getAdmin();
 
-    const res = await testApp
+    await testApp
       .delete(`/users/${resourceToDelete.id}`)
       .set("Accept", "application/json")
       .set("Cookie", [`${COOKIE_SESSION_KEY}=${user.sessionId}`])
-      .expect(200);
-
-    const parsedResult = ApiResponseSchema(idFieldSchema).parse(res.body);
-    expect(parsedResult.ok).toBe(true);
-    if (!parsedResult.ok) throw new Error("something went wrong");
-    expect(parsedResult.data).toBe(resourceToDelete.id);
+      .expect(204);
   });
 });

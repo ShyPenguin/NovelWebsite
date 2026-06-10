@@ -5,5 +5,7 @@ import { deleteAuthorTx } from "../repositories/delete.repository.js";
 export const deleteAuthorService = deleteResourceServiceFactory({
   resource: "authors",
   getResourceRepo: getAuthorThumbnailByIdTx,
-  deleteResourceRepo: deleteAuthorTx,
+  deleteResourceRepo: ({ tx, resource }) => {
+    return deleteAuthorTx({ tx, id: resource.id });
+  },
 });

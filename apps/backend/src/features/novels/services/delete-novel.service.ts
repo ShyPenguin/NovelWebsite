@@ -6,5 +6,10 @@ export const deleteNovelService = deleteResourceWithAssetsServiceFactory({
   resource: "novels",
   resourceAsset: "coverImagePath",
   getResourceRepo: getNovelAuthByIdTx,
-  deleteResourceRepo: deleteNovelTx,
+  deleteResourceRepo: ({ tx, resource }) => {
+    return deleteNovelTx({
+      tx,
+      id: resource.id,
+    });
+  },
 });

@@ -14,6 +14,7 @@ import { buildChaptersBaseQuery } from "./chapter.build-base-query.js";
 import { GetFetchReturn } from "@/shared/types/service.types.js";
 import { DbExecTypes } from "@/infrastructure/db/type.js";
 import { chapterWhereMap, ChapterWhereMapType } from "./chapter.where.js";
+import { SQL } from "drizzle-orm";
 
 type ChapterDTOMap = {
   thumbnail: ChapterThumbnailDTO;
@@ -21,7 +22,7 @@ type ChapterDTOMap = {
   auth: ChapterAuthDTO;
 };
 
-export const getChapterByIdFactory = <
+export const getChapterFactory = <
   T extends ChapterSelectDTO,
   W extends keyof ChapterWhereMapType,
 >({
@@ -44,7 +45,7 @@ export const getChapterByIdFactory = <
 
     const fn = chapterWhereMap[where] as (
       arg: Parameters<ChapterWhereMapType[W]>[0],
-    ) => any;
+    ) => SQL<unknown> | undefined;
 
     const result = await baseQuery.where(fn(params));
     if (!result[0]) return null;
@@ -52,25 +53,25 @@ export const getChapterByIdFactory = <
   };
 };
 
-export const getChapterDetailByIdTx = getChapterByIdFactory({
+export const getChapterDetailByIdTx = getChapterFactory({
   type: "detail",
   schema: ChapterDetailSchema,
   where: "id",
 });
 
-export const getChapterDetailByNumberTx = getChapterByIdFactory({
+export const getChapterDetailByNumberTx = getChapterFactory({
   type: "detail",
   schema: ChapterDetailSchema,
   where: "number",
 });
 
-export const getChapterAuthByIdTx = getChapterByIdFactory({
+export const getChapterAuthByIdTx = getChapterFactory({
   type: "auth",
   schema: ChapterAuthSchema,
   where: "id",
 });
 
-export const getChapterThumbnailByIdTx = getChapterByIdFactory({
+export const getChapterThumbnailByIdTx = getChapterFactory({
   type: "thumbnail",
   schema: ChapterThumbnailSchema,
   where: "id",

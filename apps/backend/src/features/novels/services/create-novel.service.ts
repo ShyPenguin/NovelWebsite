@@ -53,7 +53,7 @@ export const createNovelService = async ({
       );
 
       await upsertNovelScheduleTx(trx, novel.id, schedule ? schedule : []);
-      const novelDetailed = getNovelDetailByIdTx({ id: novel.id }, trx);
+      const novelDetailed = await getNovelDetailByIdTx({ id: novel.id }, trx);
       return novelDetailed;
     });
 

@@ -22,7 +22,6 @@ describe("DELETE /novels/:id", () => {
       const notRealId = randomUUID();
       const res = await testApp
         .delete(`/novels/${notRealId}`)
-        .set("Accept", "application/json")
         .set("Cookie", [`${COOKIE_SESSION_KEY}=${staff.sessionId}`])
         .expect(404);
 
@@ -44,7 +43,6 @@ describe("DELETE /novels/:id", () => {
 
       const res = await testApp
         .delete(`/novels/${novelId}`)
-        .set("Accept", "application/json")
         .set("Cookie", [`${COOKIE_SESSION_KEY}=${staff.sessionId}`])
         .expect(400);
 
@@ -64,10 +62,7 @@ describe("DELETE /novels/:id", () => {
   describe("Novels made by staff", () => {
     it("401 Unauthenticated", async () => {
       const novel = getters.getNovelByStaff();
-      const res = await testApp
-        .delete(`/novels/${novel?.id}`)
-        .set("Accept", "application/json")
-        .expect(401);
+      const res = await testApp.delete(`/novels/${novel?.id}`).expect(401);
       const parsedResult = ApiResponseSchema(idFieldSchema).parse(res.body);
       expect(parsedResult).toMatchObject({
         ok: false,
@@ -86,7 +81,6 @@ describe("DELETE /novels/:id", () => {
 
       const res = await testApp
         .delete(`/novels/${novel?.id}`)
-        .set("Accept", "application/json")
         .set("Cookie", [`${COOKIE_SESSION_KEY}=${reader.sessionId}`])
         .expect(403);
       const parsedResult = ApiResponseSchema(idFieldSchema).parse(res.body);
@@ -107,7 +101,6 @@ describe("DELETE /novels/:id", () => {
 
       const res = await testApp
         .delete(`/novels/${novel?.id}`)
-        .set("Accept", "application/json")
         .set("Cookie", [`${COOKIE_SESSION_KEY}=${staff.sessionId}`])
         .expect(403);
       const parsedResult = ApiResponseSchema(idFieldSchema).parse(res.body);
@@ -122,20 +115,14 @@ describe("DELETE /novels/:id", () => {
       });
     });
 
-    it("200 deleted successfully by its own translator", async () => {
+    it("204 deleted successfully by its own translator", async () => {
       const novel = getters.getNovelByStaff();
       const staff = getters.getStaff();
 
-      const res = await testApp
+      await testApp
         .delete(`/novels/${novel.id}`)
-        .set("Accept", "application/json")
         .set("Cookie", [`${COOKIE_SESSION_KEY}=${staff.sessionId}`])
-        .expect(200);
-
-      const parsedResult = ApiResponseSchema(idFieldSchema).parse(res.body);
-      expect(parsedResult.ok).toBe(true);
-      if (!parsedResult.ok) throw new Error("something went wrong");
-      expect(parsedResult.data).toBe(novel.id);
+        .expect(204);
 
       // Chapters should cascade
       const chapters = await getChaptersTx({
@@ -147,20 +134,14 @@ describe("DELETE /novels/:id", () => {
       expect(chapters.length).toBe(0);
     });
 
-    it("200 deleted successfully by admin", async () => {
+    it("204 deleted successfully by admin", async () => {
       const novel = getters.getNovelSecondByStaff();
       const admin = getters.getAdmin();
 
       const res = await testApp
         .delete(`/novels/${novel.id}`)
-        .set("Accept", "application/json")
         .set("Cookie", [`${COOKIE_SESSION_KEY}=${admin.sessionId}`])
-        .expect(200);
-
-      const parsedResult = ApiResponseSchema(idFieldSchema).parse(res.body);
-      expect(parsedResult.ok).toBe(true);
-      if (!parsedResult.ok) throw new Error("something went wrong");
-      expect(parsedResult.data).toBe(novel.id);
+        .expect(204);
     });
   });
 });

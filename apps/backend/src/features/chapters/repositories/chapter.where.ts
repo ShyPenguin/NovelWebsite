@@ -10,12 +10,11 @@ const whereNumber = ({
 }: {
   id: ChapterTableSelect["novelId"];
   chapterNumber: ChapterTableSelect["chapterNumber"];
-}) => {
-  return and(
+}) =>
+  and(
     eq(ChapterTable.novelId, id),
     eq(ChapterTable.chapterNumber, chapterNumber),
   );
-};
 export const chapterWhereMap = {
   id: ({ id }: { id: string }) => eq(ChapterTable.id, id),
   number: whereNumber,

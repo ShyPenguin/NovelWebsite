@@ -35,7 +35,7 @@ describe("GET /novels", () => {
       expect(parsedResult.data).toMatchObject(novel);
     });
 
-    it("Not found", async () => {
+    it("404 Not found", async () => {
       const notRealId = randomUUID();
       const res = await testApp.get(`/novels/${notRealId}`).expect(404);
 

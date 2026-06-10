@@ -4,37 +4,10 @@ import { UserTableSelect } from "@/infrastructure/db/schemas/users.js";
 import { createAuthorTx } from "@/features/authors/repositories/create.repository.js";
 import { createUserTx } from "@/features/users/repositories/create.repository.js";
 import data from "tests/mockdb.json" with { type: "json" };
-import { NovelDetailDTO } from "@repo/contracts/dto/novel";
-import { NovelDetailSchema } from "@repo/contracts/schemas/novel";
 import { testDb } from "tests/integrated/db/db-test.js";
 import { userStaff } from "tests/mockdata.js";
-import { createNovelTx } from "@/features/novels/repositories/create.repository.js";
-import { getNovelDetailByIdTx } from "@/features/novels/repositories/get-novel-one.repository.js";
+import { createParsedNovel } from "tests/integrated/factory/create-parsed-novel.js";
 
-const createParsedNovel = async ({
-  novel,
-  authorId,
-  translatorId,
-}: {
-  novel: NovelTableInsert;
-  authorId: string;
-  translatorId: string;
-}): Promise<NovelDetailDTO> => {
-  const novelRegResult = await createNovelTx({
-    tx: testDb,
-    form: {
-      ...novel,
-      authorId,
-      translatorId,
-    },
-  });
-
-  const getRegResult = await getNovelDetailByIdTx(
-    { id: novelRegResult.id || "" },
-    testDb,
-  );
-  return NovelDetailSchema.parse(getRegResult);
-};
 export const seedBeforeAll = async () => {
   const search = "Reg";
   const staff: UserTableSelect = await createUserTx({

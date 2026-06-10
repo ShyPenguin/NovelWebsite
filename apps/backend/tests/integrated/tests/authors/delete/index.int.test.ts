@@ -105,15 +105,11 @@ describe("DELETE /authors/:id", () => {
     const staff = getters.getStaff();
     const dataToDelete = getters.getDataToDelete();
 
-    const res = await testApp
+    await testApp
       .delete(`/authors/${dataToDelete.id}`)
       .set("Accept", "application/json")
       .set("Cookie", [`${COOKIE_SESSION_KEY}=${staff.sessionId}`])
-      .expect(200);
-
-    const parsedResult = ApiResponseSchema(idFieldSchema).parse(res.body);
-    if (!parsedResult.ok) throw new Error("something went wrong");
-    expect(parsedResult.data).toBe(dataToDelete.id);
+      .expect(204);
 
     const novel = getters.getNovels()[0];
     const novelRes = await testApp
@@ -130,18 +126,14 @@ describe("DELETE /authors/:id", () => {
     expect(parsedNovelResult.data.author).toBe(null);
   });
 
-  it("successfully deleted by admin", async () => {
+  it("204 successfully deleted by admin", async () => {
     const admin = getters.getAdmin();
     const dataToDelete = getters.getDataToDeleteAdmin();
 
-    const res = await testApp
+    await testApp
       .delete(`/authors/${dataToDelete.id}`)
       .set("Accept", "application/json")
       .set("Cookie", [`${COOKIE_SESSION_KEY}=${admin.sessionId}`])
-      .expect(200);
-
-    const parsedResult = ApiResponseSchema(idFieldSchema).parse(res.body);
-    if (!parsedResult.ok) throw new Error("something went wrong");
-    expect(parsedResult.data).toBe(dataToDelete.id);
+      .expect(204);
   });
 });
