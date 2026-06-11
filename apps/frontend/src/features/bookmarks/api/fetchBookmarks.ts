@@ -1,22 +1,22 @@
-import { infiniteQueryOptions, queryOptions } from "@tanstack/react-query";
-import type { ZodType } from "zod";
-import {
-  ArrayAuthorThumbnailSchema,
-  PaginatedAuthorThumbnailSchema,
-} from "@repo/contracts/schemas/author";
 import { ApiResponseSchema } from "@repo/contracts/api";
-import type { AuthorThumbnailDTO } from "@repo/contracts/dto/author";
-import type { AuthorSearchType } from "@/features/authors/author.schema";
+import type { BookmarkDetailDTO } from "@repo/contracts/dto/bookmark";
 import type {
-  AuthorResponseMap,
-  FetchAuthorsReturn,
-} from "@/features/authors/author.type";
-import { urlApiRoute } from "../author.constant";
+  BookmarkResponseMap,
+  FetchBookmarksReturn,
+} from "../bookmark.type";
+import { urlApiRoute } from "@/features/authors/author.constant";
 import type { FetchType, Paginated } from "@/shared/types";
 import type { FullResponseMap } from "@/shared/types/responseTypes";
+import {
+  ArrayBookmarkDetailSchema,
+  PaginatedBookmarkDetailSchema,
+} from "@repo/contracts/schemas/bookmark";
+import { queryOptions, infiniteQueryOptions } from "@tanstack/react-query";
+import type { ZodType } from "zod";
+import type { BookmarkSearchType } from "../bookmark.schema";
 
-export const fetchAuthors = <
-  T extends keyof FullResponseMap<AuthorResponseMap>,
+export const fetchBookmarks = <
+  T extends keyof FullResponseMap<BookmarkResponseMap>,
   P extends boolean,
 >({
   type,
@@ -29,8 +29,8 @@ export const fetchAuthors = <
 }) => {
   void type;
   return async function (
-    params: FetchType<AuthorSearchType>,
-  ): Promise<FetchAuthorsReturn<T>> {
+    params: FetchType<BookmarkSearchType>,
+  ): Promise<FetchBookmarksReturn<T>> {
     let url = `${urlApiRoute}`;
 
     if (params.withQuery) {
@@ -52,52 +52,53 @@ export const fetchAuthors = <
     if (!parsedResult.ok) {
       throw new Error(parsedResult.error.message);
     }
-    return parsedResult.data as FetchAuthorsReturn<T>;
+    return parsedResult.data as FetchBookmarksReturn<T>;
   };
 };
 
-const fetchAuthorsThumbnail = fetchAuthors({
-  type: "thumbnail",
+const fetchBookmarksDetail = fetchBookmarks({
+  type: "detail",
   paginated: false,
-  schema: ArrayAuthorThumbnailSchema,
+  schema: ArrayBookmarkDetailSchema,
 });
 
-const fetchAuthorThumbnailPaginated = fetchAuthors({
-  type: "paginated.thumbnail",
+const fetchBookmarkDetailPaginated = fetchBookmarks({
+  type: "paginated.detail",
   paginated: true,
-  schema: PaginatedAuthorThumbnailSchema,
+  schema: PaginatedBookmarkDetailSchema,
 });
 
-export const authorsQueryOption = () =>
-  queryOptions<AuthorThumbnailDTO[]>({
-    queryKey: ["authors"],
-    queryFn: () => fetchAuthorsThumbnail({ withQuery: false }),
+export const bookmarksQueryOption = () =>
+  queryOptions<BookmarkDetailDTO[]>({
+    queryKey: ["bookmarks"],
+    queryFn: () => fetchBookmarksDetail({ withQuery: false }),
     staleTime: 6 * 60 * 60 * 1000, // 6 hour
     retry: import.meta.env.MODE == "dev",
   });
 
-export const authorsPaginatedQueryOption = ({
+export const bookmarksPaginatedQueryOption = ({
   search,
   page,
-}: AuthorSearchType) =>
+}: BookmarkSearchType) =>
   queryOptions({
-    queryKey: ["authors", { search, page }],
+    queryKey: ["bookmarks", { search, page }],
     queryFn: () =>
-      fetchAuthorThumbnailPaginated({
+      fetchBookmarkDetailPaginated({
         withQuery: true,
         data: { search, page },
       }),
     staleTime: 6 * 60 * 60 * 1000, // 6 hour
     retry: import.meta.env.MODE == "dev",
   });
-export const authorsInfiniteQueryOption = ({
+
+export const bookmarksInfiniteQueryOption = ({
   search,
-}: Omit<AuthorSearchType, "page">) =>
-  infiniteQueryOptions<Paginated<AuthorThumbnailDTO[]>>({
-    queryKey: ["authors", "infinite", search],
+}: Omit<BookmarkSearchType, "page">) =>
+  infiniteQueryOptions<Paginated<BookmarkDetailDTO[]>>({
+    queryKey: ["bookmarks", "infinite", search],
     queryFn: async ({ pageParam = 1 }) => {
       const page = typeof pageParam === "number" ? pageParam : 1;
-      return await fetchAuthorThumbnailPaginated({
+      return await fetchBookmarkDetailPaginated({
         withQuery: true,
         data: { search: search, page: page },
       });

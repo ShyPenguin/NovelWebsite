@@ -33,4 +33,6 @@ export const NovelBaseSchema = z.object({
   language: languageField,
   status: novelStatusField,
   schedule: weekDayField.array(),
+  bookmarkCount: createStringNumberToNumber("Bookmark count"),
+  isBookmarked: z.boolean(),
 });

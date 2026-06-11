@@ -1,5 +1,5 @@
 import { useMutation } from "@tanstack/react-query";
-import { novelUrl } from "./url";
+import { novelUrl } from "../novel.constant";
 import type { NovelDetailDTO } from "@repo/contracts/dto/novel";
 import { ApiResponseSchema } from "@repo/contracts/api";
 import { NovelDetailSchema } from "@repo/contracts/schemas/novel";

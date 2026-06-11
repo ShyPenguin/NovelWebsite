@@ -19,7 +19,7 @@ import type {
   NovelSearchType,
 } from "@/features/novels/novel.schema";
 import { determineNovelRoute } from "@/shared/utils";
-import { novelUrl } from "./url";
+import { novelUrl } from "../novel.constant";
 import type { FetchType, Paginated } from "@/shared/types";
 import type { FullResponseMap } from "@/shared/types/responseTypes";
 import type { NovelResponseMap, FetchNovelsReturn } from "../novel.type";

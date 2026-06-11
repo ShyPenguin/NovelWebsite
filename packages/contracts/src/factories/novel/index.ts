@@ -47,6 +47,8 @@ const NovelDetailSchema = NovelBaseSchema.pick({
   language: true,
   status: true,
   schedule: true,
+  bookmarkCount: true,
+  isBookmarked: true,
 }).extend({
   translator: NovelThumbnailSchema.shape["translator"],
   author: AuthorBaseSchema.pick({

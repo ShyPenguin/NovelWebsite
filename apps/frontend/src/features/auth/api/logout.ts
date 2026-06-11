@@ -8,4 +8,10 @@ export const logout = async () => {
     credentials: "include",
   });
   queryClient.setQueryData(authQueryKey, null);
+  //? This refetches the novel query
+  //? Good 2nd option when you want to remove bookmark during logout
+  // queryClient.invalidateQueries({
+  //   queryKey: ["novel"],
+  //   refetchType: "active",
+  // });
 };

@@ -6,7 +6,7 @@ export const deleteNovel = deleteResourceFactory({ resource: "novels" });
 
 export const deleteNovelMutate = (novelId: NovelDetailDTO["id"]) => {
   return useMutation({
-    mutationKey: ["chapter", "delete", novelId],
+    mutationKey: ["novel", "delete", novelId],
     mutationFn: ({ novelId }: { novelId: NovelDetailDTO["id"] }) =>
       deleteNovel({ id: novelId }),
   });

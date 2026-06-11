@@ -1,5 +1,5 @@
 import { queryOptions } from "@tanstack/react-query";
-import { novelUrl } from "./url";
+import { novelUrl } from "../novel.constant";
 import type { NovelDetailDTO } from "@repo/contracts/dto/novel";
 import { getNovelOneQueryKey } from "@/features/novels/utils/novels.tanstack-keys";
 import { ApiResponseSchema } from "@repo/contracts/api";

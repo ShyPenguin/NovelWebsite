@@ -6,6 +6,7 @@ import { app } from "@/app.js";
 import { COOKIE_SESSION_KEY } from "@/shared/constants/index.js";
 import { BookmarkDetailSchema } from "@repo/contracts/schemas/bookmark";
 import { randomUUID } from "crypto";
+import { NovelDetailSchema } from "@repo/contracts/schemas/novel";
 
 describe("Post /novels/:id/bookmarks", () => {
   let getters: Awaited<ReturnType<typeof seedBeforeAll>>;
@@ -84,5 +85,19 @@ describe("Post /novels/:id/bookmarks", () => {
       },
       userId: user.user.id,
     });
+
+    const novelRes = await testApp
+      .get(`/novels/${novel.id}`)
+      .set("Cookie", [`${COOKIE_SESSION_KEY}=${user.sessionId}`])
+      .expect(200);
+
+    const novelParsedResult = ApiResponseSchema(NovelDetailSchema).parse(
+      novelRes.body,
+    );
+    if (!novelParsedResult.ok) throw new Error("something went wrong");
+
+    console.log(novelParsedResult.data);
+    expect(novelParsedResult.data.isBookmarked).toBe(true);
+    expect(novelParsedResult.data.id).toBe(novel.id);
   });
 });

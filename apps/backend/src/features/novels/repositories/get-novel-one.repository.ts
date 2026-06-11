@@ -34,11 +34,22 @@ export const getNovelByIdFactory =
   async (
     params: Parameters<NovelWhere[W]>[0],
     tx: DbExecTypes,
+    userId?: string,
   ): Promise<GetFetchReturn<NovelDTOMap, T> | null> => {
-    const baseQuery = buildNovelsBaseQuery({
-      type,
-      tx,
-    });
+    let baseQuery;
+
+    if (type == "detail") {
+      baseQuery = buildNovelsBaseQuery({
+        type,
+        tx,
+        userId,
+      });
+    } else {
+      baseQuery = buildNovelsBaseQuery({
+        type,
+        tx,
+      });
+    }
 
     const fn = novelWhereMap[where] as (
       arg: Parameters<NovelWhere[W]>[0],

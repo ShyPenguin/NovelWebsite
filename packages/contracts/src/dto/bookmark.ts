@@ -1,6 +1,7 @@
 import {
   BookmarkAuthSchema,
   BookmarkDetailSchema,
+  BookmarkFormSchema,
   BookmarkQueryContract,
 } from "@/schemas/bookmark/schema.js";
 import { z } from "zod";
@@ -19,3 +20,6 @@ export type BookmarkListDTO = Extract<BookmarkSelectDTO, "detail">;
 export type BookmarkSearchQueryContractDTO = z.infer<
   typeof BookmarkQueryContract
 >;
+
+// WRITE
+export type BookmarkFormDTO = z.infer<typeof BookmarkFormSchema>;

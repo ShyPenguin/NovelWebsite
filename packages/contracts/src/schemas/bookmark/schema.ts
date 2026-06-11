@@ -16,6 +16,10 @@ export const ArrayBookmarkAuthSchema = BookmarkAuthFactory.array();
 export const PaginatedBookmarkDetailSchema = BookmarkDetailFactory.paginate();
 export const PaginatedBookmarkAuthSchema = BookmarkAuthFactory.paginate();
 
+export const BookmarkFormSchema = z.object({
+  novelId: BookmarkAuthSchema.shape["novelId"],
+});
+
 export const BookmarkQueryContract = z.object({
   search: z.string().optional(),
   page: z.coerce.number().optional(),

@@ -1,7 +1,5 @@
 import { BackendApiLink } from "@/shared/constants";
-import { ApiResponseSchema } from "@repo/contracts/api";
 import type { Resource } from "@repo/contracts/auth/permissions/resource";
-import { idFieldSchema } from "@repo/contracts/schemas/id";
 
 export const deleteResourceFactory =
   ({ resource }: { resource: Resource }) =>
@@ -14,11 +12,8 @@ export const deleteResourceFactory =
       credentials: "include",
     });
 
-    const result = await response.json();
-    const parsedResult = ApiResponseSchema(idFieldSchema).parse(result);
-    if (!parsedResult.ok) {
-      throw new Error(parsedResult.error.message);
+    if (!response.ok) {
+      throw new Error(`Failed to delete ${resource}`);
     }
-
     return { id };
   };

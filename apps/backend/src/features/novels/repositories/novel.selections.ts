@@ -12,6 +12,7 @@ import {
   NovelTable,
   getNovelColumns,
   UserTable,
+  BookmarksTable,
 } from "@/infrastructure/db/schemas/index.js";
 import {
   getNovelCategories,
@@ -25,6 +26,24 @@ export const getTotalChapter = sql<number>`
     WHERE ${eq(ChapterTable.novelId, NovelTable.id)}
   )
 `.as("totalChapters");
+
+export const getBookmarkCount = sql<number>`
+  (
+    SELECT COUNT(*)
+    FROM ${BookmarksTable}
+    WHERE ${eq(BookmarksTable.novelId, NovelTable.id)}
+  )
+`.as("bookmarkCount");
+
+export const getIsBookmarked = (userId: string) =>
+  sql<boolean>`
+    EXISTS (
+      SELECT 1
+      FROM ${BookmarksTable}
+      WHERE ${BookmarksTable.novelId} = ${NovelTable.id}
+      AND ${BookmarksTable.userId} = ${userId}
+    )
+  `.as("isBookmarked");
 
 const { authorId, translatorId, ...novelColumns } = getNovelColumns();
 
@@ -42,7 +61,8 @@ export const novelSelectMap = {
     categories: getNovelCategories,
     schedule: getNovelSchedule,
     totalChapters: getTotalChapter,
-  } satisfies Record<keyof NovelDetailDTO, unknown>,
+    bookmarkCount: getBookmarkCount,
+  } satisfies Record<Exclude<keyof NovelDetailDTO, "isBookmarked">, unknown>,
   thumbnail: {
     id: NovelTable.id,
     title: NovelTable.title,

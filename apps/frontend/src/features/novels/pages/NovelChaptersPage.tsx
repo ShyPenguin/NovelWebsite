@@ -1,7 +1,6 @@
 import { useQuery } from "@tanstack/react-query";
 import { novelQueryOptions } from "../api/fetchNovel";
 import { getRouteApi, Link, Outlet } from "@tanstack/react-router";
-import BookmarkIcon from "@/assets/icons/BookmarkIcon";
 import { Schedule } from "@/shared/components/Schedule/Schedule";
 import {
   chaptersCreateRoute,
@@ -13,6 +12,11 @@ import HorizontalLine from "@/shared/components/HorizontalLine";
 import type { NovelDetailDTO } from "@repo/contracts/dto/novel";
 import { NovelChaptersPageContent } from "../components/NovelChaptersPageContent";
 import { Can } from "@/features/auth/components/Can";
+import { useBookmarkDelete } from "@/features/bookmarks/hooks/useBookmarkDelete";
+import { useBookmarkCreate } from "@/features/bookmarks/hooks/useBookmarkCreate";
+import { useAuth } from "@/features/auth/store/useAuth";
+import { useAuthUIStore } from "@/features/auth/store/useAuthUIStore";
+import { Bookmark } from "@/features/bookmarks/components/Bookmark";
 
 const route = getRouteApi(chaptersRoute_);
 
@@ -41,6 +45,19 @@ export const NovelChaptersPage = () => {
 };
 
 const Content = ({ novel }: { novel: NovelDetailDTO }) => {
+  const { data: user } = useAuth();
+  const requireLogin = useAuthUIStore((state) => state.requireLogin);
+  const createBookmark = useBookmarkCreate();
+  const deleteBookmark = useBookmarkDelete(novel.id);
+
+  const handleOnBookmarkClick = () => {
+    if (novel.isBookmarked) {
+      deleteBookmark.mutate({ novelId: novel.id });
+    } else {
+      createBookmark.mutate({ formData: { novelId: novel.id } });
+    }
+  };
+
   return (
     <section className="bg-white dark:bg-primary-black z-10 relative px-4">
       <div className="grid grid-cols-12 gap-y-3 gap-x-3 px-5">
@@ -71,8 +88,11 @@ const Content = ({ novel }: { novel: NovelDetailDTO }) => {
           </div>
           <div className="flex w-full max-w-103.25 lg:max-w-full justify-center gap-2">
             <div className="flex flex-col items-center justify-center gap-1">
-              <Bookmark bookmarked={false} />
-              <p>10</p>
+              <Bookmark
+                bookmarked={user ? novel.isBookmarked : false}
+                onClick={user ? handleOnBookmarkClick : requireLogin}
+              />
+              <p>{novel.bookmarkCount}</p>
             </div>
             <button className="full-button h-full bg-black text-white dark:bg-white dark:text-black">
               Rate this series
@@ -106,23 +126,11 @@ const Content = ({ novel }: { novel: NovelDetailDTO }) => {
             </div>
             <div className="flex justify-between">
               <h5>Bookmarks</h5>
-              {/* <h5>{novel.bookmarks}</h5> */}
-              <h5>10</h5>
+              <h5>{novel.bookmarkCount}</h5>
             </div>
           </div>
         </div>
       </div>
     </section>
-  );
-};
-
-const Bookmark = ({ bookmarked }: { bookmarked: boolean }) => {
-  return (
-    <button>
-      <BookmarkIcon
-        bookmarked={bookmarked}
-        className={"fill-current h-6 w-10"}
-      />
-    </button>
   );
 };

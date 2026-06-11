@@ -6,16 +6,27 @@ import {
 import { DbExecTypes } from "@/infrastructure/db/type.js";
 import { NovelSelectDTO } from "@repo/contracts/dto/novel";
 import { sql, eq } from "drizzle-orm";
-import { novelSelectMap } from "./novel.selections.js";
+import { getIsBookmarked, novelSelectMap } from "./novel.selections.js";
+import { UserSession } from "@repo/contracts/dto/auth";
 
 export const buildNovelsBaseQuery = <T extends NovelSelectDTO>({
   type,
   tx,
+  userId,
 }: {
   type: T;
   tx: DbExecTypes;
+  userId?: UserSession["id"];
 }) => {
-  const select = novelSelectMap[type];
+  const select =
+    type === "detail"
+      ? {
+          ...novelSelectMap.detail,
+          isBookmarked: userId
+            ? getIsBookmarked(userId)
+            : sql<boolean>`false`.as("isBookmarked"),
+        }
+      : novelSelectMap[type];
 
   switch (type) {
     case "detail": {
