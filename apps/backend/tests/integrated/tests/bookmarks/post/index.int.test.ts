@@ -96,6 +96,7 @@ describe("Post /novels/:id/bookmarks", () => {
     );
     if (!novelParsedResult.ok) throw new Error("something went wrong");
 
+    console.log(novelParsedResult.data);
     expect(novelParsedResult.data.isBookmarked).toBe(true);
     expect(novelParsedResult.data.id).toBe(novel.id);
   });
