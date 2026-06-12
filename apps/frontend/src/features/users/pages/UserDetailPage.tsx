@@ -15,6 +15,9 @@ import { UserChangeRoleButton } from "../components/form/UserChangeRoleButton";
 import { UserDeleteButton } from "../components/form/UserDeleteButton";
 import { UserImageForm } from "../components/form/UserImageForm";
 import { queryAuthOption } from "@/features/auth/api/auth";
+import { bookmarksQueryOption } from "@/features/bookmarks/api/fetchBookmarks";
+import { SkeletonNovels } from "@/features/novels/components/NovelPageContent";
+import { useBookmarkDelete } from "@/features/bookmarks/hooks/useBookmarkDelete";
 
 export const UserDetailPage = () => {
   const route = getRouteApi("/users_/$username/");
@@ -146,15 +149,48 @@ const Novels = ({ novels }: { novels: NovelThumbnailDTO[] }) => {
 const Bookmarks = ({ user }: { user: UserDetailDTO }) => {
   const { data: auth } = useQuery(queryAuthOption());
 
+  const { data: bookmarks, isLoading } = useQuery({
+    ...bookmarksQueryOption(),
+    enabled: auth?.id === user.id,
+  });
+
+  const deleteBookmark = useBookmarkDelete();
+
   if (!auth || auth.id !== user.id) {
-    return <></>;
+    return null;
   }
 
+  const Content = () => (
+    <ul className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+      {bookmarks!.length > 0 ? (
+        bookmarks!.map((bookmark) => (
+          <li key={bookmark.novel.id}>
+            <NovelThumbnail
+              novel={{
+                id: bookmark.novel.id,
+                title: bookmark.novel.title,
+                description: bookmark.novel.description,
+                slug: bookmark.novel.slug,
+                coverImageUrl: bookmark.novel.coverImageUrl,
+                translator: bookmark.translator,
+              }}
+              bookmark={true}
+              onClick={() =>
+                deleteBookmark.mutate({ novelId: bookmark.novel.id })
+              }
+            />
+          </li>
+        ))
+      ) : (
+        <p>No Novels</p>
+      )}
+    </ul>
+  );
   return (
     <div className="flex flex-col gap-2 size-full">
       <h1> Bookmarks:</h1>
       <HorizontalLine className="mb-4" />
-      <p>Not yet implemented</p>
+      {isLoading ? <SkeletonNovels /> : <Content />}
     </div>
   );
 };

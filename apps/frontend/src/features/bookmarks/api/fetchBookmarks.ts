@@ -4,7 +4,6 @@ import type {
   BookmarkResponseMap,
   FetchBookmarksReturn,
 } from "../bookmark.type";
-import { urlApiRoute } from "@/features/authors/author.constant";
 import type { FetchType, Paginated } from "@/shared/types";
 import type { FullResponseMap } from "@/shared/types/responseTypes";
 import {
@@ -14,6 +13,7 @@ import {
 import { queryOptions, infiniteQueryOptions } from "@tanstack/react-query";
 import type { ZodType } from "zod";
 import type { BookmarkSearchType } from "../bookmark.schema";
+import { bookmarkUrlApi } from "../bookmark.constant";
 
 export const fetchBookmarks = <
   T extends keyof FullResponseMap<BookmarkResponseMap>,
@@ -31,7 +31,7 @@ export const fetchBookmarks = <
   return async function (
     params: FetchType<BookmarkSearchType>,
   ): Promise<FetchBookmarksReturn<T>> {
-    let url = `${urlApiRoute}`;
+    let url = `${bookmarkUrlApi}`;
 
     if (params.withQuery) {
       const { search, page } = params.data;

@@ -102,7 +102,7 @@ const NovelCard = ({ novel }: { novel: NovelDetailDTO }) => {
   );
 };
 
-function SkeletonNovels() {
+export function SkeletonNovels() {
   return (
     <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
       <div className="flex gap-4">

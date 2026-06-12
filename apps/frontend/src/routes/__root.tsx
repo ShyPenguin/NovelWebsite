@@ -13,6 +13,7 @@ export const Route = createRootRouteWithContext<{
     return <NotFound root={true} />;
   },
   errorComponent: ({ error }) => {
+    console.log(error);
     return <Error error={error} />;
   },
 });

@@ -48,7 +48,7 @@ const Content = ({ novel }: { novel: NovelDetailDTO }) => {
   const { data: user } = useAuth();
   const requireLogin = useAuthUIStore((state) => state.requireLogin);
   const createBookmark = useBookmarkCreate();
-  const deleteBookmark = useBookmarkDelete(novel.id);
+  const deleteBookmark = useBookmarkDelete();
 
   const handleOnBookmarkClick = () => {
     if (novel.isBookmarked) {

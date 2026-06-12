@@ -7,9 +7,9 @@ import type { BookmarkFormDTO } from "@repo/contracts/dto/bookmark";
 import { toast } from "react-toastify";
 import { deleteBookmark } from "../api/deleteBookmark";
 
-export const useBookmarkDelete = (novelId: BookmarkFormDTO["novelId"]) => {
+export const useBookmarkDelete = () => {
   return useMutation({
-    mutationKey: ["bookmark", "delete", novelId],
+    mutationKey: ["bookmark", "delete"],
     mutationFn: ({ novelId }: BookmarkFormDTO) =>
       deleteBookmark({ id: novelId }),
 
@@ -20,8 +20,6 @@ export const useBookmarkDelete = (novelId: BookmarkFormDTO["novelId"]) => {
         }),
         (old) => {
           if (!old) return old;
-
-          console.log(`at useBookmarkDelete's novelId: ${novelId}`);
           return {
             ...old,
             isBookmarked: false,
