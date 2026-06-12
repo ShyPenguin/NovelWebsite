@@ -8,6 +8,7 @@ export const getNovelOneController = async (
   req: AuthRequest,
   res: Response,
 ) => {
+  console.log("at get novel one controller");
   const cookie = createCookieWrapper(req, res);
 
   const user = await updateUserSessionExpiration(cookie);
@@ -16,11 +17,13 @@ export const getNovelOneController = async (
     req.user = user;
   }
 
+  console.log(user);
   const result = await getNovelByIdService(
     { id: Array.isArray(req.params.id) ? req.params.id[0] : req.params.id },
     req.user,
   );
 
+  console.log(result);
   return res.status(200).json({
     ok: true,
     data: result,
