@@ -13,6 +13,7 @@ import { Route as RateLimitRouteImport } from './routes/rate-limit'
 import { Route as UsersRouteRouteImport } from './routes/users/route'
 import { Route as NovelsRouteRouteImport } from './routes/novels/route'
 import { Route as AuthorsRouteRouteImport } from './routes/authors/route'
+import { Route as AnnouncementsRouteRouteImport } from './routes/announcements/route'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as UsersIndexRouteImport } from './routes/users/index'
 import { Route as NovelsIndexRouteImport } from './routes/novels/index'
@@ -47,6 +48,11 @@ const NovelsRouteRoute = NovelsRouteRouteImport.update({
 const AuthorsRouteRoute = AuthorsRouteRouteImport.update({
   id: '/authors',
   path: '/authors',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AnnouncementsRouteRoute = AnnouncementsRouteRouteImport.update({
+  id: '/announcements',
+  path: '/announcements',
   getParentRoute: () => rootRouteImport,
 } as any)
 const IndexRoute = IndexRouteImport.update({
@@ -132,6 +138,7 @@ const NovelsNovelIdSlugChaptersChapterNumberEditRoute =
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/announcements': typeof AnnouncementsRouteRoute
   '/authors': typeof AuthorsRouteRouteWithChildren
   '/novels': typeof NovelsRouteRouteWithChildren
   '/users': typeof UsersRouteRouteWithChildren
@@ -153,6 +160,7 @@ export interface FileRoutesByFullPath {
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/announcements': typeof AnnouncementsRouteRoute
   '/rate-limit': typeof RateLimitRoute
   '/auth/callback': typeof AuthCallbackRoute
   '/authors/create': typeof AuthorsCreateRoute
@@ -171,6 +179,7 @@ export interface FileRoutesByTo {
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/announcements': typeof AnnouncementsRouteRoute
   '/authors': typeof AuthorsRouteRouteWithChildren
   '/novels': typeof NovelsRouteRouteWithChildren
   '/users': typeof UsersRouteRouteWithChildren
@@ -194,6 +203,7 @@ export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
   fullPaths:
     | '/'
+    | '/announcements'
     | '/authors'
     | '/novels'
     | '/users'
@@ -215,6 +225,7 @@ export interface FileRouteTypes {
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
+    | '/announcements'
     | '/rate-limit'
     | '/auth/callback'
     | '/authors/create'
@@ -232,6 +243,7 @@ export interface FileRouteTypes {
   id:
     | '__root__'
     | '/'
+    | '/announcements'
     | '/authors'
     | '/novels'
     | '/users'
@@ -254,6 +266,7 @@ export interface FileRouteTypes {
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  AnnouncementsRouteRoute: typeof AnnouncementsRouteRoute
   AuthorsRouteRoute: typeof AuthorsRouteRouteWithChildren
   NovelsRouteRoute: typeof NovelsRouteRouteWithChildren
   UsersRouteRoute: typeof UsersRouteRouteWithChildren
@@ -298,6 +311,13 @@ declare module '@tanstack/react-router' {
       path: '/authors'
       fullPath: '/authors'
       preLoaderRoute: typeof AuthorsRouteRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/announcements': {
+      id: '/announcements'
+      path: '/announcements'
+      fullPath: '/announcements'
+      preLoaderRoute: typeof AnnouncementsRouteRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/': {
@@ -460,6 +480,7 @@ const NovelsNovelIdSlugChaptersRouteRouteWithChildren =
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  AnnouncementsRouteRoute: AnnouncementsRouteRoute,
   AuthorsRouteRoute: AuthorsRouteRouteWithChildren,
   NovelsRouteRoute: NovelsRouteRouteWithChildren,
   UsersRouteRoute: UsersRouteRouteWithChildren,
