@@ -14,6 +14,7 @@ import type {
   PermissionMap,
   Resource,
 } from "@repo/contracts/auth/permissions/resource";
+import { AnnouncementAuthDTO } from "@repo/contracts/dto/announcement";
 
 type ResourceAuthDataMap = {
   novels: NovelAuthDTO;
@@ -22,6 +23,7 @@ type ResourceAuthDataMap = {
   images: NovelAuthDTO;
   bookmarks: BookmarkAuthDTO;
   users: UserThumbnailDTO;
+  announcements: AnnouncementAuthDTO;
 };
 
 type DeleteData<R extends Resource> = ResourceAuthDataMap[R];

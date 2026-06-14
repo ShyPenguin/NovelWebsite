@@ -1,0 +1,1 @@
+ALTER TABLE "announcements" RENAME COLUMN "content_html" TO "content";

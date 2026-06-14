@@ -879,6 +879,32 @@
     { "name": "Fion" },
     { "name": "Goldilucks" }
   ],
+  "announcements": [
+    {
+      "title": "Knicks win",
+      "content": "Knicks has won a ring and the Spurs choked 4 times"
+    },
+    {
+      "title": "Jalen FMVP",
+      "content": "is Jalen the greatest Knick player?"
+    },
+    {
+      "title": "Got knocked out",
+      "content": "I got knocked out"
+    },
+    {
+      "title": "Paypal is ready",
+      "content": "Paypal payment is now implemented"
+    },
+    {
+      "title": "Bookmark feature",
+      "content": "Bookmark feature is now implemented"
+    },
+    {
+      "title": "New novel out: \" I'm an Adventurer\"",
+      "content": "I'm an Adventurer is out"
+    }
+  ],
   "users": [
     {
       "username": "rborrell0",

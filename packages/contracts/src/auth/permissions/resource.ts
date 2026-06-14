@@ -1,3 +1,4 @@
+import { AnnouncementAuthDTO } from "@/dto/announcement.js";
 import type { UserRole, UserSession } from "@/dto/auth.js";
 import type { AuthorThumbnailDTO } from "@/dto/author.js";
 import { BookmarkAuthDTO } from "@/dto/bookmark.js";
@@ -40,6 +41,14 @@ export type PermissionMap = {
     create: { data: BookmarkAuthDTO };
     delete: { data: BookmarkAuthDTO };
   };
+
+  announcements: {
+    view: { data?: never };
+    create: { data?: never };
+    update: { data?: never };
+    delete: { data: AnnouncementAuthDTO };
+  };
+
   users: {
     view: { data?: never };
     create: { data?: never };
@@ -113,6 +122,14 @@ const ROLES: RolesWithPermissions = {
         return user.id == data.userId;
       },
     },
+
+    announcements: {
+      view: true,
+      create: true,
+      update: true,
+      delete: true,
+    },
+
     users: {
       view: true,
       create: true,
@@ -164,6 +181,14 @@ const ROLES: RolesWithPermissions = {
         return user.id == data.userId;
       },
     },
+
+    announcements: {
+      view: true,
+      create: true,
+      update: true,
+      delete: true,
+    },
+
     users: {
       view: true,
       update: ({ user, data }) => {
@@ -223,6 +248,11 @@ const ROLES: RolesWithPermissions = {
         return user.id == data.userId;
       },
     },
+    announcements: {
+      view: true,
+      update: false,
+      delete: false,
+    },
     users: {
       view: true,
       update: ({ user, data }) => user.id == data.id,
@@ -252,6 +282,11 @@ const ROLES: RolesWithPermissions = {
       delete: ({ user, data }) => {
         return user.id == data.userId;
       },
+    },
+    announcements: {
+      view: true,
+      update: false,
+      delete: false,
     },
     users: {
       view: true,

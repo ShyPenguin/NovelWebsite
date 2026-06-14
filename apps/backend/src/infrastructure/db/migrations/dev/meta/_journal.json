@@ -36,6 +36,27 @@
       "when": 1780926454908,
       "tag": "0004_red_sinister_six",
       "breakpoints": true
+    },
+    {
+      "idx": 5,
+      "version": "7",
+      "when": 1781359810011,
+      "tag": "0005_familiar_maria_hill",
+      "breakpoints": true
+    },
+    {
+      "idx": 6,
+      "version": "7",
+      "when": 1781359886597,
+      "tag": "0006_silent_leper_queen",
+      "breakpoints": true
+    },
+    {
+      "idx": 7,
+      "version": "7",
+      "when": 1781442212320,
+      "tag": "0007_bizarre_joshua_kane",
+      "breakpoints": true
     }
   ]
 }

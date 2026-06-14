@@ -7,4 +7,5 @@ export const mapSingularResource = {
   images: "image",
   users: "user",
   bookmarks: "bookmark",
+  announcements: "announcement",
 } satisfies Record<Resource, string>;
