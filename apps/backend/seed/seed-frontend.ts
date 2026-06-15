@@ -8,6 +8,7 @@ import data from "tests/mockdb.json" with { type: "json" };
 import { createCategoryTx } from "@/features/categories/repository/create.js";
 import { createNovelWithChapters } from "tests/integrated/factory/novel-with-chapters/index.js";
 import { userAdmin, userStaff, userStaff2 } from "tests/mockdata.js";
+import { createAnnouncementTx } from "@/features/announcements/repositories/create.repository.js";
 
 dotenv.config({ path: ".env.dev" });
 export const seed = async () => {
@@ -139,6 +140,19 @@ export const seed = async () => {
         };
       }) as Omit<ChapterTableInsert, "novelId" | "sourceDocUrl">[],
   });
+
+  console.log("Create announcements...");
+  await Promise.all(
+    data.announcements.map((announcement) => {
+      return createAnnouncementTx({
+        tx: db,
+        form: {
+          ...announcement,
+          authorId: admin.id,
+        },
+      });
+    }),
+  );
 };
 
 await seed();

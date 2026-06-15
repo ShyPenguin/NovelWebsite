@@ -18,8 +18,8 @@ export const Route = createFileRoute("/novels_/$novelId_/$slug/")({
   notFoundComponent: () => {
     return <NotFound resource="novels" />;
   },
-  beforeLoad: async ({ params: { novelId } }) => {
-    const url = `/novels/${novelId}/chapters`;
+  beforeLoad: async ({ params: { novelId, slug } }) => {
+    const url = `/novels/${novelId}/${slug}/chapters`;
     await checkUserPermission({
       feature: "novelIndexPage",
       location: url,

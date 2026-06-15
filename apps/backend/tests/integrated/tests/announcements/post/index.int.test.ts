@@ -123,7 +123,6 @@ describe("POST / announcements", () => {
       .set("Cookie", [`${COOKIE_SESSION_KEY}=${admin.sessionId}`])
       .expect(201);
 
-    console.log(res.body);
     const parsedResult = ApiResponseSchema(AnnouncementDetailSchema).parse(
       res.body,
     );
@@ -133,6 +132,8 @@ describe("POST / announcements", () => {
     expect(parsedResult.data.author).toMatchObject({
       id: admin.user.id,
       name: admin.user.name,
+      username: admin.user.username,
+      role: admin.user.role,
     });
   });
 });

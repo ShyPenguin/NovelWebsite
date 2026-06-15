@@ -81,7 +81,7 @@ export function MarkdownEditor({
   );
 }
 
-const Preview = ({ content }: { content: string }) => {
+export const Preview = ({ content }: { content: string }) => {
   return (
     <article className="prose max-w-none dark:prose-invert">
       <ReactMarkdown remarkPlugins={[remarkGfm]}>{content}</ReactMarkdown>

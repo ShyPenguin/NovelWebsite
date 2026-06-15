@@ -178,6 +178,8 @@ describe("PUT /announcements/:id", () => {
     expect(parsedResult.data.author).toMatchObject({
       id: creator.user.id,
       name: creator.user.name,
+      username: creator.user.username,
+      role: creator.user.role,
     });
   });
 });

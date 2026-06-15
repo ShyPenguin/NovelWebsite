@@ -2,7 +2,7 @@ import type { ReactNode } from "react";
 
 const Page = ({ children }: { children: ReactNode }) => {
   return (
-    <main className="min-h-150 h-full w-full p-5 flex flex-col">
+    <main className="min-h-150 h-full w-full p-5 flex flex-col lg:px-21">
       {children}
     </main>
   );

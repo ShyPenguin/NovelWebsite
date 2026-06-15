@@ -3,9 +3,23 @@ import { LatestNovelUpdates } from "@/features/novels/components/latest-novel-up
 import { NovelCards } from "@/features/novels/components/novel-cards-carousel/NovelCards";
 import { SkeletonNovelCards } from "@/features/novels/components/novel-cards-carousel/SkeletonNovelCards";
 import { Suspense } from "react";
-import { Announcements } from "../components/Announcements";
 import { Header } from "../components/Header";
+import { AnnouncementThumbnailList } from "@/app/components/AnnouncementThumbnailList";
+import { useQuery } from "@tanstack/react-query";
+import { announcementsPaginatedQueryOption } from "@/features/announcements/api/fetchAnnouncements";
 
+const Announcements = () => {
+  const { data: announcements, isSuccess } = useQuery(
+    announcementsPaginatedQueryOption({ search: "", page: 1, pageSize: 3 }),
+  );
+  return (
+    <>
+      {isSuccess && announcements.items.length > 0 && (
+        <AnnouncementThumbnailList announcements={announcements.items} />
+      )}
+    </>
+  );
+};
 const HomePage = () => {
   return (
     <div className="size-full grid grid-cols-12 py-4 gap-y-4 text-inherit bg-inherit dark:bg-inherit dark:text-inherit">
@@ -15,7 +29,9 @@ const HomePage = () => {
           <Header />
         </div>
         <div className="col-span-full h-full lg:col-span-4">
-          <Announcements />
+          <Suspense fallback={<SkeletonNovelCards />}>
+            <Announcements />
+          </Suspense>
         </div>
       </div>
 

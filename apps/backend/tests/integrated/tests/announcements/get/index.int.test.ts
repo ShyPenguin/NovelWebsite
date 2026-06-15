@@ -5,7 +5,6 @@ import { ApiResponseSchema } from "@repo/contracts/api";
 import {
   ArrayAnnouncementThumbnailSchema,
   AnnouncementDetailSchema,
-  AnnouncementThumbnailSchema,
   PaginatedAnnouncementThumbnailSchema,
 } from "@repo/contracts/schemas/announcement";
 import { randomUUID } from "crypto";
@@ -38,6 +37,8 @@ describe("GET /announcements", () => {
         author: {
           id: creator.id,
           name: creator.name,
+          username: creator.username,
+          role: creator.role,
         },
       });
     });

@@ -19,6 +19,8 @@ export const announcementSelectMap = {
     author: {
       id: UserTable.id,
       name: UserTable.name,
+      role: UserTable.role,
+      username: UserTable.username,
     },
   } satisfies Record<keyof AnnouncementDetailDTO, unknown>,
   thumbnail: {

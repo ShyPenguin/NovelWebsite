@@ -37,6 +37,9 @@ export const VIEW = "view";
 export const NO_AUTHOR = "No Author";
 export const ACTIONS = [DELETE, CREATE, UPDATE, PREVIEW, VIEW] as const;
 
+//! Without _ is used for Links
+//! With _ is used for getting data from URL
+
 const novelRoute = "/novels";
 export const novelIdRoute_ = `${novelRoute}_/$novelId_/$slug`;
 export const novelIdRoute = `${novelRoute}/$novelId/$slug`;
@@ -52,3 +55,7 @@ export const chaptersIdEditRoute = `${chaptersIdRoute}/edit`;
 const authorsRoute = "/authors";
 export const authorsIdRoute_ = `${authorsRoute}_/$authorId`;
 export const authorsIdRoute = `${authorsRoute}/$authorId`;
+
+const announcementsRoute = "/announcements";
+export const announcementsIdRoute_ = `${announcementsRoute}_/$id`;
+export const announcementsIdRoute = `${announcementsRoute}/$id`;

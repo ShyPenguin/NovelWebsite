@@ -1,6 +1,7 @@
 import { AnnouncementBaseSchema } from "@/base/announcement.base.js";
 import { TranslatorSchema } from "../translator/index.js";
 import { GetFactory } from "../read-factory.js";
+import { UserBaseSchema } from "@/base/user.base.js";
 
 const AnnouncementAuthSchema = AnnouncementBaseSchema.pick({
   id: true,
@@ -22,7 +23,12 @@ const AnnouncementDetailSchema = AnnouncementBaseSchema.pick({
   updatedAt: true,
   createdAt: true,
 }).extend({
-  author: TranslatorSchema.nullish(),
+  author: UserBaseSchema.pick({
+    id: true,
+    name: true,
+    username: true,
+    role: true,
+  }),
 });
 
 export const AnnouncementThumbnailFactory = new GetFactory({
