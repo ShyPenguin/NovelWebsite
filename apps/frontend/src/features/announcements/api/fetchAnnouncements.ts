@@ -17,7 +17,6 @@ import type {
 import { urlApiRoute } from "../announcement.constant";
 import type { FetchType, Paginated } from "@/shared/types";
 import type { FullResponseMap } from "@/shared/types/responseTypes";
-
 export const fetchAnnouncements = <
   T extends keyof FullResponseMap<AnnouncementResponseMap>,
   P extends boolean,

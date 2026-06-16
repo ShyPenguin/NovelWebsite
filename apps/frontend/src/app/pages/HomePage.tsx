@@ -4,22 +4,58 @@ import { NovelCards } from "@/features/novels/components/novel-cards-carousel/No
 import { SkeletonNovelCards } from "@/features/novels/components/novel-cards-carousel/SkeletonNovelCards";
 import { Suspense } from "react";
 import { Header } from "../components/Header";
-import { AnnouncementThumbnailList } from "@/app/components/AnnouncementThumbnailList";
-import { useQuery } from "@tanstack/react-query";
+import { useSuspenseQuery } from "@tanstack/react-query";
 import { announcementsPaginatedQueryOption } from "@/features/announcements/api/fetchAnnouncements";
+import Paper from "@/assets/icons/Paper";
+import { ANNOUNCEMENT_SEARCH_DEFAULT } from "@/features/announcements/announcement.schema";
+import { AnnouncementThumbnail } from "@/features/announcements/components/AnnouncementThumbnail";
+import { Link } from "@tanstack/react-router";
 
 const Announcements = () => {
-  const { data: announcements, isSuccess } = useQuery(
+  const { data: announcements, isSuccess } = useSuspenseQuery(
     announcementsPaginatedQueryOption({ search: "", page: 1, pageSize: 3 }),
   );
   return (
     <>
-      {isSuccess && announcements.items.length > 0 && (
-        <AnnouncementThumbnailList announcements={announcements.items} />
+      {isSuccess && (
+        <div className="flex flex-col gap-2 size-full lg:pr-8">
+          <div className="flex justify-between items-center">
+            <div className="flex items-center">
+              <span>
+                <Paper className="w-7 h-7" />
+              </span>
+              <h1>Announcements</h1>
+            </div>
+            <Link
+              className="text-sm text-shadow-muted-foreground underline cursor-pointer"
+              to={"/announcements"}
+              search={ANNOUNCEMENT_SEARCH_DEFAULT}
+            >
+              View All
+            </Link>
+          </div>
+          <h5>The latest news on our website.</h5>
+          {announcements.items.length > 0 ? (
+            announcements.items.map((announcement) => (
+              <AnnouncementThumbnail {...announcement} key={announcement.id} />
+            ))
+          ) : (
+            <div className="flex-center size-full">
+              <h1>There is no announcement made</h1>
+            </div>
+          )}
+        </div>
       )}
     </>
   );
 };
+
+function SkeletonAnnouncements() {
+  return (
+    <div className="animate-pulse skeleton-color w-full h-full rounded-2xl" />
+  );
+}
+
 const HomePage = () => {
   return (
     <div className="size-full grid grid-cols-12 py-4 gap-y-4 text-inherit bg-inherit dark:bg-inherit dark:text-inherit">
@@ -29,7 +65,7 @@ const HomePage = () => {
           <Header />
         </div>
         <div className="col-span-full h-full lg:col-span-4">
-          <Suspense fallback={<SkeletonNovelCards />}>
+          <Suspense fallback={<SkeletonAnnouncements />}>
             <Announcements />
           </Suspense>
         </div>
