@@ -9,6 +9,7 @@ export const AnnouncementQuerySchema = AnnouncementQueryContract.pick({
   pageSize: true,
   search: true,
 }).extend({
+  sort: AnnouncementQueryContract.shape["sort"].default("desc(createdAt)"),
   search: searchField.optional(),
   page: pageField.optional(),
   pageSize: new NumberSchemaBuilder("Page's size")

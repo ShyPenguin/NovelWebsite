@@ -45,7 +45,7 @@ export const getAnnouncementsServiceFactory = <
 }) => {
   return async (
     {
-      query = {},
+      query = { sort: "desc(createdAt)" },
       tx = db,
       page,
       pageSize,

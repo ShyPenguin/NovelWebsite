@@ -12,6 +12,12 @@ import { Paginated } from "@repo/contracts/dto/paginated";
 import { paginate } from "@/shared/utils/paginate.js";
 import { DEFAULT_PAGE_SIZE } from "@repo/contracts/constants";
 import { AnnouncementQueryOutput } from "../announcement.schema.js";
+import { parseSortQuery } from "@/shared/utils/parse-sort-query.js";
+
+const sortableColumns = {
+  updatedAt: AnnouncementTable.updatedAt,
+  createdAt: AnnouncementTable.createdAt,
+};
 
 export const getAnnouncementsTx = async ({
   tx,
@@ -22,8 +28,16 @@ export const getAnnouncementsTx = async ({
   query: AnnouncementQueryOutput;
   type: AnnouncementSelectDTO;
 }) => {
+  // Parse the sort
+  const sortOrder = parseSortQuery({
+    sortParam: query.sort ? query.sort : "desc(createdAt)",
+    sortableColumns: sortableColumns,
+  });
+
   const baseQuery = preparingQuery({ tx, query, type });
-  return await baseQuery;
+  const result = await baseQuery.orderBy(...sortOrder);
+
+  return result;
 };
 
 export const getPaginatedAnnouncementsTx = async <T>({
@@ -39,6 +53,12 @@ export const getPaginatedAnnouncementsTx = async <T>({
   page: number;
   pageSize: number;
 }): Promise<Paginated<T>> => {
+  // Parse the sort
+  const sortOrder = parseSortQuery({
+    sortParam: query.sort ? query.sort : "desc(createdAt)",
+    sortableColumns: sortableColumns,
+  });
+
   // Prepare the query
   const baseQuery = preparingQuery({ tx, query, type });
   const countQuery = preparingQuery({
@@ -52,6 +72,7 @@ export const getPaginatedAnnouncementsTx = async <T>({
     countQuery,
     page,
     pageSize,
+    sort: sortOrder,
   });
 };
 

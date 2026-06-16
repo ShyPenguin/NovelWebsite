@@ -18,7 +18,7 @@ export const AnnouncementPage = () => {
         <Can resource="announcements" action="create" ctx={{}}>
           <Link
             to="/announcements/create"
-            className="full-button max-w-37.5 bg-secondary dark:bg-secondary-black dark:text-white col-span-full lg:col-span-4"
+            className="full-button max-w-60 bg-secondary dark:bg-secondary-black dark:text-white"
           >
             Create Announcement
           </Link>

@@ -2,6 +2,7 @@ import {
   AnnouncementDetailFactory,
   AnnouncementThumbnailFactory,
   AnnouncementAuthFactory,
+  announcementSortWithDirectionField,
 } from "@/factories/announcement/index.js";
 import { z } from "zod";
 
@@ -24,6 +25,7 @@ export const AnnouncementFormSchema = z.object({
 });
 
 export const AnnouncementQueryContract = z.object({
+  sort: announcementSortWithDirectionField.optional(),
   search: z.string().optional(),
   page: z.coerce.number().optional(),
   pageSize: z.coerce.number().optional(),

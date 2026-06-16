@@ -1,9 +1,16 @@
-import { createFileRoute } from '@tanstack/react-router'
+import { AnnouncementCreatePage } from "@/features/announcements/pages/AnnouncementCreatePage";
+import { checkUserPermission } from "@/features/auth/utils/check-user-permission";
+import { createFileRoute } from "@tanstack/react-router";
 
-export const Route = createFileRoute('/announcements_/create')({
-  component: RouteComponent,
-})
-
-function RouteComponent() {
-  return <div>Hello "/announcements_/create"!</div>
-}
+export const Route = createFileRoute("/announcements_/create")({
+  component: AnnouncementCreatePage,
+  beforeLoad: async () => {
+    const url = `/announcements`;
+    await checkUserPermission({
+      resource: "announcements",
+      action: "create",
+      ctx: {},
+      location: url,
+    });
+  },
+});

@@ -2,6 +2,8 @@ import { AnnouncementBaseSchema } from "@/base/announcement.base.js";
 import { TranslatorSchema } from "../translator/index.js";
 import { GetFactory } from "../read-factory.js";
 import { UserBaseSchema } from "@/base/user.base.js";
+import { z } from "zod";
+import { createSortWithDirectionField } from "@/utils/createSortWithDirection.js";
 
 const AnnouncementAuthSchema = AnnouncementBaseSchema.pick({
   id: true,
@@ -30,6 +32,21 @@ const AnnouncementDetailSchema = AnnouncementBaseSchema.pick({
     role: true,
   }),
 });
+
+export const announcementSort = [
+  "createdAt",
+  "updatedAt",
+  "title",
+] as const satisfies ReadonlyArray<
+  keyof z.infer<typeof AnnouncementDetailSchema>
+>;
+
+export const announcementSortField = z.enum(announcementSort, {
+  message: "Sort must be createdAt, updatedAt or title",
+});
+
+export const announcementSortWithDirectionField =
+  createSortWithDirectionField(announcementSort);
 
 export const AnnouncementThumbnailFactory = new GetFactory({
   schema: AnnoucementThumbnailSchema,

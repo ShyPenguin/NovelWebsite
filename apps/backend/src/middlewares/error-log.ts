@@ -19,4 +19,5 @@ export const errorLogging = (
   console.log("Path: " + req.path);
   console.log(`Status code: ${error.statusCode || 500}`);
   console.log(error.stack);
+  next(error);
 };

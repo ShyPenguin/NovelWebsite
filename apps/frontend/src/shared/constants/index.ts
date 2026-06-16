@@ -59,3 +59,5 @@ export const authorsIdRoute = `${authorsRoute}/$authorId`;
 const announcementsRoute = "/announcements";
 export const announcementsIdRoute_ = `${announcementsRoute}_/$id`;
 export const announcementsIdRoute = `${announcementsRoute}/$id`;
+export const announcementsIdEditRoute_ = `${announcementsIdRoute_}/edit`;
+export const announcementsIdEditRoute = `${announcementsIdRoute}/edit`;

@@ -22,13 +22,6 @@ export const seedBeforeAll = async () => {
   const notSearchedAnnouncements = data.announcements.filter(
     (announcement) => !announcement.title.includes(query),
   );
-  const announcement = await createAnnouncementTx({
-    tx: testDb,
-    form: {
-      ...searchedAnnouncements[0],
-      authorId: admin.user.id,
-    },
-  });
 
   await Promise.all(
     notSearchedAnnouncements.map((announcement) =>
@@ -42,6 +35,13 @@ export const seedBeforeAll = async () => {
     ),
   );
 
+  const announcement = await createAnnouncementTx({
+    tx: testDb,
+    form: {
+      ...searchedAnnouncements[0],
+      authorId: admin.user.id,
+    },
+  });
   return {
     getAnnouncement: () => announcement!,
     getCreator: () => admin.user,

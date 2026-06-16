@@ -10,7 +10,7 @@ export const AnnouncementDetailPage = ({
   return (
     <Page>
       <Page.Body>
-        <AnnouncementPreview announcement={announcement} />
+        <AnnouncementPreview withId={true} announcement={announcement} />
       </Page.Body>
     </Page>
   );

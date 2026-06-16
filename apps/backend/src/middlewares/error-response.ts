@@ -24,5 +24,4 @@ export const errorResponse = (
       message: error.message || "Internal Server Error",
     },
   });
-  next(error);
 };
