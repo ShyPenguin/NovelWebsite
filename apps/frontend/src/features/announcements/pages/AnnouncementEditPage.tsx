@@ -1,4 +1,4 @@
-import { announcementsIdRoute, EDIT, UPDATE } from "@/shared/constants";
+import { announcementsIdRoute, UPDATE } from "@/shared/constants";
 import Page from "@/shared/components/Page";
 import { useNavigate } from "@tanstack/react-router";
 import { AnnouncementForm } from "../components/form/AnnouncementForm";
