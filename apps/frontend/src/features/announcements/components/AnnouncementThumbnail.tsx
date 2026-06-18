@@ -12,7 +12,7 @@ export const AnnouncementThumbnail = ({
     <Link
       to={announcementsIdRoute}
       params={{ id: id }}
-      className="card dark:bg-primary-gray/5 flex w-full h-full py-2 px-2"
+      className="card dark:bg-primary-gray/5 flex w-full h-full max-h-15 py-2 px-2"
     >
       <div className="flex-center">
         <img src={LOGO_URL} className="logo-img mr-5" />

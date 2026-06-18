@@ -142,6 +142,13 @@ export const seed = async () => {
   });
 
   console.log("Create announcements...");
+  // await createAnnouncementTx({
+  //   tx: db,
+  //   form: {
+  //     ...data.announcements[0],
+  //     authorId: admin.id,
+  //   },
+  // });
   await Promise.all(
     data.announcements.map((announcement) => {
       return createAnnouncementTx({
