@@ -52,25 +52,24 @@ export const DropdownBase = <T extends DropdownOption>({
             </label>
           )}
 
-          {selectedOption.value && (
-            <li
-              key={selectedOption.value}
-              className="drop-down-list"
-              role="selected-option"
-              aria-selected={true}
-            >
-              <div className="w-4 h-4 flex justify-items-center mr-1 lg:mr-4">
-                <Check className="w-4 h-4" />
-              </div>
-              <div className="wrap-break-word whitespace-normal h-full min-w-4">
-                {selectedOption.label}
-              </div>
-            </li>
-          )}
-
           {options.map((option, i) => {
             const isLast = i === options.length - 1;
-            if (option.value === selectedOption.value) return;
+            if (option.value === selectedOption.value)
+              return (
+                <li
+                  key={selectedOption.value}
+                  className="drop-down-list"
+                  role="selected-option"
+                  aria-selected={true}
+                >
+                  <div className="w-4 h-4 flex justify-items-center mr-1 lg:mr-4">
+                    <Check className="w-4 h-4" />
+                  </div>
+                  <div className="wrap-break-word whitespace-normal h-full min-w-4">
+                    {selectedOption.label}
+                  </div>
+                </li>
+              );
             return (
               <li
                 key={option.value}
