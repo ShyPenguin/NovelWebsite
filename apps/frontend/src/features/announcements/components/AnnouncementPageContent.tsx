@@ -33,7 +33,7 @@ const Content = () => {
           </li>
         ))
       ) : (
-        <h1>No Results</h1>
+        <h1>No Result</h1>
       )}
     </ul>
   );

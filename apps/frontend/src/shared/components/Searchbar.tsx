@@ -55,7 +55,7 @@ const Content = forwardRef<HTMLUListElement, ContentProps>(
             </li>
           ))
         ) : (
-          <div className="flex-center">No Results</div>
+          <div className="flex-center">No Result</div>
         )}
       </ul>
     );
