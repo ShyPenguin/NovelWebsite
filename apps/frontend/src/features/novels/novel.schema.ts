@@ -6,7 +6,8 @@ export const NOVEL_SEARCH_DEFAULT = {
   sort: "desc(createdAt)",
   search: "",
   status: "ALL",
-} as const satisfies NovelSearchInput;
+  page: 1,
+} as const satisfies NovelSearchPaginatedInput;
 
 const NovelSearchBaseSchema = NovelQueryContract.pick({
   sort: true,
@@ -27,6 +28,9 @@ export const NovelSearchSchema = NovelSearchBaseSchema;
 
 export type NovelSearchInput = z.input<typeof NovelSearchSchema>;
 export type NovelSearchType = z.output<typeof NovelSearchSchema>;
+export type NovelSearchPaginatedInput = z.input<
+  typeof NovelSearchPaginatedSchema
+>;
 export type NovelSearchPaginated = z.output<typeof NovelSearchPaginatedSchema>;
 
 export const NovelCoverImageFormSchema = z.object({
