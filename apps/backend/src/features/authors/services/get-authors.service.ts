@@ -7,7 +7,6 @@ import {
   AuthorDetailDTO,
 } from "@repo/contracts/dto/author";
 import { ZodType } from "zod";
-import { PAGE_SIZE_AUTHOR } from "@/shared/constants/index.js";
 import {
   ArrayAuthorDetailSchema,
   ArrayAuthorThumbnailSchema,
@@ -23,6 +22,7 @@ import {
   getAuthorsTx,
   getPaginatedAuthorsTx,
 } from "../repositories/get-authors.repository.js";
+import { AUTHOR_PAGE_SIZE } from "@repo/contracts/constants";
 
 type AuthorDTOMAP = {
   detail: AuthorDetailDTO[];
@@ -66,7 +66,7 @@ export const getAuthorsServiceFactory = <
       query: query!,
       type,
       page: page ? page : 1,
-      pageSize: pageSize ? pageSize : PAGE_SIZE_AUTHOR,
+      pageSize: pageSize ? pageSize : AUTHOR_PAGE_SIZE,
     });
 
     const parsedPaginatedData = schema.encode(paginatedData);

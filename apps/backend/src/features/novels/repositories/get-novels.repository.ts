@@ -5,7 +5,6 @@ import {
   buildNovelCountQuery,
   buildNovelsBaseQuery,
 } from "./novel.build-base-query.js";
-import { PAGE_SIZE } from "@/shared/constants/index.js";
 import { AuthorTable } from "@/infrastructure/db/schemas/authors.js";
 import { CategoryTable } from "@/infrastructure/db/schemas/categories.js";
 import { NovelTable } from "@/infrastructure/db/schemas/novels.js";
@@ -15,6 +14,7 @@ import { applyWhere } from "@/shared/utils/apply-where.js";
 import { paginate } from "@/shared/utils/paginate.js";
 import { parseSortQuery } from "@/shared/utils/parse-sort-query.js";
 import { NovelQueryOutput } from "@/features/novels/novel.schema.js";
+import { DEFAULT_PAGE_SIZE } from "@repo/contracts/constants";
 
 const sortableColumns = {
   title: NovelTable.title,
@@ -49,7 +49,7 @@ export const getPaginatedNovelsRepo = async <T>({
   query,
   type,
   page,
-  pageSize = PAGE_SIZE,
+  pageSize = DEFAULT_PAGE_SIZE,
 }: {
   tx: DbExecTypes;
   query: NovelQueryOutput;

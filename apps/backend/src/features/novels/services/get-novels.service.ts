@@ -16,7 +16,6 @@ import {
   PaginatedNovelThumbnailSchema,
   PaginatedNovelTrendSchema,
 } from "@repo/contracts/schemas/novel";
-import { PAGE_SIZE } from "@/shared/constants/index.js";
 import { db } from "@/infrastructure/db/index.js";
 import { DbExecTypes } from "@/infrastructure/db/type.js";
 import { NovelQueryOutput } from "@/features/novels/novel.schema.js";
@@ -29,6 +28,7 @@ import {
   getNovelsRepo,
   getPaginatedNovelsRepo,
 } from "../repositories/get-novels.repository.js";
+import { DEFAULT_PAGE_SIZE } from "@repo/contracts/constants";
 
 type NovelDTOMap = {
   detail: NovelDetailDTO[];
@@ -74,7 +74,7 @@ export const getNovelsServiceFactory = <
       query: query!,
       type,
       page: page ? page : 1,
-      pageSize: pageSize ? pageSize : PAGE_SIZE,
+      pageSize: pageSize ? pageSize : DEFAULT_PAGE_SIZE,
     });
 
     const parsedPaginatedData = schema.encode(paginatedData);

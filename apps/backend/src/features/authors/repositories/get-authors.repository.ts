@@ -11,7 +11,7 @@ import { AuthorTable } from "@/infrastructure/db/schemas/authors.js";
 import { applyWhere } from "@/shared/utils/apply-where.js";
 import { Paginated } from "@repo/contracts/dto/paginated";
 import { paginate } from "@/shared/utils/paginate.js";
-import { PAGE_SIZE_AUTHOR } from "@/shared/constants/index.js";
+import { AUTHOR_PAGE_SIZE } from "@repo/contracts/constants";
 
 export const getAuthorsTx = async ({
   tx,
@@ -31,7 +31,7 @@ export const getPaginatedAuthorsTx = async <T>({
   query,
   type,
   page,
-  pageSize = PAGE_SIZE_AUTHOR,
+  pageSize = AUTHOR_PAGE_SIZE,
 }: {
   tx: DbExecTypes;
   query: AuthorQueryOutput;

@@ -9,6 +9,10 @@ import {
   novelStatusQuery,
 } from "@repo/contracts/fields/novel";
 import { Can } from "@/features/auth/components/Can";
+import { useSuspenseQuery } from "@tanstack/react-query";
+import Pagination from "@/shared/components/Pagination/Pagination";
+import { novelsPaginatedQuery } from "../api/fetchNovels";
+import { Suspense } from "react";
 
 const options: DropdownOption[] = novelSortWithDirection
   .filter((item) => item.includes("desc"))
@@ -80,7 +84,32 @@ export const NovelPage = () => {
         </div>
         {/* LIST RESULT FROM THE SEARCH */}
         <Outlet />
+        <Page.Footer>
+          <Suspense>
+            <NovelPagination />
+          </Suspense>
+        </Page.Footer>
       </Page.Body>
     </Page>
+  );
+};
+
+const NovelPagination = () => {
+  const routeApi = getRouteApi("/novels/");
+  const { page, search, status, sort } = routeApi.useSearch();
+  const { data, isSuccess } = useSuspenseQuery(
+    novelsPaginatedQuery({
+      search,
+      page,
+      status,
+      sort,
+    }),
+  );
+  return (
+    <Pagination
+      currentPage={page}
+      totalPage={(isSuccess && data.totalPage) || 1}
+      route="/novels/"
+    />
   );
 };

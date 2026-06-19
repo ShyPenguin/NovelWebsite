@@ -7,7 +7,7 @@ import type { NovelDetailDTO } from "@repo/contracts/dto/novel";
 import { useSuspenseQuery } from "@tanstack/react-query";
 import { useNavigate, Link, getRouteApi } from "@tanstack/react-router";
 import { Suspense } from "react";
-import { novelsListQuery } from "../api/fetchNovels";
+import { novelsPaginatedQuery } from "../api/fetchNovels";
 
 export function NovelPageContent() {
   return (
@@ -21,15 +21,15 @@ export function NovelPageContent() {
 
 const Content = () => {
   const route = getRouteApi("/novels/");
-  const { sort, search, status } = route.useSearch();
+  const { sort, search, status, page } = route.useSearch();
 
   const { data: novels, isSuccess } = useSuspenseQuery(
-    novelsListQuery({ sort, status, search }),
+    novelsPaginatedQuery({ sort, page, status, search }),
   );
   return (
     <ul className="grid grid-cols-1 lg:grid-cols-2 gap-8">
-      {isSuccess && novels.length > 0 ? (
-        novels.map((novel) => (
+      {isSuccess && novels.items.length > 0 ? (
+        novels.items.map((novel) => (
           <li key={novel.id}>
             <NovelCard novel={novel} />
           </li>

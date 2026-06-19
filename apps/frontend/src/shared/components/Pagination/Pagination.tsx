@@ -65,7 +65,7 @@ const Pagination = ({ currentPage, totalPage, route }: PaginationProps) => {
         />
       )}
 
-      {currentPage > 2 && (
+      {currentPage > 3 && (
         <li>
           <Ellipsis className="h-4 w-6" />
         </li>
@@ -96,7 +96,7 @@ const Pagination = ({ currentPage, totalPage, route }: PaginationProps) => {
         />
       )}
 
-      {currentPage < totalPage - 1 && (
+      {currentPage < totalPage - 2 && (
         <li>
           <Ellipsis className="h-4 w-6" />
         </li>
