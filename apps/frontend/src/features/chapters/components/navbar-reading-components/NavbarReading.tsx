@@ -8,10 +8,13 @@ import { CHAPTER_SEARCH_DEFAULT } from "../../chapter.schema";
 import { Chevron } from "@/assets/icons/Chevron";
 import House from "@/assets/icons/House";
 import {
+  chaptersIdEditRoute,
   chaptersIdRoute,
   chaptersIdRoute_,
   chaptersRoute,
 } from "@/shared/constants";
+import { Can } from "@/features/auth/components/Can";
+import Pencil from "@/assets/icons/Pencil";
 
 const NavbarReading = () => {
   return (
@@ -80,12 +83,13 @@ const Content = () => {
   return (
     <div className="flex container justify-between items-center px-4 py-3">
       <div className="flex-1 flex items-center">
-        {chapterIsLoading && (
+        {chapterIsLoading ? (
           <div className="w-12.5 h-10 animate-pulse skeleton-color rounded-xl" />
+        ) : (
+          <ArrowButton direction={"left"} />
         )}
-        <ArrowButton direction={"left"} />
       </div>
-      <div className="flex items-center justify-center">
+      <div className="flex items-center justify-center gap-2">
         <Link
           className="reading-setting-card reading-setting-card-hover rounded-xl w-12"
           to={chaptersRoute}
@@ -94,15 +98,46 @@ const Content = () => {
         >
           <House className="w-4.25" />
         </Link>
+
+        {chapterIsLoading ? (
+          <div className="w-12.5 h-10 animate-pulse skeleton-color rounded-xl" />
+        ) : (
+          chapter && (
+            <Can
+              resource="chapters"
+              action={"update"}
+              ctx={{
+                data: {
+                  id: chapter.id,
+                  novelId,
+                  translator: chapter.translator,
+                },
+              }}
+            >
+              <Link
+                to={chaptersIdEditRoute}
+                params={{
+                  novelId: novelId,
+                  slug,
+                  chapterNumber: String(chapterNumber),
+                }}
+                className="reading-setting-card reading-setting-card-hover rounded-xl w-12"
+              >
+                <Pencil className="w-5 h-5" />
+              </Link>
+            </Can>
+          )
+        )}
       </div>
       {/* NEXT BUTTON */}
       <div className="flex-1 flex items-center justify-end gap-x-3">
         <ReadingSettingButton />
         <ChapterListSettingButton />
-        {chapterIsLoading && (
+        {chapterIsLoading ? (
           <div className="w-12.5 h-10 animate-pulse skeleton-color rounded-xl" />
+        ) : (
+          <ArrowButton direction={"right"} />
         )}
-        <ArrowButton direction={"right"} />
       </div>
     </div>
   );

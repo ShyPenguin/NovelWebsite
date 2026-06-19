@@ -55,7 +55,9 @@ export const MutateChapterNavbar = () => {
             isPendingLabel="Previewing"
             label="Preview Document"
             handleButton={handleButtonClick}
-            className="truncate wrap-anywhere"
+            className="h-10 min-w-10 ring-1 ring-slate-900/5 dark:ring-slate-100/5 flex items-center justify-center rounded-2xl px-3 cursor-pointer
+             hover:bg-secondary hover:text-muted-foreground hover:dark:bg-secondary-black hover:dark:text-dark-muted-foreground
+            truncate wrap-anywhere"
           />
           <Link
             className="reading-setting-card reading-setting-card-hover rounded-xl w-12"
@@ -170,6 +172,8 @@ const MutateChapterButton = () => {
       isPendingLabel={isUpdate ? "Updating" : "Creating"}
       label={isUpdate ? "Update" : "Create"}
       handleButton={handleButtonClick}
+      className="h-10 min-w-10 ring-1 ring-slate-900/5 dark:ring-slate-100/5 flex items-center justify-center rounded-2xl px-3 cursor-pointer
+             hover:bg-secondary hover:text-muted-foreground hover:dark:bg-secondary-black hover:dark:text-dark-muted-foreground"
     />
   );
 };
